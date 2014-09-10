@@ -6,7 +6,7 @@
     </application>
     <application>
         <locale-config>
-            <default-locale>en</default-locale>
+            <default-locale>pt_BR</default-locale>
         </locale-config>
         <resource-bundle>
             <base-name>br.ufg.calendario.locale.messages</base-name>
