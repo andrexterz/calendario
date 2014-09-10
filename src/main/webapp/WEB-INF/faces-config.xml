@@ -4,4 +4,13 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>br.ufg.calendario.locale.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>    
 </faces-config>

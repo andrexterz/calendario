@@ -17,7 +17,7 @@
     
     <mvc:annotation-driven />
     <context:component-scan base-package="br.ufg.calendario.components, br.ufg.calendario.dao"/>
-    <util:properties id="appSettings" location="classpath:calendario.properties" />
+    <util:properties id="appSettings" location="classpath:*calendario.properties" />
     <context:property-placeholder properties-ref="appSettings" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/views/"/>
