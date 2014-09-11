@@ -3,32 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <f:view locale="pt_BR">
         <h:head>
             <title>
                 <ui:insert name="title">calendario</ui:insert>
             </title>
-            <link type="text/css" rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
-            <link type="text/css" rel="stylesheet" href="#{resource['css/default.css']}" />
             <h:outputScript library="js" name="locale_pt.js" />
-            <h:outputScript library="js" name="bootstrap.min.js" />
             <h:outputScript library="js" name="calendario.js" />            
         </h:head>
         <h:body>
-            <h:panelGroup id="topmenu" layout="block" styleClass="navbar navbar-inverse navbar-fixed-top">
-                <ui:insert name="topmenu">
-                    top menu
-                </ui:insert>
-            </h:panelGroup>
-            <ui:insert name="sidebar">
-            </ui:insert>
-            <ui:insert name="content">
-            </ui:insert>
             <h:panelGroup>
-                <ui:insert name="footer">
-                </ui:insert>
+                <h:outputText value="#{msg.appname}" styleClass="appTitleMenu" />
+                <p:toolbar id="menu">
+                    <f:facet name="left">
+                        <p:commandButton type="button" icon="ui-icon-home" />
+                    </f:facet>
+                </p:toolbar>
             </h:panelGroup>
+            <div class="container">
+                <div class="starter-template">
+                    <ui:insert name="sidebar">
+                        sidebar
+                    </ui:insert>
+                    <ui:insert name="content">
+                        content
+                    </ui:insert>
+                </div>
+            </div>
+            <div id="footer">
+                #{msg.appname}
+            </div>
         </h:body>
     </f:view>
 </html>

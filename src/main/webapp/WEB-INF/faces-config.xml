@@ -12,5 +12,8 @@
             <base-name>br.ufg.calendario.locale.messages</base-name>
             <var>msg</var>
         </resource-bundle>
-    </application>    
+    </application>
+    <application>
+        <navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
+    </application>
 </faces-config>
