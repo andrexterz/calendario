@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view locale="pt_BR">
+    <f:view locale="pt_BR" renderKitId="PRIMEFACES_MOBILE">
         <h:head>
             <title>
                 <ui:insert name="title">calendario</ui:insert>
@@ -15,12 +15,22 @@
         </h:head>
         <h:body>
             <h:panelGroup>
-                <h:outputText value="#{msg.appname}" styleClass="appTitleMenu" />
-                <p:toolbar id="menu">
-                    <f:facet name="left">
-                        <p:commandButton type="button" icon="ui-icon-home" />
-                    </f:facet>
-                </p:toolbar>
+                <h:form>
+                    <h:panelGroup id="menu">
+                        <f:facet name="left">
+                            <h:outputText value="#{msg.appname}" styleClass="appTitleMenu" />
+                            <span class="ui-separator">
+                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                            </span>
+                            <p:commandButton type="button" icon="ui-icon-home" />
+                            <p:splitButton value="#{msg.filter}">
+                                <p:menuitem value="#{msg.student}" />
+                                <p:menuitem value="#{msg.coordinator}" />
+                                <p:menuitem value="#{msg.teacher}" />
+                            </p:splitButton>
+                        </f:facet>
+                    </h:panelGroup>
+                </h:form>
             </h:panelGroup>
             <div class="container">
                 <div class="starter-template">
