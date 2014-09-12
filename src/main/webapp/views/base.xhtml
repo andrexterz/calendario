@@ -5,43 +5,56 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view locale="pt_BR" renderKitId="PRIMEFACES_MOBILE">
+    <f:view locale="pt_BR">
         <h:head>
             <title>
                 <ui:insert name="title">calendario</ui:insert>
             </title>
             <h:outputScript library="js" name="locale_pt.js" />
             <h:outputScript library="js" name="calendario.js" />            
+            <h:outputStylesheet library="css" name="default.css" />
         </h:head>
         <h:body>
-            <h:panelGroup>
-                <h:form>
-                    <h:panelGroup id="menu">
-                        <f:facet name="left">
-                            <h:outputText value="#{msg.appname}" styleClass="appTitleMenu" />
+            <h:panelGroup layout="block" styleClass="menuTop">
+                <h:panelGroup layout="block" styleClass="appTitle">
+                    <p:graphicImage value="#{resource['img:ufg-logo.png']}" styleClass="ufgLogo" />
+                    <h:outputText value="#{msg.appname}" styleClass="ui-widget appTitleText" />
+                </h:panelGroup>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:form styleClass="menuTopForm">
                             <span class="ui-separator">
                                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
                             </span>
                             <p:commandButton type="button" icon="ui-icon-home" />
-                            <p:splitButton value="#{msg.filter}">
+                            <p:splitButton value="#{msg.role}">
                                 <p:menuitem value="#{msg.student}" />
                                 <p:menuitem value="#{msg.coordinator}" />
                                 <p:menuitem value="#{msg.teacher}" />
+                                <p:separator />
+                                <p:menuitem value="#{msg.none}" />
                             </p:splitButton>
-                        </f:facet>
-                    </h:panelGroup>
+                            <span class="ui-separator">
+                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                            </span>
+                                <p:outputLabel value="#{msg.search}:" styleClass="labelSpace" />
+                            <p:selectOneButton>
+                                <f:selectItem itemLabel="#{msg.period}" itemValue="PERIODO" />
+                                <f:selectItem itemLabel="#{msg.term}" itemValue="TERMO" />
+                            </p:selectOneButton>
+
+                        </h:form>
+                    </f:facet>
+                </p:toolbar>
+            </h:panelGroup>
+            <h:panelGroup id="menuLeft" styleClass="menuLeft">
+                <h:form>
+                    <p:calendar id="calendario" value="#{null}" mode="inline" />
                 </h:form>
             </h:panelGroup>
-            <div class="container">
-                <div class="starter-template">
-                    <ui:insert name="sidebar">
-                        sidebar
-                    </ui:insert>
-                    <ui:insert name="content">
-                        content
-                    </ui:insert>
-                </div>
-            </div>
+            <ui:insert name="content">
+                content
+            </ui:insert>
             <div id="footer">
                 #{msg.appname}
             </div>

@@ -8,6 +8,35 @@ and open the template in the editor.
     Author     : André
 */
 
-.appTitleMenu {
-    margin-right: 8%;
+/********************************** menu top **********************************/
+.menuTop {
+    border-bottom: 1px solid #ccc;
+}
+
+.ufgLogo {
+    vertical-align: middle;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+    border-right: 1px dotted #fff;
+}
+.appTitle {
+    color: white;
+    display: inline;
+    float: left;
+}
+
+.appTitleText {
+    display: inline;
+    font-weight: bold;
+}
+
+/********************************* menu left **********************************/
+.menuLeft {
+    float: left;
+    width: 20%;
+}
+
+/********************************* generic styles******************************/
+.labelSpace {
+    margin-right: 1em;
 }
