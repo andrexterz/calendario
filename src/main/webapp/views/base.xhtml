@@ -11,41 +11,47 @@
                 <ui:insert name="title">calendario</ui:insert>
             </title>
             <h:outputScript library="js" name="locale_pt.js" />
+            <h:outputScript library="js" name="bootstrap.min.js" />            
             <h:outputScript library="js" name="calendario.js" />            
+            <h:outputStylesheet library="css" name="bootstrap.css" />
             <h:outputStylesheet library="css" name="default.css" />
         </h:head>
         <h:body>
-            <h:panelGroup layout="block" styleClass="menuTop">
-                <h:panelGroup layout="block" styleClass="appTitle">
-                    <p:graphicImage value="#{resource['img:ufg-logo.png']}" styleClass="ufgLogo" />
-                    <h:outputText value="#{msg.appname}" styleClass="ui-widget appTitleText" />
-                </h:panelGroup>
-                <p:toolbar>
-                    <f:facet name="left">
-                        <h:form styleClass="menuTopForm">
-                            <span class="ui-separator">
-                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                            </span>
-                            <p:commandButton type="button" icon="ui-icon-home" />
-                            <p:splitButton value="#{msg.role}">
-                                <p:menuitem value="#{msg.student}" />
-                                <p:menuitem value="#{msg.coordinator}" />
-                                <p:menuitem value="#{msg.teacher}" />
-                                <p:separator />
-                                <p:menuitem value="#{msg.none}" />
-                            </p:splitButton>
-                            <span class="ui-separator">
-                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                            </span>
-                                <p:outputLabel value="#{msg.search}:" styleClass="labelSpace" />
-                            <p:selectOneButton>
-                                <f:selectItem itemLabel="#{msg.period}" itemValue="PERIODO" />
-                                <f:selectItem itemLabel="#{msg.term}" itemValue="TERMO" />
-                            </p:selectOneButton>
-
+            <h:panelGroup layout="block" styleClass="navbar navbar-inverse ui-widget-header">
+                <h:panelGroup layout="block" styleClass="container">
+                    <h:panelGroup layout="block" styleClass="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">mini menu</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h:outputText value="#{msg.appname}" styleClass="navbar-brand" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
+                        <h:form>
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <h:commandLink value="#{msg.home}" styleClass="ui-icon-home"  />
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.role}<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><h:commandLink value="#{msg.student}" /></li>                                        
+                                        <li><h:commandLink value="#{msg.coordinator}" /></li>
+                                        <li><h:commandLink value="#{msg.teacher}" /></li>
+                                        <li class="divider"></li>
+                                        <li><h:commandLink value="#{msg.none}" /></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p:inputText id="searchTerm" styleClass="searchTerm" />
+                                    <p:watermark for="searchTerm" value="#{msg.search}" />
+                                </li>
+                            </ul>
                         </h:form>
-                    </f:facet>
-                </p:toolbar>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:panelGroup>
             <h:panelGroup id="menuLeft" styleClass="menuLeft">
                 <h:form>
@@ -56,6 +62,7 @@
                 content
             </ui:insert>
             <div id="footer">
+                <p:graphicImage value="#{resource['img:ufg-logo.png']}" styleClass="ufgLogo" />
                 #{msg.appname}
             </div>
         </h:body>
