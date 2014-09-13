@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     <f:view locale="pt_BR">
         <h:head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <title>
                 <ui:insert name="title">calendario</ui:insert>
             </title>
@@ -18,7 +19,8 @@
             <h:outputStylesheet library="css" name="default.css" />
         </h:head>
         <h:body>
-            <h:panelGroup layout="block" styleClass="navbar navbar-default">
+
+            <div id="menuTop" class="navbar navbar-default">
                 <h:panelGroup layout="block" styleClass="container">
                     <h:panelGroup layout="block" styleClass="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -56,18 +58,17 @@
                         </h:form>
                     </h:panelGroup>
                 </h:panelGroup>
-            </h:panelGroup>
-            <div id="menuLeft" class="menuLeft toggled" >
+            </div>
+
+            <div id="menuLeft" class="toggle">
                 <h:form>
                     menu
                 </h:form>
             </div>
-            <ui:insert name="content">
-                content
-            </ui:insert>
-            <div id="footer">
-                <p:graphicImage value="#{resource['img:ufg-logo.png']}" styleClass="ufgLogo" />
-                #{msg.appname}
+            <div id="content" class="container-fluid">
+                <ui:insert name="content">
+                    content
+                </ui:insert>
             </div>
         </h:body>
     </f:view>

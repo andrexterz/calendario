@@ -5,5 +5,5 @@
  */
 
 function toggleMenu(widget) {
-     $(widget).toggleClass("toggled", "slide");
+     jQuery(widget).toggleClass("toggle");
 }

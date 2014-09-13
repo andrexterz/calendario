@@ -7,6 +7,7 @@
 package br.ufg.calendario.components;
 
 import java.io.Serializable;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @author andre
  */
 
+@Scope(value = "request")
 @Component
 public class Calendario implements Serializable {
     

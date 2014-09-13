@@ -22,19 +22,36 @@ and open the template in the editor.
 }
 
 /********************************* menu left **********************************/
-.menuLeft {
+#menuLeft {
     background-color: #428BCA;
     position: fixed;
-    margin-top: 0;
-    margin-left: 0;
-    width: 20%;
-    height: 100%;
-    overflow-y: auto;
+    margin: 0;
+    width: 100%;
+    height: 80%;
+    overflow-y: visible;
+    border: 1px solid #ccccff;
+    -o-transition: all 250ms;
+    -moz-transition: all 250ms;
+    -webkit-transition: all 250ms;
+    transition: all 250ms;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 
-.toggled {
-    margin-left: -20%;
+#menuLeft.toggle {
+    margin-left: -100%;
+    -o-transition: all 250ms;
+    -moz-transition: all 250ms;
+    -webkit-transition: all 250ms;
+    transition: all 250ms;
 }
+
+/********************************* content ************************************/
+#content {
+    background: #ccc;
+}
+
 /********************************* generic styles******************************/
 .labelSpace {
     margin-right: 1em;
