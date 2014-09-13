@@ -9,30 +9,32 @@ and open the template in the editor.
 */
 
 /********************************** menu top **********************************/
+.appTitle {
+    margin-top: 0.4em;
+}
+
 .ufgLogo {
     vertical-align: middle;
 }
-
-.appTitle {
-    color: white;
-}
-
-.appTitleText {
-    display: inline;
-    font-weight: bold;
-}
-
 .searchTerm {
-    margin: 0.6em;
-    width: 100%;
+    margin: 0.6em 0 0 0.6em!important;
+    width: 95%;
 }
 
 /********************************* menu left **********************************/
 .menuLeft {
-    float: left;
+    background-color: #428BCA;
+    position: fixed;
+    margin-top: 0;
+    margin-left: 0;
     width: 20%;
+    height: 100%;
+    overflow-y: auto;
 }
 
+.toggled {
+    margin-left: -20%;
+}
 /********************************* generic styles******************************/
 .labelSpace {
     margin-right: 1em;

@@ -4,4 +4,6 @@
  * and open the template in the editor.
  */
 
-
+function toggleMenu(widget) {
+     $(widget).toggleClass("toggled", "slide");
+}

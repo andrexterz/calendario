@@ -14,25 +14,29 @@
             <h:outputScript library="js" name="bootstrap.min.js" />            
             <h:outputScript library="js" name="calendario.js" />            
             <h:outputStylesheet library="css" name="bootstrap.css" />
+            <h:outputStylesheet library="css" name="bootstrap-theme.css" />
             <h:outputStylesheet library="css" name="default.css" />
         </h:head>
         <h:body>
-            <h:panelGroup layout="block" styleClass="navbar navbar-inverse ui-widget-header">
+            <h:panelGroup layout="block" styleClass="navbar navbar-default">
                 <h:panelGroup layout="block" styleClass="container">
                     <h:panelGroup layout="block" styleClass="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">mini menu</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <h:outputText value="#{msg.appname}" styleClass="navbar-brand" />
+                        <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
-                        <h:form>
+                        <h:form styleClass="navbar-form">
                             <ul class="nav navbar-nav">
                                 <li>
                                     <h:commandLink value="#{msg.home}" styleClass="ui-icon-home"  />
+                                </li>
+                                <li>
+                                    <a href="#" onclick="toggleMenu('#menuLeft')">#{msg.filter}</a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.role}<span class="caret"></span></a>
@@ -53,11 +57,11 @@
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
-            <h:panelGroup id="menuLeft" styleClass="menuLeft">
+            <div id="menuLeft" class="menuLeft toggled" >
                 <h:form>
-                    <p:calendar id="calendario" value="#{null}" mode="inline" />
+                    menu
                 </h:form>
-            </h:panelGroup>
+            </div>
             <ui:insert name="content">
                 content
             </ui:insert>
