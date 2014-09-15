@@ -9,6 +9,7 @@ package br.ufg.calendario.components;
 import java.io.Serializable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -19,8 +20,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class Calendario implements Serializable {
     
+    @RequestMapping("/home")
     public String getCalendar() {
-        return "meu calendário";
+        return "views/home";
     }
     
 }
