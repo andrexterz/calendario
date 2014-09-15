@@ -10,6 +10,7 @@ import java.io.Serializable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -20,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Component
 public class Calendario implements Serializable {
     
-    @RequestMapping("/home")
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String getCalendar() {
-        return "views/home";
+        return "/views/home";
     }
     
 }
