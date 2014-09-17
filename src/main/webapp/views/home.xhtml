@@ -6,6 +6,19 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.home}</ui:define>
+        <ui:define name="content">
+            <p:dataTable value="#{calendario.eventosRecentes}" var="evento">
+                <p:column headerText="Evento">
+                    #{evento[0]} 
+                </p:column>
+                <p:column headerText="Periodo">
+                    #{evento[1]} a #{evento[2]}
+                </p:column>
+                <p:column headerText="Periodo">
+                    #{evento[1]} a #{evento[2]}
+                </p:column>
+            </p:dataTable>
+        </ui:define>
     </ui:composition>
 </html>
 

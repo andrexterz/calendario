@@ -28,6 +28,13 @@ and open the template in the editor.
     };
 }
 
+@media (max-width: 768px) {
+    .ui-datepicker {
+        margin: auto;
+    }
+    
+}
+
 .navbar-mini-buttons {
     background-color: transparent;
     border-color: #ddd;
