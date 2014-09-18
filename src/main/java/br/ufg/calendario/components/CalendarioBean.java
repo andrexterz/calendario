@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ufg.calendario.components;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,25 +19,24 @@ import org.springframework.stereotype.Component;
  *
  * @author andre
  */
-
 @Component
 @Scope(value = "request")
 public class CalendarioBean implements Serializable {
-    private final List eventos;
+
+    private final LazyDataModel eventos;
+
     public CalendarioBean() {
-        eventos = new ArrayList<Object>();
-        for (int i = 0;i <= 30; i++) {
-            List evt = new ArrayList<Object>();
-            evt.add("Evento: " + i);
-            evt.add(Calendar.getInstance().getTime());
-            evt.add(Calendar.getInstance().getTime());
-            evt.add("description " + i);
-            evt.add("coordenador, aluno, docente");
-            eventos.add(evt);
-        }
+        eventos = new LazyDataModel() {
+
+            @Override
+            public List load(int first, int pageSize, String sortField, SortOrder sortOrder, Map filters) {
+                return super.load(first, pageSize, sortField, sortOrder, filters); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+
     }
-    
-    public List<Object> getEventosRecentes() {
+
+    public LazyDataModel getEventosRecentes() {
         return eventos;
     }
 }
