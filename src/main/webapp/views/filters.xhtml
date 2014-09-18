@@ -5,7 +5,12 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <h:panelGroup>
-        <h:outputText class="titles" value="#{msg.filter}" />
+        <div class="menuLeftTopBar">
+            <a href="javascript:toggleMenu('#menuLeft');" class="menuLeftBackButton" />
+
+            <a href="javascript:toggleMenu('#menuLeft');">ok</a>
+            <h:outputText class="titles" value="#{msg.filter}" />
+        </div>
         <p:calendar mode="inline" styleClass="calendar" />
     </h:panelGroup>
 </ui:composition>

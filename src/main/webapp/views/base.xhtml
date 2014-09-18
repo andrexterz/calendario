@@ -19,8 +19,16 @@
             <h:outputStylesheet library="css" name="default.css" />
         </h:head>
         <h:body>
+            <p:ajaxStatus styleClass="ajaxStatus">
+                <f:facet name="start">
+                    <p:graphicImage alt="#{msg.loading}" value="#{resource['img/ajax-loader.gif']}" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
 
-            <div id="menuTop" class="navbar navbar-default">
+            <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
                 <h:panelGroup layout="block" styleClass="container">
                     <h:panelGroup layout="block" styleClass="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -66,7 +74,7 @@
             <div id="menuLeft" class="toggle">
                 <ui:include src="filters.xhtml" />
             </div>
-            <div id="content" class="container-fluid">
+            <div id="content">
                 <ui:insert name="content">
                     content
                 </ui:insert>

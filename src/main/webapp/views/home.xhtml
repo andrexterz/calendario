@@ -8,19 +8,25 @@
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.home}</ui:define>
         <ui:define name="content">
-            <p:dataScroller value="#{calendarioBean.eventosRecentes}" var="evento" chunkSize="10" styleClass="defaultTable">
-                <p:panelGrid styleClass="defaultTable">
-                    <p:row>
-                        <p:column>
-                            #{evento[0]}
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            #{evento[1]}
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
+            <p:dataScroller value="#{calendarioBean.eventosRecentes}"
+                            lazy="true"
+                            var="evento"
+                            rows="15"
+                            chunkSize="15"
+                            styleClass="eventDisplay">
+                <article class="event">
+                    <h1>#{evento.titulo}</h1>
+                    <h2>
+                        <h:outputText value="#{evento.inicio}">
+                            <f:convertDateTime pattern="dd/mm/yyyy" />
+                        </h:outputText>
+                        &nbsp;#{msg.prepA}&nbsp; 
+                        <h:outputText value="#{evento.termino}">
+                            <f:convertDateTime pattern="dd/mm/yyyy" />
+                        </h:outputText>
+                    </h2>
+                    <a href="#">#{msg.details}</a>
+                </article>
             </p:dataScroller>
         </ui:define>
     </ui:composition>
