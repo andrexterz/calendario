@@ -37,7 +37,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <button type="button" onclick="toggleMenu('#menuLeft')" class="navbar-mini-buttons">
+                        <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
                             <h:graphicImage value="#{resource['img/filter.png']}" />
                         </button>
                         <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
@@ -49,7 +49,7 @@
                                     <h:commandLink value="#{msg.home}" />
                                 </li>
                                 <li>
-                                    <a href="#" onclick="toggleMenu('#menuLeft')">#{msg.filter}</a>
+                                    <a href="#" onclick="toggleMenu()">#{msg.filter}</a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.role}<span class="caret"></span></a>
@@ -71,7 +71,7 @@
                 </h:panelGroup>
             </div>
 
-            <div id="menuLeft" class="toggle">
+            <div id="menuLeft" class="menuLeft toggle">
                 <ui:include src="filters.xhtml" />
             </div>
             <div id="content">

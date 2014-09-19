@@ -11,8 +11,7 @@
             <p:dataScroller value="#{calendarioBean.eventosRecentes}"
                             lazy="true"
                             var="evento"
-                            rows="15"
-                            chunkSize="15"
+                            chunkSize="7"
                             styleClass="eventDisplay">
                 <article class="event">
                     <h1>#{evento.titulo}</h1>

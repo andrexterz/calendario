@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
-function toggleMenu(widget) {
-     jQuery(widget).toggleClass("toggle");
+function toggleMenu() {
+     jQuery("#menuLeft").toggleClass("toggle");
+     jQuery("#content").toggleClass("toggle");
 }
