@@ -7,6 +7,11 @@ and open the template in the editor.
     Created on : 10/09/2014, 17:31:58
     Author     : André
 */
+/********************************** html & body ********************************/
+body {
+    background: #454545;
+}
+
 
 /********************************** menu top **********************************/
 .appTitle {
@@ -29,7 +34,7 @@ and open the template in the editor.
     width: 95%;
 }
 
-/********************************** *******************************************/
+/********************************** ui override *******************************/
 @media (min-width: 768px) {
     .navbar-mini-buttons {
         display: none;
@@ -37,10 +42,11 @@ and open the template in the editor.
 }
 
 @media (max-width: 768px) {
-    .ui-datepicker {
-        margin: auto;
+    div.ui-datepicker{
+        font-size:1.4em;
+        margin-left: auto;
+        margin-right: auto;
     }
-
 }
 
 /********************************** menu top **********************************/
@@ -66,7 +72,6 @@ and open the template in the editor.
 
 /********************************* menu left **********************************/
 .menuLeft {
-    background-color: #428BCA;
     position: fixed;
     margin: 0;
     width: 100%;
@@ -75,8 +80,9 @@ and open the template in the editor.
     right: 0;
     left: 0;
     bottom: 0;
+    background-color: #575757;
     overflow-y: visible;
-    border: 1px solid #ccccff;
+    border: 1px solid #333;
     -o-transition: all 250ms;
     -moz-transition: all 250ms;
     -webkit-transition: all 250ms;
@@ -109,40 +115,34 @@ and open the template in the editor.
     margin-left: 2em;
 }
 
-.menuLeftOkButton {
+.menuButton {
     box-sizing: border-box;
     display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: url("#{resource['img/ok-round-button.png']}");
+    width: 32px;
+    height: 32px;
     background-repeat: no-repeat;
     background-position: 0 0;
     background-clip: content-box;
     margin-left: 0.5em;
     margin-right: 0.5em;
     vertical-align: middle;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 }
 
-.menuLeftOkButton:hover {
-    background-position: 0 -24px;
+.menuButton:hover {
+    background-position: 0 -32px;
 }
+
+
+.menuLeftOkButton {
+    background: url("#{resource['img/ok-round-button.png']}");
+}
+
 
 .menuLeftBackButton {
-    box-sizing: border-box;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
     background: url("#{resource['img/back-round-button.png']}");
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-clip: content-box;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    vertical-align: middle;
-}
-
-.menuLeftBackButton:hover {
-    background-position: 0 -24px;
 }
 
 .calendar {
@@ -200,6 +200,7 @@ and open the template in the editor.
 }
 
 .event a {
+    text-decoration: none;
     display: block;
     width: 100%;
     border: 1px;
@@ -209,10 +210,39 @@ and open the template in the editor.
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
+
+.event a:hover {
+    color: #428BCA;
+}
+
+.event p {
+    display: inline-block;
+}
+
 @media(min-width: 768px) {
     .event a {
         display: none;
-    }   
+    }
+}
+@media(max-width: 768px) {
+    .event h1 {
+        font-size: 1.2em;
+        vertical-align: auto;
+        display:initial;
+    }
+
+    .event h2 {
+        display: block;
+        font-size: 1em;
+        margin-left: 0;
+    }    
+    .event p {
+        display: none;
+    }
+
+    .event p.toggle {
+        display: block;
+    }
 }
 
 /********************************* generic styles******************************/
@@ -220,7 +250,6 @@ and open the template in the editor.
     margin-right: 1em;
 }
 
-/******************************** generic styles ******************************/
 .defaultTable {
     width: 100%;
 }

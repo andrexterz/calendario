@@ -24,7 +24,8 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h2>
-                    <a href="#">#{msg.details}</a>
+                    <a id="detail#{evento.id}" href="#" onclick="javascript:toggleEventDetail(detail#{evento.id})">#{msg.details}</a>
+                    <p id="description#{evento.id}">#{evento.descricao}</p>
                 </article>
             </p:dataScroller>
         </ui:define>
