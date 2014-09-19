@@ -99,20 +99,53 @@ and open the template in the editor.
     background: #333;
     min-height: 60px;
     color: #fff;
+    padding: 1.0em;
 }
 
-.menuLeft a {
-    text-decoration: none!important;
+.menuLeftTitle {
+    vertical-align: middle;
+    font-size: 1.5em;
+    margin-left: 2em;
+}
+
+.menuLeftOkButton {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url("#{resource['img/ok-round-button.png']}");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-clip: content-box;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+.menuLeftOkButton:hover {
+    background-position: 0 -24px;
 }
 
 .menuLeftBackButton {
+    box-sizing: border-box;
     display: inline-block;
     width: 24px;
     height: 24px;
     background: url("#{resource['img/back-round-button.png']}");
+    background-repeat: no-repeat;
+    background-position: 0 0;
     background-clip: content-box;
-    margin: auto;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
     vertical-align: middle;
+}
+
+.menuLeftBackButton:hover {
+    background-position: 0 -24px;
+}
+
+.calendar {
+    font-family: courier!important;
 }
 /********************************* content ************************************/
 #content {
