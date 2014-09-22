@@ -12,7 +12,7 @@
                 <ui:insert name="title">calendario</ui:insert>
             </title>
             <h:outputScript library="js" name="locale_pt.js" />
-            <h:outputScript library="js" name="bootstrap.min.js" />            
+            <h:outputScript library="js" name="bootstrap.min.js" />
             <h:outputScript library="js" name="calendario.js" />            
             <h:outputStylesheet library="css" name="bootstrap.css" />
             <h:outputStylesheet library="css" name="bootstrap-theme.css" />
@@ -27,20 +27,22 @@
                     <h:outputText value=""/>
                 </f:facet>
             </p:ajaxStatus>
-
             <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
+                <p:graphicImage value="#{resource['img/ufg-logo48.png']}" styleClass="logo" />
                 <h:panelGroup layout="block" styleClass="container">
                     <h:panelGroup layout="block" styleClass="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">mini menu</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
-                            <h:graphicImage value="#{resource['img/filter.png']}" />
-                        </button>
-                        <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
+                        <ui:insert name="topMenu">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">mini menu</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
+                                <h:graphicImage value="#{resource['img/filter.png']}" />
+                            </button>
+                            <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
+                        </ui:insert>
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
                         <h:form styleClass="navbar-form">
@@ -74,7 +76,7 @@
             <div id="menuLeft" class="menuLeft toggle">
                 <ui:include src="filters.xhtml" />
             </div>
-            <div id="content">
+            <div id="content" class="content">
                 <ui:insert name="content">
                     content
                 </ui:insert>

@@ -14,6 +14,14 @@ body {
 
 
 /********************************** menu top **********************************/
+.logo {
+    float: left;
+    margin-left: 1em;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+}
+
 .appTitle {
     margin-top: 0.4em;
     font-size: 1.5em;
@@ -71,37 +79,71 @@ body {
 }
 
 /********************************* menu left **********************************/
-.menuLeft {
-    position: fixed;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: #575757;
-    overflow-y: visible;
-    border: 1px solid #333;
-    -o-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -webkit-transition: all 250ms;
-    transition: all 250ms;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    z-index: 1030;
+@media(max-width: 768px) {
+    .menuLeft {
+        position: fixed;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: #575757;
+        overflow-y: visible;
+        border: 1px solid #333;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        z-index: 1030;
+    }
+
+    .menuLeft.toggle {
+        left: -100%;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;
+    }
 }
 
-.menuLeft.toggle {
-    left: -100%;
-    -o-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -webkit-transition: all 250ms;
-    transition: all 250ms;
+@media(min-width: 768px) {
+    .menuLeft {
+        position: fixed;
+        margin: 0;
+        width: 300px;
+        height: 100%;
+        top: 60px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: #575757;
+        overflow-y: visible;
+        border: 1px solid #333;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        z-index: 1030;
+    }
+    .menuLeft.toggle {
+        width: 300px;
+        height: 100%;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;
+    }
 }
 
-.menuLeftTopBar {
+.menuLeftTooBar {
     background: #333;
     min-height: 60px;
     color: #fff;
@@ -110,6 +152,7 @@ body {
 }
 
 .menuLeftTitle {
+    color: #ffff77;
     vertical-align: middle;
     font-size: 1.5em;
     margin-left: 2em;
@@ -149,22 +192,45 @@ body {
     font-family: courier!important;
 }
 /********************************* content ************************************/
-#content {
-    position: relative;
-    margin-top: 60px;
-    -o-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -webkit-transition: all 250ms;
-    transition: all 250ms;    
+@media(min-width: 768px) {
+    .content {
+        position: relative;
+        margin-top: 60px;
+        margin-left: 300px;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;    
+    }
+
+    .content.toggle {
+        display: none;
+        background: transparent;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;
+    }
 }
 
-#content.toggle {
-    display: none;
-    background: transparent;
-    -o-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -webkit-transition: all 250ms;
-    transition: all 250ms;
+@media(max-width: 768px) {
+    .content {
+        position: relative;
+        margin-top: 60px;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;    
+    }
+
+    .content.toggle {
+        display: none;
+        background: transparent;
+        -o-transition: all 250ms;
+        -moz-transition: all 250ms;
+        -webkit-transition: all 250ms;
+        transition: all 250ms;
+    }
 }
 /************************************ event ***********************************/
 .eventDisplay {
@@ -192,6 +258,7 @@ body {
     display: inline-block;
     vertical-align: middle;
     font-size: 1em;
+    color: #f90;
     margin-left: 2em;
 }
 
@@ -199,7 +266,8 @@ body {
     display: block;
 }
 
-.event a {
+.event span {
+    cursor: pointer;
     text-decoration: none;
     display: block;
     width: 100%;
@@ -211,7 +279,7 @@ body {
     -webkit-border-radius: 4px;
 }
 
-.event a:hover {
+.event span:hover {
     color: #428BCA;
 }
 
@@ -220,7 +288,7 @@ body {
 }
 
 @media(min-width: 768px) {
-    .event a {
+    .event span {
         display: none;
     }
 }

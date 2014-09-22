@@ -12,6 +12,7 @@ import br.ufg.calendario.models.Regional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,8 @@ import org.springframework.stereotype.Component;
 public class CalendarioBean implements Serializable {
 
     private final LazyDataModel<Evento> eventos;
+    private Date dataInicio;
+    private Date dataTermino;
 
     public CalendarioBean() {
         final List<Evento> datasource = new ArrayList<>();
@@ -114,4 +117,21 @@ public class CalendarioBean implements Serializable {
     public LazyDataModel<Evento> getEventosRecentes() {
         return eventos;
     }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(Date dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+    
 }

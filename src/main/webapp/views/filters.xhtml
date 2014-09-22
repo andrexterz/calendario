@@ -5,12 +5,15 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <h:panelGroup>
-        <div class="menuLeftTopBar">
+        <div class="menuLeftTooBar">
             <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftBackButton" />
             <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftOkButton" />
             <h:outputText class="menuLeftTitle" value="#{msg.filter}" />
         </div>
-        <p:calendar mode="inline" styleClass="calendar" />
+        <h:form id="filterForm">
+            <p:calendar id="dataInicio" value="#{calendarioBean.dataInicio}" showButtonPanel="true"  showOn="button" />
+            <p:calendar id="dataTermino" value="#{calendarioBean.dataTermino}" showButtonPanel="true" showOn="button"/>
+        </h:form>
     </h:panelGroup>
 </ui:composition>
 
