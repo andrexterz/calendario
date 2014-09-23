@@ -3,16 +3,28 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:panelGroup>
-        <div class="menuLeftTooBar">
-            <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftBackButton" />
-            <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftOkButton" />
-            <h:outputText class="menuLeftTitle" value="#{msg.filter}" />
-        </div>
-        <h:form id="filterForm">
-            <p:calendar id="dataInicio" value="#{calendarioBean.dataInicio}" showButtonPanel="true"  showOn="button" />
-            <p:calendar id="dataTermino" value="#{calendarioBean.dataTermino}" showButtonPanel="true" showOn="button"/>
+        <h:form>
+            <div class="menuLeftTooBar">
+                <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftBackButton" />
+                <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftOkButton" />
+                <h:outputText class="menuLeftTitle" value="#{msg.filter}" />
+            </div>
+            <div class="dateSelected">
+                <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
+                <p:calendar id="dataInicio"
+                            mode="inline"
+                            pattern="dd/MM/yyyy"
+                            value="#{calendarioBean.dataInicio}" styleClass="calendar" />
+                <p:separator />                                
+                <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
+                <p:calendar id="dataTermino"
+                            mode="inline"
+                            pattern="dd/MM/yyyy"
+                            value="#{calendarioBean.dataTermino}" styleClass="calendar" />
+            </div>            
         </h:form>
     </h:panelGroup>
 </ui:composition>
