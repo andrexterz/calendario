@@ -183,7 +183,7 @@ body {
 
 .dateSelected label {
     font-weight: normal;
-    display: block;
+    display: inline;
 }
 
 .calendar {
