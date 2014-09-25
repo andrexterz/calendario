@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  * @author andre
  */
 @Component
-@Scope(value = "request")
+@Scope(value = "session")
 public class CalendarioBean implements Serializable {
 
     private final LazyDataModel<Evento> eventos;
@@ -34,6 +34,9 @@ public class CalendarioBean implements Serializable {
     private Date dataTermino;
 
     public CalendarioBean() {
+        dataInicio = Calendar.getInstance().getTime();
+        dataTermino = Calendar.getInstance().getTime();
+        //just test (remove after datamodel is defined)        
         final List<Evento> datasource = new ArrayList<>();
         for (int i = 0; i <= 100; i++) {
             Evento evt = new Evento(
@@ -118,6 +121,12 @@ public class CalendarioBean implements Serializable {
         return eventos;
     }
 
+    public void checkDate() {
+        if (dataTermino.before(dataInicio)) {
+            setDataTermino(dataInicio);
+        }
+    }
+
     public Date getDataInicio() {
         return dataInicio;
     }
@@ -133,5 +142,5 @@ public class CalendarioBean implements Serializable {
     public void setDataTermino(Date dataTermino) {
         this.dataTermino = dataTermino;
     }
-    
+
 }

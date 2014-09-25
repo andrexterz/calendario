@@ -43,13 +43,13 @@ body {
 }
 
 /********************************** ui override *******************************/
-@media (min-width: 768px) {
+@media (min-width: 640px) {
     .navbar-mini-buttons {
         display: none;
     };
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     div.ui-datepicker{
         font-size:1.4em;
         margin-left: auto;
@@ -87,11 +87,8 @@ body {
     bottom: 0;    
     background-color: #575757;
     overflow-y: visible;
+    
     border: 1px solid #333;
-    -o-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -webkit-transition: all 250ms;
-    transition: all 250ms;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;    
@@ -110,6 +107,10 @@ body {
     color: #ffff77;
     vertical-align: middle;
     font-size: 1.5em;
+}
+
+.menuLeft form {
+   cursor: pointer;
 }
 
 .menuButton {
@@ -131,7 +132,6 @@ body {
     background-position: 0 -32px;
 }
 
-
 .menuLeftOkButton {
     background: url("#{resource['img/ok-round-button.png']}");
 }
@@ -142,7 +142,7 @@ body {
 }
 
 .dateSelected {
-    padding: 4px;
+    padding: 1em;
     width: 100%;
     color: #ffff77;
     display: block;
@@ -151,18 +151,14 @@ body {
 .dateSelected label {
     font-weight: normal;
     display: inline;
+    margin-right: 4px;
 }
 
 .dateSelected span {
     margin-left: 1em;
 }
 
-.dateSelected hr {
-    width: 95%;
-    border: thin solid #ffff77;
-}
-
-@media(max-width: 768px) {
+@media(max-width: 640px) {
     .menuLeft {
         width: 100%;
         height: 100%;
@@ -181,15 +177,15 @@ body {
         display: inline-block;
     }
 
-    .dateSelectedBox {
+    .dateSelected {
         display: block;
-        width: 24em;
+        width: 25em;
         margin-left: auto;
         margin-right: auto;
     }
 }
 
-@media(min-width: 768px) {
+@media(min-width: 640px) {
     .menuLeft {
         width: 300px;
         height: 100%;
@@ -202,19 +198,15 @@ body {
     }    
 }
 /********************************* content ************************************/
-@media(min-width: 768px) {
+@media(min-width: 640px) {
     .content {
         position: relative;
         margin-top: 60px;
         margin-left: 300px;
-        -o-transition: all 250ms;
-        -moz-transition: all 250ms;
-        -webkit-transition: all 250ms;
-        transition: all 250ms;    
     }
 }
 
-@media(max-width: 768px) {
+@media(max-width: 640px) {
     .content {
         position: relative;
         margin-top: 60px;
@@ -280,12 +272,12 @@ body {
     display: inline-block;
 }
 
-@media(min-width: 768px) {
+@media(min-width: 640px) {
     .event span {
         display: none;
     }
 }
-@media(max-width: 768px) {
+@media(max-width: 640px) {
     .event h1 {
         font-size: 1.2em;
         vertical-align: auto;
@@ -307,6 +299,15 @@ body {
 }
 
 /********************************* generic styles******************************/
+.transitionDefault {
+    -o-transition: all 250ms;
+    -moz-transition: all 250ms;
+    -webkit-transition: all 250ms;
+    transition: all 250ms;    
+}
+
+
+
 .labelSpace {
     margin-right: 1em;
 }

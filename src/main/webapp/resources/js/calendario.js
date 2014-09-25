@@ -10,6 +10,5 @@ function toggleMenu() {
 }
 
 function toggleEventDetail(objectId) {
-    //jQuery(objectId).next().slideToggle();
     jQuery(objectId).next().toggleClass("toggle");
 }

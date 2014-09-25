@@ -17,6 +17,15 @@
             <h:outputStylesheet library="css" name="bootstrap.css" />
             <h:outputStylesheet library="css" name="bootstrap-theme.css" />
             <h:outputStylesheet library="css" name="default.css" />
+            <script type="text/javascript">
+                jQuery(document).ready(
+                        function () {
+                            console.log("running");
+                            jQuery("#menuLeft form").draggable({ axis: "y" });
+                        }
+                        );
+                
+            </script>
         </h:head>
         <h:body>
             <p:ajaxStatus styleClass="ajaxStatus">
@@ -70,10 +79,10 @@
                 </h:panelGroup>
             </div>
 
-            <div id="menuLeft" class="menuLeft toggleMenu">
+            <div id="menuLeft" class="menuLeft toggleMenu transitionDefault">
                 <ui:include src="filters.xhtml" />
             </div>
-            <div id="content" class="content">
+            <div id="content" class="content transitionDefault">
                 <ui:insert name="content">
                     content
                 </ui:insert>
