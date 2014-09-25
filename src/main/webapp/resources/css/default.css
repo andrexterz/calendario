@@ -98,39 +98,6 @@ body {
     z-index: 1001;    
 }
 
-@media(max-width: 768px) {
-    .menuLeft {
-        width: 100%;
-        height: 100%;
-        top: 0;
-    }
-    
-    .menuLeftTitle {
-        margin-left: 2em;
-    }
-
-    .menuLeft.toggleMenu {
-        left: -100%;
-    }
-
-    .menuButton {
-        display: inline-block;
-    }        
- }
-
-@media(min-width: 768px) {
-    .menuLeft {
-        width: 300px;
-        height: 100%;
-        top: 60px;
-        overflow-y: visible;
-        border: 1px solid #333;
-    }
-    .menuButton {
-        display: none;
-    }    
-}
-
 .menuLeftTooBar {
     background: #333;
     min-height: 60px;
@@ -175,10 +142,10 @@ body {
 }
 
 .dateSelected {
-    margin: 8px;
+    padding: 4px;
     width: 100%;
-    display: block;
     color: #ffff77;
+    display: block;
 }
 
 .dateSelected label {
@@ -186,8 +153,53 @@ body {
     display: inline;
 }
 
-.calendar {
-    font-family: courier!important;
+.dateSelected span {
+    margin-left: 1em;
+}
+
+.dateSelected hr {
+    width: 95%;
+    border: thin solid #ffff77;
+}
+
+@media(max-width: 768px) {
+    .menuLeft {
+        width: 100%;
+        height: 100%;
+        top: 0;
+    }
+
+    .menuLeftTitle {
+        margin-left: 2em;
+    }
+
+    .menuLeft.toggleMenu {
+        left: -100%;
+    }
+
+    .menuButton {
+        display: inline-block;
+    }
+
+    .dateSelectedBox {
+        display: block;
+        width: 24em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media(min-width: 768px) {
+    .menuLeft {
+        width: 300px;
+        height: 100%;
+        top: 60px;
+        overflow-y: visible;
+        border: 1px solid #333;
+    }
+    .menuButton {
+        display: none;
+    }    
 }
 /********************************* content ************************************/
 @media(min-width: 768px) {

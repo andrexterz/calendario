@@ -13,23 +13,29 @@
                 <h:outputText class="menuLeftTitle" value="#{msg.filter}" />
             </div>
             <div class="dateSelected">
-                <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
-                <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
-                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                </h:outputText>
+                <div class="dateSelectedBox">
+                    <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
+                    <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </div>
                 <p:calendar id="dataInicio"
                             mode="inline"
                             pattern="dd/MM/yyyy"
-                            value="#{calendarioBean.dataInicio}" styleClass="calendar">
+                            value="#{calendarioBean.dataInicio}">
                     <p:ajax event="dateSelect" update="dataInicioText" />
                 </p:calendar>
                 <p:separator />
-                <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
-                <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}" />
+                <div class="dateSelectedBox">
+                    <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
+                    <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </div>
                 <p:calendar id="dataTermino"
                             mode="inline"
                             pattern="dd/MM/yyyy"
-                            value="#{calendarioBean.dataTermino}" styleClass="calendar">
+                            value="#{calendarioBean.dataTermino}">
                     <p:ajax event="dateSelect" update="dataTerminoText" />
                 </p:calendar>
             </div>            
