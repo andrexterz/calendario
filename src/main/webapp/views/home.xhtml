@@ -8,26 +8,28 @@
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.home}</ui:define>
         <ui:define name="content">
-            <p:dataScroller value="#{calendarioBean.eventosRecentes}"
-                            lazy="true"
-                            var="evento"
-                            chunkSize="10"
-                            styleClass="eventDisplay">
-                <article class="event">
-                    <h1>#{evento.titulo}</h1>
-                    <h2>
-                        <h:outputText value="#{evento.inicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                        &nbsp;#{msg.prepA}&nbsp; 
-                        <h:outputText value="#{evento.termino}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </h2>
-                    <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail(detail#{evento.id})">#{msg.details}</span>
-                    <p id="description#{evento.id}">#{evento.descricao}</p>
-                </article>
-            </p:dataScroller>
+            <div class="content">
+                <p:dataScroller value="#{calendarioBean.eventosRecentes}"
+                                lazy="true"
+                                var="evento"
+                                chunkSize="10"
+                                styleClass="eventDisplay">
+                    <article class="event">
+                        <h1>#{evento.titulo}</h1>
+                        <h2>
+                            <h:outputText value="#{evento.inicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            &nbsp;#{msg.prepA}&nbsp; 
+                            <h:outputText value="#{evento.termino}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </h2>
+                        <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail(detail#{evento.id})">#{msg.details}</span>
+                        <p id="description#{evento.id}">#{evento.descricao}</p>
+                    </article>
+                </p:dataScroller>
+            </div>
         </ui:define>
     </ui:composition>
 </html>

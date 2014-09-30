@@ -10,6 +10,7 @@ and open the template in the editor.
 /********************************** html & body ********************************/
 body {
     background: #454545;
+    font-size: 10pt;
 }
 /********************************** menu top **********************************/
 .logo {
@@ -49,7 +50,7 @@ body {
 
 @media (max-width: 640px) {
     div.ui-datepicker{
-        font-size:1.4em;
+        font-size:1.2em;
         margin-left: auto;
         margin-right: auto;
     }
@@ -92,9 +93,9 @@ body {
     z-index: 1001;    
 }
 
-.menuLeftTooBar {
+.menuLeftHeader {
     background: #333;
-    min-height: 60px;
+    height: 60px;
     color: #fff;
     padding: 1.0em;
     margin-bottom: 8px;
@@ -108,11 +109,47 @@ body {
 }
 
 .scrollBar {
-    display: none;
+    position: absolute;
+    display: inline-block;
+    width: 3em;
+    margin: 0;
+    top: 60px;
+    bottom: 0;
+    cursor: pointer;
+    background-color: #f90;
+}
+
+.scrollBar span:first-child {
+    display: block;
+    position: absolute;
+    top: 0;
+    padding: 4px;
+    background-image: url("#{resource['img/arrow-scroll.png']}");
+    background-position: 0 0;
+    width: 20px;
+    height: 100px;
+}
+
+.scrollBar span:last-child {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    padding: 4px;
+    background-image: url("#{resource['img/arrow-scroll.png']}");
+    background-position: 0 0;
+    width: 20px;
+    height: 100px;
+}
+
+.scrollBar span:hover {
+    background-position: 20px 0;
+}
+
+.filterContent {
+  margin-left: 3em;
 }
 
 .menuLeft form {
-    height: 100%;
     border: 1px dotted greenyellow;
 }
 
@@ -167,34 +204,7 @@ body {
         height: 100%;
     }
 
-    .menuLeft form {
-        width: auto;
-        height: auto;
-    }
-    
-    .menuLeft form table {
-        width: 100%;
-    }
-
-    .scrollBar {
-        display: block;
-        width: 3em;
-        margin: 0;
-        top: 0;
-        bottom: 0;
-        cursor: pointer;
-        background: #ddd;
-    }
-    
-    .menuLeftContent {
-        display: inline-block;
-    }
-
-    .menuLeftTitle {
-        margin-left: 2em;
-    }
-
-    .menuLeft.toggleMenu {
+   .menuLeft.toggleMenu {
         left: -100%;
     }
 
@@ -215,9 +225,8 @@ body {
         width: 300px;
         height: 100%;
         top: 60px;
-        overflow-y: visible;
-        border: 1px solid #333;
     }
+    
     .menuButton {
         display: none;
     }    

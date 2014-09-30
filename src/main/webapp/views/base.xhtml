@@ -25,15 +25,15 @@
                             var obj = "#menuLeft form";
                             jQuery(obj).draggable(
                                     {axis: "y",
-                                handle: ".scrollBar",
-                                scroll: false,
-                                stop: function(event, ui) {
-                                    console.log(ui.position.top);
-                                    if (ui.position.top > 0) {
-                                        jQuery(obj).animate({"top": "0px"},50);
-                                    }
-                                }
-                            });
+                                        handle: ".scrollBar",
+                                        scroll: false,
+                                        stop: function(event, ui) {
+                                            console.log(ui.position.top);
+                                            if (ui.position.top > 0) {
+                                                jQuery(obj).animate({"top": "0px"}, 50);
+                                            }
+                                        }
+                                    });
                         }
                 );
 
@@ -48,57 +48,57 @@
                     <h:outputText value=""/>
                 </f:facet>
             </p:ajaxStatus>
-            <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
-                <p:graphicImage value="#{resource['img/ufg-logo48.png']}" styleClass="logo" />
-                <h:panelGroup layout="block" styleClass="container">
-                    <h:panelGroup layout="block" styleClass="navbar-header">
-                        <ui:insert name="topMenu">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="sr-only">mini menu</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
-                                <h:graphicImage value="#{resource['img/filter.png']}" />
-                            </button>
-                            <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
-                        </ui:insert>
+            <ui:insert name="menuTop">
+                <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
+                    <p:graphicImage value="#{resource['img/ufg-logo48.png']}" styleClass="logo" />
+                    <h:panelGroup layout="block" styleClass="container">
+                        <h:panelGroup layout="block" styleClass="navbar-header">
+                            <ui:insert name="topMenu">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">mini menu</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
+                                    <h:graphicImage value="#{resource['img/filter.png']}" />
+                                </button>
+                                <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
+                            </ui:insert>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
+                            <h:form styleClass="navbar-form">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <h:commandLink value="#{msg.home}" />
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.role}<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><h:commandLink value="#{msg.student}" /></li>                                        
+                                            <li><h:commandLink value="#{msg.coordinator}" /></li>
+                                            <li><h:commandLink value="#{msg.teacher}" /></li>
+                                            <li class="divider"></li>
+                                            <li><h:commandLink value="#{msg.all}" /></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <p:inputText id="searchTerm" styleClass="searchTerm" />
+                                        <p:watermark for="searchTerm" value="#{msg.search}" />
+                                    </li>
+                                </ul>
+                            </h:form>
+                        </h:panelGroup>
                     </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
-                        <h:form styleClass="navbar-form">
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <h:commandLink value="#{msg.home}" />
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.role}<span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><h:commandLink value="#{msg.student}" /></li>                                        
-                                        <li><h:commandLink value="#{msg.coordinator}" /></li>
-                                        <li><h:commandLink value="#{msg.teacher}" /></li>
-                                        <li class="divider"></li>
-                                        <li><h:commandLink value="#{msg.all}" /></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <p:inputText id="searchTerm" styleClass="searchTerm" />
-                                    <p:watermark for="searchTerm" value="#{msg.search}" />
-                                </li>
-                            </ul>
-                        </h:form>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </div>
-
-            <div id="menuLeft" class="menuLeft toggleMenu transitionDefault">
-                <ui:include src="filters.xhtml" />
-            </div>
-            <div id="content" class="content transitionDefault">
-                <ui:insert name="content">
-                    content
-                </ui:insert>
-            </div>
+                </div>
+            </ui:insert>
+            <ui:insert name="menuLeft">
+                <div id="menuLeft" class="menuLeft toggleMenu transitionDefault">
+                    <ui:include src="filters.xhtml" />
+                </div>
+            </ui:insert>
+            <ui:insert name="content">
+            </ui:insert>
         </h:body>
     </f:view>
 </html>

@@ -7,48 +7,44 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form>
 
-        <div class="menuLeftTooBar">
+        <div class="menuLeftHeader">
             <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftBackButton" />
             <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftOkButton" />
             <h:outputText class="menuLeftTitle" value="#{msg.filter}" />
         </div>
-        <table>
-            <tr>
-                <td>
-                    <span class="scrollBar" />
-                </td>
-                <td>
+        <div class="scrollBar">
+            <span />
+            <span />
+        </div>
 
-                    <div class="dateSelected">
-                        <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
-                        <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </div>
-                    <p:calendar id="dataInicio"
-                                mode="inline"
-                                pattern="dd/MM/yyyy"
-                                value="#{calendarioBean.dataInicio}">
-                        <p:ajax event="dateSelect" listener="#{calendarioBean.checkDate}" update="dataInicioText dataTerminoText dataTermino" />
-                    </p:calendar>
+        <div class="filterContent">
+            <div class="dateSelected">
+                <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
+                <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </div>
+            <p:calendar id="dataInicio"
+                        mode="inline"
+                        pattern="dd/MM/yyyy"
+                        value="#{calendarioBean.dataInicio}">
+                <p:ajax event="dateSelect" listener="#{calendarioBean.checkDate}" update="dataInicioText dataTerminoText dataTermino" />
+            </p:calendar>
 
-                    <div class="dateSelected">
-                        <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
-                        <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </div>            
-                    <p:calendar id="dataTermino"
-                                mode="inline"
-                                pattern="dd/MM/yyyy"
-                                mindate="#{calendarioBean.dataInicio}"
-                                value="#{calendarioBean.dataTermino}">
-                        <p:ajax event="dateSelect" update="dataTerminoText" />
-                    </p:calendar>
-                </td>
-            </tr>
-        </table>
-
+            <div class="dateSelected">
+                <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
+                <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </div>            
+            <p:calendar id="dataTermino"
+                        mode="inline"
+                        pattern="dd/MM/yyyy"
+                        mindate="#{calendarioBean.dataInicio}"
+                        value="#{calendarioBean.dataTermino}">
+                <p:ajax event="dateSelect" update="dataTerminoText" />
+            </p:calendar>
+        </div>
     </h:form>
 </ui:composition>
 
