@@ -42,6 +42,11 @@ body {
 }
 
 /********************************** ui override *******************************/
+.ui-accordion-content {
+    padding: 1em 1em!important;
+    overflow: visible!important;
+}
+
 @media (min-width: 640px) {
     .navbar-mini-buttons {
         display: none;
@@ -50,7 +55,7 @@ body {
 
 @media (max-width: 640px) {
     div.ui-datepicker{
-        font-size:1.2em;
+        font-size:1.3em!important;
         margin-left: auto;
         margin-right: auto;
     }
@@ -98,7 +103,6 @@ body {
     height: 60px;
     color: #fff;
     padding: 1.0em;
-    margin-bottom: 8px;
 }
 
 .menuLeftTitle {
@@ -111,7 +115,7 @@ body {
 .scrollBar {
     position: absolute;
     display: inline-block;
-    width: 3em;
+    width: 32px;
     margin: 0;
     top: 60px;
     bottom: 0;
@@ -124,10 +128,10 @@ body {
     position: absolute;
     top: 0;
     padding: 4px;
-    background-image: url("#{resource['img/arrow-scroll.png']}");
+    background-image: url("#{resource['img/up-round-button.png']}");
     background-position: 0 0;
-    width: 20px;
-    height: 100px;
+    width: 32px;
+    height: 32px;
 }
 
 .scrollBar span:last-child {
@@ -135,18 +139,18 @@ body {
     position: absolute;
     bottom: 0;
     padding: 4px;
-    background-image: url("#{resource['img/arrow-scroll.png']}");
+    background-image: url("#{resource['img/down-round-button.png']}");
     background-position: 0 0;
-    width: 20px;
-    height: 100px;
+    width: 32px;
+    height: 32px;
 }
 
 .scrollBar span:hover {
-    background-position: 20px 0;
+    background-position: 0 -32px;
 }
 
 .filterContent {
-  margin-left: 3em;
+  margin-left: 32px;
 }
 
 .menuLeft form {
@@ -159,7 +163,6 @@ body {
     height: 32px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    background-clip: content-box;
     margin-left: 0.5em;
     margin-right: 0.5em;
     vertical-align: middle;

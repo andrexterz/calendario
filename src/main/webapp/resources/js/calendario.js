@@ -6,7 +6,7 @@
 
 function toggleMenu() {
     jQuery("#content").toggleClass("toggle");
-    jQuery("#menuLeft").toggleClass("toggleMenu");    
+    jQuery("#menuLeft").toggleClass("toggleMenu");
 }
 
 function toggleEventDetail(objectId) {
