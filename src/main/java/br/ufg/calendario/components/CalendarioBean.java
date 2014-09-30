@@ -8,9 +8,11 @@ package br.ufg.calendario.components;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
+import br.ufg.calendario.models.Mes;
 import br.ufg.calendario.models.Regional;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -40,7 +42,6 @@ public class CalendarioBean implements Serializable {
         final List<Evento> datasource = new ArrayList<>();
         for (int i = 0; i <= 100; i++) {
             Evento evt = new Evento(
-                    "Evento: " + i,
                     Calendar.getInstance().getTime(),
                     Calendar.getInstance().getTime(),
                     "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker. Evento: " + i, new Calendario(),
@@ -120,6 +121,15 @@ public class CalendarioBean implements Serializable {
     public LazyDataModel<Evento> getEventosRecentes() {
         return eventos;
     }
+    
+    public List<Mes> getPrimeiroSemestre() {
+        return Arrays.asList(Mes.values()).subList(0, 5);
+    }
+
+    public List<Mes> getSegundoSemestre() {
+        return Arrays.asList(Mes.values()).subList(6, 11);
+    }
+    
 
     public void checkDate() {
         if (dataTermino.before(dataInicio)) {

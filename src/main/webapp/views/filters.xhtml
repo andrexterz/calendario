@@ -18,57 +18,56 @@
         </div>
 
         <div class="filterContent">
-            <p:accordionPanel>
-                <p:tab title="#{msg.period}">
-                    <div class="dateSelected">
-                        <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
-                        <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </div>
-                    <p:calendar id="dataInicio"
-                                mode="inline"
-                                pattern="dd/MM/yyyy"
-                                value="#{calendarioBean.dataInicio}">
-                        <p:ajax event="dateSelect" listener="#{calendarioBean.checkDate}" update="dataInicioText dataTerminoText dataTermino" />
-                    </p:calendar>
+            <p:panel header="#{msg.period}" toggleable="true">
+                <div class="dateSelected">
+                    <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
+                    <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </div>
+                <p:calendar id="dataInicio"
+                            mode="inline"
+                            pattern="dd/MM/yyyy"
+                            value="#{calendarioBean.dataInicio}">
+                    <p:ajax event="dateSelect" listener="#{calendarioBean.checkDate}" update="dataInicioText dataTerminoText dataTermino" />
+                </p:calendar>
 
-                    <div class="dateSelected">
-                        <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
-                        <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </div>            
-                    <p:calendar id="dataTermino"
-                                mode="inline"
-                                pattern="dd/MM/yyyy"
-                                mindate="#{calendarioBean.dataInicio}"
-                                value="#{calendarioBean.dataTermino}">
-                        <p:ajax event="dateSelect" update="dataTerminoText" />
-                    </p:calendar>
-                </p:tab>
-                <p:tab title="#{msg.primeiroSemestre}">
-                    <ul>
-                        <li>Janeiro</li>
-                        <li>Fevereiro</li>
-                        <li>Março</li>
-                        <li>Abril</li>
-                        <li>Maio</li>
-                        <li>Junho</li>
-                    </ul>
-                </p:tab>
-                <p:tab title="#{msg.segundoSemestre}">
-                    <ul>
-                        <li>Julho</li>
-                        <li>Agosto</li>
-                        <li>Setembro</li>
-                        <li>Outubro</li>
-                        <li>Novembro</li>
-                        <li>Dezembro</li>
-                    </ul>
-
-                </p:tab>
-            </p:accordionPanel>
+                <div class="dateSelected">
+                    <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
+                    <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </div>            
+                <p:calendar id="dataTermino"
+                            mode="inline"
+                            pattern="dd/MM/yyyy"
+                            mindate="#{calendarioBean.dataInicio}"
+                            value="#{calendarioBean.dataTermino}">
+                    <p:ajax event="dateSelect" update="dataTerminoText" />
+                </p:calendar>
+            </p:panel>
+            <p:panel header="#{msg.primeiroSemestre}" toggleable="true">
+                <p:dataTable selectionMode="single">
+                    
+                </p:dataTable>
+                    <li>Janeiro</li>
+                    <li>Fevereiro</li>
+                    <li>Março</li>
+                    <li>Abril</li>
+                    <li>Maio</li>
+                    <li>Junho</li>
+                </ul>
+            </p:panel>
+            <p:panel header="#{msg.segundoSemestre}">
+                <ul>
+                    <li>Julho</li>
+                    <li>Agosto</li>
+                    <li>Setembro</li>
+                    <li>Outubro</li>
+                    <li>Novembro</li>
+                    <li>Dezembro</li>
+                </ul>
+            </p:panel>
         </div>
     </h:form>
 </ui:composition>

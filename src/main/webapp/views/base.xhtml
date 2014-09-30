@@ -22,13 +22,17 @@
                 //jquery ui touch punch drag on mobile devices
                 jQuery(document).ready(
                         function() {
+                            //deixa primeiro evento visivel
+                            jQuery("article:first p").toggleClass("toggle");
+                        /******************************************************/
                             var obj = "#menuLeft form";
                             jQuery(obj).draggable(
                                     {axis: "y",
                                         handle: ".scrollBar",
                                         scroll: false,
                                         stop: function(event, ui) {
-                                            console.log(ui.position.top);
+                                            //console.log(ui.position.top);
+                                            console.log(ui.position);
                                             if (ui.position.top > 0) {
                                                 jQuery(obj).animate({"top": "0px"}, 50);
                                             }
