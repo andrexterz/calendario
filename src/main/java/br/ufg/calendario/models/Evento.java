@@ -26,7 +26,8 @@ public class Evento extends Base {
     public Evento() {
     }
 
-    public Evento(Date inicio, Date termino, String descricao, Calendario calendario, List<Regional> regional, List<Interessado> interessado) {
+    public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, List<Regional> regional, List<Interessado> interessado) {
+        this.assunto = assunto;
         this.inicio = inicio;
         this.termino = termino;
         this.descricao = descricao;
@@ -35,6 +36,10 @@ public class Evento extends Base {
         this.interessado = interessado;
     }
     
+    
+    @NotNull   
+    @Column
+    private String assunto;
     
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -57,6 +62,20 @@ public class Evento extends Base {
     
     @OneToMany
     private List<Interessado> interessado;
+
+    /**
+     * @return the assunto
+     */
+    public String getAssunto() {
+        return assunto;
+    }
+
+    /**
+     * @param assunto the assunto to set
+     */
+    public void setAssunto(String assunto) {
+        this.assunto = assunto;
+    }
 
     /**
      * @return the inicio

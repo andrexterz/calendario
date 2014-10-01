@@ -17,7 +17,7 @@ public enum Mes {
     MARCO(3),
     ABRIL(4),
     MAIO(5),
-    JUNHO(5),
+    JUNHO(6),
     JULHO(7),
     AGOSTO(8),
     SETEMBRO(9),

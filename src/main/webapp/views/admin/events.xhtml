@@ -4,14 +4,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/views/base.xhtml">
         <ui:define name="title">#{msg.home}</ui:define>
         <ui:define name="content">
             <h:form>
-                <p:calendar>
-                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                </p:calendar>
+                <c:forEach items="#{calendarioBean.meses}" var="mes">
+                    <p>#{mes}</p>
+                </c:forEach>
             </h:form>
         </ui:define>
     </ui:composition>
