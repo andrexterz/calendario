@@ -26,19 +26,24 @@ body {
     font-size: 1.5em;
 }
 
-@media (max-width:426px) {
-    .appTitle {
-        margin-top: 0.5em;
-        font-size: 1.0em;
-    }   
-}
-
 .ufgLogo {
     vertical-align: middle;
 }
 .menuCalendar {
     margin: 15px 0 0 15px!important;
     width: 100%;
+}
+
+@media (max-width:426px) {
+    .appTitle {
+        margin-top: 0.5em;
+        font-size: 1.0em;
+    }   
+
+    .menuCalendar {
+        margin: 15px 5px 5px 15px!important;
+        width: 95%;
+    }
 }
 
 /********************************** ui override *******************************/
