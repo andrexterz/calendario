@@ -9,7 +9,6 @@ and open the template in the editor.
 */
 /********************************** html & body ********************************/
 body {
-    background: #cdcdcd;
     font-size: 10pt;
 }
 /********************************** menu top **********************************/
@@ -104,64 +103,20 @@ body {
 }
 
 .menuLeftHeader {
-    background: #999;
+    background: #dcdcdc;
     height: 60px;
-    color: #fff;
     padding: 1.0em;
 }
 
-.menuLeftTitle {
+.menuLeftHeader span {
     margin-left: 2em;
     color: #333;
     vertical-align: middle;
     font-size: 1.5em;
 }
 
-.scrollBar {
-    position: absolute;
-    display: inline-block;
-    width: 32px;
-    margin: 0;
-    top: 60px;
-    bottom: 0;
-    cursor: pointer;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    background-color: #58666e;
-    border: 1px solid #999;
-}
-
-.scrollBar span:first-child {
-    display: block;
-    position: absolute;
-    top: 0;
-    padding: 4px;
-    background-image: url("#{resource['img/up-round-button.png']}");
-    background-position: 0 0;
-    width: 32px;
-    height: 32px;
-}
-
-.scrollBar span:last-child {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    padding: 4px;
-    background-image: url("#{resource['img/down-round-button.png']}");
-    background-position: 0 0;
-    width: 32px;
-    height: 32px;
-}
-
-.scrollBar span:hover {
-    background-position: 0 -32px;
-}
-
-
 .filterContent {
     margin-top: 0;
-    margin-left: 32px;
 }
 
 .menuLeft form {
@@ -172,6 +127,7 @@ body {
     box-sizing: border-box;
     width: 32px;
     height: 32px;
+    background-color: #c9c9c9!important;
     background-repeat: no-repeat;
     background-position: 0 0;
     margin-left: 0.5em;
@@ -183,6 +139,7 @@ body {
 }
 
 .menuButton:hover {
+    background-color: #efefef!important;
     background-position: 0 -32px;
 }
 
@@ -245,7 +202,7 @@ body {
 
 @media(min-width: 640px) {
     .menuLeft {
-        width: 300px;
+        width: 264px;
         height: 100%;
         top: 60px;
     }
@@ -263,7 +220,7 @@ body {
     .content {
         position: relative;
         margin-top: 60px;
-        margin-left: 300px;
+        margin-left: 264px;
     }
 }
 
@@ -284,8 +241,8 @@ body {
     margin-right: 0;
 }
 .event {
-    background-color: #ddd;
-    border: 1px solid #777;
+    background-color: #fefefe;
+    border: 1px solid #999;
     margin: 4px;
     padding: 8px;
     border-radius: 4px;

@@ -11,11 +11,7 @@
         <div class="menuLeftHeader">
             <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftBackButton" />
             <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftOkButton" />
-            <h:outputText class="menuLeftTitle" value="#{msg.filter}" />
-        </div>
-        <div class="scrollBar">
-            <span />
-            <span />
+            <span>#{msg.filter}</span>
         </div>
 
         <div class="filterContent">
@@ -31,8 +27,8 @@
                     </h:outputText>
                 </div>
                 <p:calendar id="dataInicio"
-                            mode="inline"
                             pattern="dd/MM/yyyy"
+                            mask="99/99/9999"
                             value="#{calendarioBean.dataInicio}">
                     <p:ajax event="dateSelect" listener="#{calendarioBean.checkDate}" update="dataInicioText dataTerminoText dataTermino" />
                 </p:calendar>
@@ -44,8 +40,8 @@
                     </h:outputText>
                 </div>            
                 <p:calendar id="dataTermino"
-                            mode="inline"
                             pattern="dd/MM/yyyy"
+                            mask="99/99/9999"
                             mindate="#{calendarioBean.dataInicio}"
                             value="#{calendarioBean.dataTermino}">
                     <p:ajax event="dateSelect" update="dataTerminoText" />
