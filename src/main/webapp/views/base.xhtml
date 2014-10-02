@@ -87,8 +87,10 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <p:inputText id="searchTerm" styleClass="searchTerm" />
-                                        <p:watermark for="searchTerm" value="#{msg.search}" />
+                                        <h:selectOneMenu styleClass="menuCalendar">
+                                            <f:selectItem itemLabel="calendário 2014" itemValue="2014" />
+                                            <f:selectItem itemLabel="calendário 2015" itemValue="2015" />
+                                        </h:selectOneMenu>
                                     </li>
                                 </ul>
                             </h:form>

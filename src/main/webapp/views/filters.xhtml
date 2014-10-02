@@ -19,6 +19,10 @@
         </div>
 
         <div class="filterContent">
+            <p:panel header="#{msg.search}" toggleable="true">
+                <p:inputText id="search"  styleClass="search" />
+                <p:watermark for="search" value="#{msg.search}" />
+            </p:panel>
             <p:panel header="#{msg.period}" toggleable="true">
                 <div class="dateSelected">
                     <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />

@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 /********************************** html & body ********************************/
 body {
-    background: #454545;
+    background: #cdcdcd;
     font-size: 10pt;
 }
 /********************************** menu top **********************************/
@@ -36,9 +36,9 @@ body {
 .ufgLogo {
     vertical-align: middle;
 }
-.searchTerm {
-    margin: 0.6em 0 0 0.6em!important;
-    width: 95%;
+.menuCalendar {
+    margin: 15px 0 0 15px!important;
+    width: 100%;
 }
 
 /********************************** ui override *******************************/
@@ -99,7 +99,7 @@ body {
 }
 
 .menuLeftHeader {
-    background: #333;
+    background: #999;
     height: 60px;
     color: #fff;
     padding: 1.0em;
@@ -107,7 +107,7 @@ body {
 
 .menuLeftTitle {
     margin-left: 2em;
-    color: #ffff77;
+    color: #333;
     vertical-align: middle;
     font-size: 1.5em;
 }
@@ -153,6 +153,7 @@ body {
     background-position: 0 -32px;
 }
 
+
 .filterContent {
     margin-top: 0;
     margin-left: 32px;
@@ -189,10 +190,15 @@ body {
     background: url("#{resource['img/back-round-button.png']}");
 }
 
+.search {
+    margin: 0.6em!important;
+    width: 95%;
+}
+
 .dateSelected {
     padding: 1em;
     width: 100%;
-    color: #ffff77;
+    color: #333;
     display: block;
 }
 
@@ -269,8 +275,8 @@ body {
     margin-right: 0;
 }
 .event {
-    background-color: #58666e;
-    border: 1px solid #454545;
+    background-color: #ddd;
+    border: 1px solid #777;
     margin: 4px;
     padding: 8px;
     border-radius: 4px;
@@ -282,7 +288,7 @@ body {
     display: inline-block;
     vertical-align: middle;
     font-size: 1.5em;
-    color: #ff7;    
+    color: #333;    
     margin-right: 1em;
 }
 
@@ -290,7 +296,7 @@ body {
     display: inline-block;
     vertical-align: middle;
     font-size: 1em;
-    color: #f90;
+    color: #3333ff;
 }
 
 .event.detail {
@@ -304,14 +310,15 @@ body {
     width: 100%;
     border: 1px;
     padding: 4px;
-    background: #333;
+    color: #fff;
+    background: #999;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
 
 .event span:hover {
-    color: #428BCA;
+    color: #3333ff;
 }
 
 .event p {
