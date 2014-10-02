@@ -212,6 +212,10 @@ body {
     margin-left: 1em;
 }
 
+.filtroMes table thead {
+    display: none;
+}
+
 @media(max-width: 640px) {
     .menuLeft {
         width: 100%;

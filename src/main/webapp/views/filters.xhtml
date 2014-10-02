@@ -51,10 +51,12 @@
                     <p:ajax event="dateSelect" update="dataTerminoText" />
                 </p:calendar>
             </p:panel>
-            <p:dataTable id="filtroMes" value="#{calendarioBean.meses}" var="mes" rowKey="#{mes.value}" rows="12" selectionMode="single" selection="#{calendarioBean.mes}">
-                <p:ajax event="rowSelect" update="filtroMes" />
-                <p:column headerText="#{msg.meses}">#{mes}</p:column>
-            </p:dataTable>
+            <p:panel header="#{msg.meses}" toggleable="true">
+                <p:dataTable id="filtroMes" styleClass="filtroMes" value="#{calendarioBean.meses}" var="mes" rowKey="#{mes.value}" rows="12" selectionMode="single" selection="#{calendarioBean.mes}">
+                    <p:ajax event="rowSelect" update="filtroMes" />
+                    <p:column>#{mes}</p:column>
+                </p:dataTable>
+            </p:panel>
         </div>
     </h:form>
 </ui:composition>
