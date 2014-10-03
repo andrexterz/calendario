@@ -7,52 +7,19 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:form>
-
         <div class="menuLeftHeader">
-            <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftBackButton" />
-            <a href="javascript:toggleMenu('#menuLeft');" class="menuButton menuLeftOkButton" />
-            <span>#{msg.filter}</span>
+            <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu('#menuLeft');" />
+            <p:commandLink styleClass="menuButton menuLeftOkButton" onclick="javascript:toggleMenu('#menuLeft');" />
+            <span>#{msg.filtro}</span>
         </div>
-
         <div class="filterContent">
-            <p:panel header="#{msg.search}" toggleable="true">
-                <p:inputText id="search"  styleClass="search" />
-                <p:watermark for="search" value="#{msg.search}" />
-            </p:panel>
-            <p:panel header="#{msg.period}" toggleable="true">
-                <div class="dateSelected">
-                    <h:outputLabel for="dataInicio" value="#{msg.startDate}:" />
-                    <h:outputText id="dataInicioText" value="#{calendarioBean.dataInicio}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
-                </div>
-                <p:calendar id="dataInicio"
-                            pattern="dd/MM/yyyy"
-                            mask="99/99/9999"
-                            value="#{calendarioBean.dataInicio}">
-                    <p:ajax event="dateSelect" listener="#{calendarioBean.checkDate}" update="dataInicioText dataTerminoText dataTermino" />
-                </p:calendar>
-
-                <div class="dateSelected">
-                    <h:outputLabel for="dataTermino" value="#{msg.endDate}:" />
-                    <h:outputText id="dataTerminoText" value="#{calendarioBean.dataTermino}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
-                </div>            
-                <p:calendar id="dataTermino"
-                            pattern="dd/MM/yyyy"
-                            mask="99/99/9999"
-                            mindate="#{calendarioBean.dataInicio}"
-                            value="#{calendarioBean.dataTermino}">
-                    <p:ajax event="dateSelect" update="dataTerminoText" />
-                </p:calendar>
-            </p:panel>
-            <p:panel header="#{msg.meses}" toggleable="true">
-                <p:dataTable id="filtroMes" styleClass="filtroMes" value="#{calendarioBean.meses}" var="mes" rowKey="#{mes.value}" rows="12" selectionMode="single" selection="#{calendarioBean.mes}">
-                    <p:ajax event="rowSelect" update="filtroMes" />
-                    <p:column>#{mes}</p:column>
-                </p:dataTable>
-            </p:panel>
+            <p:commandLink styleClass="menuItem32 searchIcon" title="#{msg.filtro}: #{msg.busca}" />
+            <p:commandLink styleClass="menuItem32 calendarIcon" title="#{msg.filtro}: #{msg.periodo}" />
+            <p:commandLink styleClass="menuItem32 userIcon" title="#{msg.filtro}: #{msg.interessado}" />
+            <p:commandLink styleClass="menuItem32 moduleIcon" title="#{msg.filtro}: #{msg.regional}" />
+            <hr />
+            <p:commandLink styleClass="menuItem64 listIcon" title="#{msg.lista}" />
+            <p:commandLink styleClass="menuItem64 calendarViewIcon" title="#{msg.calendario}" />
         </div>
     </h:form>
 </ui:composition>

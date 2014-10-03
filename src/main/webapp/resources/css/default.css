@@ -11,6 +11,15 @@ and open the template in the editor.
 body {
     font-size: 10pt;
 }
+
+hr {
+    border-width: 1px;
+    border-color: #999;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
 /********************************** menu top **********************************/
 .logo {
     float: left;
@@ -39,10 +48,6 @@ body {
         font-size: 1.0em;
     }   
 
-    .menuCalendar {
-        margin: 15px 5px 5px 15px!important;
-        width: 95%;
-    }
 }
 
 /********************************** ui override *******************************/
@@ -51,13 +56,19 @@ body {
     overflow: visible!important;
 }
 
-@media (min-width: 640px) {
+.ui-corner-all {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+@media (min-width: 767px) {
     .navbar-mini-buttons {
         display: none;
     };
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
     div.ui-datepicker{
         font-size:1.2em!important;
         margin-left: auto;
@@ -86,9 +97,15 @@ body {
     padding-right: 12px;
 }
 
+.menuCalendar {
+        margin: 15px auto auto 15px!important;
+        width: 95%;
+    }
+
 /********************************* menu left **********************************/
 .menuLeft {
     position: fixed;
+    width: 40px;
     margin: 0;
     right: 0;
     left: 0;
@@ -96,9 +113,6 @@ body {
     background-color: #575757;
     overflow: hidden;
     border: 1px solid #333;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;    
     z-index: 1001;    
 }
 
@@ -119,8 +133,58 @@ body {
     margin-top: 0;
 }
 
-.menuLeft form {
-    border: 1px dotted greenyellow;
+.menuItem32 {
+    display: inline-block;
+    margin: 6px;
+    width: 32px;
+    height: 32px;
+    background-color: #777;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.menuItem32:hover {
+    background-color: #efefef!important;
+    background-position: 0 -32px;    
+}
+
+.menuItem64 {
+    display: inline-block;
+    margin: 12px;
+    width: 64px;
+    height: 64px;
+    background-color: #777;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.menuItem64:hover {
+    background-color: #efefef!important;
+    background-position: 0 -64px;    
+}
+
+.searchIcon {
+    background-image: url("#{resource['img/search.png']}");
+}
+
+.calendarIcon {
+    background-image: url("#{resource['img/calendar.png']}");
+}
+
+.calendarViewIcon {
+    background-image: url("#{resource['img/calendarView.png']}");
+}
+
+.userIcon {
+    background-image: url("#{resource['img/user.png']}");
+}
+
+.moduleIcon {
+    background-image: url("#{resource['img/module.png']}");
+}
+
+.listIcon {
+    background-image: url("#{resource['img/list.png']}");
 }
 
 .menuButton {
@@ -152,33 +216,7 @@ body {
     background: url("#{resource['img/back-round-button.png']}");
 }
 
-.search {
-    margin: 0.6em!important;
-    width: 95%;
-}
-
-.dateSelected {
-    padding: 1em;
-    width: 100%;
-    color: #333;
-    display: block;
-}
-
-.dateSelected label {
-    font-weight: normal;
-    display: inline;
-    margin-right: 4px;
-}
-
-.dateSelected span {
-    margin-left: 1em;
-}
-
-.filtroMes table thead {
-    display: none;
-}
-
-@media(max-width: 640px) {
+@media(max-width: 767px) {
     .menuLeft {
         width: 100%;
         height: 100%;
@@ -200,11 +238,15 @@ body {
     }
 }
 
-@media(min-width: 640px) {
+@media(min-width: 767px) {
     .menuLeft {
-        width: 264px;
+        width: 96px;
         height: 100%;
         top: 60px;
+    }
+
+    .menuLeftHeader {
+        display: none;
     }
 
     .menuButton {
@@ -216,15 +258,15 @@ body {
     }
 }
 /********************************* content ************************************/
-@media(min-width: 640px) {
+@media(min-width: 767px) {
     .content {
         position: relative;
         margin-top: 60px;
-        margin-left: 264px;
+        margin-left: 96px;
     }
 }
 
-@media(max-width: 640px) {
+@media(max-width: 767px) {
     .content {
         position: relative;
         margin-top: 60px;
@@ -291,12 +333,12 @@ body {
     display: inline-block;
 }
 
-@media(min-width: 640px) {
+@media(min-width: 767px) {
     .event span {
         display: none;
     }
 }
-@media(max-width: 640px) {
+@media(max-width: 767px) {
     .event h1 {
         font-size: 1.2em;
         vertical-align: auto;

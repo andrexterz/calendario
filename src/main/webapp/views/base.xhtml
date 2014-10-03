@@ -19,33 +19,14 @@
             <h:outputStylesheet library="css" name="bootstrap-theme.css" />
             <h:outputStylesheet library="css" name="default.css" />
             <script type="text/javascript">
-                /*jquery ui touch punch drag on mobile devices
                 jQuery(document).ready(
-                        function() {
-                            //deixa primeiro evento visivel
-                            jQuery("article:first p").toggleClass("toggle");
-
-                            var obj = "#menuLeft form";
-                            jQuery(obj).draggable(
-                                    {axis: "y",
-                                        scroll: false,
-                                        stop: function(event, ui) {
-                                            //console.log(ui.position.top);
-                                            console.log(ui.position);
-                                            if (ui.position.top > 0) {
-                                                jQuery(obj).animate({"top": "0px"}, 50);
-                                            }
-                                        }
-                                    });
-                        }
-                );
-                */
+                        function() {jQuery("article:first p").toggleClass("toggle");});
             </script>
         </h:head>
         <h:body>
             <p:ajaxStatus styleClass="ajaxStatus">
                 <f:facet name="start">
-                    <p:graphicImage alt="#{msg.loading}" value="#{resource['img/ajax-loader.gif']}" />
+                    <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
                 </f:facet>
                 <f:facet name="complete">
                     <h:outputText value=""/>
@@ -66,23 +47,23 @@
                                 <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
                                     <h:graphicImage value="#{resource['img/filter.png']}" />
                                 </button>
-                                <h:outputText value="#{msg.appname}" styleClass="navbar-brand appTitle" />
+                                <h:outputText value="#{msg.appNome}" styleClass="navbar-brand appTitle" />
                             </ui:insert>
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
                             <h:form styleClass="navbar-form">
                                 <ul class="nav navbar-nav">
                                     <li>
-                                        <h:commandLink value="#{msg.home}" />
+                                        <h:commandLink value="#{msg.inicio}" />
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.role}<span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.interessado}<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><h:commandLink value="#{msg.student}" /></li>                                        
-                                            <li><h:commandLink value="#{msg.coordinator}" /></li>
-                                            <li><h:commandLink value="#{msg.teacher}" /></li>
+                                            <li><h:commandLink value="#{msg.discente}" /></li>                                        
+                                            <li><h:commandLink value="#{msg.coordenador}" /></li>
+                                            <li><h:commandLink value="#{msg.docente}" /></li>
                                             <li class="divider"></li>
-                                            <li><h:commandLink value="#{msg.all}" /></li>
+                                            <li><h:commandLink value="#{msg.todos}" /></li>
                                         </ul>
                                     </li>
                                     <li>
