@@ -398,7 +398,7 @@ hr {
 }
 
 .event p {
-    display: inline-block;
+    display: block;
 }
 
 @media(min-width: 767px) {
