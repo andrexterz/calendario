@@ -13,7 +13,7 @@
         </div>
         <div class="filterContent">
             <p:commandLink styleClass="menuItem32 searchIcon" title="#{msg.busca}" process="@this" action="buscaTextual" />
-            <p:commandLink styleClass="menuItem32 calendarIcon" title="#{msg.filtro}: #{msg.periodo}" />
+            <p:commandLink styleClass="menuItem32 calendarIcon" title="#{msg.filtro}: #{msg.periodo}" process="@this" action="buscaPeriodo" />
             <p:commandLink styleClass="menuItem32 userIcon" title="#{msg.filtro}: #{msg.interessado}" />
             <p:commandLink styleClass="menuItem32 moduleIcon" title="#{msg.filtro}: #{msg.regional}" />
             <hr />

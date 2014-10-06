@@ -192,7 +192,6 @@ hr {
 }
 
 .menuButton {
-    box-sizing: border-box;
     width: 32px;
     height: 32px;
     background-color: #c9c9c9!important;
@@ -210,11 +209,6 @@ hr {
     background-color: #efefef!important;
     background-position: 0 -32px;
 }
-
-.menuLeftOkButton {
-    background: url("#{resource['img/ok-round-button.png']}");
-}
-
 
 .menuLeftBackButton {
     background: url("#{resource['img/back-round-button.png']}");
@@ -264,17 +258,62 @@ hr {
 /********************************* filter Menu ********************************/
 .filterMenu {
     position: fixed;
-    padding: 6px;
-    top: 60px;
-    left: 96px;
+    top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
-    background-color: #999;
+    background-color: #575757;
     opacity: 0.95;
-    z-index: 1011;
+    z-index: 1001;
+}
+
+.filterMenuHeader {
+    height: 60px;
+    background: #dcdcdc;
+}
+
+.menuFilterButton {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("#{resource['img/ok-round-button.png']}");
+    background-color: #c9c9c9!important;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.menuFilterButton:hover {
+    background-color: #efefef!important;
+    background-position: 0 -32px;
+}
+
+.filterMenuHeader span {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 16px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.filterMenuContent {
+    color: #efefef;
+    border: 1px solid #ccc;
+    padding: 2em;
+    margin: 4px;
 }
 
 .filterMenu label {
+    margin-right: 4px;
+}
+
+.filterMenu input {
+    margin-left: 4px;
     margin-right: 4px;
 }
 
@@ -468,6 +507,15 @@ col40 {
 
 .col100 {
     width: 100%;
+}
+
+
+.alignLeft {
+    text-align: left
+}
+
+.alignRight {
+    text-align: right;
 }
 /************************************ footer **********************************/
 .ajaxStatus {

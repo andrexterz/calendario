@@ -9,9 +9,14 @@
         <ui:define name="filter">
             <div class="filterMenu">
                 <h:form>
-                    <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
-                    <p:inputText id="buscaTextual" />
-                    <p:commandButton icon="ui-icon-check" title="#{msg.busca}" action="home?faces-redirect=true" />
+                    <div class="filterMenuHeader">
+                        <span>#{msg.buscaPeriodo}</span>
+                    </div>
+                    <div class="filterMenuContent">
+                        <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
+                        <p:inputText id="buscaTextual" />
+                        <p:commandLink title="#{msg.confirmar}" styleClass="menuFilterButton" action="home?faces-redirect=true" />                                                
+                    </div>
                 </h:form>
             </div>
         </ui:define>

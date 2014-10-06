@@ -42,7 +42,7 @@ public class CalendarioBean implements Serializable {
 
         //just test (remove after datamodel is defined)        
         final List<Evento> datasource = new ArrayList<>();
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 25; i++) {
             Evento evt = new Evento(
                     "Evento n. " + i,
                     Calendar.getInstance().getTime(),
