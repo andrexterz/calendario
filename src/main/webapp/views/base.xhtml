@@ -20,7 +20,9 @@
             <h:outputStylesheet library="css" name="default.css" />
             <script type="text/javascript">
                 jQuery(document).ready(
-                        function() {jQuery("article:first p").toggleClass("toggle");});
+                        function() {
+                            jQuery("article:first p").toggleClass("toggle");
+                        });
             </script>
         </h:head>
         <h:body>
@@ -54,17 +56,7 @@
                             <h:form styleClass="navbar-form">
                                 <ul class="nav navbar-nav">
                                     <li>
-                                        <h:commandLink value="#{msg.inicio}" />
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{msg.interessado}<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><h:commandLink value="#{msg.discente}" /></li>                                        
-                                            <li><h:commandLink value="#{msg.coordenador}" /></li>
-                                            <li><h:commandLink value="#{msg.docente}" /></li>
-                                            <li class="divider"></li>
-                                            <li><h:commandLink value="#{msg.todos}" /></li>
-                                        </ul>
+                                        <p:commandLink value="#{msg.inicio}" action="home" />
                                     </li>
                                     <li>
                                         <h:selectOneMenu styleClass="menuCalendar">
@@ -82,6 +74,8 @@
                 <div id="menuLeft" class="menuLeft toggleMenu transitionDefault">
                     <ui:include src="filters.xhtml" />
                 </div>
+            </ui:insert>
+            <ui:insert name="filter">
             </ui:insert>
             <ui:insert name="content">
             </ui:insert>

@@ -20,7 +20,36 @@ hr {
     margin-left: 4px;
     margin-right: 4px;
 }
+
+/********************************** ui override *******************************/
+.ui-panel-content, .ui-panel-content {
+    padding: 0!important;
+    overflow: visible!important;
+}
+
+.ui-corner-all {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+@media (min-width: 767px) {
+    .navbar-mini-buttons {
+        display: none;
+    };
+}
+
+@media (max-width: 767px) {
+    div.ui-datepicker{
+        font-size:1.2em!important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
 /********************************** menu top **********************************/
+
 .logo {
     float: left;
     margin-left: 1em;
@@ -50,32 +79,6 @@ hr {
 
 }
 
-/********************************** ui override *******************************/
-.ui-panel-content, .ui-panel-content {
-    padding: 0!important;
-    overflow: visible!important;
-}
-
-.ui-corner-all {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-
-@media (min-width: 767px) {
-    .navbar-mini-buttons {
-        display: none;
-    };
-}
-
-@media (max-width: 767px) {
-    div.ui-datepicker{
-        font-size:1.2em!important;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
 /********************************** menu top **********************************/
 
 .navbar-mini-buttons {
@@ -98,9 +101,9 @@ hr {
 }
 
 .menuCalendar {
-        margin: 15px auto auto 15px!important;
-        width: 95%;
-    }
+    margin: 15px auto auto 15px!important;
+    width: 95%;
+}
 
 /********************************* menu left **********************************/
 .menuLeft {
@@ -138,7 +141,7 @@ hr {
     margin: 6px;
     width: 32px;
     height: 32px;
-    background-color: #777;
+    border: 1px solid #777;
     background-repeat: no-repeat;
     background-position: 0 0;
 }
@@ -148,19 +151,20 @@ hr {
     background-position: 0 -32px;    
 }
 
-.menuItem64 {
+.menuItem48 {
     display: inline-block;
     margin: 12px;
-    width: 64px;
-    height: 64px;
-    background-color: #777;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #777;
     background-repeat: no-repeat;
     background-position: 0 0;
+    background-size: 48px auto;
 }
 
-.menuItem64:hover {
+.menuItem48:hover {
     background-color: #efefef!important;
-    background-position: 0 -64px;    
+    background-position: 0 -48px;    
 }
 
 .searchIcon {
@@ -171,8 +175,8 @@ hr {
     background-image: url("#{resource['img/calendar.png']}");
 }
 
-.calendarViewIcon {
-    background-image: url("#{resource['img/calendarView.png']}");
+.calendar64Icon {
+    background-image: url("#{resource['img/calendar64.png']}");
 }
 
 .userIcon {
@@ -257,6 +261,29 @@ hr {
         float: right;
     }
 }
+/********************************* filter Menu ********************************/
+.filterMenu {
+    position: fixed;
+    padding: 6px;
+    top: 60px;
+    left: 96px;
+    right: 0;
+    bottom: 0;
+    background-color: #999;
+    opacity: 0.95;
+    z-index: 1011;
+}
+
+.filterMenu label {
+    margin-right: 4px;
+}
+
+@media(max-width: 767px) {
+    .filterMenu {
+        top: 0;
+        left: 0;
+    }
+}
 /********************************* content ************************************/
 @media(min-width: 767px) {
     .content {
@@ -277,6 +304,8 @@ hr {
         background: transparent;
     }
 }
+
+
 /************************************ event ***********************************/
 .eventDisplay {
     margin-left: 0;

@@ -9,17 +9,16 @@
     <h:form>
         <div class="menuLeftHeader">
             <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu('#menuLeft');" />
-            <p:commandLink styleClass="menuButton menuLeftOkButton" onclick="javascript:toggleMenu('#menuLeft');" />
             <span>#{msg.filtro}</span>
         </div>
         <div class="filterContent">
-            <p:commandLink styleClass="menuItem32 searchIcon" title="#{msg.filtro}: #{msg.busca}" />
+            <p:commandLink styleClass="menuItem32 searchIcon" title="#{msg.busca}" action="buscaTextual" />
             <p:commandLink styleClass="menuItem32 calendarIcon" title="#{msg.filtro}: #{msg.periodo}" />
             <p:commandLink styleClass="menuItem32 userIcon" title="#{msg.filtro}: #{msg.interessado}" />
             <p:commandLink styleClass="menuItem32 moduleIcon" title="#{msg.filtro}: #{msg.regional}" />
             <hr />
-            <p:commandLink styleClass="menuItem64 listIcon" title="#{msg.lista}" />
-            <p:commandLink styleClass="menuItem64 calendarViewIcon" title="#{msg.calendario}" />
+            <p:commandLink styleClass="menuItem48 listIcon" title="#{msg.modoLista}" />
+            <p:commandLink styleClass="menuItem48 calendar64Icon" title="#{msg.modoCalendario}" />
         </div>
     </h:form>
 </ui:composition>
