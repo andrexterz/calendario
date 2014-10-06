@@ -11,6 +11,8 @@ import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Mes;
 import br.ufg.calendario.models.Regional;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -18,6 +20,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.context.annotation.Scope;
@@ -40,8 +44,65 @@ public class CalendarioBean implements Serializable {
         dataInicio = Calendar.getInstance().getTime();
         dataTermino = Calendar.getInstance().getTime();
 
-        //just test (remove after datamodel is defined)        
+        //just test (remove after datamodel is defined)
         final List<Evento> datasource = new ArrayList<>();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy");
+        Evento e1 = new Evento();
+        Evento e2 = new Evento();
+        Evento e3 = new Evento();
+        Evento e4 = new Evento();
+        Evento e5 = new Evento();
+        e1.setAssunto("Oferta de turma verão 2015");
+        e1.setDescricao("Data limite para as coordenações de curso solicitarem às unidades responsáveis pelos componentes curriculares de sua matriz(es) curricular(es), a validação de oferta de turmas para o Verão/2015.");
+        try {
+            e1.setInicio(df.parse("10/11/2014"));
+            e1.setTermino(df.parse("10/11/2014"));
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+        e2.setAssunto("Iniciação Científica e Desenvolvimento Tecnológico - Parecer CEP e/ou CEUA");
+        e2.setDescricao("Período final para cadastro de projetose pedidos de Emendas no CEP e CEUA com vistas aos Editais de Iniciação Científica e Desenvolvimento Tecnológico (PIBIC/PIBIC-AF/PIBITI/PIVIC/PIVITI).");
+        try {
+            e2.setInicio(df.parse("15/11/2014"));
+            e2.setTermino(df.parse("30/11/2014"));
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        e3.setAssunto("Núcleo Livre - verão 2015");
+        e3.setDescricao("Data limite para as unidades acadêmicas encaminharem, à PROGRAD, as solicitações de cadastro de novos componentes curriculares como Núcleo Livre para o Verão/2015.");
+        try {
+            e3.setInicio(df.parse("3/12/2014"));
+            e3.setTermino(df.parse("3/12/2014"));
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        e4.setAssunto("Oferta de turmas - 2015/1");
+        e4.setDescricao("Data limite para as coordenações de curso solicitarem às unidades responsáveis pelos componentes curriculares de sua matriz(es) curricular(es), a validação de oferta de turmas para 1º semestre/2015.");
+        try {
+            e4.setInicio(df.parse("7/12/2014"));
+            e4.setTermino(df.parse("7/12/2014"));
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        e5.setAssunto("Oferta de turmas - verão 2015");
+        e5.setDescricao("Data limite para as coordenações de curso ofertarem turmas para o Verão/2015.");
+        try {
+            e5.setInicio(df.parse("12/12/2014"));
+            e5.setTermino(df.parse("12/12/2014"));
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        datasource.add(e1);
+        datasource.add(e2);
+        datasource.add(e3);
+        datasource.add(e4);
+        datasource.add(e5);
         for (int i = 0; i <= 25; i++) {
             Evento evt = new Evento(
                     "Evento n. " + i,
