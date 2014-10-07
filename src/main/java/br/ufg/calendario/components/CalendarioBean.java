@@ -5,6 +5,7 @@
  */
 package br.ufg.calendario.components;
 
+import br.ufg.calendario.dao.CalendarioDao;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
@@ -24,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +36,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = "session")
 public class CalendarioBean implements Serializable {
-
+    private Calendario calendario;
+    
+    @Autowired
+    private CalendarioDao calendarioDao;
+    
+    //mover declaracoes para outro bean
     private final LazyDataModel<Evento> eventos;
     private Mes mes;
     private Date dataInicio;
@@ -181,6 +188,23 @@ public class CalendarioBean implements Serializable {
         };
 
     }
+    
+    public void adicionar() {
+        calendario = new Calendario();
+    }
+    
+    public void salvar() {
+        calendarioDao.adicionar(calendario);
+    }
+
+    public Calendario getCalendario() {
+        return calendario;
+    }
+
+    public void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
+    }
+    
 
     public LazyDataModel<Evento> getEventosRecentes() {
         return eventos;

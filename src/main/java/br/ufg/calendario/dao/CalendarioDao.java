@@ -6,6 +6,8 @@
 package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Calendario;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,13 @@ public class CalendarioDao {
     @Transactional
     public boolean excluir(Calendario calendario) {
         return false;
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Calendario> listar() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Calendario.class);
+        return criteria.list();
     }
 
 }
