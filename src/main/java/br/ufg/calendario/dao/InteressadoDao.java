@@ -5,7 +5,7 @@
  */
 package br.ufg.calendario.dao;
 
-import br.ufg.calendario.models.Calendario;
+import br.ufg.calendario.models.Interessado;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -21,34 +21,38 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Scope(value = "singleton")
-public class CalendarioDao {
+public class InteressadoDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+    
     @Transactional
-    public boolean adicionar(Calendario calendario) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(calendario);
-        return false;
-    }
-
-    @Transactional
-    public boolean atualizar(Calendario calendario) {
-        Session session = sessionFactory.getCurrentSession();
+    public boolean adicionar(Interessado interessado) {
+        Session session = this.sessionFactory.getCurrentSession();
         try {
-            session.update(calendario);
-            return false;
+            session.save(interessado);
+            return true;
         } catch (Exception e) {
             return false;
         }
     }
-
+    
     @Transactional
-    public boolean excluir(Calendario calendario) {
+    public boolean atualizar(Interessado interessado) {
         Session session = this.sessionFactory.getCurrentSession();
         try {
-            session.delete(calendario);
+            session.update(interessado);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    @Transactional
+    public boolean excluir(Interessado interessado) {
+        Session session = this.sessionFactory.getCurrentSession();
+        try {
+            session.delete(interessado);
             return true;
         } catch (Exception e) {
             return false;
@@ -56,9 +60,10 @@ public class CalendarioDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Calendario> listar() {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Calendario.class);
+    public List<Interessado> listar() {
+                Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Interessado.class);
         return criteria.list();
     }
+
 }

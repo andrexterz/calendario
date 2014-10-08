@@ -5,7 +5,7 @@
  */
 package br.ufg.calendario.dao;
 
-import br.ufg.calendario.models.Calendario;
+import br.ufg.calendario.models.Regional;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -21,34 +21,38 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Scope(value = "singleton")
-public class CalendarioDao {
+public class RegionalDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    SessionFactory sessionFactory;
 
     @Transactional
-    public boolean adicionar(Calendario calendario) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(calendario);
-        return false;
-    }
-
-    @Transactional
-    public boolean atualizar(Calendario calendario) {
+    public boolean adicionar(Regional regional) {
         Session session = sessionFactory.getCurrentSession();
         try {
-            session.update(calendario);
-            return false;
+            session.save(regional);
+            return true;
         } catch (Exception e) {
             return false;
         }
     }
 
     @Transactional
-    public boolean excluir(Calendario calendario) {
-        Session session = this.sessionFactory.getCurrentSession();
+    public boolean atualizar(Regional regional) {
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session.delete(calendario);
+            session.update(regional);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Transactional
+    public boolean excluir(Regional regional) {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.delete(regional);
             return true;
         } catch (Exception e) {
             return false;
@@ -56,9 +60,10 @@ public class CalendarioDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Calendario> listar() {
+    public List<Regional> listar() {
         Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Calendario.class);
+        Criteria criteria = session.createCriteria(Regional.class);
         return criteria.list();
     }
+
 }

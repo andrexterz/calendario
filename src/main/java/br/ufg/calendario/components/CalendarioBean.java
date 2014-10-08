@@ -36,10 +36,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = "session")
 public class CalendarioBean implements Serializable {
-    private Calendario calendario;
-    
+
     @Autowired
     private CalendarioDao calendarioDao;
+    
+    private Calendario calendario;
+    
+    private Calendario itemSelecionado;
     
     //mover declaracoes para outro bean
     private final LazyDataModel<Evento> eventos;
@@ -194,6 +197,7 @@ public class CalendarioBean implements Serializable {
     }
     
     public void salvar() {
+        //inserir validador
         calendarioDao.adicionar(calendario);
     }
 
@@ -204,8 +208,15 @@ public class CalendarioBean implements Serializable {
     public void setCalendario(Calendario calendario) {
         this.calendario = calendario;
     }
-    
 
+    public Calendario getItemSelecionado() {
+        return itemSelecionado;
+    }
+
+    public void setItemSelecionado(Calendario itemSelecionado) {
+        this.itemSelecionado = itemSelecionado;
+    }
+    
     public LazyDataModel<Evento> getEventosRecentes() {
         return eventos;
     }

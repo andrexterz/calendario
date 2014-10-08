@@ -13,19 +13,16 @@
                     <p:toolbar>
                         <f:facet name="left">
                             <p:commandButton icon="ui-icon-disk"
-                                             action="salvaCalendarioForm"
-                                             actionListener="#{calendarioBean.adicionar}" />
+                                             action="salvaInteressadoForm"
+                                             actionListener="#{interessadoBean.adicionar}" />
                         </f:facet>
                     </p:toolbar>
-                    <p:dataTable value="#{calendarioDao.listar()}" var="calendario">
+                    <p:dataTable value="#{interessadoDao.listar()}" var="interessado">
                         <p:column headerText="#{msg.id}">
-                            #{calendario.id}
+                            #{interessado.id}
                         </p:column>
-                        <p:column headerText="#{msg.ano}">
-                            #{calendario.ano}
-                        </p:column>
-                        <p:column headerText="#{msg.ativo}">
-                            #{calendario.ativo}
+                        <p:column headerText="#{msg.interessado}">
+                            #{interessado.nome}
                         </p:column>
                     </p:dataTable>
                 </h:form>

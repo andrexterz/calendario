@@ -9,11 +9,10 @@
         <ui:define name="content">
             <div class="content">
                 <h:form>
-                    <p:outputLabel value="#{msg.calendario}" />
-                    <p:inputText value="#{calendarioBean.calendario.ano}" />
-                    <p:selectBooleanButton onLabel="#{msg.ativo}" offLabel="#{msg.inativo}" value="#{calendarioBean.calendario.ativo}" />
-                    <p:commandButton icon="ui-icon-disk" action="calendario" actionListener="#{calendarioBean.salvar}" />
-                    <p:commandButton icon="ui-icon-close" action="calendario" />
+                    <p:outputLabel value="#{msg.interessado}" />
+                    <p:inputText value="#{interessadoBean.interessado.nome}" />
+                    <p:commandButton icon="ui-icon-disk" action="interessado" actionListener="#{interessadoBean.salvar}" />
+                    <p:commandButton icon="ui-icon-close" action="interessado" />
                 </h:form>
             </div>
         </ui:define>
