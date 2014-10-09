@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/views/base.xhtml">
+        <ui:define name="title">#{msg.inicio}</ui:define>
+        <ui:define name="content">
+            <div class="content">
+                <h:form>
+                    <p:outputLabel value="#{msg.codigo}" />
+                    <p:inputText value="#{regionalBean.regional.codigo}" />
+                    <p:outputLabel value="#{msg.regional}" />
+                    <p:inputText value="#{regionalBean.regional.nome}" />
+                    <p:commandButton icon="ui-icon-disk" action="regional" actionListener="#{regionalBean.salvar}" />
+                    <p:commandButton icon="ui-icon-close" action="regional" />
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
