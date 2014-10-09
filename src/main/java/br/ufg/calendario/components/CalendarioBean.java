@@ -198,6 +198,7 @@ public class CalendarioBean implements Serializable {
     
     public void salvar() {
         //inserir validador
+        //implementar adicionar/atualizar evento ao salvar
         calendarioDao.adicionar(calendario);
     }
 

@@ -40,6 +40,7 @@ public class InteressadoBean implements Serializable {
     
     public void salvar() {
         //inserir validador
+        //implementar adicionar/atualizar evento ao salvar
         interessadoDao.adicionar(interessado);
     }
 

@@ -8,6 +8,7 @@ package br.ufg.calendario.models;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -57,10 +58,10 @@ public class Evento extends Base {
     @ManyToOne
     private Calendario calendario;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Regional> regional;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Interessado> interessado;
 
     /**

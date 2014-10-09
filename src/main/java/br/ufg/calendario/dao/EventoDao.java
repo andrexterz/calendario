@@ -5,7 +5,7 @@
  */
 package br.ufg.calendario.dao;
 
-import br.ufg.calendario.models.Interessado;
+import br.ufg.calendario.models.Evento;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -21,49 +21,48 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Scope(value = "singleton")
-public class InteressadoDao {
+public class EventoDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Transactional
-    public boolean adicionar(Interessado interessado) {
-        Session session = this.sessionFactory.getCurrentSession();
-        try {
-            session.save(interessado);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Transactional
-    public boolean atualizar(Interessado interessado) {
-        Session session = this.sessionFactory.getCurrentSession();
-        try {
-            session.update(interessado);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Transactional
-    public boolean excluir(Interessado interessado) {
-        Session session = this.sessionFactory.getCurrentSession();
-        try {
-            session.delete(interessado);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Transactional(readOnly = true)
-    public List<Interessado> listar() {
+    public boolean adicionar(Evento evento) {
         Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Interessado.class);
+        try {
+            session.save(evento);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    @Transactional
+    public boolean atualizar(Evento evento) {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.update(evento);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }        
+    }
+    
+    @Transactional
+    public boolean excluir(Evento evento) {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.delete(evento);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }        
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Evento> listar() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
         return criteria.list();
     }
-
 }

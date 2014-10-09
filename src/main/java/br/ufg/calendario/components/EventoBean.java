@@ -6,10 +6,9 @@
 
 package br.ufg.calendario.components;
 
-import br.ufg.calendario.dao.RegionalDao;
-import br.ufg.calendario.models.Regional;
+import br.ufg.calendario.dao.EventoDao;
+import br.ufg.calendario.models.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,48 +16,44 @@ import org.springframework.stereotype.Component;
  * @author André
  */
 
-
 @Component
-@Scope(value = "session")
-public class RegionalBean {
-    
+public class EventoBean {
     
     @Autowired
-    RegionalDao regionalDao;
-   
-    private Regional regional;
-    private Regional itemSelecionado;
+    private EventoDao eventoDao;
+    
+    private Evento evento;
+    private Evento itemSelecionado;
 
-    public RegionalBean() {
-        regional = new Regional();
+    public EventoBean() {
+        
+        evento = new Evento();
         itemSelecionado = null;
     }
     
     public void adicionar() {
-        regional = new Regional();
+        evento = new Evento();
     }
-    
     
     public void salvar() {
         //inserir validador
         //implementar adicionar/atualizar evento ao salvar
-        regionalDao.adicionar(regional);
-    }
-    
-
-    public Regional getRegional() {
-        return regional;
+        eventoDao.adicionar(evento);
     }
 
-    public void setRegional(Regional regional) {
-        this.regional = regional;
+    public Evento getEvento() {
+        return evento;
     }
 
-    public Regional getItemSelecionado() {
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public Evento getItemSelecionado() {
         return itemSelecionado;
     }
 
-    public void setItemSelecionado(Regional itemSelecionado) {
+    public void setItemSelecionado(Evento itemSelecionado) {
         this.itemSelecionado = itemSelecionado;
     }
 }

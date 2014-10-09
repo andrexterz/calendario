@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/views/base.xhtml">
+        <ui:define name="title">#{msg.inicio}</ui:define>
+        <ui:define name="content">
+            <div class="content">
+                <h:form>
+                    <p:outputLabel value="#{msg.calendario}" />
+                    <p:selectOneMenu value="#{evento.calendario}">
+                        <f:selectItems value="#{calendarioDao.listar}"
+                                       var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{msg.assunto}" />
+                    <p:inputText value="#{eventoBean.evento.assunto}" />
+                    <p:outputLabel value="#{msg.descricao}" />
+                    <p:inputText value="#{eventoBean.evento.descricao}" />
+                    <p:outputLabel value="#{msg.dataInicio}" />
+                    <p:inputText value="#{eventoBean.evento.inicio}" />
+                    <p:outputLabel value="#{msg.dataTermino}" />
+                    <p:inputText value="#{eventoBean.evento.termino}" />
+                    <p:outputLabel value="#{msg.regional}" />
+                    <p:selectManyMenu>
+                        <!implementar-->
+                    </p:selectManyMenu>
+                    <p:commandButton icon="ui-icon-disk" action="calendario" actionListener="#{calendarioBean.salvar}" />
+                    <p:commandButton icon="ui-icon-close" action="calendario" />
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
