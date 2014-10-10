@@ -12,7 +12,7 @@
                 <h:form>
                     <p:outputLabel value="#{msg.calendario}" />
                     <p:selectOneMenu value="#{evento.calendario}">
-                        <f:selectItems value="#{calendarioDao.listar}"
+                        <f:selectItems value="#{calendarioDao.listar()}"
                                        var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="#{msg.assunto}" />
@@ -24,8 +24,8 @@
                     <p:outputLabel value="#{msg.dataTermino}" />
                     <p:inputText value="#{eventoBean.evento.termino}" />
                     <p:outputLabel value="#{msg.regional}" />
-                    <p:selectManyMenu>
-                        <!implementar-->
+                    <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.regional}">
+                        <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" value="#{regional}" />
                     </p:selectManyMenu>
                     <p:commandButton icon="ui-icon-disk" action="calendario" actionListener="#{calendarioBean.salvar}" />
                     <p:commandButton icon="ui-icon-close" action="calendario" />
