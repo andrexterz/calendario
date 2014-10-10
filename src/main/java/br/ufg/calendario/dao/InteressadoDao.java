@@ -58,6 +58,12 @@ public class InteressadoDao {
             return false;
         }
     }
+    
+    @Transactional(readOnly = true)
+    public Interessado buscar(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Interessado) session.get(Interessado.class, id);
+    }    
 
     @Transactional(readOnly = true)
     public List<Interessado> listar() {

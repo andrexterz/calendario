@@ -60,6 +60,13 @@ public class RegionalDao {
     }
 
     @Transactional(readOnly = true)
+    public Regional buscar(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Regional) session.get(Regional.class, id);
+    }
+        
+    
+    @Transactional(readOnly = true)
     public List<Regional> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Regional.class);

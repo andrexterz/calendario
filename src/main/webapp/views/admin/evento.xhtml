@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/views/base.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
@@ -32,6 +33,11 @@
                         </p:column>
                         <p:column headerText="#{msg.assunto}">
                             #{evento.assunto}
+                        </p:column>
+                        <p:column headerText="#{msg.regional}">
+                            <p:dataList value="#{evento.interessado}" var="interessado">
+                                #{interessado.nome}
+                            </p:dataList>
                         </p:column>
                     </p:dataTable>
                 </h:form>

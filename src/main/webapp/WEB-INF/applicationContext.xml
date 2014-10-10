@@ -14,7 +14,7 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
     
-    <context:component-scan base-package="br.ufg.calendario.components, br.ufg.calendario.dao"/>
+    <context:component-scan base-package="br.ufg.calendario.components, br.ufg.calendario.converters, br.ufg.calendario.dao"/>
     <util:properties id="calendarioSettings" location="classpath:br/ufg/calendario/conf/calendario.properties" />
     <context:property-placeholder properties-ref="calendarioSettings" />
     

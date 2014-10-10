@@ -6,7 +6,10 @@
 
 package br.ufg.calendario.models;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -17,33 +20,19 @@ import javax.persistence.Entity;
 public class Regional extends Base {
     
     private String codigo;
-    
+
     private String nome;
 
-    /**
-     * @return the codigo
-     */
     public String getCodigo() {
         return codigo;
     }
-
-    /**
-     * @param codigo the codigo to set
-     */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }

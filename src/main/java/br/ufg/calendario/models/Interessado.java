@@ -6,7 +6,10 @@
 
 package br.ufg.calendario.models;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -15,23 +18,14 @@ import javax.persistence.Entity;
 
 @Entity
 public class Interessado extends Base {
-    
+   
     private String nome;
-    
-    /**
-     * 
-     * @return the nome
-     */
+
     public String getNome() {
         return nome;
     }
     
-    /**
-     * 
-     * @param nome 
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
 }

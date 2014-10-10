@@ -9,27 +9,37 @@
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
             <div class="content">
-                <h:form>
-                    <p:outputLabel value="#{msg.calendario}" />
-                    <p:selectOneMenu value="#{evento.calendario}">
-                        <f:selectItems value="#{calendarioDao.listar()}"
-                                       var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
-                    </p:selectOneMenu>
-                    <p:outputLabel value="#{msg.assunto}" />
-                    <p:inputText value="#{eventoBean.evento.assunto}" />
-                    <p:outputLabel value="#{msg.descricao}" />
-                    <p:inputText value="#{eventoBean.evento.descricao}" />
-                    <p:outputLabel value="#{msg.dataInicio}" />
-                    <p:inputText value="#{eventoBean.evento.inicio}" />
-                    <p:outputLabel value="#{msg.dataTermino}" />
-                    <p:inputText value="#{eventoBean.evento.termino}" />
-                    <p:outputLabel value="#{msg.regional}" />
-                    <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.regional}">
-                        <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" value="#{regional}" />
-                    </p:selectManyMenu>
-                    <p:commandButton icon="ui-icon-disk" action="calendario" actionListener="#{calendarioBean.salvar}" />
-                    <p:commandButton icon="ui-icon-close" action="calendario" />
-                </h:form>
+                <f:validateBean disabled="true">
+                    <h:form>
+                        <p:outputLabel value="#{msg.calendario}" />
+                        <p:selectOneMenu value="#{eventoBean.evento.calendario}" converter="#{calendarioConverter}">
+                            <f:selectItems value="#{calendarioDao.listar()}"
+                                           var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{msg.assunto}" />
+                        <p:inputText value="#{eventoBean.evento.assunto}" />
+                        <p:outputLabel value="#{msg.descricao}" />
+                        <p:inputText value="#{eventoBean.evento.descricao}" />
+                        <p:outputLabel value="#{msg.dataInicio}" />
+                        <p:calendar value="#{eventoBean.evento.inicio}" pattern="dd/MM/yyyy">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:calendar>
+                        <p:outputLabel value="#{msg.dataTermino}" />
+                        <p:calendar value="#{eventoBean.evento.termino}" pattern="dd/MM/yyyy">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:calendar>
+                        <p:outputLabel value="#{msg.interessado}" />
+                        <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.interessado}" converter="#{interessadoConverter}">
+                            <f:selectItems value="#{interessadoDao.listar()}" var="interessado" itemLabel="#{interessado.nome}" itemValue="#{interessado}" />
+                        </p:selectManyMenu>
+                        <p:outputLabel value="#{msg.regional}" />
+                        <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.regional}" converter="#{regionalConverter}">
+                            <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" itemValue="#{regional}" />
+                        </p:selectManyMenu>
+                        <p:commandButton icon="ui-icon-disk" action="evento" actionListener="#{eventoBean.salvar}" />
+                        <p:commandButton icon="ui-icon-close" ajax="false" action="evento" />
+                    </h:form>
+                </f:validateBean>
             </div>
         </ui:define>
     </ui:composition>

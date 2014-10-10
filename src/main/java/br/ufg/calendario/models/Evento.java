@@ -11,8 +11,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
@@ -55,13 +58,18 @@ public class Evento extends Base {
     private String descricao;
     
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Calendario calendario;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    
+    @NotNull
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
     private List<Regional> regional;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @NotNull
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
     private List<Interessado> interessado;
 
     /**

@@ -56,6 +56,12 @@ public class CalendarioDao {
     }
 
     @Transactional(readOnly = true)
+    public Calendario buscar(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Calendario) session.get(Calendario.class, id);
+    }
+    
+    @Transactional(readOnly = true)
     public List<Calendario> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Calendario.class);

@@ -8,6 +8,8 @@ package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
+import br.ufg.calendario.models.Interessado;
+import br.ufg.calendario.models.Regional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +40,14 @@ public class EventoBean {
     public void salvar() {
         //inserir validador
         //implementar adicionar/atualizar evento ao salvar
+        for (Regional r: evento.getRegional()) {
+            System.out.println("Regional: " +  r.getNome());
+        }
+        
+        for (Interessado i: evento.getInteressado()) {
+            System.out.println("Interessado: " + i.getNome());
+        }
+        
         eventoDao.adicionar(evento);
     }
 
