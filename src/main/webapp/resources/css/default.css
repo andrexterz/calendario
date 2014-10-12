@@ -526,3 +526,17 @@ col40 {
     top: 64px;
     left: 64px;
 }
+
+
+/************************************ admin pages *****************************/
+.eventoDetalhe {
+    
+}
+
+.eventoDetalhe table td {
+    border: 0;
+}
+
+.eventoDescricao {
+    margin: 10px;
+}

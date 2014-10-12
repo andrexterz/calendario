@@ -18,7 +18,10 @@
                                              actionListener="#{eventoBean.adicionar}" />
                         </f:facet>
                     </p:toolbar>
-                    <p:dataTable value="#{eventoDao.listar()}" var="evento">
+                    <p:dataTable value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
+                        <p:column styleClass="col5">
+                            <p:rowToggler />
+                        </p:column>
                         <p:column headerText="#{msg.id}" styleClass="col5">
                             #{evento.id}
                         </p:column>
@@ -31,24 +34,30 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.dataTermino}" styleClass="col10 alignCenter">
-                             <h:outputText value="#{evento.termino}">
+                            <h:outputText value="#{evento.termino}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="#{msg.assunto}" styleClass="col30 alignCenter">
+                        <p:column headerText="#{msg.assunto}" styleClass="col40 alignLeft">
                             #{evento.assunto}
                         </p:column>
-                        <p:column headerText="#{msg.interessado}" styleClass="col10 alignCenter">
+                        <p:rowExpansion>
+                            <p:panel header="#{msg.descricao}">
+                                <p class="eventoDescricao">#{evento.descricao}</p>
+                            </p:panel>
                             <p:dataList value="#{evento.interessado}" var="interessado">
+                                <f:facet name="header">
+                                    #{msg.interessado}
+                                </f:facet>
                                 #{interessado.nome}
                             </p:dataList>
-                            <p:commandButton icon="ui-icon-search" />
-                        </p:column>
-                        <p:column headerText="#{msg.regional}" styleClass="col10 alignCenter">
                             <p:dataList value="#{evento.regional}" var="regional">
+                                <f:facet name="header">
+                                    #{msg.regional}
+                                </f:facet>
                                 #{regional.nome}
                             </p:dataList>
-                        </p:column>
+                        </p:rowExpansion>
                     </p:dataTable>
                 </h:form>
             </div>

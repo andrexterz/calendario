@@ -36,8 +36,8 @@
                         <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.regional}" converter="#{regionalConverter}">
                             <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" itemValue="#{regional}" />
                         </p:selectManyMenu>
-                        <p:commandButton icon="ui-icon-disk" action="evento" actionListener="#{eventoBean.salvar}" />
-                        <p:commandButton icon="ui-icon-close" ajax="false" action="evento" />
+                        <p:commandButton icon="ui-icon-disk" action="eventos" actionListener="#{eventoBean.salvar}" />
+                        <p:commandButton icon="ui-icon-close" ajax="false" action="eventos" />
                     </h:form>
                 </f:validateBean>
             </div>

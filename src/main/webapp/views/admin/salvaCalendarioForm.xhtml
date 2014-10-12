@@ -12,8 +12,8 @@
                     <p:outputLabel value="#{msg.calendario}" />
                     <p:inputText value="#{calendarioBean.calendario.ano}" />
                     <p:selectBooleanButton onLabel="#{msg.ativo}" offLabel="#{msg.inativo}" value="#{calendarioBean.calendario.ativo}" />
-                    <p:commandButton icon="ui-icon-disk" action="calendario" actionListener="#{calendarioBean.salvar}" />
-                    <p:commandButton icon="ui-icon-close" action="calendario" />
+                    <p:commandButton icon="ui-icon-disk" action="calendarios" actionListener="#{calendarioBean.salvar}" />
+                    <p:commandButton icon="ui-icon-close" action="calendarios" />
                 </h:form>
             </div>
         </ui:define>

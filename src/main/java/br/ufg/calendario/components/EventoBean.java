@@ -10,6 +10,10 @@ import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.util.ArrayList;
+import java.util.List;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,11 +30,13 @@ public class EventoBean {
     
     private Evento evento;
     private Evento itemSelecionado;
-
+    private final List<Evento> eventos;
+    
     public EventoBean() {
         
         evento = new Evento();
         itemSelecionado = null;
+        eventos = new ArrayList<>();
     }
     
     public void adicionar() {
@@ -65,5 +71,9 @@ public class EventoBean {
 
     public void setItemSelecionado(Evento itemSelecionado) {
         this.itemSelecionado = itemSelecionado;
+    }
+    
+    public List<Evento> getEventos() {
+       return eventos;
     }
 }
