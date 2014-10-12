@@ -7,7 +7,7 @@
 package br.ufg.calendario.models;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class Evento extends Base {
     public Evento() {
     }
 
-    public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, List<Regional> regional, List<Interessado> interessado) {
+    public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, Set<Regional> regional, Set<Interessado> interessado) {
         this.assunto = assunto;
         this.inicio = inicio;
         this.termino = termino;
@@ -58,19 +58,19 @@ public class Evento extends Base {
     private String descricao;
     
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Calendario calendario;
     
     
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
-    private List<Regional> regional;
+    private Set<Regional> regional;
     
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
-    private List<Interessado> interessado;
+    private Set<Interessado> interessado;
 
     /**
      * @return the assunto
@@ -145,28 +145,28 @@ public class Evento extends Base {
     /**
      * @return the regional
      */
-    public List<Regional> getRegional() {
+    public Set<Regional> getRegional() {
         return regional;
     }
 
     /**
      * @param regional the regional to set
      */
-    public void setRegional(List<Regional> regional) {
+    public void setRegional(Set<Regional> regional) {
         this.regional = regional;
     }
 
     /**
      * @return the interessado
      */
-    public List<Interessado> getInteressado() {
+    public Set<Interessado> getInteressado() {
         return interessado;
     }
 
     /**
      * @param interessado the interessado to set
      */
-    public void setInteressado(List<Interessado> interessado) {
+    public void setInteressado(Set<Interessado> interessado) {
         this.interessado = interessado;
     }
 }

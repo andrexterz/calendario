@@ -13,30 +13,40 @@
                 <h:form>
                     <p:toolbar>
                         <f:facet name="left">
-                            <p:commandButton icon="ui-icon-disk"
+                            <p:commandButton icon="ui-icon-document"
                                              action="salvaEventoForm"
                                              actionListener="#{eventoBean.adicionar}" />
                         </f:facet>
                     </p:toolbar>
                     <p:dataTable value="#{eventoDao.listar()}" var="evento">
-                        <p:column headerText="#{msg.id}">
+                        <p:column headerText="#{msg.id}" styleClass="col5">
                             #{evento.id}
                         </p:column>
-                        <p:column headerText="#{msg.calendario}">
+                        <p:column headerText="#{msg.calendario}" styleClass="col10 alignCenter">
                             #{evento.calendario.ano}
                         </p:column>
-                        <p:column headerText="#{msg.dataInicio}">
-                            #{evento.inicio}
+                        <p:column headerText="#{msg.dataInicio}" styleClass="col10 alignCenter">
+                            <h:outputText value="#{evento.inicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
                         </p:column>
-                        <p:column headerText="#{msg.dataTermino}">
-                            #{evento.termino}
+                        <p:column headerText="#{msg.dataTermino}" styleClass="col10 alignCenter">
+                             <h:outputText value="#{evento.termino}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
                         </p:column>
-                        <p:column headerText="#{msg.assunto}">
+                        <p:column headerText="#{msg.assunto}" styleClass="col30 alignCenter">
                             #{evento.assunto}
                         </p:column>
-                        <p:column headerText="#{msg.regional}">
+                        <p:column headerText="#{msg.interessado}" styleClass="col10 alignCenter">
                             <p:dataList value="#{evento.interessado}" var="interessado">
                                 #{interessado.nome}
+                            </p:dataList>
+                            <p:commandButton icon="ui-icon-search" />
+                        </p:column>
+                        <p:column headerText="#{msg.regional}" styleClass="col10 alignCenter">
+                            <p:dataList value="#{evento.regional}" var="regional">
+                                #{regional.nome}
                             </p:dataList>
                         </p:column>
                     </p:dataTable>

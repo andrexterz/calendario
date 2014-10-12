@@ -509,9 +509,12 @@ col40 {
     width: 100%;
 }
 
+.alignCenter {
+    text-align: center;
+}
 
 .alignLeft {
-    text-align: left
+    text-align: left;
 }
 
 .alignRight {
