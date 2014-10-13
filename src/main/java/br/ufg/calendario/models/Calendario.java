@@ -15,6 +15,15 @@ import javax.persistence.Entity;
 
 @Entity
 public class Calendario extends Base {
+
+    public Calendario() {
+        ativo = false;
+    }
+
+    public Calendario(Integer ano, boolean ativo) {
+        this.ano = ano;
+        this.ativo = ativo;
+    }
     
     private Integer ano;
     

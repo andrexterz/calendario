@@ -435,7 +435,11 @@ hr {
     transition: all 250ms;    
 }
 
-
+.iconDefault {
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0;
+}
 
 .labelSpace {
     margin-right: 1em;
@@ -520,6 +524,20 @@ col40 {
 .alignRight {
     text-align: right;
 }
+
+.floatCenter {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.floatLeft {
+    float: left;
+}
+
+.floatRight {
+    float: right;
+}
+
 /************************************ footer **********************************/
 .ajaxStatus {
     position: fixed;
@@ -527,10 +545,25 @@ col40 {
     left: 64px;
 }
 
+/********************************* toolbar items ******************************/
+.inputSearch {
+    font-family: inherit;
+    font-weight: normal;
+    padding: 4px;
+    border: 1px solid;
+    background-image: url("#{resource['img/search.png']}");
+    background-repeat: no-repeat;
+    background-position: top right; 
+}
+
+.inputSearch:focus {
+    color: #2eabe2;
+}
+
 
 /************************************ admin pages *****************************/
 .eventoDetalhe {
-    
+
 }
 
 .eventoDetalhe table td {
@@ -539,4 +572,63 @@ col40 {
 
 .eventoDescricao {
     margin: 10px;
+}
+
+.item {
+    width: auto;
+    height: 40px;
+    background-color: #eee;
+    padding: 4px;
+}
+
+.itemIcon {
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: auto;
+    height: 32px;
+    font-weight: bold!important;
+    text-decoration: none;
+    text-align: left;
+    text-indent: 36px;
+    vertical-align: middle;    
+    display: table-cell;
+}
+
+.itemIcon:hover {
+    text-decoration: none;
+    background-position: 0 -32px;
+}
+
+.itemIcon.selection {
+    color: #2eabe2!important;
+    background-position: 0 -32px;
+}
+
+.itemCalendar {
+    background-image: url("#{resource['img/calendar.png']}");
+}
+
+/************************************ forms ***********************************/
+.formGrid {
+    width: 100%;
+    margin: 2px;
+    
+}
+
+.formGrid tr {
+    border: 0 transparent;
+}
+
+.dialogButtons {
+    text-align: center;
+}
+
+.dialogButtons button {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.separator {
+    margin: 0;
 }

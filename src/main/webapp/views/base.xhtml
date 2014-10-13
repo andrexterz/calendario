@@ -59,9 +59,8 @@
                                         <p:commandLink value="#{msg.inicio}" action="home" />
                                     </li>
                                     <li>
-                                        <h:selectOneMenu styleClass="menuCalendar">
-                                            <f:selectItem itemLabel="calendário 2014" itemValue="2014" />
-                                            <f:selectItem itemLabel="calendário 2015" itemValue="2015" />
+                                        <h:selectOneMenu styleClass="menuCalendar" value="#{calendarioBean.calendario}">
+                                            <f:selectItems value="#{calendarioDao.listar()}" var="calendario" itemLabel="#{msg.calendario} #{calendario.ano}" itemValue="#{calendario}" />
                                         </h:selectOneMenu>
                                     </li>
                                 </ul>

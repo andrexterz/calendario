@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 public class CalendarioBean implements Serializable {
 
     @Autowired
-    private CalendarioDao calendarioDao;
+    transient private CalendarioDao calendarioDao;
     
     private Calendario calendario;
     
@@ -52,6 +52,7 @@ public class CalendarioBean implements Serializable {
     private Date dataTermino;
 
     public CalendarioBean() {
+        calendario = new Calendario();
         dataInicio = Calendar.getInstance().getTime();
         dataTermino = Calendar.getInstance().getTime();
 

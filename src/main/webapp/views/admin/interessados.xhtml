@@ -18,10 +18,10 @@
                         </f:facet>
                     </p:toolbar>
                     <p:dataTable value="#{interessadoDao.listar()}" var="interessado">
-                        <p:column headerText="#{msg.id}">
+                        <p:column headerText="#{msg.id}" styleClass="col5">
                             #{interessado.id}
                         </p:column>
-                        <p:column headerText="#{msg.interessado}">
+                        <p:column headerText="#{msg.interessado}" styleClass="col95">
                             #{interessado.nome}
                         </p:column>
                     </p:dataTable>

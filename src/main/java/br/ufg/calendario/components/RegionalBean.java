@@ -24,7 +24,7 @@ public class RegionalBean {
     
     
     @Autowired
-    RegionalDao regionalDao;
+    transient RegionalDao regionalDao;
    
     private Regional regional;
     private Regional itemSelecionado;
