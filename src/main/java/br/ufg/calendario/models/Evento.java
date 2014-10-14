@@ -8,7 +8,6 @@ package br.ufg.calendario.models;
 
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -63,12 +62,12 @@ public class Evento extends Base {
     
     
     @NotNull
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
     private Set<Regional> regional;
     
     @NotNull
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
     private Set<Interessado> interessado;
 
