@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view locale="pt_BR">
+        <h:head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>
+                <ui:insert name="title">calendario</ui:insert>
+            </title>
+            <h:outputScript library="js" name="locale_pt.js" />
+            <h:outputScript library="js" name="calendario.js" />
+            <h:outputStylesheet library="css" name="default.css" />
+        </h:head>
+        <h:body>
+            <h:panelGroup layout="block" styleClass="adminTopMenu">
+                <p:graphicImage value="#{resource['img/ufg-logo48w.png']}" styleClass="logoAdmin" />
+                <div  class="appTitleAdmin">
+                    <h:outputText value="#{msg.appNome}" />
+                </div>
+                <h:form>
+                    <p:commandLink styleClass="menuItem32 calendarIcon" title="#{msg.calendario}" action="calendarios" />
+                    <p:commandLink styleClass="menuItem32 eventIcon" title="#{msg.evento}" action="eventos" />
+                    <p:commandLink styleClass="menuItem32 moduleIcon" title="#{msg.regional}" action="regionais" />
+                    <p:commandLink styleClass="menuItem32 userIcon" title="#{msg.interessado}" action="interessados" />                    
+                </h:form>
+                <ui:insert name="menuTop">
+                </ui:insert>                
+            </h:panelGroup>
+            <h:panelGroup layout="block" id="content" class="contentAdmin">
+                <ui:insert name="content">
+                </ui:insert>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="footer">
+                <p:ajaxStatus>
+                    <f:facet name="start">
+                        <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" styleClass="ajaxStatus" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value=""/>
+                    </f:facet>
+                </p:ajaxStatus>                
+            </h:panelGroup>
+        </h:body>
+    </f:view>
+</html>
+

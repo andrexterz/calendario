@@ -5,28 +5,26 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:composition template="/views/base.xhtml">
+    <ui:composition template="baseAdmin.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
-            <div class="content">
-                <h:form>
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <p:commandButton icon="ui-icon-document"
-                                             action="salvaInteressadoForm"
-                                             actionListener="#{interessadoBean.adicionar}" />
-                        </f:facet>
-                    </p:toolbar>
-                    <p:dataTable value="#{interessadoDao.listar()}" var="interessado">
-                        <p:column headerText="#{msg.id}" styleClass="col5">
-                            #{interessado.id}
-                        </p:column>
-                        <p:column headerText="#{msg.interessado}" styleClass="col95">
-                            #{interessado.nome}
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </div>
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton icon="ui-icon-document"
+                                         action="salvaInteressadoForm"
+                                         actionListener="#{interessadoBean.adicionar}" />
+                    </f:facet>
+                </p:toolbar>
+                <p:dataTable value="#{interessadoDao.listar()}" var="interessado">
+                    <p:column headerText="#{msg.id}" styleClass="col5">
+                        #{interessado.id}
+                    </p:column>
+                    <p:column headerText="#{msg.interessado}" styleClass="col95">
+                        #{interessado.nome}
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

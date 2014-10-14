@@ -6,59 +6,57 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <ui:composition template="/views/base.xhtml">
+    <ui:composition template="baseAdmin.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
-            <div class="content">
-                <h:form>
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <p:commandButton icon="ui-icon-document"
-                                             action="salvaEventoForm"
-                                             actionListener="#{eventoBean.adicionar}" />
-                        </f:facet>
-                    </p:toolbar>
-                    <p:dataTable value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
-                        <p:column styleClass="col5">
-                            <p:rowToggler />
-                        </p:column>
-                        <p:column headerText="#{msg.id}" styleClass="col5">
-                            #{evento.id}
-                        </p:column>
-                        <p:column headerText="#{msg.calendario}" styleClass="col10 alignCenter">
-                            #{evento.calendario.ano}
-                        </p:column>
-                        <p:column headerText="#{msg.dataInicio}" styleClass="col10 alignCenter">
-                            <h:outputText value="#{evento.inicio}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="#{msg.dataTermino}" styleClass="col10 alignCenter">
-                            <h:outputText value="#{evento.termino}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="#{msg.assunto}" styleClass="col40 alignLeft">
-                            #{evento.assunto}
-                        </p:column>
-                        <p:rowExpansion>
-                            <p:panel header="#{msg.descricao}">
-                                <p class="eventoDescricao">#{evento.descricao}</p>
-                            </p:panel>
-                            <p:panel header="#{msg.interessado}">
-                                <p:dataList value="#{evento.interessado}" var="interessado">
-                                    #{interessado.nome}
-                                </p:dataList>
-                            </p:panel>
-                            <p:panel header="#{msg.regional}">
-                                <p:dataList value="#{evento.regional}" var="regional">
-                                    #{regional.nome}
-                                </p:dataList>
-                            </p:panel>
-                        </p:rowExpansion>
-                    </p:dataTable>
-                </h:form>
-            </div>
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton icon="ui-icon-document"
+                                         action="salvaEventoForm"
+                                         actionListener="#{eventoBean.adicionar}" />
+                    </f:facet>
+                </p:toolbar>
+                <p:dataTable value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
+                    <p:column styleClass="col5">
+                        <p:rowToggler />
+                    </p:column>
+                    <p:column headerText="#{msg.id}" styleClass="col5">
+                        #{evento.id}
+                    </p:column>
+                    <p:column headerText="#{msg.calendario}" styleClass="col10 alignCenter">
+                        #{evento.calendario.ano}
+                    </p:column>
+                    <p:column headerText="#{msg.dataInicio}" styleClass="col10 alignCenter">
+                        <h:outputText value="#{evento.inicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="#{msg.dataTermino}" styleClass="col10 alignCenter">
+                        <h:outputText value="#{evento.termino}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="#{msg.assunto}" styleClass="col40 alignLeft">
+                        #{evento.assunto}
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:panel header="#{msg.descricao}">
+                            <p class="eventoDescricao">#{evento.descricao}</p>
+                        </p:panel>
+                        <p:panel header="#{msg.interessado}">
+                            <p:dataList value="#{evento.interessado}" var="interessado">
+                                #{interessado.nome}
+                            </p:dataList>
+                        </p:panel>
+                        <p:panel header="#{msg.regional}">
+                            <p:dataList value="#{evento.regional}" var="regional">
+                                #{regional.nome}
+                            </p:dataList>
+                        </p:panel>
+                    </p:rowExpansion>
+                </p:dataTable>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

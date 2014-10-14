@@ -10,6 +10,7 @@ and open the template in the editor.
 /********************************** html & body ********************************/
 body {
     font-size: 10pt;
+    font-family: "Lucida Grande", lucida, "Helvetica CE", sans-serif;    
 }
 
 hr {
@@ -179,17 +180,23 @@ hr {
     background-image: url("#{resource['img/calendar64.png']}");
 }
 
-.userIcon {
-    background-image: url("#{resource['img/user.png']}");
+.eventIcon {
+    background-image: url("#{resource['img/event.png']}");
+}
+
+.listIcon {
+    background-image: url("#{resource['img/list.png']}");
 }
 
 .moduleIcon {
     background-image: url("#{resource['img/module.png']}");
 }
 
-.listIcon {
-    background-image: url("#{resource['img/list.png']}");
+.userIcon {
+    background-image: url("#{resource['img/user.png']}");
 }
+
+
 
 .menuButton {
     width: 32px;
@@ -538,13 +545,6 @@ col40 {
     float: right;
 }
 
-/************************************ footer **********************************/
-.ajaxStatus {
-    position: fixed;
-    top: 64px;
-    left: 64px;
-}
-
 /********************************* toolbar items ******************************/
 .inputSearch {
     font-family: inherit;
@@ -562,6 +562,50 @@ col40 {
 
 
 /************************************ admin pages *****************************/
+
+.adminTopMenu {
+    position: absolute;
+    width: auto;
+    height: 64px;
+    top: 0; 
+    left: 0;
+    right: 0;
+    background-color: #333;
+}
+.logoAdmin {
+    margin-top: 4px;
+    margin-left: 16px;
+    margin-right: 4px;
+    border-right: 1px solid #ccc;
+    padding-top: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-bottom: 2px;
+}
+
+.appTitleAdmin {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    color: #eee;
+    margin: 6px;
+    width: auto;
+    height: 64px;
+    vertical-align: middle;
+    line-height: 100%;
+}
+
+.adminTopMenu form {
+    display: inline-block;
+}
+
+
+
+/***************************** admin content **********************************/
+.contentAdmin {
+    margin-top: 66px;
+}
+
 .eventoDetalhe {
 
 }
@@ -613,7 +657,7 @@ col40 {
 .formGrid {
     width: 100%;
     margin: 2px;
-    
+
 }
 
 .formGrid tr {
@@ -631,4 +675,21 @@ col40 {
 
 .separator {
     margin: 0;
+}
+
+/************************************ footer **********************************/
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    height: 32px;
+    background: #777;
+}
+
+.ajaxStatus {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px;
+    float: right;
 }
