@@ -45,18 +45,16 @@
                             <p:panel header="#{msg.descricao}">
                                 <p class="eventoDescricao">#{evento.descricao}</p>
                             </p:panel>
-                            <p:dataList value="#{evento.interessado}" var="interessado">
-                                <f:facet name="header">
-                                    #{msg.interessado}
-                                </f:facet>
-                                #{interessado.nome}
-                            </p:dataList>
-                            <p:dataList value="#{evento.regional}" var="regional">
-                                <f:facet name="header">
-                                    #{msg.regional}
-                                </f:facet>
-                                #{regional.nome}
-                            </p:dataList>
+                            <p:panel header="#{msg.interessado}">
+                                <p:dataList value="#{evento.interessado}" var="interessado">
+                                    #{interessado.nome}
+                                </p:dataList>
+                            </p:panel>
+                            <p:panel header="#{msg.regional}">
+                                <p:dataList value="#{evento.regional}" var="regional">
+                                    #{regional.nome}
+                                </p:dataList>
+                            </p:panel>
                         </p:rowExpansion>
                     </p:dataTable>
                 </h:form>
