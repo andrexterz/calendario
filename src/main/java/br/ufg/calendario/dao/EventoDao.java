@@ -7,10 +7,12 @@ package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Evento;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -37,7 +39,7 @@ public class EventoDao {
             return false;
         }
     }
-    
+
     @Transactional
     public boolean atualizar(Evento evento) {
         Session session = sessionFactory.getCurrentSession();
@@ -46,9 +48,9 @@ public class EventoDao {
             return true;
         } catch (Exception e) {
             return false;
-        }        
+        }
     }
-    
+
     @Transactional
     public boolean excluir(Evento evento) {
         Session session = sessionFactory.getCurrentSession();
@@ -57,13 +59,33 @@ public class EventoDao {
             return true;
         } catch (Exception e) {
             return false;
-        }        
+        }
     }
-    
+
     @Transactional(readOnly = true)
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Evento> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
+        criteria.setFirstResult(first);
+        criteria.setMaxResults(pageSize);
+        if ((sortField != null && !sortField.isEmpty())  && (sortOrder != null && !sortOrder.isEmpty())) {
+            if (sortOrder.equals("ASCENDING")) {
+                criteria.addOrder(Order.asc(sortField));
+            } if (sortOrder.equals("DESCENDING")) {
+                criteria.addOrder(Order.desc(sortField));
+            }
+        }
+        if (filters != null && !filters.isEmpty()) {
+            //assunto || descricao || (dataInicio && dataTermino) || interessado || regional
+        }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }

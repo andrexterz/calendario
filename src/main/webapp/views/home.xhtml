@@ -9,7 +9,7 @@
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
             <div class="content">
-                <p:dataScroller value="#{calendarioBean.eventosRecentes}"
+                <p:dataScroller value="#{eventoBean.eventos}"
                                 lazy="true"
                                 var="evento"
                                 chunkSize="10"
