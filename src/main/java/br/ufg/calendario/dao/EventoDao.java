@@ -60,7 +60,13 @@ public class EventoDao {
             return false;
         }
     }
-
+    
+      @Transactional(readOnly = true)
+    public Evento buscar(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Evento) session.get(Evento.class, id);
+    }
+    
     @Transactional(readOnly = true)
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();

@@ -11,6 +11,7 @@ import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
 import java.util.List;
 import java.util.Map;
+import javax.validation.Validator;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EventoBean {
+    
+    @Autowired
+    private Validator validator;
 
     @Autowired
     transient private EventoDao eventoDao;
@@ -56,7 +60,6 @@ public class EventoBean {
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = eventoDao.listar(first, pageSize, null, null, null);
-                System.out.println("n. of results: " + data.size());
                 setPageSize(pageSize);
                 setRowCount(data.size());
                 if (data.size() > pageSize) {
@@ -85,8 +88,13 @@ public class EventoBean {
         for (Interessado i : evento.getInteressado()) {
             System.out.println("Interessado: " + i.getNome());
         }
-
-        eventoDao.adicionar(evento);
+        if (evento.getId() == null) {
+            System.out.println("Adicionando novo registro");
+            eventoDao.adicionar(evento);
+        } else {
+            System.out.println("Atualizando registro existente");
+            eventoDao.atualizar(evento);
+        }
     }
 
     public Evento getEvento() {

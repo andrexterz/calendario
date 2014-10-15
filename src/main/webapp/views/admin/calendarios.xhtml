@@ -8,38 +8,46 @@
     <ui:composition template="baseAdmin.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
+            <ui:include src="salvaCalendarioForm.xhtml" />
+            <ui:include src="excluiCalendarioForm.xhtml" />
+            <p:panel header="#{msg.calendarios}">
+                <h:form id="calendariosForm">
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <p:commandButton icon="ui-icon-document"
+                                             value="#{msg.adicionar}"
+                                             title="#{msg.adicionar}"
+                                             oncomplete="PF('salvaCalendario').show()"
+                                             update=":salvaCalendario"
+                                             actionListener="#{calendarioBean.adicionar}" />
 
-            <ui:include src="adicionaCalendario.xhtml" />
-            <ui:include src="excluiCalendario.xhtml" />
-            <h:form id="calendariosForm">
-                <p:toolbar>
-                    <f:facet name="left">
-                        <p:commandButton icon="ui-icon-document"
-                                         value="#{msg.adicionar}"
-                                         title="#{msg.adicionar}"
-                                         oncomplete="PF('salvaCalendario').show()"
-                                         update=":salvaCalendario"
-                                         actionListener="#{calendarioBean.adicionar}" />
-                        <p:commandButton icon="ui-icon-pencil" value="#{msg.editar}" title="#{msg.editar}" />
-                        <p:commandButton icon="ui-icon-trash" value="#{msg.excluir}" title="#{msg.excluir}"
-                                         update=":excluiCalendario"
-                                         oncomplete="PF('excluiCalendario').show()" />
-                    </f:facet>
-                    <f:facet name="right">
-                        <h:inputText id="searchCalendar" onkeypress="return number(event);" styleClass="inputSearch"/>
-                        <p:watermark for="searchCalendar" value="#{msg.busca}" />
-                    </f:facet>
-                </p:toolbar>
-                <p:dataGrid  id="calendariosTable" columns="3"
-                             value="#{calendarioDao.listar()}" var="calendario">
-                    <h:panelGroup layout="block" styleClass="item">
-                        <p:commandLink value="#{calendario.ano} #{calendario.ativo ? '*': ''}" update=":calendariosForm"
-                                       title="#{calendario.ano}: #{calendario.ativo ? msg.ativo: msg.inativo}"
-                                       actionListener="#{calendarioBean.setItemSelecionado(calendario)}"
-                                       styleClass="#{calendario.id eq calendarioBean.itemSelecionado.id ? 'itemIcon selection itemCalendar': 'itemIcon itemCalendar'}" />
-                    </h:panelGroup>
-                </p:dataGrid>
-            </h:form>
+                            <p:commandButton icon="ui-icon-pencil"
+                                             value="#{msg.editar}"
+                                             title="#{msg.editar}"
+                                             oncomplete="PF('salvaCalendario').show()"
+                                             update=":salvaCalendario"
+                                             actionListener="#{calendarioBean.editar}" />
+
+                            <p:commandButton icon="ui-icon-trash" value="#{msg.excluir}" title="#{msg.excluir}"
+                                             update=":excluiCalendario"
+                                             oncomplete="PF('excluiCalendario').show()" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <h:inputText id="searchCalendar" onkeypress="return number(event);" styleClass="inputSearch"/>
+                            <p:watermark for="searchCalendar" value="#{msg.busca}" />
+                        </f:facet>
+                    </p:toolbar>
+                    <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}"
+                                  rows="10" lazy="true" var="calendario">
+                        <p:column headerText="#{msg.ano}">
+                            #{calendario.ano}
+                        </p:column>
+                        <p:column headerText="#{msg.ativo}">
+                            #{calendario.ativo}
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>                                
         </ui:define>
     </ui:composition>
 </html>

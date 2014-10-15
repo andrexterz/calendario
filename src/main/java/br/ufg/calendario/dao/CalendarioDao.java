@@ -6,10 +6,13 @@
 package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Calendario;
+import br.ufg.calendario.models.Evento;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -60,11 +63,31 @@ public class CalendarioDao {
         Session session = sessionFactory.getCurrentSession();
         return (Calendario) session.get(Calendario.class, id);
     }
-    
+
     @Transactional(readOnly = true)
     public List<Calendario> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Calendario.class);
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Calendario> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Calendario.class);
+        criteria.setFirstResult(first);
+        criteria.setMaxResults(pageSize);
+        if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
+            if (sortOrder.equals("ASCENDING")) {
+                criteria.addOrder(Order.asc(sortField));
+            }
+            if (sortOrder.equals("DESCENDING")) {
+                criteria.addOrder(Order.desc(sortField));
+            }
+        }
+        if (filters != null && !filters.isEmpty()) {
+            //ano || ativo/inativo
+        }
         return criteria.list();
     }
 }

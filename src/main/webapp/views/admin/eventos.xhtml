@@ -4,17 +4,24 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="baseAdmin.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="content">
+            <ui:include src="salvaEventoForm.xhtml" />
             <h:form>
                 <p:toolbar>
                     <f:facet name="left">
                         <p:commandButton icon="ui-icon-document"
-                                         action="salvaEventoForm"
+                                         value="#{msg.adicionar}"
+                                         update=":salvaEvento"
+                                         oncomplete="PF('salvaEvento').show()"
                                          actionListener="#{eventoBean.adicionar}" />
+                        <p:commandButton icon="ui-icon-pencil"
+                                         value="#{msg.editar}" />
+                        
+                        <p:commandButton icon="ui-icon-trash"
+                                         value="#{msg.excluir}" />
                     </f:facet>
                 </p:toolbar>
                 <p:dataTable value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
