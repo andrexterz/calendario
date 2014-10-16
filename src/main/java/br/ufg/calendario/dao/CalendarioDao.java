@@ -6,13 +6,15 @@
 package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Calendario;
-import br.ufg.calendario.models.Evento;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -32,8 +34,15 @@ public class CalendarioDao {
     @Transactional
     public boolean adicionar(Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(calendario);
-        return false;
+        try {
+            session.save(calendario);
+            if (calendario.isAtivo() == true) {
+                disableOthers(session, calendario);
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Transactional
@@ -41,7 +50,10 @@ public class CalendarioDao {
         Session session = sessionFactory.getCurrentSession();
         try {
             session.update(calendario);
-            return false;
+            if (calendario.isAtivo() == true) {
+                disableOthers(session, calendario);
+            }
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -86,8 +98,26 @@ public class CalendarioDao {
             }
         }
         if (filters != null && !filters.isEmpty()) {
-            //ano || ativo/inativo
+            for (Entry<String, Object> filter: filters.entrySet()) {
+                criteria.add(Restrictions.eq(filter.getKey(), filter.getValue()));
+            }
         }
         return criteria.list();
+    }
+
+    private void disableOthers(Session session, Calendario calendario) {
+        Criteria criteria = session.createCriteria(Calendario.class);
+        List<Calendario> calendarioList = criteria.list();
+        int counter = 0;
+        for (Calendario c : calendarioList) {
+            if (!Objects.equals(c.getId(), calendario.getId())) {
+                c.setAtivo(false);
+                session.save(c);
+            }
+            if (++counter % 20 == 0) {
+                session.flush();
+                session.clear();
+            }
+        }
     }
 }

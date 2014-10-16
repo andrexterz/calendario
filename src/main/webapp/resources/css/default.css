@@ -480,6 +480,10 @@ hr {
     width: 30%; 
 }
 
+.col33 {
+    width: 33%;
+}
+
 col40 {
     width: 40%;
 }
@@ -490,6 +494,10 @@ col40 {
 
 .col60 {
     width: 60%;
+}
+
+.col66 {
+    width: 66%;
 }
 
 .col70 {
@@ -549,7 +557,7 @@ col40 {
 .inputSearch {
     font-family: inherit;
     font-weight: normal;
-    padding: 4px;
+    padding: 6px;
     border: 1px solid;
     background-image: url("#{resource['img/search.png']}");
     background-repeat: no-repeat;
