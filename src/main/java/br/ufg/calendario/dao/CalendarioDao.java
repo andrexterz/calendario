@@ -13,6 +13,7 @@ import java.util.Objects;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CalendarioDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+    
     @Transactional
     public boolean adicionar(Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
@@ -42,7 +43,7 @@ public class CalendarioDao {
             return true;
         } catch (Exception e) {
             return false;
-        }
+        } 
     }
 
     @Transactional

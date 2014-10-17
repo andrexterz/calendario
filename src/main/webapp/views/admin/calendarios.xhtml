@@ -48,7 +48,7 @@
                             <h:outputText styleClass="ui-icon ui-icon-calendar" value="#{calendario.id}" />
                         </p:column>
                         <p:column headerText="#{msg.ano}" styleClass="col90" sortBy="#{calendario.ano}">
-                            #{calendario.ano}
+                            <h:outputText value="#{calendario.ano}" />
                         </p:column>
                         <p:column headerText="#{msg.ativo}" styleClass="col5 alignCenter" sortBy="#{calendario.ativo}">
                             <h:outputText styleClass="ui-icon ui-icon-check" value="#{calendario.ativo}" rendered="#{calendario.ativo}" />
