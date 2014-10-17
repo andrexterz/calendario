@@ -10,6 +10,9 @@ import br.ufg.calendario.models.Calendario;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +59,7 @@ public class CalendarioBean implements Serializable {
             @Override
             public List<Calendario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 System.out.println("");
-                data = calendarioDao.listar(first, pageSize, sortField, sortOrder.name(), null);
+                data = calendarioDao.listar(first, pageSize, sortField, sortOrder.name(), filters);
                 setPageSize(pageSize);
                 setRowCount(data.size());
 
@@ -75,12 +78,13 @@ public class CalendarioBean implements Serializable {
     }
 
     public void adicionar() {
-        System.out.println("objeto criado");
         calendario = new Calendario();
     }
 
     public void editar() {
-        calendario = itemSelecionado;
+        if (itemSelecionado != null) {
+            calendario = itemSelecionado;
+        }
     }
 
     public void salvar() {
@@ -92,8 +96,20 @@ public class CalendarioBean implements Serializable {
     }
 
     public void excluir() {
+        FacesMessage msg;
         System.out.println("excluindo registro: " + itemSelecionado.getId());
-        calendarioDao.excluir(itemSelecionado);
+        if (calendarioDao.excluir(itemSelecionado)) {
+            itemSelecionado = null;
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "item excluído");
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", "o item não pode ser excluído");
+        }
+        
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void selecionaItem(SelectEvent event) {
+        itemSelecionado = (Calendario) event.getObject();
     }
 
     public Calendario getCalendario() {

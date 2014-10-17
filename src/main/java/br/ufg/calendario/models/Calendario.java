@@ -6,7 +6,9 @@
 
 package br.ufg.calendario.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -25,8 +27,11 @@ public class Calendario extends Base {
         this.ativo = ativo;
     }
     
+    @Column(unique = true)
+    @NotNull
     private Integer ano;
     
+    @NotNull
     private boolean ativo;
 
     /**

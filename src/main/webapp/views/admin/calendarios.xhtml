@@ -12,7 +12,7 @@
             <ui:include src="excluiCalendarioForm.xhtml" />
             <p:panel header="#{msg.calendarios}">
                 <h:form id="calendariosForm">
-                    <p:toolbar>
+                    <p:toolbar id="toolbar">
                         <f:facet name="left">
                             <p:commandButton icon="ui-icon-document"
                                              value="#{msg.adicionar}"
@@ -24,11 +24,15 @@
                             <p:commandButton icon="ui-icon-pencil"
                                              value="#{msg.editar}"
                                              title="#{msg.editar}"
+                                             disabled="#{calendarioBean.itemSelecionado eq null}"
                                              oncomplete="PF('salvaCalendario').show()"
                                              update=":salvaCalendario"
                                              actionListener="#{calendarioBean.editar}" />
 
-                            <p:commandButton icon="ui-icon-trash" value="#{msg.excluir}" title="#{msg.excluir}"
+                            <p:commandButton icon="ui-icon-trash"
+                                             value="#{msg.excluir}"
+                                             title="#{msg.excluir}"
+                                             disabled="#{calendarioBean.itemSelecionado eq null}"
                                              update=":excluiCalendario"
                                              oncomplete="PF('excluiCalendario').show()" />
                         </f:facet>
@@ -39,6 +43,7 @@
                     </p:toolbar>
                     <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}" var="calendario" lazy="true"
                                   rows="10" selectionMode="single" selection="#{calendarioBean.itemSelecionado}">
+                        <p:ajax event="rowSelect" update=":calendariosForm:toolbar" />
                         <p:column styleClass="col5">
                             <h:outputText styleClass="ui-icon ui-icon-calendar" value="#{calendario.id}" />
                         </p:column>
