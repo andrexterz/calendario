@@ -13,7 +13,6 @@ import java.util.Objects;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,7 @@ public class CalendarioDao {
             }
             return true;
         } catch (Exception e) {
+            session.clear();
             return false;
         } 
     }
@@ -56,6 +56,7 @@ public class CalendarioDao {
             }
             return true;
         } catch (Exception e) {
+            session.clear();
             return false;
         }
     }
@@ -67,6 +68,7 @@ public class CalendarioDao {
             session.delete(calendario);
             return true;
         } catch (Exception e) {
+            session.clear();
             return false;
         }
     }

@@ -58,7 +58,6 @@ public class CalendarioBean implements Serializable {
 
             @Override
             public List<Calendario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                System.out.println("");
                 data = calendarioDao.listar(first, pageSize, sortField, sortOrder.name(), filters);
                 setPageSize(pageSize);
                 setRowCount(data.size());
@@ -88,11 +87,19 @@ public class CalendarioBean implements Serializable {
     }
 
     public void salvar() {
+        FacesMessage msg;
+        boolean res = false;
         if (calendario.getId() == null) {
-            calendarioDao.adicionar(calendario);
+            res = calendarioDao.adicionar(calendario);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "item adicionado");
         } else {
-            calendarioDao.atualizar(calendario);
+            res = calendarioDao.atualizar(calendario);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "item atualizado");
         }
+        if (!res) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", "não foi possível gravar o registro.");
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void excluir() {

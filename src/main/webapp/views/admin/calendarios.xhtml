@@ -44,13 +44,13 @@
                     <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}" var="calendario" lazy="true"
                                   rows="10" selectionMode="single" selection="#{calendarioBean.itemSelecionado}">
                         <p:ajax event="rowSelect" update=":calendariosForm:toolbar" />
-                        <p:column styleClass="col5">
-                            <h:outputText styleClass="ui-icon ui-icon-calendar" value="#{calendario.id}" />
+                        <p:column styleClass="col10" sortBy="#{calendario.id}">
+                            <h:outputText styleClass="ui-icon ui-icon-calendar" />
                         </p:column>
-                        <p:column headerText="#{msg.ano}" styleClass="col90" sortBy="#{calendario.ano}">
+                        <p:column headerText="#{msg.ano}" styleClass="col80" sortBy="#{calendario.ano}">
                             <h:outputText value="#{calendario.ano}" />
                         </p:column>
-                        <p:column headerText="#{msg.ativo}" styleClass="col5 alignCenter" sortBy="#{calendario.ativo}">
+                        <p:column headerText="#{msg.ativo}" styleClass="col10 alignCenter" sortBy="#{calendario.ativo}">
                             <h:outputText styleClass="ui-icon ui-icon-check" value="#{calendario.ativo}" rendered="#{calendario.ativo}" />
                             <h:outputText styleClass="ui-icon ui-icon-close" value="#{calendario.ativo}" rendered="#{!calendario.ativo}" />
                         </p:column>
