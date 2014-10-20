@@ -88,28 +88,27 @@ public class CalendarioBean implements Serializable {
 
     public void salvar() {
         FacesMessage msg;
-        boolean res = false;
+        boolean res;
         if (calendario.getId() == null) {
             res = calendarioDao.adicionar(calendario);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "item adicionado");
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
         } else {
             res = calendarioDao.atualizar(calendario);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "item atualizado");
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
         }
         if (!res) {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", "não foi possível gravar o registro.");
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void excluir() {
         FacesMessage msg;
-        System.out.println("excluindo registro: " + itemSelecionado.getId());
         if (calendarioDao.excluir(itemSelecionado)) {
             itemSelecionado = null;
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "item excluído");
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemExcluido"));
         } else {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", "o item não pode ser excluído");
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroExcluir"));
         }
         
         FacesContext.getCurrentInstance().addMessage(null, msg);

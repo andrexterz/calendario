@@ -15,11 +15,11 @@
                     </div>
                     <div class="filterMenuContent">
                         <p:outputLabel for="dataInicio" value="#{msg.dataInicio}" />
-                        <p:calendar id="dataInicio" value="#{calendarioBean.dataInicio}" pattern="dd/MM/yyyy">
+                        <p:calendar id="dataInicio" pattern="dd/MM/yyyy">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:calendar>
                         <p:outputLabel for="dataTermino" value="#{msg.dataTermino}" />
-                        <p:calendar id="dataTermino" value="#{calendarioBean.dataTermino}" pattern="dd/MM/yyyy">
+                        <p:calendar id="dataTermino" pattern="dd/MM/yyyy">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:calendar>
                         <p:commandLink title="#{msg.confirmar}" styleClass="menuFilterButton" action="home?faces-redirect=true" />                                                 

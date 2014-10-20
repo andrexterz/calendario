@@ -6,28 +6,57 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="baseAdmin.xhtml">
-        <ui:define name="title">#{msg.inicio}</ui:define>
+        <ui:define name="title">#{msg.regionais}</ui:define>
         <ui:define name="content">
-            <h:form>
-                <p:toolbar>
-                    <f:facet name="left">
-                        <p:commandButton icon="ui-icon-document"
-                                         action="salvaRegionalForm"
-                                         actionListener="#{regionalBean.adicionar}" />
-                    </f:facet>
-                </p:toolbar>
-                <p:dataTable value="#{regionalDao.listar()}" var="regional">
-                    <p:column headerText="#{msg.id}" styleClass="col10">
-                        #{regional.id}
-                    </p:column>
-                    <p:column headerText="#{msg.codigo}" styleClass="col10">
-                        #{regional.codigo}
-                    </p:column>
-                    <p:column headerText="#{msg.regional}" styleClass="col90">
-                        #{regional.nome}
-                    </p:column>
-                </p:dataTable>
-            </h:form>
+            <ui:include src="salvaRegionalForm.xhtml" />
+            <ui:include src="excluiRegionalForm.xhtml" />
+            <p:panel header="#{msg.regionais}">
+                <h:form id="regionaisForm">
+                    <p:toolbar id="toolbar">
+                        <f:facet name="left">
+                            <p:commandButton icon="ui-icon-document"
+                                             value="#{msg.adicionar}"
+                                             title="#{msg.adicionar}"
+                                             oncomplete="PF('salvaRegional').show()"
+                                             update=":salvaRegional"
+                                             actionListener="#{regionalBean.adicionar}" />
+
+                            <p:commandButton icon="ui-icon-pencil"
+                                             value="#{msg.editar}"
+                                             title="#{msg.editar}"
+                                             disabled="#{regionalBean.itemSelecionado eq null}"
+                                             oncomplete="PF('salvaRegional').show()"
+                                             update=":salvaRegional"
+                                             actionListener="#{regionalBean.editar}" />
+
+                            <p:commandButton icon="ui-icon-trash"
+                                             value="#{msg.excluir}"
+                                             title="#{msg.excluir}"
+                                             disabled="#{regionalBean.itemSelecionado eq null}"
+                                             update=":excluiRegional"
+                                             oncomplete="PF('excluiRegional').show()" />                        
+                        </f:facet>
+                        <f:facet name="right">
+                            <h:inputText id="searchRegional" styleClass="inputSearch"/>
+                            <p:watermark for="searchRegional" value="#{msg.busca}" />
+                        </f:facet>
+
+                    </p:toolbar>
+                    <p:dataTable id="regionaisTable" value="#{regionalBean.regionais}" var="regional" rows="10"
+                                 lazy="true" selectionMode="single" selection="#{regionalBean.itemSelecionado}">
+                        <p:ajax event="rowSelect" update=":regionaisForm:toolbar" />
+                        <p:column headerText="#{msg.id}" styleClass="col10">
+                            #{regional.id}
+                        </p:column>
+                        <p:column headerText="#{msg.codigo}" styleClass="col10">
+                            #{regional.codigo}
+                        </p:column>
+                        <p:column headerText="#{msg.regional}" styleClass="col90">
+                            #{regional.nome}
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 </html>

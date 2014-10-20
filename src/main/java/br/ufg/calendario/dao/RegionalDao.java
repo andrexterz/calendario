@@ -7,9 +7,12 @@ package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Regional;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -64,12 +67,31 @@ public class RegionalDao {
         Session session = sessionFactory.getCurrentSession();
         return (Regional) session.get(Regional.class, id);
     }
-        
-    
+
     @Transactional(readOnly = true)
     public List<Regional> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Regional.class);
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Regional> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Regional.class);
+        if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
+            if (sortOrder.equals("ASCENDING")) {
+                criteria.addOrder(Order.asc(sortField));
+            }
+            if (sortOrder.equals("DESCENDING")) {
+                criteria.addOrder(Order.desc(sortField));
+            }
+        }
+        if (filters != null && !filters.isEmpty()) {
+            for (Map.Entry<String, Object> filter : filters.entrySet()) {
+                criteria.add(Restrictions.eq(filter.getKey(), filter.getValue()));
+            }
+        }
         return criteria.list();
     }
 
