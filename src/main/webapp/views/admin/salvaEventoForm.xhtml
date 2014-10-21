@@ -4,9 +4,9 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     
-    <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true"
-              closeOnEscape="true" draggable="false" resizable="false"
-              width="420" header="#{msg.adicionar} #{msg.calendario}">
+    <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" closeOnEscape="true"
+              draggable="false" resizable="false" position="top" width="420"
+              header="#{msg.adicionar} #{msg.calendario}">
         <h:form id="salvaEvento">
             <f:validateBean disabled="true">                
                 <h:panelGrid columns="2" columnClasses="col30, col70">

@@ -14,6 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -106,6 +107,13 @@ public class CalendarioDao {
             }
         }
         return criteria.list();
+    }
+    
+    @Transactional(readOnly = true)
+    public int rowCount() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Calendario.class);
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
     }
 
     private void disableOthers(Session session, Calendario calendario) {

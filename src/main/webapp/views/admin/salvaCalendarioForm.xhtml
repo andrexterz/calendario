@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog widgetVar="salvaCalendario" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" draggable="false" resizable="false" width="360"
+              closeOnEscape="true" draggable="false" resizable="false" width="360" position="top"
               header="#{msg.adicionar} #{msg.calendario}">
         <h:form id="salvaCalendario">
             <f:validateBean disabled="true">
@@ -15,7 +15,7 @@
                             <p:outputLabel value="#{msg.calendario}" />
                         </p:column>
                         <p:column>
-                            <p:inputText value="#{calendarioBean.calendario.ano}" />
+                            <p:inputText value="#{calendarioBean.calendario.ano}" onkeypress="return number(event);" />
                         </p:column>
                     </p:row>
                     <p:row>

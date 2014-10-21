@@ -43,12 +43,12 @@
                         </f:facet>                        
                     </p:toolbar>
                     <p:dataTable id="interessadosTable" value="#{interessadoBean.interessados}" var="interessado" rows="10"
-                                 lazy="true" selectionMode="single" selection="#{interessadoBean.interessado}">
+                                 lazy="true" selectionMode="single" selection="#{interessadoBean.itemSelecionado}">
                         <p:ajax event="rowSelect" update=":interessadosForm:toolbar" />
-                        <p:column headerText="#{msg.id}" styleClass="col5">
+                        <p:column headerText="#{msg.id}" styleClass="col10">
                             #{interessado.id}
                         </p:column>
-                        <p:column headerText="#{msg.interessado}" styleClass="col95">
+                        <p:column headerText="#{msg.interessado}" styleClass="col90">
                             #{interessado.nome}
                         </p:column>
                     </p:dataTable>

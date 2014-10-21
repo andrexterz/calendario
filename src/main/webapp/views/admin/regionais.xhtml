@@ -45,13 +45,10 @@
                     <p:dataTable id="regionaisTable" value="#{regionalBean.regionais}" var="regional" rows="10"
                                  lazy="true" selectionMode="single" selection="#{regionalBean.itemSelecionado}">
                         <p:ajax event="rowSelect" update=":regionaisForm:toolbar" />
-                        <p:column headerText="#{msg.id}" styleClass="col10">
-                            #{regional.id}
-                        </p:column>
-                        <p:column headerText="#{msg.codigo}" styleClass="col10">
+                        <p:column headerText="#{msg.codigo}" styleClass="col30">
                             #{regional.codigo}
                         </p:column>
-                        <p:column headerText="#{msg.regional}" styleClass="col90">
+                        <p:column headerText="#{msg.regional}" styleClass="col70">
                             #{regional.nome}
                         </p:column>
                     </p:dataTable>

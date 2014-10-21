@@ -60,7 +60,7 @@ public class CalendarioBean implements Serializable {
             public List<Calendario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = calendarioDao.listar(first, pageSize, sortField, sortOrder.name(), filters);
                 setPageSize(pageSize);
-                setRowCount(data.size());
+                setRowCount(calendarioDao.rowCount());
 
                 if (data.size() > pageSize) {
                     try {
