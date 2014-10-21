@@ -5,7 +5,7 @@
     <h:form id="excluiCalendario">
         <p:confirmDialog widgetVar="excluiCalendario" hideEffect="puff"
                          appendTo="@(body)" width="360" severity="alert"
-                         header="#{msg.excluir} #{msg.calendario}?"
+                         header="#{msg.excluir} #{msg.calendario}?" closeOnEscape="true"
                          message="#{msg.excluir} #{calendarioBean.itemSelecionado.ano}">
             <h:panelGroup layout="block" styleClass="dialogButtons">
                 <p:commandButton icon="ui-icon-check"
