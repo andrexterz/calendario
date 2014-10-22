@@ -3,13 +3,13 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" closeOnEscape="true"
               draggable="false" resizable="false" position="top" width="420"
               header="#{msg.adicionar} #{msg.calendario}">
         <h:form id="salvaEvento">
             <f:validateBean disabled="true">                
-                <h:panelGrid columns="2" columnClasses="col30, col70">
+                <p:panelGrid columnClasses="col30, col70">
                     <p:outputLabel value="#{msg.calendario}" />
                     <p:selectOneMenu value="#{eventoBean.evento.calendario}" converter="#{calendarioConverter}">
                         <f:selectItems value="#{calendarioDao.listar()}"
@@ -35,9 +35,23 @@
                     <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.regional}" converter="#{regionalConverter}">
                         <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" itemValue="#{regional}" />
                     </p:selectManyMenu>
-                    <p:commandButton icon="ui-icon-disk" action="eventos" actionListener="#{eventoBean.salvar}" />
-                    <p:commandButton icon="ui-icon-close" ajax="false" action="eventos" />
-                </h:panelGrid>
+                    <p:row>
+                        <p:column colspan="2" styleClass="alignCenter dialogButtons">
+                            <p:commandButton value="#{msg.salvar}"
+                                             icon="ui-icon-disk"
+                                             title="#{msg.salvar}"
+                                             oncomplete="dialogHandler('salvaEvento', xhr, args)"
+                                             actionListener="#{eventoBean.salvar}"
+                                             update=":eventosForm:eventosTable"
+                                             process="@form"  />
+
+                            <p:commandButton value="#{msg.cancelar}"
+                                             icon="ui-icon-close"
+                                             title="#{msg.cancelar}"
+                                             oncomplete="PF('salvaEvento').hide()" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </f:validateBean>
         </h:form>
     </p:dialog>

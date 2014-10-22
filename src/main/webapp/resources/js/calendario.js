@@ -12,6 +12,16 @@ function number(event) {
 	return allowedKeys.test(String.fromCharCode(nkey));
 }
 
+function dialogHandler(widgetVar, xhr, status, args) {
+    if (args.resultado === true) {
+        PF(widgetVar).hide();
+    }
+    else {
+        PF(widgetVar).jq.effect("highlight", {}, 800);
+    }
+}
+
+
 function toggleMenu() {
     jQuery("#content").toggleClass("toggle");
     jQuery("#menuLeft").toggleClass("toggleMenu");

@@ -11,7 +11,10 @@ import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.validation.Validator;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EventoBean {
-    
+
     @Autowired
     private Validator validator;
 
@@ -39,7 +42,7 @@ public class EventoBean {
         evento = new Evento();
         itemSelecionado = null;
         eventos = new LazyDataModel<Evento>() {
-            
+
             private List<Evento> data;
 
             @Override
@@ -49,14 +52,14 @@ public class EventoBean {
 
             @Override
             public Evento getRowData(String rowKey) {
-                for (Evento evt: data) {
+                for (Evento evt : data) {
                     if (evt.getId().toString().equals(rowKey)) {
                         return evt;
                     }
                 }
                 return null;
             }
-            
+
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = eventoDao.listar(first, pageSize, null, null, null);
@@ -80,21 +83,20 @@ public class EventoBean {
 
     public void salvar() {
         //inserir validador
-        //implementar adicionar/atualizar evento ao salvar
-        for (Regional r : evento.getRegional()) {
-            System.out.println("Regional: " + r.getNome());
-        }
-
-        for (Interessado i : evento.getInteressado()) {
-            System.out.println("Interessado: " + i.getNome());
-        }
+        FacesMessage msg;
+        boolean saveStatus;
         if (evento.getId() == null) {
-            System.out.println("Adicionando novo registro");
-            eventoDao.adicionar(evento);
+            saveStatus = eventoDao.adicionar(evento);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
         } else {
-            System.out.println("Atualizando registro existente");
-            eventoDao.atualizar(evento);
+            saveStatus = eventoDao.atualizar(evento);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
         }
+        if (!saveStatus) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
+        }
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public Evento getEvento() {

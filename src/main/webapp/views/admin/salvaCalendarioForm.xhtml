@@ -39,7 +39,7 @@
                             <p:commandButton value="#{msg.salvar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.salvar}"
-                                             oncomplete="PF('salvaCalendario').hide()"
+                                             oncomplete="dialogHandler('salvaCalendario', xhr, args)"
                                              actionListener="#{calendarioBean.salvar}"
                                              update=":calendariosForm:calendariosTable"
                                              process="@form"  />

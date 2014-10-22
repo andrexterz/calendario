@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,17 +89,18 @@ public class RegionalBean implements Serializable{
 
     public void salvar() {
         FacesMessage msg;
-        boolean res;
+        boolean saveStatus;
         if (regional.getId() == null) {
-            res = regionalDao.adicionar(regional);
+            saveStatus = regionalDao.adicionar(regional);
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
         } else {
-            res = regionalDao.atualizar(regional);
+            saveStatus = regionalDao.atualizar(regional);
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
         }
-        if (!res) {
+        if (!saveStatus) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
         }
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
