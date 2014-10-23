@@ -4,37 +4,100 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" closeOnEscape="true"
-              draggable="false" resizable="false" position="top" width="420"
+    <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
+              closeOnEscape="true" draggable="false" resizable="false" position="top" width="460"
               header="#{msg.adicionar} #{msg.calendario}">
         <h:form id="salvaEvento">
             <f:validateBean disabled="true">                
-                <p:panelGrid columnClasses="col30, col70">
-                    <p:outputLabel value="#{msg.calendario}" />
-                    <p:selectOneMenu value="#{eventoBean.evento.calendario}" converter="#{calendarioConverter}">
-                        <f:selectItems value="#{calendarioDao.listar()}"
-                                       var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
-                    </p:selectOneMenu>
-                    <p:outputLabel value="#{msg.assunto}" />
-                    <p:inputText value="#{eventoBean.evento.assunto}" />
-                    <p:outputLabel value="#{msg.descricao}" />
-                    <p:inputTextarea value="#{eventoBean.evento.descricao}" />
-                    <p:outputLabel value="#{msg.dataInicio}" />
-                    <p:calendar value="#{eventoBean.evento.inicio}" pattern="dd/MM/yyyy">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:calendar>
-                    <p:outputLabel value="#{msg.dataTermino}" />
-                    <p:calendar value="#{eventoBean.evento.termino}" pattern="dd/MM/yyyy">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:calendar>
-                    <p:outputLabel value="#{msg.interessado}" />
-                    <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.interessado}" converter="#{interessadoConverter}">
-                        <f:selectItems value="#{interessadoDao.listar()}" var="interessado" itemLabel="#{interessado.nome}" itemValue="#{interessado}" />
-                    </p:selectManyMenu>
-                    <p:outputLabel value="#{msg.regional}" />
-                    <p:selectManyMenu showCheckbox="true" value="#{eventoBean.evento.regional}" converter="#{regionalConverter}">
-                        <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" itemValue="#{regional}" />
-                    </p:selectManyMenu>
+                <p:panelGrid styleClass="formGrid">
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="#{msg.calendario}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:selectOneMenu value="#{eventoBean.evento.calendario}" converter="#{calendarioConverter}" styleClass="col100">
+                                <f:selectItems value="#{calendarioDao.listar()}"
+                                               var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
+                            </p:selectOneMenu>                            
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="#{msg.dataInicio}" />
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{msg.dataTermino}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:calendar value="#{eventoBean.evento.inicio}" pattern="dd/MM/yyyy" styleClass="force100">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:calendar>
+                        </p:column>                            
+                        <p:column>
+                            <p:calendar value="#{eventoBean.evento.termino}" pattern="dd/MM/yyyy" styleClass="force100">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="#{msg.assunto}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:inputText value="#{eventoBean.evento.assunto}" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:outputLabel value="#{msg.descricao}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:inputTextarea value="#{eventoBean.evento.descricao}" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:outputLabel value="#{msg.interessado}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:selectManyMenu showCheckbox="true" styleClass="force100"
+                                              value="#{eventoBean.evento.interessado}"
+                                              converter="#{interessadoConverter}">
+                                <f:selectItems value="#{interessadoDao.listar()}"
+                                               var="interessado"
+                                               itemLabel="#{interessado.nome}"
+                                               itemValue="#{interessado}" />
+                            </p:selectManyMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:outputLabel value="#{msg.regional}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:column>
+                                <p:selectManyMenu showCheckbox="true"
+                                                  value="#{eventoBean.evento.regional}"
+                                                  converter="#{regionalConverter}"
+                                                  styleClass="force100">
+                                    <f:selectItems value="#{regionalDao.listar()}" var="regional" itemLabel="#{regional.nome}" itemValue="#{regional}" />
+                                </p:selectManyMenu>
+                            </p:column>
+
+                        </p:column>
+                    </p:row>
                     <p:row>
                         <p:column colspan="2" styleClass="alignCenter dialogButtons">
                             <p:commandButton value="#{msg.salvar}"

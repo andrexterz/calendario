@@ -9,7 +9,7 @@
         <ui:define name="title">#{msg.eventos}</ui:define>
         <ui:define name="content">
             <ui:include src="salvaEventoForm.xhtml" />
-            <h:form>
+            <h:form id="eventosForm">
                 <p:toolbar>
                     <f:facet name="left">
                         <p:commandButton icon="ui-icon-document"
@@ -24,7 +24,7 @@
                                          value="#{msg.excluir}" />
                     </f:facet>
                 </p:toolbar>
-                <p:dataTable value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
+                <p:dataTable id="eventosTable" value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
                     <p:column styleClass="col5">
                         <p:rowToggler />
                     </p:column>

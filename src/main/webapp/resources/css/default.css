@@ -528,6 +528,10 @@ col40 {
     width: 100%;
 }
 
+.force100 {
+    width: 100%!important;
+}
+
 .alignCenter {
     text-align: center;
 }
