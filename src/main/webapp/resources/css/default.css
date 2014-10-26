@@ -529,7 +529,7 @@ col40 {
 }
 
 .force100 {
-    width: 100%!important;
+    width: 98%!important;
 }
 
 .alignCenter {
@@ -557,6 +557,9 @@ col40 {
     float: right;
 }
 
+.highlighted {
+    background: #ddd;
+}
 /********************************* toolbar items ******************************/
 .inputSearch {
     font-family: inherit;

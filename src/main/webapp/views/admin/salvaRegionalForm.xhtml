@@ -36,7 +36,7 @@
                             <p:commandButton value="#{msg.salvar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.salvar}"
-                                             oncomplete="dialogHandler('salvaRegional', xhr, args)"
+                                             oncomplete="dialogHandler('salvaRegional',xhr, status, args)"
                                              actionListener="#{regionalBean.salvar}"
                                              update=":regionaisForm:regionaisTable"
                                              process="@form"  />

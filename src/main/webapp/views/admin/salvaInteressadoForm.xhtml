@@ -28,7 +28,7 @@
                             <p:commandButton value="#{msg.salvar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.salvar}"
-                                             oncomplete="dialogHandler('salvaInteressado', xhr, args)"
+                                             oncomplete="dialogHandler('salvaInteressado', xhr, status, args)"
                                              actionListener="#{interessadoBean.salvar}"
                                              update=":interessadosForm:interessadosTable"
                                              process="@form"  />

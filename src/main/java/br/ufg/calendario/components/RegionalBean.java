@@ -100,8 +100,8 @@ public class RegionalBean implements Serializable{
         if (!saveStatus) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
         }
-        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 
     public void excluir() {

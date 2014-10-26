@@ -9,6 +9,7 @@ import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -81,6 +82,12 @@ public class EventoBean {
         evento = new Evento();
     }
 
+    public void editar() {
+        if (itemSelecionado != null) {
+            evento = itemSelecionado;
+        }
+    }
+
     public void salvar() {
         //inserir validador
         FacesMessage msg;
@@ -95,8 +102,26 @@ public class EventoBean {
         if (!saveStatus) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
         }
-        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
+    }
+
+    public void excluir() {
+        FacesMessage msg;
+        if (eventoDao.excluir(itemSelecionado)) {
+            itemSelecionado = null;
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemExcluido"));
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroExcluir"));
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void checkDate() {
+        if ((evento != null && evento.getInicio() != null) && evento.getInicio().after(evento.getTermino())) {
+            evento.setTermino(evento.getInicio());
+        }
     }
 
     public Evento getEvento() {
