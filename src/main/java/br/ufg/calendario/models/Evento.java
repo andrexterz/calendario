@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -27,6 +26,8 @@ import javax.validation.constraints.NotNull;
 public class Evento extends Base {
 
     public Evento() {
+        this.inicio = new Date();
+        this.termino = new Date();
     }
 
     public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, Set<Regional> regional, Set<Interessado> interessado) {

@@ -5,50 +5,49 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" draggable="false" resizable="false" position="top" width="480"
+              closeOnEscape="true" draggable="false" resizable="false" position="top" width="640"
               header="#{msg.adicionar} #{msg.evento}">
         <h:form id="salvaEvento">
             <f:validateBean disabled="true">                
                 <p:panelGrid styleClass="formGrid">
                     <p:row>
-                        <p:column>
+                        <p:column styleClass="col10">
                             <p:outputLabel value="#{msg.calendario}" />
                         </p:column>
+                        <p:column styleClass="col45">
+                            <p:outputLabel value="#{msg.dataInicio}" />
+                        </p:column>
+                        <p:column styleClass="col45">
+                            <p:outputLabel value="#{msg.dataTermino}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column>
                             <p:selectOneMenu value="#{eventoBean.evento.calendario}" converter="#{calendarioConverter}" styleClass="col100">
                                 <f:selectItems value="#{calendarioDao.listar()}"
                                                var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
                             </p:selectOneMenu>                            
                         </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel value="#{msg.dataInicio}" />
-                        </p:column>
-                        <p:column>
-                            <p:outputLabel value="#{msg.dataTermino}" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column styleClass="alignRight">
                             <p:calendar id="dataInicio" value="#{eventoBean.evento.inicio}" pattern="dd/MM/yyyy" styleClass="force100">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                <p:ajax event="dateSelect" update="dataTermino" listener="#{eventoBean.checkDate}" />
+                                <p:ajax event="dateSelect" update="dataTermino" process="@this" listener="#{eventoBean.checkDate}" />
                             </p:calendar>
                         </p:column>                            
                         <p:column styleClass="alignRight">
-                            <p:calendar id="dataTermino" value="#{eventoBean.evento.termino}" pattern="dd/MM/yyyy" mindate="#{eventoBean.evento.inicio}" styleClass="force100">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <p:calendar id="dataTermino" value="#{eventoBean.evento.termino}"
+                                        pattern="dd/MM/yyyy" styleClass="force100"
+                                        mindate="#{eventoBean.evento.inicio}">
+                                <p:ajax event="dateSelect" process="@this" />
                             </p:calendar>
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column>
+                        <p:column colspan="3">
                             <p:outputLabel value="#{msg.assunto}" />
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2">
+                        <p:column colspan="3">
                             <p:inputText value="#{eventoBean.evento.assunto}" styleClass="force100" />
                         </p:column>
                     </p:row>
@@ -56,22 +55,20 @@
                         <p:column colspan="2">
                             <p:outputLabel value="#{msg.descricao}" />
                         </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="2">
-                            <p:inputTextarea value="#{eventoBean.evento.descricao}" rows="5" autoResize="false" styleClass="force100" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="2">
+                        <p:column>
                             <p:outputLabel value="#{msg.interessado}" />
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2">
-                            <p:selectManyMenu showCheckbox="true" styleClass="force100"
-                                              value="#{eventoBean.evento.interessado}"
-                                              converter="#{interessadoConverter}">
+                        <p:column colspan="2" rowspan="4">
+                            <p:inputTextarea value="#{eventoBean.evento.descricao}" rows="10"
+                                             autoResize="false" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:selectManyMenu showCheckbox="true" styleClass="force100" scrollHeight="64"
+                                              value="#{eventoBean.evento.interessado}" converter="#{interessadoConverter}">
                                 <f:selectItems value="#{interessadoDao.listar()}"
                                                var="interessado"
                                                itemLabel="#{interessado.nome}"
@@ -80,14 +77,14 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2">
+                        <p:column>
                             <p:outputLabel value="#{msg.regional}" />
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2">
+                        <p:column>
                             <p:column>
-                                <p:selectManyMenu showCheckbox="true"
+                                <p:selectManyMenu showCheckbox="true" scrollHeight="64"
                                                   value="#{eventoBean.evento.regional}"
                                                   converter="#{regionalConverter}"
                                                   styleClass="force100">
@@ -98,7 +95,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2" styleClass="alignCenter dialogButtons">
+                        <p:column colspan="3" styleClass="alignCenter dialogButtons">
                             <p:commandButton value="#{msg.salvar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.salvar}"

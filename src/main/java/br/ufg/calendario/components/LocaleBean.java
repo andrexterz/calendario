@@ -15,6 +15,24 @@ import java.util.ResourceBundle;
  */
 
 public class LocaleBean {
+    
+    private String locale = "pt_BR";
+    private static LocaleBean instance = null;
+
+    public String getLocale() {
+        return locale;
+    }
+    
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+    
+    public static LocaleBean getInstance() {
+        if (instance == null) {
+            instance =  new LocaleBean();
+        }
+        return instance;
+    }
 
     public static String getMessage(String msg) {
         ResourceBundle messages = ResourceBundle.getBundle("br.ufg.calendario.locale.messages");

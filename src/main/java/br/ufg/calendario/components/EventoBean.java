@@ -7,8 +7,6 @@ package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
-import br.ufg.calendario.models.Interessado;
-import br.ufg.calendario.models.Regional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,10 +116,10 @@ public class EventoBean {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public void checkDate() {
-        if ((evento != null && evento.getInicio() != null) && evento.getInicio().after(evento.getTermino())) {
-            evento.setTermino(evento.getInicio());
+
+    public void checkDate(SelectEvent event) {
+        if (evento.getTermino().before((Date) event.getObject())) {
+            evento.setTermino((Date) event.getObject());
         }
     }
 
