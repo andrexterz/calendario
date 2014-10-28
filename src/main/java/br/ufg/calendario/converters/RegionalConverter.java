@@ -27,8 +27,8 @@ public class RegionalConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            Regional calendario = regionalDao.buscar(Long.parseLong(value));
-            return calendario;
+            Regional regional = regionalDao.buscar(Long.parseLong(value));
+            return regional;
         } catch (NumberFormatException e) {
             return null;
         }

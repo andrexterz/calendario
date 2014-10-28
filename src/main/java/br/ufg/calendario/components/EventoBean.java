@@ -7,11 +7,16 @@ package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
+import br.ufg.calendario.models.Interessado;
+import br.ufg.calendario.models.Regional;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -32,15 +37,19 @@ public class EventoBean {
 
     @Autowired
     transient private EventoDao eventoDao;
-
+    
     private Evento evento;
     private Evento itemSelecionado;
     private final LazyDataModel<Evento> eventos;
+    private Regional selecaoRegional;
+    private Interessado selecaoInteressado;
 
     public EventoBean() {
 
         evento = new Evento();
         itemSelecionado = null;
+        selecaoRegional = null;
+        selecaoInteressado = null;
         eventos = new LazyDataModel<Evento>() {
 
             private List<Evento> data;
@@ -83,8 +92,9 @@ public class EventoBean {
 
     public void editar() {
         if (itemSelecionado != null) {
-            evento = itemSelecionado;
+            evento = eventoDao.buscar(itemSelecionado.getId());
         }
+        
     }
 
     public void salvar() {
@@ -122,6 +132,16 @@ public class EventoBean {
             evento.setTermino((Date) event.getObject());
         }
     }
+    
+    public void adicionaRegional() {
+        evento.addRegional(getSelecaoRegional());
+        System.out.println("regional adicionada");
+    }
+    
+    public void adicionaInteressado() {
+        evento.addInteressado(getSelecaoInteressado());
+        System.out.println("interessado adicionado");
+    }
 
     public Evento getEvento() {
         return evento;
@@ -141,5 +161,21 @@ public class EventoBean {
 
     public LazyDataModel<Evento> getEventos() {
         return eventos;
+    }
+    
+    public Regional getSelecaoRegional() {
+        return selecaoRegional;
+    }
+
+    public void setSelecaoRegional(Regional selecaoRegional) {
+        this.selecaoRegional = selecaoRegional;
+    }    
+
+    public Interessado getSelecaoInteressado() {
+        return selecaoInteressado;
+    }
+
+    public void setSelecaoInteressado(Interessado selecaoInteressado) {
+        this.selecaoInteressado = selecaoInteressado;
     }
 }

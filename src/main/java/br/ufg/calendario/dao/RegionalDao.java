@@ -36,6 +36,7 @@ public class RegionalDao {
             session.save(regional);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -47,6 +48,7 @@ public class RegionalDao {
             session.update(regional);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -58,6 +60,7 @@ public class RegionalDao {
             session.delete(regional);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

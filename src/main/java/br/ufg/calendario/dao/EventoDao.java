@@ -32,9 +32,12 @@ public class EventoDao {
     public boolean adicionar(Evento evento) {
         Session session = sessionFactory.getCurrentSession();
         try {
+            session.clear();
             session.save(evento);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            session.clear();
             return false;
         }
     }
@@ -43,9 +46,12 @@ public class EventoDao {
     public boolean atualizar(Evento evento) {
         Session session = sessionFactory.getCurrentSession();
         try {
+            session.clear();
             session.update(evento);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            session.clear();
             return false;
         }
     }
@@ -57,6 +63,8 @@ public class EventoDao {
             session.delete(evento);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            session.clear();
             return false;
         }
     }

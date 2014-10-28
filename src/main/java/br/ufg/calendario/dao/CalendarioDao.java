@@ -42,6 +42,7 @@ public class CalendarioDao {
             }
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             session.clear();
             return false;
         } 
@@ -57,6 +58,7 @@ public class CalendarioDao {
             }
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             session.clear();
             return false;
         }
@@ -69,6 +71,7 @@ public class CalendarioDao {
             session.delete(calendario);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             session.clear();
             return false;
         }

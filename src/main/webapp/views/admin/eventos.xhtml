@@ -9,8 +9,9 @@
         <ui:define name="title">#{msg.eventos}</ui:define>
         <ui:define name="content">
             <ui:include src="salvaEventoForm.xhtml" />
+            <ui:include src="excluiEventoForm.xhtml" />
             <h:form id="eventosForm">
-                <p:toolbar>
+                <p:toolbar id="toolbar">
                     <f:facet name="left">
                         <p:commandButton icon="ui-icon-document"
                                          value="#{msg.adicionar}"
@@ -18,13 +19,20 @@
                                          oncomplete="PF('salvaEvento').show()"
                                          actionListener="#{eventoBean.adicionar}" />
                         <p:commandButton icon="ui-icon-pencil"
-                                         value="#{msg.editar}" />
+                                         value="#{msg.editar}"
+                                         update=":salvaEvento"
+                                         oncomplete="PF('salvaEvento').show()"
+                                         actionListener="#{eventoBean.editar}"/>
                         
                         <p:commandButton icon="ui-icon-trash"
-                                         value="#{msg.excluir}" />
+                                         value="#{msg.excluir}"
+                                         title="#{msg.excluir}"
+                                         oncomplete="PF('excluiEvento').show()" />
                     </f:facet>
                 </p:toolbar>
-                <p:dataTable id="eventosTable" value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}" selectionMode="single" selection="#{eventoBean.itemSelecionado}">
+                <p:dataTable id="eventosTable" value="#{eventoDao.listar()}" var="evento"
+                             rowKey="#{evento.id}" selectionMode="single"
+                             selection="#{eventoBean.itemSelecionado}">
                     <p:column styleClass="col5">
                         <p:rowToggler />
                     </p:column>

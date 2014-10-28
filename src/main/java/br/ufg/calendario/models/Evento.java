@@ -7,13 +7,15 @@
 package br.ufg.calendario.models;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +30,8 @@ public class Evento extends Base {
     public Evento() {
         this.inicio = new Date();
         this.termino = new Date();
+        this.regional = new HashSet();
+        this.interessado = new HashSet();
     }
 
     public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, Set<Regional> regional, Set<Interessado> interessado) {
@@ -63,12 +67,12 @@ public class Evento extends Base {
     
     
     @NotNull
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
     private Set<Regional> regional;
     
     @NotNull
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
     private Set<Interessado> interessado;
 
@@ -155,6 +159,14 @@ public class Evento extends Base {
     public void setRegional(Set<Regional> regional) {
         this.regional = regional;
     }
+    
+    public void addRegional(Regional regional) {
+        this.regional.add(regional);
+    }
+    
+    public void removeRegional(Regional regional) {
+        this.regional.remove(regional);
+    }
 
     /**
      * @return the interessado
@@ -168,5 +180,13 @@ public class Evento extends Base {
      */
     public void setInteressado(Set<Interessado> interessado) {
         this.interessado = interessado;
+    }
+    
+    public void addInteressado(Interessado interessado) {
+        this.interessado.add(interessado);
+    }
+    
+    public void removeInteressado(Interessado interessado) {
+        this.interessado.remove(interessado);
     }
 }

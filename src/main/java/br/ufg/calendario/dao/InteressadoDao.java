@@ -37,6 +37,8 @@ public class InteressadoDao {
             session.save(interessado);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            session.clear();
             return false;
         }
     }
@@ -48,6 +50,8 @@ public class InteressadoDao {
             session.update(interessado);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            session.clear();
             return false;
         }
     }
@@ -59,6 +63,8 @@ public class InteressadoDao {
             session.delete(interessado);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            session.clear();
             return false;
         }
     }
