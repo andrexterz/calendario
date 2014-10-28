@@ -5,11 +5,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" draggable="false" resizable="false" position="top" width="640"
+              closeOnEscape="true" resizable="false" position="center" width="640"
               header="#{msg.adicionar} #{msg.evento}">
         <h:form id="salvaEvento">
             <f:validateBean disabled="true">
-                <p:tabView>
+                <p:tabView styleClass="eventoTab">
                     <p:tab title="#{msg.evento}">
                         <p:panelGrid styleClass="formGrid">
                             <p:row>

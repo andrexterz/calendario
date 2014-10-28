@@ -92,7 +92,7 @@ public class EventoBean {
 
     public void editar() {
         if (itemSelecionado != null) {
-            evento = eventoDao.buscar(itemSelecionado.getId());
+            evento = itemSelecionado;
         }
         
     }

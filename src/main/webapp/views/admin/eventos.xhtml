@@ -30,16 +30,17 @@
                                          oncomplete="PF('excluiEvento').show()" />
                     </f:facet>
                 </p:toolbar>
-                <p:dataTable id="eventosTable" value="#{eventoDao.listar()}" var="evento"
-                             rowKey="#{evento.id}" selectionMode="single"
-                             selection="#{eventoBean.itemSelecionado}">
+                <p:dataTable id="eventosTable" value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}"
+                             rows="10" paginatorPosition="top" selectionMode="single" lazy="true"
+                             paginator="true" selection="#{eventoBean.itemSelecionado}">
+                    <p:ajax event="rowSelect" update=":eventosForm:toolbar" />
                     <p:column styleClass="col5">
                         <p:rowToggler />
                     </p:column>
-                    <p:column headerText="#{msg.id}" styleClass="col5">
+                    <p:column headerText="#{msg.id}" styleClass="col5 collapsedCol">
                         #{evento.id}
                     </p:column>
-                    <p:column headerText="#{msg.calendario}" styleClass="col10 alignCenter">
+                    <p:column headerText="#{msg.calendario}" styleClass="col10 alignCenter collapsedCol">
                         #{evento.calendario.ano}
                     </p:column>
                     <p:column headerText="#{msg.dataInicio}" styleClass="col10 alignCenter">

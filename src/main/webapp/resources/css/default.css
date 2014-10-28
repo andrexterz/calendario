@@ -528,6 +528,24 @@ col40 {
     width: 100%;
 }
 
+.collapsedCol {
+    visibility: visible;
+}
+
+@media(max-width: 767px) {
+    .col5 {
+        width: 10%;
+    }
+    .col10 {
+        width: 20%;
+    }
+    
+    .collapsedCol {
+        width: 0;
+        visibility: collapse;
+    }
+}
+
 .force100 {
     width: 98%!important;
 }
@@ -636,6 +654,10 @@ col40 {
 /***************************** admin content **********************************/
 .contentAdmin {
     margin-top: 66px;
+}
+
+.eventoTab {
+    height: 400px;
 }
 
 .eventoDetalhe {
