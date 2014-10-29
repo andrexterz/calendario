@@ -10,13 +10,10 @@ import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -135,12 +132,22 @@ public class EventoBean {
     
     public void adicionaRegional() {
         evento.addRegional(getSelecaoRegional());
-        System.out.println("regional adicionada");
+    }
+    
+    public void removeRegional() {
+        Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+        Regional regional = (Regional) requestMap.get("regional");
+        evento.removeRegional(regional);
     }
     
     public void adicionaInteressado() {
         evento.addInteressado(getSelecaoInteressado());
-        System.out.println("interessado adicionado");
+    }
+    
+    public void removeInteressado() {
+        Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+        Interessado interessado = (Interessado) requestMap.get("interessado");
+        evento.removeInteressado(interessado);
     }
 
     public Evento getEvento() {

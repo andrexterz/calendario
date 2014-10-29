@@ -13,11 +13,16 @@
             <h:form id="eventosForm">
                 <p:toolbar id="toolbar">
                     <f:facet name="left">
+                        <p:commandButton icon="ui-icon-arrow-1-n"
+                                         value="#{msg.importar}"
+                                         oncomplete="PF('salvaEvento').show()" />
+                        
                         <p:commandButton icon="ui-icon-document"
                                          value="#{msg.adicionar}"
                                          update=":salvaEvento"
                                          oncomplete="PF('salvaEvento').show()"
                                          actionListener="#{eventoBean.adicionar}" />
+                        
                         <p:commandButton icon="ui-icon-pencil"
                                          value="#{msg.editar}"
                                          update=":salvaEvento"

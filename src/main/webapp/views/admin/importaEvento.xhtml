@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog widgetVar="importaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
+              closeOnEscape="true" resizable="false" width="360" position="center"
+              header="#{msg.importar} #{msg.eventos}">
+        <h:form id="salvaRegional">
+            <f:validateBean disabled="true">
+                <p:panelGrid styleClass="formGrid">
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.arquivo}" />
+                        </p:column>
+                        <p:column>
+                            inserir componente de upload aqui
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2" styleClass="alignCenter dialogButtons">
+                            <p:commandButton value="#{msg.importar}"
+                                             icon="ui-icon-disk"
+                                             title="#{msg.importar}"
+                                             oncomplete="dialogHandler('salvaRegional',xhr, status, args)"
+                                             actionListener="#{regionalBean.salvar}"
+                                             update=":regionaisForm:regionaisTable"
+                                             process="@form"  />
+                            
+                            <p:commandButton value="#{msg.cancelar}"
+                                             icon="ui-icon-close"
+                                             title="#{msg.cancelar}"
+                                             oncomplete="PF('salvaRegional').hide()" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </f:validateBean>
+        </h:form>
+    </p:dialog>
+</ui:composition>

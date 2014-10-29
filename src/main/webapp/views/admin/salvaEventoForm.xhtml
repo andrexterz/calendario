@@ -91,7 +91,9 @@
                                 <h:outputText value="#{regional.nome}" />
                             </p:column>
                             <p:column styleClass="col10">
-                                <p:commandButton value="x" />
+                                <p:commandButton icon="ui-icon-trash" actionListener="#{eventoBean.removeRegional}" update="eventoRegional">
+                                    <f:param name="regional" value="#{regional}" />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
@@ -121,10 +123,12 @@
                         </p:panelGrid>
                         <p:dataTable id="eventoInteressado" value="#{eventoBean.evento.interessado.toArray()}" var="interessado">
                             <p:column headerText="#{msg.interessado}" styleClass="90">
-                                <h:outputText value="#{interessado.nome}: #{interessadoDao.buscar(interessado.getId()).equals(interessado)}" />
+                                <h:outputText value="#{interessado.nome}" />
                             </p:column>
                             <p:column styleClass="col10">
-                                <p:commandButton value="x" />
+                                <p:commandButton icon="ui-icon-trash" actionListener="#{eventoBean.removeInteressado}" update="eventoInteressado">
+                                    <f:param name="interessado" value="#{interessado}" />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </p:tab>
