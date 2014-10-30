@@ -5,9 +5,9 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog widgetVar="importaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="360" position="center"
+              closeOnEscape="true" resizable="false" width="420" position="center"
               header="#{msg.importar} #{msg.eventos}">
-        <h:form id="salvaRegional">
+        <h:form id="salvaEvento">
             <f:validateBean disabled="true">
                 <p:panelGrid styleClass="formGrid">
                     <p:row>
@@ -15,7 +15,8 @@
                             <p:outputLabel value="#{msg.arquivo}" />
                         </p:column>
                         <p:column>
-                            inserir componente de upload aqui
+                            <p:fileUpload mode="advanced" dragDropSupport="true" fileUploadListener="#{eventoBean.uploadEvento}"
+                                          sizeLimit="10000" allowTypes="/(\.|\/)(txt|csv)$/" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -23,15 +24,14 @@
                             <p:commandButton value="#{msg.importar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.importar}"
-                                             oncomplete="dialogHandler('salvaRegional',xhr, status, args)"
-                                             actionListener="#{regionalBean.salvar}"
-                                             update=":regionaisForm:regionaisTable"
+                                             oncomplete="dialogHandler('importaEvento',xhr, status, args)"
+                                             actionListener="#{eventoBean.importaEvento}"
                                              process="@form"  />
                             
                             <p:commandButton value="#{msg.cancelar}"
                                              icon="ui-icon-close"
                                              title="#{msg.cancelar}"
-                                             oncomplete="PF('salvaRegional').hide()" />
+                                             oncomplete="PF('importEvento').hide()" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

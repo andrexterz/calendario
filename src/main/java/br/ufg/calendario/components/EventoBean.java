@@ -9,6 +9,7 @@ import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +37,7 @@ public class EventoBean {
 
     @Autowired
     transient private EventoDao eventoDao;
-    
+
     private Evento evento;
     private Evento itemSelecionado;
     private final LazyDataModel<Evento> eventos;
@@ -91,7 +94,7 @@ public class EventoBean {
         if (itemSelecionado != null) {
             evento = itemSelecionado;
         }
-        
+
     }
 
     public void salvar() {
@@ -124,26 +127,38 @@ public class EventoBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void uploadEvento(FileUploadEvent event) {
+        FacesMessage msg;
+        UploadedFile arquivo = event.getFile();
+        System.out.println("arquivo enviado: " + arquivo.getFileName());
+        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("arquivoEnviado"));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void importaEvento() {
+        System.out.println("processar arquivo enviado ao servidor");
+    }
+
     public void checkDate(SelectEvent event) {
         if (evento.getTermino().before((Date) event.getObject())) {
             evento.setTermino((Date) event.getObject());
         }
     }
-    
+
     public void adicionaRegional() {
         evento.addRegional(getSelecaoRegional());
     }
-    
+
     public void removeRegional() {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         Regional regional = (Regional) requestMap.get("regional");
         evento.removeRegional(regional);
     }
-    
+
     public void adicionaInteressado() {
         evento.addInteressado(getSelecaoInteressado());
     }
-    
+
     public void removeInteressado() {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         Interessado interessado = (Interessado) requestMap.get("interessado");
@@ -169,14 +184,14 @@ public class EventoBean {
     public LazyDataModel<Evento> getEventos() {
         return eventos;
     }
-    
+
     public Regional getSelecaoRegional() {
         return selecaoRegional;
     }
 
     public void setSelecaoRegional(Regional selecaoRegional) {
         this.selecaoRegional = selecaoRegional;
-    }    
+    }
 
     public Interessado getSelecaoInteressado() {
         return selecaoInteressado;
