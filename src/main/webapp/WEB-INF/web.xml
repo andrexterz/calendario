@@ -13,7 +13,7 @@
     </context-param>
     <context-param>
         <param-name>primefaces.UPLOADER</param-name>
-        <param-value>auto</param-value>
+        <param-value>commons</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
@@ -40,6 +40,14 @@
     <filter-mapping>
         <filter-name>hibernateSessionFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CommonsUpload</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CommonsUpload</filter-name>
+        <servlet-name>FacesServlet</servlet-name>
     </filter-mapping>
     <servlet>
         <servlet-name>FacesServlet</servlet-name>

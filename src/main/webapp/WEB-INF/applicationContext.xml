@@ -17,7 +17,7 @@
     <context:component-scan base-package="br.ufg.calendario.components, br.ufg.calendario.converters, br.ufg.calendario.dao"/>
     <util:properties id="calendarioSettings" location="classpath:br/ufg/calendario/conf/calendario.properties" />
     <context:property-placeholder properties-ref="calendarioSettings" />
-
+    
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

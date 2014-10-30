@@ -5,18 +5,24 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog widgetVar="importaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="420" position="center"
+              closeOnEscape="true" resizable="false" width="620" position="center"
               header="#{msg.importar} #{msg.eventos}">
-        <h:form id="salvaEvento">
+        <h:form id="importaEvento" enctype="multipart/form-data">
             <f:validateBean disabled="true">
                 <p:panelGrid styleClass="formGrid">
                     <p:row>
-                        <p:column styleClass="alignRight">
+                        <p:column>
                             <p:outputLabel value="#{msg.arquivo}" />
                         </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column>
-                            <p:fileUpload mode="advanced" dragDropSupport="true" fileUploadListener="#{eventoBean.uploadEvento}"
-                                          sizeLimit="10000" allowTypes="/(\.|\/)(txt|csv)$/" />
+                            <p:fileUpload dragDropSupport="true" mode="advanced" process="@this" update=":importaEvento" 
+                                          uploadLabel="#{msg.enviar}" label="#{msg.selecionar}" cancelLabel="#{msg.cancelar}"
+                                          allowTypes="#{configBean.allowTypes}" invalidFileMessage="#{msg.arquivoInvalido}"
+                                          invalidSizeMessage="#{msg.arquivoTamanhoInvalido}" fileLimitMessage="#{msg.arquivoLimiteInvalido}"
+                                          fileLimit="#{configBean.fileLimit}" sizeLimit="#{configBean.sizeLimit}" 
+                                          fileUploadListener="#{eventoBean.uploadEvento}"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -27,11 +33,12 @@
                                              oncomplete="dialogHandler('importaEvento',xhr, status, args)"
                                              actionListener="#{eventoBean.importaEvento}"
                                              process="@form"  />
-                            
+
                             <p:commandButton value="#{msg.cancelar}"
                                              icon="ui-icon-close"
                                              title="#{msg.cancelar}"
-                                             oncomplete="PF('importEvento').hide()" />
+                                             process="@none"
+                                             oncomplete="PF('importaEvento').hide()" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

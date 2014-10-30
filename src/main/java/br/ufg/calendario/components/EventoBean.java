@@ -129,10 +129,12 @@ public class EventoBean {
 
     public void uploadEvento(FileUploadEvent event) {
         FacesMessage msg;
+        boolean saveStatus = false;
         UploadedFile arquivo = event.getFile();
         System.out.println("arquivo enviado: " + arquivo.getFileName());
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("arquivoEnviado"));
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 
     public void importaEvento() {

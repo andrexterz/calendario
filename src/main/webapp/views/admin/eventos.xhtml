@@ -8,6 +8,7 @@
     <ui:composition template="baseAdmin.xhtml">
         <ui:define name="title">#{msg.eventos}</ui:define>
         <ui:define name="content">
+            <ui:include src="importaEventoForm.xhtml" />
             <ui:include src="salvaEventoForm.xhtml" />
             <ui:include src="excluiEventoForm.xhtml" />
             <h:form id="eventosForm">
@@ -15,7 +16,7 @@
                     <f:facet name="left">
                         <p:commandButton icon="ui-icon-arrow-1-n"
                                          value="#{msg.importar}"
-                                         oncomplete="PF('salvaEvento').show()" />
+                                         oncomplete="PF('importaEvento').show()" />
                         
                         <p:commandButton icon="ui-icon-document"
                                          value="#{msg.adicionar}"
