@@ -151,7 +151,7 @@ public class EventoBean {
             }
             for (CSVRecord record: parser) {
                 for (int i = 0; i < record.size(); i++) {
-                    System.out.print(record.get(i) + "\t");
+                    System.out.print(record.get(i).trim() + "\t");
                 }
                 System.out.println("\n****************************************************************************");
             }
