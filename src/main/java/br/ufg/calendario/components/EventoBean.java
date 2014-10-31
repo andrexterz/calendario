@@ -9,13 +9,22 @@ import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -131,6 +140,24 @@ public class EventoBean {
         FacesMessage msg;
         boolean saveStatus = false;
         UploadedFile arquivo = event.getFile();
+        try {
+            InputStream arquivoReader = arquivo.getInputstream();
+            Charset charset = Charset.forName("UTF-8");
+            CharsetDecoder decoder = charset.newDecoder();
+            Reader reader = new InputStreamReader(arquivoReader, decoder);
+            CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader());
+            for (Entry<String, Integer> entry:parser.getHeaderMap().entrySet()) {
+                System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
+            }
+            for (CSVRecord record: parser) {
+                for (int i = 0; i < record.size(); i++) {
+                    System.out.print(record.get(i) + "\t");
+                }
+                System.out.println("\n****************************************************************************");
+            }
+        } catch (IOException e) {
+            System.out.println("erro: " + e.getMessage());
+        }
         System.out.println("arquivo enviado: " + arquivo.getFileName());
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("arquivoEnviado"));
         FacesContext.getCurrentInstance().addMessage(null, msg);
