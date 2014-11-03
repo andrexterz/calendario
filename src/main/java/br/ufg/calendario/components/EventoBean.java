@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,9 @@ public class EventoBean {
 
     @Autowired
     transient private EventoDao eventoDao;
+    
+    @Autowired
+    transient private ConfigBean configBean;
 
     private Evento evento;
     private Evento itemSelecionado;
@@ -146,16 +151,23 @@ public class EventoBean {
             CharsetDecoder decoder = charset.newDecoder();
             Reader reader = new InputStreamReader(arquivoReader, decoder);
             CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader());
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(configBean.getDateFormat());
             for (Entry<String, Integer> entry:parser.getHeaderMap().entrySet()) {
                 System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
             }
             for (CSVRecord record: parser) {
+                Date dataInicio = dateFormatter.parse(record.get(0));
+                Date dataTermino = dateFormatter.parse(record.get(1));
+                String assunto = record.get(2);
+                String descricao = record.get(3);
+                String interessado = record.get(4);
+                //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
                 for (int i = 0; i < record.size(); i++) {
                     System.out.print(record.get(i).trim() + "\t");
                 }
                 System.out.println("\n****************************************************************************");
             }
-        } catch (IOException e) {
+        } catch (IOException|ParseException e) {
             System.out.println("erro: " + e.getMessage());
         }
         System.out.println("arquivo enviado: " + arquivo.getFileName());

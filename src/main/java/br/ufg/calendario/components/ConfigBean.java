@@ -37,4 +37,8 @@ public class ConfigBean {
     public String getAllowTypes() {
         return properties.getProperty("allowTypes");
     }
+    
+    public String getDateFormat() {
+        return properties.getProperty("dateFormat");
+    }
 }
