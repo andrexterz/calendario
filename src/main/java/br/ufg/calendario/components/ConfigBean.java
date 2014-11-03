@@ -41,4 +41,8 @@ public class ConfigBean {
     public String getDateFormat() {
         return properties.getProperty("dateFormat");
     }
+    
+    public char getDelimiter() {
+        return properties.getProperty("csvDelimiter").charAt(0);
+    }
 }

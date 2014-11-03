@@ -150,7 +150,7 @@ public class EventoBean {
             Charset charset = Charset.forName("UTF-8");
             CharsetDecoder decoder = charset.newDecoder();
             Reader reader = new InputStreamReader(arquivoReader, decoder);
-            CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader());
+            CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader().withDelimiter(configBean.getDelimiter()));
             SimpleDateFormat dateFormatter = new SimpleDateFormat(configBean.getDateFormat());
             for (Entry<String, Integer> entry:parser.getHeaderMap().entrySet()) {
                 System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
@@ -162,9 +162,13 @@ public class EventoBean {
                 String descricao = record.get(3);
                 String interessado = record.get(4);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
-                for (int i = 0; i < record.size(); i++) {
-                    System.out.print(record.get(i).trim() + "\t");
-                }
+                System.out.format("%s | %s | %s | %s | %s\n",
+                        dateFormatter.format(dataInicio),
+                        dateFormatter.format(dataTermino),
+                        assunto,
+                        descricao,
+                        interessado
+                );
                 System.out.println("\n****************************************************************************");
             }
         } catch (IOException|ParseException e) {
