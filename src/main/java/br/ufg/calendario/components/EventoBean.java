@@ -6,6 +6,7 @@
 package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.EventoDao;
+import br.ufg.calendario.dao.InteressadoDao;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
@@ -17,10 +18,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
@@ -48,6 +52,8 @@ public class EventoBean {
 
     @Autowired
     transient private EventoDao eventoDao;
+    @Autowired
+    transient private InteressadoDao interessadoDao;
     
     @Autowired
     transient private ConfigBean configBean;
@@ -57,6 +63,7 @@ public class EventoBean {
     private final LazyDataModel<Evento> eventos;
     private Regional selecaoRegional;
     private Interessado selecaoInteressado;
+    private List<Evento> eventosImportados;
 
     public EventoBean() {
 
@@ -64,6 +71,7 @@ public class EventoBean {
         itemSelecionado = null;
         selecaoRegional = null;
         selecaoInteressado = null;
+        eventosImportados = new ArrayList<>();
         eventos = new LazyDataModel<Evento>() {
 
             private List<Evento> data;
@@ -161,14 +169,19 @@ public class EventoBean {
                 Date dataTermino = dateFormatter.parse(record.get(1));
                 String assunto = record.get(2);
                 String descricao = record.get(3);
-                String interessado = record.get(4);
+                String[] interessadoArray = record.get(4).split(configBean.getRegexSplitter());
+                Set<Interessado> interessadoList = new HashSet();
+                for (String interessado: interessadoArray) {
+                    interessadoList.addAll(interessadoDao.listar(interessado));
+                }
+                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, null, null, interessadoList);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
                 System.out.format("%s | %s | %s | %s | %s\n",
                         dateFormatter.format(dataInicio),
                         dateFormatter.format(dataTermino),
                         assunto,
                         descricao,
-                        interessado
+                        interessadoArray
                 );
                 System.out.println("\n****************************************************************************");
             }

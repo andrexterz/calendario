@@ -12,6 +12,8 @@ import java.util.Map.Entry;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +81,17 @@ public class InteressadoDao {
     public List<Interessado> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Interessado.class);
+        return criteria.list();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Interessado> listar(String termo) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Interessado.class);
+        criteria.add(Restrictions.or(
+                Restrictions.like("sigla", termo, MatchMode.ANYWHERE).ignoreCase(),
+                Restrictions.like("nome", termo, MatchMode.ANYWHERE).ignoreCase()))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
     
