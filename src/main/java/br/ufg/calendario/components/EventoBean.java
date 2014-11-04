@@ -156,6 +156,7 @@ public class EventoBean {
                 System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
             }
             for (CSVRecord record: parser) {
+                //adicionar entidade calendario (select box) na tela importar eventos.
                 Date dataInicio = dateFormatter.parse(record.get(0));
                 Date dataTermino = dateFormatter.parse(record.get(1));
                 String assunto = record.get(2);
