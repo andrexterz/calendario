@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 public class CalendarioBean implements Serializable {
 
     @Autowired
-    transient private CalendarioDao calendarioDao;
+    private transient CalendarioDao calendarioDao;
 
     private Calendario calendario;
     private Calendario itemSelecionado;

@@ -5,8 +5,10 @@
  */
 package br.ufg.calendario.components;
 
+import br.ufg.calendario.dao.CalendarioDao;
 import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.dao.InteressadoDao;
+import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
@@ -51,12 +53,16 @@ public class EventoBean {
     private Validator validator;
 
     @Autowired
-    transient private EventoDao eventoDao;
-    @Autowired
-    transient private InteressadoDao interessadoDao;
+    private transient EventoDao eventoDao;
     
     @Autowired
-    transient private ConfigBean configBean;
+    private transient CalendarioDao calendarioDao;
+    
+    @Autowired
+    private transient InteressadoDao interessadoDao;
+    
+    @Autowired
+    private transient ConfigBean configBean;
 
     private Evento evento;
     private Evento itemSelecionado;
@@ -150,6 +156,7 @@ public class EventoBean {
     }
 
     public void uploadEvento(FileUploadEvent event) {
+        Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         FacesMessage msg;
         boolean saveStatus = false;
         UploadedFile arquivo = event.getFile();
@@ -170,11 +177,15 @@ public class EventoBean {
                 String assunto = record.get(2);
                 String descricao = record.get(3);
                 String[] interessadoArray = record.get(4).split(configBean.getRegexSplitter());
+                Long anoCalendario = Long.parseLong(record.get(5));
+                Calendario calendario = null;
+                //implementar método buscar em CalendarioDao que recebe ano:Long
+                //Calendario = calendarioDao.buscar(anoCalendario);
                 Set<Interessado> interessadoList = new HashSet();
                 for (String interessado: interessadoArray) {
                     interessadoList.addAll(interessadoDao.listar(interessado));
                 }
-                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, null, null, interessadoList);
+                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
                 System.out.format("%s | %s | %s | %s | %s\n",
                         dateFormatter.format(dataInicio),
