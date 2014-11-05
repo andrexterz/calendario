@@ -27,7 +27,7 @@ public class InteressadoConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            Interessado interessado = interessadoDao.buscar(Long.parseLong(value));
+            Interessado interessado = interessadoDao.buscarPorId(Long.parseLong(value));
             return interessado;
         } catch (NumberFormatException e) {
             return null;

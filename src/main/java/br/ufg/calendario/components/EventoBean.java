@@ -56,20 +56,20 @@ public class EventoBean {
     private transient EventoDao eventoDao;
     
     @Autowired
-    private transient CalendarioDao calendarioDao;
-    
-    @Autowired
     private transient InteressadoDao interessadoDao;
+
+    @Autowired
+    private transient CalendarioDao calendarioDao;
     
     @Autowired
     private transient ConfigBean configBean;
 
     private Evento evento;
     private Evento itemSelecionado;
-    private final LazyDataModel<Evento> eventos;
     private Regional selecaoRegional;
     private Interessado selecaoInteressado;
     private List<Evento> eventosImportados;
+    private final LazyDataModel<Evento> eventos;    
 
     public EventoBean() {
 
@@ -170,6 +170,8 @@ public class EventoBean {
             for (Entry<String, Integer> entry:parser.getHeaderMap().entrySet()) {
                 System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
             }
+            Integer ano;
+            Calendario calendario = null;
             for (CSVRecord record: parser) {
                 //adicionar entidade calendario (select box) na tela importar eventos.
                 Date dataInicio = dateFormatter.parse(record.get(0));
@@ -177,26 +179,25 @@ public class EventoBean {
                 String assunto = record.get(2);
                 String descricao = record.get(3);
                 String[] interessadoArray = record.get(4).split(configBean.getRegexSplitter());
-                Long anoCalendario = Long.parseLong(record.get(5));
-                Calendario calendario = null;
-                //implementar método buscar em CalendarioDao que recebe ano:Long
-                //Calendario = calendarioDao.buscar(anoCalendario);
+                ano = Integer.parseInt(record.get(5));
+                calendario = calendarioDao.buscar(ano);
                 Set<Interessado> interessadoList = new HashSet();
                 for (String interessado: interessadoArray) {
                     interessadoList.addAll(interessadoDao.listar(interessado));
                 }
                 Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
-                System.out.format("%s | %s | %s | %s | %s\n",
+                System.out.format("inicio: %s |termino: %s |assunto: %s |descricao: %s |calendario: %s |interessados: %s\n",
                         dateFormatter.format(dataInicio),
                         dateFormatter.format(dataTermino),
                         assunto,
                         descricao,
-                        interessadoArray
+                        ano,
+                        interessadoList.toString()
                 );
                 System.out.println("\n****************************************************************************");
             }
-        } catch (IOException|ParseException e) {
+        } catch (IOException| ParseException e) {
             System.out.println("erro: " + e.getMessage());
         }
         System.out.println("arquivo enviado: " + arquivo.getFileName());

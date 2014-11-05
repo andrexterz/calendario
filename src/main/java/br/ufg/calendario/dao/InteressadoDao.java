@@ -72,7 +72,7 @@ public class InteressadoDao {
     }
     
     @Transactional(readOnly = true)
-    public Interessado buscar(Long id) {
+    public Interessado buscarPorId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return (Interessado) session.get(Interessado.class, id);
     }    

@@ -66,7 +66,7 @@ public class RegionalDao {
     }
 
     @Transactional(readOnly = true)
-    public Regional buscar(Long id) {
+    public Regional buscarPorId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return (Regional) session.get(Regional.class, id);
     }

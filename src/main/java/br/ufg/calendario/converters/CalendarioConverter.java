@@ -26,7 +26,7 @@ public class CalendarioConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            Calendario calendario = calendarioDao.buscar(Long.parseLong(value));
+            Calendario calendario = calendarioDao.buscarPorId(Long.parseLong(value));
             return calendario;
         } catch (NumberFormatException e) {
             return null;

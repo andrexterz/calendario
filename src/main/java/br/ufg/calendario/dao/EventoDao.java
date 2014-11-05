@@ -70,7 +70,7 @@ public class EventoDao {
     }
     
       @Transactional(readOnly = true)
-    public Evento buscar(Long id) {
+    public Evento buscarPorId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return (Evento) session.get(Evento.class, id);
     }

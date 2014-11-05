@@ -12,23 +12,12 @@
                 <p:panelGrid styleClass="formGrid">
                     <p:row>
                         <p:column>
-                            <p:outputLabel value="#{msg.calendario}" />
-                        </p:column>
-                        <p:column>
-                            <p:selectOneMenu value="#{eventoBean.evento.calendario}" converter="#{calendarioConverter}" styleClass="col100">
-                                <f:selectItems value="#{calendarioDao.listar()}"
-                                               var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
-                            </p:selectOneMenu>                            
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="2">
                             <p:outputLabel value="#{msg.arquivo}" />
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2">
-                            <p:fileUpload dragDropSupport="true" mode="advanced" process="@this" update=":importaEvento" 
+                        <p:column>
+                            <p:fileUpload dragDropSupport="true" mode="advanced" process="@form" update=":importaEvento" 
                                           uploadLabel="#{msg.enviar}" label="#{msg.selecionar}" cancelLabel="#{msg.cancelar}"
                                           allowTypes="#{configBean.allowTypes}" invalidFileMessage="#{msg.arquivoInvalido}"
                                           invalidSizeMessage="#{msg.arquivoTamanhoInvalido}" fileLimitMessage="#{msg.arquivoLimiteInvalido}"
@@ -37,7 +26,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="2" styleClass="alignCenter dialogButtons">
+                        <p:column styleClass="alignCenter dialogButtons">
                             <p:commandButton value="#{msg.importar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.importar}"
