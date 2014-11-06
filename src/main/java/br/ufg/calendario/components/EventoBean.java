@@ -180,7 +180,9 @@ public class EventoBean {
                 String descricao = record.get(3);
                 String[] interessadoArray = record.get(4).split(configBean.getRegexSplitter());
                 ano = Integer.parseInt(record.get(5));
-                calendario = calendarioDao.buscar(ano);
+                if (calendario == null) {
+                    calendario = calendarioDao.buscar(ano);
+                }
                 Set<Interessado> interessadoList = new HashSet();
                 for (String interessado: interessadoArray) {
                     interessadoList.addAll(interessadoDao.listar(interessado));
@@ -192,7 +194,7 @@ public class EventoBean {
                         dateFormatter.format(dataTermino),
                         assunto,
                         descricao,
-                        ano,
+                        calendario.getAno(),
                         interessadoList.toString()
                 );
                 System.out.println("\n****************************************************************************");

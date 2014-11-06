@@ -88,7 +88,8 @@ public class CalendarioDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Calendario.class);
         criteria.add(Restrictions.eq("ano", ano));
-        return (Calendario) criteria.uniqueResult();
+        Calendario calendario = (Calendario) criteria.uniqueResult();
+        return calendario;
      }
 
     @Transactional(readOnly = true)
