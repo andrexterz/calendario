@@ -9,6 +9,7 @@ import br.ufg.calendario.models.Regional;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -35,7 +36,7 @@ public class RegionalDao {
         try {
             session.save(regional);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             return false;
         }
@@ -47,7 +48,7 @@ public class RegionalDao {
         try {
             session.update(regional);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             return false;
         }
@@ -59,7 +60,7 @@ public class RegionalDao {
         try {
             session.delete(regional);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             return false;
         }

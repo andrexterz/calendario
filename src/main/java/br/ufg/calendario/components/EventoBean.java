@@ -101,7 +101,11 @@ public class EventoBean {
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = eventoDao.listar(first, pageSize, null, null, null);
                 setPageSize(pageSize);
-                setRowCount(data.size());
+                if (filters.isEmpty()) {
+                    setRowCount(eventoDao.rowCount());
+                } else {
+                    setRowCount(eventoDao.rowCount(filters));
+                }
                 if (data.size() > pageSize) {
                     try {
                         return data.subList(first, first + pageSize);
@@ -189,15 +193,7 @@ public class EventoBean {
                 }
                 Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
-                System.out.format("inicio: %s |termino: %s |assunto: %s |descricao: %s |calendario: %s |interessados: %s\n",
-                        dateFormatter.format(dataInicio),
-                        dateFormatter.format(dataTermino),
-                        assunto,
-                        descricao,
-                        calendario.getAno(),
-                        interessadoList.toString()
-                );
-                System.out.println("\n****************************************************************************");
+                eventosImportados.add(evt);
             }
         } catch (IOException| ParseException e) {
             System.out.println("erro: " + e.getMessage());
@@ -209,7 +205,20 @@ public class EventoBean {
     }
 
     public void importaEvento() {
-        System.out.println("processar arquivo enviado ao servidor");
+        FacesMessage msg;
+        boolean saveStatus = eventoDao.adicionar(eventosImportados);
+        if (saveStatus) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("arquivoImportado"));
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroImportacao"));
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void limpaEventosImportados() {
+        eventosImportados.clear();
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void checkDate(SelectEvent event) {
@@ -273,4 +282,9 @@ public class EventoBean {
     public void setSelecaoInteressado(Interessado selecaoInteressado) {
         this.selecaoInteressado = selecaoInteressado;
     }
+
+    public List<Evento> getEventosImportados() {
+        return eventosImportados;
+    }
+
 }

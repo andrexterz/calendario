@@ -14,20 +14,22 @@
                                 var="evento"
                                 chunkSize="10"
                                 styleClass="eventDisplay">
-                    <article class="event">
-                        <h1>#{evento.assunto}</h1>
-                        <h2>
-                            <h:outputText value="#{evento.inicio}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                            &nbsp;#{msg.prepA}&nbsp; 
-                            <h:outputText value="#{evento.termino}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </h2>
-                        <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail(detail#{evento.id})">#{msg.detalhes}</span>
-                        <p id="description#{evento.id}">#{evento.descricao}</p>
-                    </article>
+                    <h:panelGroup layout="block">
+                        <article class="event">
+                            <h1>#{evento.assunto}</h1>
+                            <h2>
+                                <h:outputText value="#{evento.inicio}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                                &nbsp;#{msg.prepA}&nbsp; 
+                                <h:outputText value="#{evento.termino}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </h2>
+                            <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail(detail#{evento.id})">#{msg.detalhes}</span>
+                            <p id="description#{evento.id}">#{evento.descricao}</p>
+                        </article>
+                    </h:panelGroup>
                 </p:dataScroller>
             </div>
         </ui:define>

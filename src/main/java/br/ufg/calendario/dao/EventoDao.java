@@ -9,9 +9,11 @@ import br.ufg.calendario.models.Evento;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -35,12 +37,35 @@ public class EventoDao {
             session.clear();
             session.save(evento);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
         }
     }
+    
+    @Transactional
+    public boolean adicionar(List<Evento> eventos) {
+        Session session = sessionFactory.getCurrentSession();
+        int counter = 0;
+        try {
+            session.clear();
+            for (Evento evt: eventos) {
+                session.save(evt);
+                if (++counter  % 20 == 0) {
+                    session.flush();
+                    session.clear();
+                }
+            }
+            return true;
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+            session.clear();
+            return false;
+        }
+    }
+    
+
 
     @Transactional
     public boolean atualizar(Evento evento) {
@@ -49,7 +74,7 @@ public class EventoDao {
             session.clear();
             session.update(evento);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
@@ -62,7 +87,7 @@ public class EventoDao {
         try {
             session.delete(evento);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
@@ -99,5 +124,22 @@ public class EventoDao {
             //assunto || descricao || (dataInicio && dataTermino) || interessado || regional
         }
         return criteria.list();
+    }
+    
+    @Transactional(readOnly = true)
+    public int rowCount() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+    }
+    
+    @Transactional(readOnly = true)
+    public int rowCount(Map<String, Object> filters) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
+        for (String field: filters.keySet()) {
+            
+        }
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
     }
 }

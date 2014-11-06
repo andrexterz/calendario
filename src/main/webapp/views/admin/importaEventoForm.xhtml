@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog widgetVar="importaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="620" position="center"
+              closeOnEscape="true" resizable="false" width="70%" position="center"
               header="#{msg.importar} #{msg.eventos}">
         <h:form id="importaEvento" enctype="multipart/form-data">
             <f:validateBean disabled="true">
@@ -17,12 +17,37 @@
                     </p:row>
                     <p:row>
                         <p:column>
-                            <p:fileUpload dragDropSupport="true" mode="advanced" process="@form" update=":importaEvento" 
+                            <p:fileUpload dragDropSupport="true" mode="advanced" process="@form" update=":importaEvento tableImportaEventos" 
                                           uploadLabel="#{msg.enviar}" label="#{msg.selecionar}" cancelLabel="#{msg.cancelar}"
                                           allowTypes="#{configBean.allowTypes}" invalidFileMessage="#{msg.arquivoInvalido}"
                                           invalidSizeMessage="#{msg.arquivoTamanhoInvalido}" fileLimitMessage="#{msg.arquivoLimiteInvalido}"
                                           fileLimit="#{configBean.fileLimit}" sizeLimit="#{configBean.sizeLimit}" 
                                           fileUploadListener="#{eventoBean.uploadEvento}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:dataTable id="tableImportaEventos" value="#{eventoBean.eventosImportados}" var="evt" emptyMessage="#{msg.vazio}"
+                                         paginator="true" pageLinks="5" paginatorPosition="top" rows="10">
+                                <p:column headerText="#{msg.dataInicio}" styleClass="col10">
+                                    <h:outputText value="#{evt.inicio}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{msg.dataTermino}" styleClass="col10">
+                                    <h:outputText value="#{evt.termino}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{msg.assunto}" styleClass="col80">
+                                    #{evt.assunto}
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:separator />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -33,6 +58,13 @@
                                              oncomplete="dialogHandler('importaEvento',xhr, status, args)"
                                              actionListener="#{eventoBean.importaEvento}"
                                              process="@form"  />
+
+                            <p:commandButton value="#{msg.limpar}"
+                                             icon=" ui-icon-trash"
+                                             title="#{msg.importar}"
+                                             actionListener="#{eventoBean.limpaEventosImportados}"
+                                             update="tableImportaEventos"
+                                             process="@this"  />
 
                             <p:commandButton value="#{msg.cancelar}"
                                              icon="ui-icon-close"

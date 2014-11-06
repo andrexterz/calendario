@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -38,7 +39,7 @@ public class InteressadoDao {
         try {
             session.save(interessado);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
@@ -51,7 +52,7 @@ public class InteressadoDao {
         try {
             session.update(interessado);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
@@ -64,7 +65,7 @@ public class InteressadoDao {
         try {
             session.delete(interessado);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;

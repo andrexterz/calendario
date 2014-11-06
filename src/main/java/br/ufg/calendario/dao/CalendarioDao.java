@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -41,7 +42,7 @@ public class CalendarioDao {
                 disableOthers(session, calendario);
             }
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
@@ -57,7 +58,7 @@ public class CalendarioDao {
                 disableOthers(session, calendario);
             }
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
@@ -70,7 +71,7 @@ public class CalendarioDao {
         try {
             session.delete(calendario);
             return true;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println(e.getMessage());
             session.clear();
             return false;
