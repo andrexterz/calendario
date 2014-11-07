@@ -54,13 +54,13 @@ public class EventoBean {
 
     @Autowired
     private transient EventoDao eventoDao;
-    
+
     @Autowired
     private transient InteressadoDao interessadoDao;
 
     @Autowired
     private transient CalendarioDao calendarioDao;
-    
+
     @Autowired
     private transient ConfigBean configBean;
 
@@ -68,8 +68,9 @@ public class EventoBean {
     private Evento itemSelecionado;
     private Regional selecaoRegional;
     private Interessado selecaoInteressado;
-    private List<Evento> eventosImportados;
-    private final LazyDataModel<Evento> eventos;    
+    private final LazyDataModel<Evento> eventos;
+    private List<Evento> eventosImportados;    
+    private TipoBusca tipoBusca;
 
     public EventoBean() {
 
@@ -78,6 +79,8 @@ public class EventoBean {
         selecaoRegional = null;
         selecaoInteressado = null;
         eventosImportados = new ArrayList<>();
+        tipoBusca = TipoBusca.ASSUNTO;
+        
         eventos = new LazyDataModel<Evento>() {
 
             private List<Evento> data;
@@ -103,7 +106,7 @@ public class EventoBean {
                 setPageSize(pageSize);
                 if (filters != null && !filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
-                    
+
                 } else {
                     setRowCount(eventoDao.rowCount());
                 }
@@ -150,7 +153,8 @@ public class EventoBean {
 
     public void excluir() {
         FacesMessage msg;
-        if (eventoDao.excluir(itemSelecionado)) {
+        boolean saveStatus = eventoDao.excluir(itemSelecionado);
+        if (saveStatus) {
             itemSelecionado = null;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemExcluido"));
         } else {
@@ -158,6 +162,7 @@ public class EventoBean {
         }
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 
     public void uploadEvento(FileUploadEvent event) {
@@ -172,12 +177,12 @@ public class EventoBean {
             Reader reader = new InputStreamReader(arquivoReader, decoder);
             CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader().withDelimiter(configBean.getDelimiter()));
             SimpleDateFormat dateFormatter = new SimpleDateFormat(configBean.getDateFormat());
-            for (Entry<String, Integer> entry:parser.getHeaderMap().entrySet()) {
+            for (Entry<String, Integer> entry : parser.getHeaderMap().entrySet()) {
                 System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
             }
             Integer ano;
             Calendario calendario = null;
-            for (CSVRecord record: parser) {
+            for (CSVRecord record : parser) {
                 //adicionar entidade calendario (select box) na tela importar eventos.
                 Date dataInicio = dateFormatter.parse(record.get(0));
                 Date dataTermino = dateFormatter.parse(record.get(1));
@@ -189,14 +194,14 @@ public class EventoBean {
                     calendario = calendarioDao.buscar(ano);
                 }
                 Set<Interessado> interessadoList = new HashSet();
-                for (String interessado: interessadoArray) {
+                for (String interessado : interessadoArray) {
                     interessadoList.addAll(interessadoDao.listar(interessado));
                 }
                 Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList, false);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
                 eventosImportados.add(evt);
             }
-        } catch (IOException| ParseException e) {
+        } catch (IOException | ParseException e) {
             System.out.println("erro: " + e.getMessage());
         }
         System.out.println("arquivo enviado: " + arquivo.getFileName());
@@ -215,7 +220,7 @@ public class EventoBean {
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void limpaEventosImportados() {
         eventosImportados.clear();
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
@@ -288,4 +293,11 @@ public class EventoBean {
         return eventosImportados;
     }
 
+    public TipoBusca getTipoBusca() {
+        return tipoBusca;
+    }
+
+    public void setTipoBusca(TipoBusca tipoBusca) {
+        this.tipoBusca = tipoBusca;
+    }
 }

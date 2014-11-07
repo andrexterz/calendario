@@ -28,8 +28,10 @@ import javax.validation.constraints.NotNull;
 public class Evento extends Base {
 
     public Evento() {
+        this.assunto = null;
         this.inicio = new Date();
         this.termino = new Date();
+        this.descricao = null;        
         this.regional = new HashSet();
         this.interessado = new HashSet();
         this.aprovado = false;
@@ -68,11 +70,11 @@ public class Evento extends Base {
     private Calendario calendario;
     
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
     private Set<Regional> regional;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
     private Set<Interessado> interessado;
     

@@ -6,7 +6,7 @@
         <p:confirmDialog widgetVar="excluiEvento" hideEffect="puff"
                          appendTo="@(body)" width="360" severity="alert"
                          header="#{msg.excluir} #{msg.evento}?"
-                         message="#{msg.excluir} #{msg.evento} #{eventoBean.itemSelecionado.id}">
+                         message="#{msg.excluir} #{msg.evento} #{eventoBean.itemSelecionado.assunto}">
             <h:panelGroup layout="block" styleClass="dialogButtons">
                 <p:commandButton icon="ui-icon-check"
                                  value="#{msg.sim}"
@@ -14,7 +14,7 @@
                                  process="@this"
                                  update=":eventosForm:eventosTable :eventosForm:toolbar"
                                  actionListener="#{eventoBean.excluir}" 
-                                 oncomplete="PF('excluiEvento').hide()" />
+                                 oncomplete="dialogHandler('excluiEvento', xhr, status, args)" />
                 
                 <p:commandButton icon="ui-icon-cancel"
                                  value="#{msg.nao}"

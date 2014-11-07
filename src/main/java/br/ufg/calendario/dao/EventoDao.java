@@ -45,16 +45,16 @@ public class EventoDao {
             return false;
         }
     }
-    
+
     @Transactional
     public boolean adicionar(List<Evento> eventos) {
         Session session = sessionFactory.getCurrentSession();
         int counter = 0;
         try {
             session.clear();
-            for (Evento evt: eventos) {
+            for (Evento evt : eventos) {
                 session.save(evt);
-                if (++counter  % 20 == 0) {
+                if (++counter % 20 == 0) {
                     session.flush();
                     session.clear();
                 }
@@ -66,8 +66,6 @@ public class EventoDao {
             return false;
         }
     }
-    
-
 
     @Transactional
     public boolean atualizar(Evento evento) {
@@ -95,13 +93,13 @@ public class EventoDao {
             return false;
         }
     }
-    
-      @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public Evento buscarPorId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return (Evento) session.get(Evento.class, id);
     }
-    
+
     @Transactional(readOnly = true)
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();
@@ -115,33 +113,48 @@ public class EventoDao {
         Criteria criteria = session.createCriteria(Evento.class);
         criteria.setFirstResult(first);
         criteria.setMaxResults(pageSize);
-        if ((sortField != null && !sortField.isEmpty())  && (sortOrder != null && !sortOrder.isEmpty())) {
+        if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
             if (sortOrder.equals("ASCENDING")) {
                 criteria.addOrder(Order.asc(sortField));
-            } if (sortOrder.equals("DESCENDING")) {
+            }
+            if (sortOrder.equals("DESCENDING")) {
                 criteria.addOrder(Order.desc(sortField));
             }
+        } else {
+            criteria.addOrder(Order.asc("inicio"));
         }
         if (filters != null && !filters.isEmpty()) {
             //assunto || descricao || (dataInicio && dataTermino) || interessado || regional
         }
         return criteria.list();
     }
-    
+
     @Transactional(readOnly = true)
     public int rowCount() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
         return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
     }
-    
+
     @Transactional(readOnly = true)
     public int rowCount(Map<String, Object> filters) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
-        for (String field: filters.keySet()) {
+        for (String field : filters.keySet()) {
             if (field.equals("assunto")) {
                 criteria.add(Restrictions.like(field, filters.get(field).toString(), MatchMode.ANYWHERE).ignoreCase());
+            }
+            if (field.equals("periodo")) {
+                System.out.println("implementar filtro periodo");
+            }
+            if (field.equals("descricao")) {
+                System.out.println("implementar filtro descricao");
+            }
+            if (field.equals("interessado")) {
+                System.out.println("implementar filtro interessado");
+            }
+            if (field.equals("regional")) {
+                System.out.println("implementar filtro regional");
             }
         }
         return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
