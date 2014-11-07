@@ -12,8 +12,10 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -138,7 +140,9 @@ public class EventoDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
         for (String field: filters.keySet()) {
-            
+            if (field.equals("assunto")) {
+                criteria.add(Restrictions.like(field, filters.get(field).toString(), MatchMode.ANYWHERE).ignoreCase());
+            }
         }
         return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
     }

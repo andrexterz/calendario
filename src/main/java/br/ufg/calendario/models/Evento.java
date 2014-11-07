@@ -32,9 +32,10 @@ public class Evento extends Base {
         this.termino = new Date();
         this.regional = new HashSet();
         this.interessado = new HashSet();
+        this.aprovado = false;
     }
 
-    public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, Set<Regional> regional, Set<Interessado> interessado) {
+    public Evento(String assunto, Date inicio, Date termino, String descricao, Calendario calendario, Set<Regional> regional, Set<Interessado> interessado, Boolean aprovado) {
         this.assunto = assunto;
         this.inicio = inicio;
         this.termino = termino;
@@ -42,6 +43,7 @@ public class Evento extends Base {
         this.calendario = calendario;
         this.regional = regional;
         this.interessado = interessado;
+        this.aprovado = aprovado;
     }
     
     
@@ -65,7 +67,7 @@ public class Evento extends Base {
     @ManyToOne
     private Calendario calendario;
     
-    
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
     private Set<Regional> regional;
@@ -73,6 +75,11 @@ public class Evento extends Base {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
     private Set<Interessado> interessado;
+    
+    
+    @Column(columnDefinition = "boolean default false")
+    private Boolean aprovado;
+        
 
     /**
      * @return the assunto
@@ -186,5 +193,13 @@ public class Evento extends Base {
     
     public void removeInteressado(Interessado interessado) {
         this.interessado.remove(interessado);
+    }
+
+    public Boolean isAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(Boolean aprovado) {
+        this.aprovado = aprovado;
     }
 }

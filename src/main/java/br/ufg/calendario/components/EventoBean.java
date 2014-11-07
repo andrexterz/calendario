@@ -101,10 +101,11 @@ public class EventoBean {
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = eventoDao.listar(first, pageSize, null, null, null);
                 setPageSize(pageSize);
-                if (filters.isEmpty()) {
-                    setRowCount(eventoDao.rowCount());
-                } else {
+                if (filters != null && !filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
+                    
+                } else {
+                    setRowCount(eventoDao.rowCount());
                 }
                 if (data.size() > pageSize) {
                     try {
@@ -191,7 +192,7 @@ public class EventoBean {
                 for (String interessado: interessadoArray) {
                     interessadoList.addAll(interessadoDao.listar(interessado));
                 }
-                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList);
+                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList, false);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
                 eventosImportados.add(evt);
             }
