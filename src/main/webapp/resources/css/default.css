@@ -176,10 +176,6 @@ hr {
     background-image: url("#{resource['img/calendar.png']}");
 }
 
-.calendar64Icon {
-    background-image: url("#{resource['img/calendar64.png']}");
-}
-
 .eventIcon {
     background-image: url("#{resource['img/event.png']}");
 }
@@ -245,7 +241,7 @@ hr {
 
 @media(min-width: 767px) {
     .menuLeft {
-        width: 96px;
+        width: 56px;
         height: 100%;
         top: 60px;
     }
@@ -335,7 +331,7 @@ hr {
     .content {
         position: relative;
         margin-top: 60px;
-        margin-left: 96px;
+        margin-left: 56px;
     }
 }
 

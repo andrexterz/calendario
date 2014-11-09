@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -102,9 +103,11 @@ public class EventoBean {
 
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                data = eventoDao.listar(first, pageSize, null, null, null);
+                //reset primefaces filter
+                filters = new HashMap();
+                data = eventoDao.listar(first, pageSize, null, null, filters);
                 setPageSize(pageSize);
-                if (filters != null && !filters.isEmpty()) {
+                if (!filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
 
                 } else {
