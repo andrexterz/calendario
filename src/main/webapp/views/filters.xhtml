@@ -9,13 +9,13 @@
     <h:form>
         <div class="menuLeftHeader">
             <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu('#menuLeft');" />
-            <span>#{msg.filtro}</span>
+            <span>#{msg.menu}</span>
         </div>
         <div class="filterContent">
-            <p:commandLink styleClass="menuItem32 searchIcon" title="#{msg.busca}" process="@this" action="busca" />
+            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" process="@this" action="busca" />
             <hr />
-            <p:commandLink styleClass="menuItem32 listIcon" title="#{msg.modoLista}" />
-            <p:commandLink styleClass="menuItem32 calendarIcon" title="#{msg.modoCalendario}" />
+            <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
+            <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
         </div>
     </h:form>
 </ui:composition>

@@ -55,6 +55,7 @@ hr {
     float: left;
     margin-left: 1em;
     margin-top: 4px;
+    margin-right: 1em;
     margin-bottom: 4px;
     vertical-align: middle;
 }
@@ -76,7 +77,15 @@ hr {
     .appTitle {
         margin-top: 0.5em;
         font-size: 1.0em;
-    }   
+    }
+
+    .logo {
+        float: left;
+        margin-left: 2px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        vertical-align: middle;
+    }    
 
 }
 
@@ -137,35 +146,17 @@ hr {
     margin-top: 0;
 }
 
-.menuItem32 {
+.menuItem {
     display: inline-block;
     margin: 6px;
     width: 32px;
     height: 32px;
-    border: 1px solid #777;
     background-repeat: no-repeat;
     background-position: 0 0;
 }
 
-.menuItem32:hover {
-    background-color: #efefef!important;
+.menuItem:hover {
     background-position: 0 -32px;    
-}
-
-.menuItem48 {
-    display: inline-block;
-    margin: 12px;
-    width: 48px;
-    height: 48px;
-    border: 1px solid #777;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-size: 48px auto;
-}
-
-.menuItem48:hover {
-    background-color: #efefef!important;
-    background-position: 0 -48px;    
 }
 
 .searchIcon {
@@ -294,14 +285,6 @@ hr {
 .menuFilterButton:hover {
     background-color: #efefef!important;
     background-position: 0 -32px;
-}
-
-.filterMenuHeader span {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 16px;
-    color: #333;
-    font-size: 1.5em;
 }
 
 .filterMenuContent {
@@ -535,7 +518,7 @@ col40 {
     .col10 {
         width: 20%;
     }
-    
+
     .collapsedCol {
         width: 0;
         visibility: collapse;

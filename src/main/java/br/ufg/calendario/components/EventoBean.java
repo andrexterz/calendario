@@ -72,6 +72,13 @@ public class EventoBean {
     private final LazyDataModel<Evento> eventos;
     private List<Evento> eventosImportados;    
     private TipoBusca tipoBusca;
+    
+    //assunto | descricao
+    private String termoBusca;
+    private Regional buscaRegional;
+    private Interessado buscaInteressado;
+    private Date buscaDataInicio;
+    private Date buscaDataTermino;
 
     public EventoBean() {
 
@@ -80,7 +87,7 @@ public class EventoBean {
         selecaoRegional = null;
         selecaoInteressado = null;
         eventosImportados = new ArrayList<>();
-        tipoBusca = TipoBusca.ASSUNTO;
+        tipoBusca = TipoBusca.TERMO;
         
         eventos = new LazyDataModel<Evento>() {
 
@@ -303,4 +310,18 @@ public class EventoBean {
     public void setTipoBusca(TipoBusca tipoBusca) {
         this.tipoBusca = tipoBusca;
     }
+    
+    public List<TipoBusca> getTipoBuscaList() {
+        return TipoBusca.getValues();
+    }
+
+    public String getTermoBusca() {
+        return termoBusca;
+    }
+
+    public void setTermoBusca(String termoBusca) {
+        this.termoBusca = termoBusca;
+    }
+    
+    
 }

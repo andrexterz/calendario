@@ -3,19 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="home.xhtml">
         <ui:define name="title">#{msg.busca}</ui:define>
         <ui:define name="filter">
             <div class="filterMenu">
-                <h:form>
-                    <div class="filterMenuHeader">
-                        <span>#{msg.buscaPeriodo}</span>
-                    </div>
+                <h:form id="searchForm">
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" />
+                            <h:selectOneMenu value="#{eventoBean.tipoBusca}">
+                                <p:ajax event="change" update=":searchForm" />
+                                <f:selectItems value="#{eventoBean.tipoBuscaList}"
+                                               var="tipoBuscaItem"
+                                               itemLabel="#{tipoBuscaItem.value}"
+                                               itemValue="#{tipoBuscaItem}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:toolbar>
                     <div class="filterMenuContent">
-                        <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
-                        <p:inputText id="buscaTextual" />
-                        <p:commandLink title="#{msg.confirmar}" styleClass="menuFilterButton" action="home?faces-redirect=true" />                                                
+                        <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
+                            <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
+                            <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" />
+                            <p:commandLink title="#{msg.confirmar}" styleClass="menuFilterButton" action="home?faces-redirect=true" />
+                        </h:panelGroup>
                     </div>
                 </h:form>
             </div>

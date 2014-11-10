@@ -5,14 +5,16 @@
  */
 package br.ufg.calendario.components;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author André
  */
 public enum TipoBusca {
 
-    ASSUNTO("assunto"),
-    DESCRICAO("descricao"),
+    TERMO("termo"),
     INTERESSADO("interessado"),
     PERIODO("periodo"),
     REGIONAL("regional");
@@ -25,5 +27,9 @@ public enum TipoBusca {
 
     public String getValue() {
         return value;
+    }
+    
+    public static List<TipoBusca> getValues() {
+        return Arrays.asList(TipoBusca.values());
     }
 };
