@@ -111,6 +111,7 @@ public class EventoBean {
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
+                System.out.println("termo: " + getTermoBusca());
                 filters = new HashMap();
                 data = eventoDao.listar(first, pageSize, null, null, filters);
                 setPageSize(pageSize);
