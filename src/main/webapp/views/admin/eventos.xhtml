@@ -36,9 +36,9 @@
                                          oncomplete="PF('excluiEvento').show()" />
                     </f:facet>
                 </p:toolbar>
-                <p:dataTable id="eventosTable" value="#{eventoDao.listar()}" var="evento" rowKey="#{evento.id}"
+                <p:dataTable id="eventosTable" value="#{eventoBean.eventos}" var="evento"
                              rows="10" paginatorPosition="top" selectionMode="single" lazy="true"
-                             paginator="true" selection="#{eventoBean.itemSelecionado}">
+                             paginator="true" pageLinks="5" selection="#{eventoBean.itemSelecionado}">
                     <p:ajax event="rowSelect" update=":eventosForm:toolbar" />
                     <p:column styleClass="col5">
                         <p:rowToggler />

@@ -36,7 +36,7 @@
             </p:ajaxStatus>
             <ui:insert name="menuTop">
                 <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
-                    <p:graphicImage value="#{resource['img/ufg-logo48.png']}" styleClass="logo" />
+                    <p:graphicImage value="#{resource['img/ufg-logo.png']}" styleClass="logo" />
                     <h:panelGroup layout="block" styleClass="container">
                         <h:panelGroup layout="block" styleClass="navbar-header">
                             <ui:insert name="topMenu">
@@ -59,7 +59,8 @@
                                         <p:commandLink value="#{msg.inicio}" action="home" />
                                     </li>
                                     <li>
-                                        <h:selectOneMenu styleClass="menuCalendar" value="#{calendarioBean.calendario}">
+                                        <h:selectOneMenu styleClass="menuCalendar" value="#{calendarioBean.itemSelecionado}">
+                                            <p:ajax event="change" process="@this" />
                                             <f:selectItems value="#{calendarioDao.listar()}" var="calendario" itemLabel="#{msg.calendario} #{calendario.ano}" itemValue="#{calendario}" />
                                         </h:selectOneMenu>
                                     </li>

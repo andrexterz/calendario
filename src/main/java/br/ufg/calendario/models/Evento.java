@@ -12,12 +12,18 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  *
@@ -25,6 +31,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Entity
+@Indexed
 public class Evento extends Base {
 
     public Evento() {
@@ -51,6 +58,7 @@ public class Evento extends Base {
     
     @NotNull   
     @Column
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String assunto;
     
     @NotNull
@@ -63,6 +71,7 @@ public class Evento extends Base {
     
     @NotNull
     @Column
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String descricao;
     
     @NotNull
@@ -70,11 +79,11 @@ public class Evento extends Base {
     private Calendario calendario;
     
 
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
     private Set<Regional> regional;
     
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
     private Set<Interessado> interessado;
     

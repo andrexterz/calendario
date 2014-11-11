@@ -12,10 +12,14 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -110,7 +114,8 @@ public class EventoDao {
     @Transactional(readOnly = true)
     public List<Evento> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Evento.class);
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        Criteria criteria = fullTextSession.createCriteria(Evento.class);
         criteria.setFirstResult(first);
         criteria.setMaxResults(pageSize);
         if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
@@ -124,7 +129,26 @@ public class EventoDao {
             criteria.addOrder(Order.asc("inicio"));
         }
         if (filters != null && !filters.isEmpty()) {
-            //assunto || descricao || (dataInicio && dataTermino) || interessado || regional
+            for (String key : filters.keySet()) {
+                if (key.equals("termo")) {
+
+                    QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Evento.class).get();
+                    org.apache.lucene.search.Query squery = queryBuilder
+                            .keyword()
+                            .onFields("assunto", "descricao").matching(filters.get(key).toString())
+                            .createQuery();
+                    org.hibernate.Query hquery = fullTextSession.createFullTextQuery(squery, Evento.class);
+                    hquery.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+                    return hquery.list();
+                    /*
+                     criteria.add(Restrictions.or(
+                     Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE),
+                     Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE)))
+                     .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+                     */
+                }
+
+            }
         }
         return criteria.list();
     }
