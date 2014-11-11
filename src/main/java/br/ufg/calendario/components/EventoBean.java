@@ -70,9 +70,9 @@ public class EventoBean {
     private Regional selecaoRegional;
     private Interessado selecaoInteressado;
     private final LazyDataModel<Evento> eventos;
-    private List<Evento> eventosImportados;    
+    private List<Evento> eventosImportados;
     private TipoBusca tipoBusca;
-    
+
     //assunto | descricao
     private String termoBusca;
     private Regional buscaRegional;
@@ -88,7 +88,7 @@ public class EventoBean {
         selecaoInteressado = null;
         eventosImportados = new ArrayList<>();
         tipoBusca = TipoBusca.TERMO;
-        
+
         eventos = new LazyDataModel<Evento>() {
 
             private List<Evento> data;
@@ -111,8 +111,11 @@ public class EventoBean {
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
-                System.out.println("termo: " + getTermoBusca());
                 filters = new HashMap();
+                if (getTermoBusca() != null && !getTermoBusca().isEmpty()) {
+                    System.out.println("termo: " + getTermoBusca());
+                    filters.put("termo", getTermoBusca());
+                }
                 data = eventoDao.listar(first, pageSize, null, null, filters);
                 setPageSize(pageSize);
                 if (!filters.isEmpty()) {
@@ -311,7 +314,7 @@ public class EventoBean {
     public void setTipoBusca(TipoBusca tipoBusca) {
         this.tipoBusca = tipoBusca;
     }
-    
+
     public List<TipoBusca> getTipoBuscaList() {
         return TipoBusca.getValues();
     }
@@ -323,6 +326,5 @@ public class EventoBean {
     public void setTermoBusca(String termoBusca) {
         this.termoBusca = termoBusca;
     }
-    
-    
+
 }
