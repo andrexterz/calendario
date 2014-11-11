@@ -7,7 +7,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:form id="searchForm">
-        <div id="filters" class="filters toggleMenu transitionDefault">
+        <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
             <div class="menuLeftHeader">
                 <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu();" />
                 <span>#{msg.menu}</span>
@@ -16,7 +16,7 @@
                 <f:facet name="left">
                     <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" />
                     <h:selectOneMenu value="#{eventoBean.tipoBusca}">
-                        <p:ajax event="change" update=":searchForm" />
+                        <p:ajax event="change" process="@this" update="filterContent" />
                         <f:selectItems value="#{eventoBean.tipoBuscaList}"
                                        var="tipoBuscaItem"
                                        itemLabel="#{tipoBuscaItem.value}"
@@ -24,15 +24,14 @@
                     </h:selectOneMenu>
                 </f:facet>
             </p:toolbar>
-
-            <div class="filterMenuContent">
+            <h:panelGroup layout="block" id="filterContent" class="filterMenuContent">
                 <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
                     <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" />
                     <p:commandLink title="#{msg.confirmar}" styleClass="menuFilterButton" action="home?faces-redirect=true" />
                 </h:panelGroup>
-            </div>
-        </div>
+            </h:panelGroup>
+        </h:panelGroup>
         <div class="menuLeftButtons transitionDefault">
             <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu();" />
             <hr />

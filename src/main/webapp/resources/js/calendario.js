@@ -24,7 +24,7 @@ function dialogHandler(widgetVar, xhr, status, args) {
 
 function toggleMenu() {
     jQuery("#content").toggleClass("toggle");
-    jQuery("#filters").toggleClass("toggleMenu");
+    jQuery(".filters").toggleClass("toggleMenu");
 }
 
 function toggleEventDetail(objectId) {
