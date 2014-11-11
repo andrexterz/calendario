@@ -7,11 +7,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:form id="searchForm">
-        <div class="menuLeftHeader">
-            <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu('#menuLeft');" />
-            <span>#{msg.menu}</span>
-        </div>
-        <div class="filters">
+        <div id="filters" class="filters transitionDefault">
+            <div class="menuLeftHeader">
+                <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu();" />
+                <span>#{msg.menu}</span>
+            </div>
             <p:toolbar>
                 <f:facet name="left">
                     <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" />
@@ -33,13 +33,12 @@
                 </h:panelGroup>
             </div>
         </div>
-        <div class="filterContent">
-            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu('#menuLeft');" />
+        <div class="menuLeftButtons transitionDefault">
+            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu();" />
             <hr />
             <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
             <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
         </div>
-
     </h:form>
 </ui:composition>
 
