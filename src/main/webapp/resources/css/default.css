@@ -123,7 +123,6 @@ hr {
 }
 
 .menuLeftHeader span {
-    margin-left: 2em;
     color: #333;
     vertical-align: middle;
     font-size: 1.5em;
@@ -181,9 +180,13 @@ hr {
     background-image: url("#{resource['img/user.png']}");
 }
 
-
+.menuLeftBackButton {
+    margin-right: 8px;
+    background: url("#{resource['img/back-round-button.png']}");
+}
 
 .menuButton {
+    display: inline-block;
     width: 32px;
     height: 32px;
     background-color: #c9c9c9!important;
@@ -202,21 +205,18 @@ hr {
     background-position: 0 -32px;
 }
 
-.menuLeftBackButton {
-    background: url("#{resource['img/back-round-button.png']}");
-}
-
 @media(max-width: 767px) {
     .menuLeftButtons {
         display: none;
     }
- }
+}
 /********************************* filter Menu ********************************/
 .filters {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
-    left: 0;    
+    top: 0;
+    left: 0;
     background-color: #575757;
     z-index: 1002;
 }
@@ -260,6 +260,7 @@ hr {
 @media(min-width: 767px) {
     .content {
         position: relative;
+        margin-top: 60px;
         margin-left: 40px;
     }
 }
@@ -267,6 +268,7 @@ hr {
 @media(max-width: 767px) {
     .content {
         position: relative;
+        margin-top: 60px;        
     }
 
     .content.toggle {
