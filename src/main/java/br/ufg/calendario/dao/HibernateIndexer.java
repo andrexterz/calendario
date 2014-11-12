@@ -24,7 +24,7 @@ public class HibernateIndexer {
     private SessionFactory sessionFactory;
 
     private HibernateIndexer() throws InterruptedException {
-        //FullTextSession fullTextSession = Search.getFullTextSession(this.sessionFactory.getCurrentSession());
-        //fullTextSession.createIndexer().startAndWait();
+        FullTextSession fullTextSession = Search.getFullTextSession(this.sessionFactory.getCurrentSession());
+        fullTextSession.createIndexer().startAndWait();
     }
 }

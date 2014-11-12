@@ -105,6 +105,25 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
+    public List<Evento> buscarPorTexto(String termo) {
+        Session session = sessionFactory.getCurrentSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        QueryBuilder queryBuilder = fullTextSession
+                .getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(Evento.class).get();
+        
+        org.apache.lucene.search.Query searchQuery = queryBuilder.keyword()
+                .onFields("assunto", "descricao")
+                .matching(termo)
+                .createQuery();
+        org.hibernate.Query query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
+        List result = query.list();
+        System.out.println("Result size: " + result.size());
+        return result;
+    }
+
+    @Transactional(readOnly = true)
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
