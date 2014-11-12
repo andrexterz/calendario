@@ -114,8 +114,7 @@ public class EventoDao {
     @Transactional(readOnly = true)
     public List<Evento> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         Session session = sessionFactory.getCurrentSession();
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-        Criteria criteria = fullTextSession.createCriteria(Evento.class);
+        Criteria criteria = session.createCriteria(Evento.class);
         criteria.setFirstResult(first);
         criteria.setMaxResults(pageSize);
         if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
@@ -132,20 +131,10 @@ public class EventoDao {
             for (String key : filters.keySet()) {
                 if (key.equals("termo")) {
 
-                    QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Evento.class).get();
-                    org.apache.lucene.search.Query squery = queryBuilder
-                            .keyword()
-                            .onFields("assunto", "descricao").matching(filters.get(key).toString())
-                            .createQuery();
-                    org.hibernate.Query hquery = fullTextSession.createFullTextQuery(squery, Evento.class);
-                    hquery.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-                    return hquery.list();
-                    /*
-                     criteria.add(Restrictions.or(
-                     Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE),
-                     Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE)))
-                     .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-                     */
+                    criteria.add(Restrictions.or(
+                            Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE),
+                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE)))
+                            .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
                 }
 
             }

@@ -225,6 +225,10 @@ hr {
     left: 0;
 }
 
+.filters label {
+    margin-right: 8px;
+}
+
 .filterMenuHeader {
     height: 60px;
     background: #dcdcdc;
