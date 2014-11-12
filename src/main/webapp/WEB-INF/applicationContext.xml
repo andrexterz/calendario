@@ -42,7 +42,7 @@
                 <prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.search.default.directory_provider">filesystem</prop>
-                <prop key="hibernate.search.default.indexBase">/var/lucene/indexes</prop>
+                <prop key="hibernate.search.default.indexBase">~/var/lucene/indexes</prop>
             </props>
         </property>
     </bean>
