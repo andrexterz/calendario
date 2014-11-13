@@ -106,6 +106,7 @@ public class CalendarioDao {
     public List<Calendario> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Calendario.class);
+        criteria.addOrder(Order.asc("ano"));
         return criteria.list();
     }
 

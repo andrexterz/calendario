@@ -121,10 +121,9 @@ public class EventoBean {
                 if (getTermoBusca() != null && !getTermoBusca().isEmpty()) {
                     System.out.println("termo: " + getTermoBusca());
                     filters.put("termo", getTermoBusca());
-                    data = eventoDao.buscarPorTexto(getTermoBusca());
-                } else {
-                    data = eventoDao.listar(first, pageSize, null, null, filters);
+                    //data = eventoDao.buscarPorTexto(getTermoBusca());
                 }
+                data = eventoDao.listar(first, pageSize, null, null, filters);
                 setPageSize(pageSize);
                 if (!filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
