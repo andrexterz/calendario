@@ -65,30 +65,28 @@ hr {
     font-size: 1.5em;
 }
 
-.ufgLogo {
-    vertical-align: middle;
-}
 .menuCalendar {
     margin: 15px 0 0 15px!important;
     width: 100%;
 }
 
-@media (max-width:426px) {
-    .appTitle {
-        margin-top: 0.5em;
-        font-size: 1.0em;
-    }
-
+@media (max-width: 767px) {
     .logo {
+        position: absolute;
         float: left;
         margin-left: 2px;
-        margin-top: 2px;
-        margin-bottom: 2px;
+        margin-top: 4px;
+        margin-right: 2px;
+        margin-bottom: 4px;
         vertical-align: middle;
-    }    
+    }
 
+    .appTitle {
+        margin-top: 0.4em;
+        margin-left: 16px;
+        font-size: 0.9em;
+    }
 }
-
 /********************************** menu top **********************************/
 
 .navbar-mini-buttons {
