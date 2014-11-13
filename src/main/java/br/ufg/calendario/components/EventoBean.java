@@ -41,6 +41,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -48,6 +49,7 @@ import org.springframework.stereotype.Component;
  * @author André
  */
 @Component
+@Scope(value = "session")
 public class EventoBean {
 
     @Autowired
@@ -67,6 +69,7 @@ public class EventoBean {
 
     private Evento evento;
     private Evento itemSelecionado;
+    private Calendario calendario;
     private Regional selecaoRegional;
     private Interessado selecaoInteressado;
     private final LazyDataModel<Evento> eventos;
@@ -81,14 +84,14 @@ public class EventoBean {
     private Date buscaDataTermino;
 
     public EventoBean() {
-
         evento = new Evento();
         itemSelecionado = null;
+        calendario = null;
+        System.out.println("calendario default: " +  calendario);
         selecaoRegional = null;
         selecaoInteressado = null;
         eventosImportados = new ArrayList<>();
         tipoBusca = TipoBusca.TERMO;
-
         eventos = new LazyDataModel<Evento>() {
 
             private List<Evento> data;
@@ -107,15 +110,18 @@ public class EventoBean {
                 }
                 return null;
             }
-
+            
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
                 filters = new HashMap();
+                if (getCalendario() != null) {
+                    filters.put("calendario", getCalendario());
+                }
                 if (getTermoBusca() != null && !getTermoBusca().isEmpty()) {
                     System.out.println("termo: " + getTermoBusca());
-                    //filters.put("termo", getTermoBusca());
-                    data = eventoDao.buscarPorTexto(termoBusca);
+                    filters.put("termo", getTermoBusca());
+                    data = eventoDao.buscarPorTexto(getTermoBusca());
                 } else {
                     data = eventoDao.listar(first, pageSize, null, null, filters);
                 }
@@ -197,7 +203,7 @@ public class EventoBean {
                 System.out.format("header: %s - %d\n", entry.getKey(), entry.getValue());
             }
             Integer ano;
-            Calendario calendario = null;
+            Calendario cal = null;
             for (CSVRecord record : parser) {
                 //adicionar entidade calendario (select box) na tela importar eventos.
                 Date dataInicio = dateFormatter.parse(record.get(0));
@@ -206,14 +212,14 @@ public class EventoBean {
                 String descricao = record.get(3);
                 String[] interessadoArray = record.get(4).split(configBean.getRegexSplitter());
                 ano = Integer.parseInt(record.get(5));
-                if (calendario == null) {
-                    calendario = calendarioDao.buscar(ano);
+                if (cal == null) {
+                    cal = calendarioDao.buscar(ano);
                 }
                 Set<Interessado> interessadoList = new HashSet();
                 for (String interessado : interessadoArray) {
                     interessadoList.addAll(interessadoDao.listar(interessado));
                 }
-                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, calendario, null, interessadoList, false);
+                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, null, interessadoList, false);
                 //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
                 eventosImportados.add(evt);
             }
@@ -248,7 +254,7 @@ public class EventoBean {
             evento.setTermino((Date) event.getObject());
         }
     }
-
+    
     public void adicionaRegional() {
         evento.addRegional(getSelecaoRegional());
     }
@@ -285,6 +291,15 @@ public class EventoBean {
         this.itemSelecionado = itemSelecionado;
     }
 
+    public Calendario getCalendario() {
+        return calendario;
+    }
+
+    public void setCalendario(Calendario calendario) {
+        System.out.println("calendario alterado: " + calendario.getAno());
+        this.calendario = calendario;
+    }
+    
     public LazyDataModel<Evento> getEventos() {
         return eventos;
     }
@@ -328,5 +343,4 @@ public class EventoBean {
     public void setTermoBusca(String termoBusca) {
         this.termoBusca = termoBusca;
     }
-
 }

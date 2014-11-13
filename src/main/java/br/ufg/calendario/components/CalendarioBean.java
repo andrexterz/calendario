@@ -139,4 +139,8 @@ public class CalendarioBean implements Serializable {
     public LazyDataModel<Calendario> getCalendarios() {
         return calendarios;
     }
+    
+    public List<Calendario> getCalendarioList() {
+        return calendarioDao.listar();
+    }
 }

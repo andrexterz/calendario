@@ -28,21 +28,25 @@
         <h:body>
             <p:ajaxStatus styleClass="ajaxStatus">
                 <f:facet name="start">
-                    <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                    <h:outputText value="carregando"/>
                 </f:facet>
                 <f:facet name="complete">
-                    <h:outputText value=""/>
+                    <h:outputText value="pronto"/>
                 </f:facet>
             </p:ajaxStatus>
-            <ui:insert name="menuTop">
-            </ui:insert>
-            <ui:insert name="menuLeft">
-                <ui:include src="filters.xhtml" />
-            </ui:insert>
-            <ui:insert name="filter">
-            </ui:insert>
-            <ui:insert name="content">
-            </ui:insert>
+            <h:form id="testeForm" styleClass="navbar-form">
+                <h:outputText value="#{msg.calendario}: #{eventoBean.calendario}"/>
+                <h:selectOneMenu id="cal" styleClass="menuCalendar"
+                                 converter="#{calendarioConverter}"
+                                 value="#{eventoBean.calendario}">
+                    <p:ajax event="change" process="@this" update=":testeForm" />
+                    <f:selectItem itemLabel="#{msg.calendario}" itemValue="#{null}" />
+                    <f:selectItems value="#{calendarioBean.calendarioList}" var="calendario"
+                                   itemLabel="#{msg.calendario}: #{calendario.ano}"
+                                   itemValue="#{calendario}" />
+                </h:selectOneMenu>
+                <h:message for="cal" showSummary="true" />
+            </h:form>
         </h:body>
     </f:view>
 </html>

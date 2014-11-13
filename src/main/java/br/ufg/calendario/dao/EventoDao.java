@@ -5,6 +5,7 @@
  */
 package br.ufg.calendario.dao;
 
+import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import java.util.List;
 import java.util.Map;
@@ -112,10 +113,12 @@ public class EventoDao {
                 .getSearchFactory()
                 .buildQueryBuilder()
                 .forEntity(Evento.class).get();
-        
-        org.apache.lucene.search.Query searchQuery = queryBuilder.keyword()
-                .onFields("assunto", "descricao")
-                .matching(termo)
+
+        org.apache.lucene.search.Query searchQuery = queryBuilder
+                .phrase()
+                .withSlop(10)
+                .onField("assunto").andField("descricao")
+                .sentence(termo)
                 .createQuery();
         org.hibernate.Query query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
         List result = query.list();
@@ -152,12 +155,20 @@ public class EventoDao {
 
                     criteria.add(Restrictions.or(
                             Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE),
-                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE)))
-                            .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE)));
+                }
+                if (key.equals("calendario")) {
+                    criteria.createAlias("calendario", "c");
+                    criteria.add(Restrictions.eq("c.ano", ((Calendario) filters.get(key)).getAno()));
                 }
 
             }
         }
+        if (filters == null || !filters.containsKey("calendario")) {
+            criteria.createAlias("calendario", "c");
+            criteria.add(Restrictions.eq("c.ativo", true));
+        }
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 

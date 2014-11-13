@@ -57,6 +57,7 @@
                                              title="#{msg.importar}"
                                              oncomplete="dialogHandler('importaEvento',xhr, status, args)"
                                              actionListener="#{eventoBean.importaEvento}"
+                                             update=":eventosForm:eventosTable"
                                              process="@form"  />
 
                             <p:commandButton value="#{msg.limpar}"

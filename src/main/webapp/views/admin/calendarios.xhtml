@@ -37,7 +37,7 @@
                                              oncomplete="PF('excluiCalendario').show()" />
                         </f:facet>
                     </p:toolbar>
-                    <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}" var="calendario" lazy="true"
+                    <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}" var="calendario" lazy="true" emptyMessage="#{msg.vazio}"
                                   rows="10" paginator="true" paginatorPosition="top" selectionMode="single" selection="#{calendarioBean.itemSelecionado}">
                         <p:ajax event="rowSelect" update=":calendariosForm:toolbar" />
                         <p:column headerText="#{msg.ano}" styleClass="col70" sortBy="#{calendario.ano}">

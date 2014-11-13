@@ -7,8 +7,48 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
+        <ui:define name="menuTop">
+            <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
+                <p:graphicImage value="#{resource['img/ufg-logo.png']}" styleClass="logo" />
+                <h:panelGroup layout="block" styleClass="container">
+                    <h:panelGroup layout="block" styleClass="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">mini menu</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
+                            <h:graphicImage value="#{resource['img/filter.png']}" />
+                        </button>
+                        <h:outputText value="#{msg.appNome}" styleClass="navbar-brand appTitle" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
+                        <h:form id="calendarioSelectorForm" styleClass="navbar-form">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <p:commandLink value="#{msg.inicio}" action="home" />
+                                </li>
+                                <li>
+                                    <h:selectOneMenu styleClass="menuCalendar"
+                                                     converter="#{calendarioConverter}"
+                                                     value="#{eventoBean.calendario}">
+                                        <p:ajax event="change" process="@this" update=":eventoPanel" />
+                                        <f:selectItem itemLabel="#{msg.calendario}" value="#{null}" />
+                                        <f:selectItems value="#{calendarioBean.calendarioList}" var="calendario"
+                                                       itemLabel="#{msg.calendario}: #{calendario.ano}"
+                                                       itemValue="#{calendario}" />
+                                    </h:selectOneMenu>
+
+                                </li>
+                            </ul>
+                        </h:form>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </div>            
+        </ui:define>
         <ui:define name="content">
-            <div class="content">
+            <h:panelGroup id="eventoPanel" layout="block" styleClass="content">
                 <p:dataScroller value="#{eventoBean.eventos}"
                                 lazy="true"
                                 var="evento"
@@ -26,12 +66,12 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </h2>
-                            <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail(detail#{evento.id})">#{msg.detalhes}</span>
+                            <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail('description#{evento.id}')">#{msg.detalhes}</span>
                             <p id="description#{evento.id}">#{evento.descricao}</p>
                         </article>
                     </h:panelGroup>
                 </p:dataScroller>
-            </div>
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </html>

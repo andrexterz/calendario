@@ -6,6 +6,7 @@
 package br.ufg.calendario.dao;
 
 import javax.annotation.Resource;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -22,9 +23,10 @@ public class HibernateIndexer {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+    private final Logger logger = Logger.getLogger("FullTextSession");
     private HibernateIndexer() throws InterruptedException {
         FullTextSession fullTextSession = Search.getFullTextSession(this.sessionFactory.getCurrentSession());
         fullTextSession.createIndexer().startAndWait();
+        logger.info("indexer started!");
     }
 }

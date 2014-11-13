@@ -92,6 +92,15 @@ public class CalendarioDao {
         Calendario calendario = (Calendario) criteria.uniqueResult();
         return calendario;
      }
+    
+    @Transactional(readOnly = true)
+    public Calendario buscarAtivo() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Calendario.class);
+        criteria.add(Restrictions.eq("ativo", true));
+        Calendario calendario = (Calendario) criteria.uniqueResult();
+        return calendario;
+     }
 
     @Transactional(readOnly = true)
     public List<Calendario> listar() {

@@ -28,5 +28,5 @@ function toggleMenu() {
 }
 
 function toggleEventDetail(objectId) {
-    jQuery(objectId).next().toggleClass("toggle");
+    jQuery("#" + objectId).toggleClass("toggle");
 }
