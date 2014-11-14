@@ -154,8 +154,8 @@ public class EventoDao {
                 if (key.equals("termo")) {
 
                     criteria.add(Restrictions.or(
-                            Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE),
-                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE)));
+                            Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
+                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
                 }
                 if (key.equals("calendario")) {
                     criteria.createAlias("calendario", "c");

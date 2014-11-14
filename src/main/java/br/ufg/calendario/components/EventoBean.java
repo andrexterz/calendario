@@ -342,4 +342,37 @@ public class EventoBean {
     public void setTermoBusca(String termoBusca) {
         this.termoBusca = termoBusca;
     }
+
+    public Regional getBuscaRegional() {
+        return buscaRegional;
+    }
+
+    public void setBuscaRegional(Regional buscaRegional) {
+        this.buscaRegional = buscaRegional;
+    }
+
+    public Interessado getBuscaInteressado() {
+        return buscaInteressado;
+    }
+
+    public void setBuscaInteressado(Interessado buscaInteressado) {
+        this.buscaInteressado = buscaInteressado;
+    }
+    
+    public Date getBuscaDataInicio() {
+        return buscaDataInicio;
+    }
+
+    public void setBuscaDataInicio(Date buscaDataInicio) {
+        this.buscaDataInicio = buscaDataInicio;
+    }
+
+    public Date getBuscaDataTermino() {
+        return buscaDataTermino;
+    }
+
+    public void setBuscaDataTermino(Date buscaDataTermino) {
+        this.buscaDataTermino = buscaDataTermino;
+    }
+    
 }
