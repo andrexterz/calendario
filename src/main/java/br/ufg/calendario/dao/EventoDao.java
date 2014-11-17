@@ -152,19 +152,18 @@ public class EventoDao {
         if (filters != null && !filters.isEmpty()) {
             for (String key : filters.keySet()) {
                 if (key.equals("termo")) {
-
                     criteria.add(Restrictions.or(
                             Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
                             Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
                 }
-                
+
                 if (key.equals("periodo")) {
                     Map periodo = (Map) filters.get(key);
                     criteria.add(Restrictions.and(Restrictions.ge("inicio", periodo.get("inicio")))
                             .add(Restrictions.le("termino", periodo.get("termino"))));
-                    
+
                 }
-                
+
                 if (key.equals("calendario")) {
                     criteria.createAlias("calendario", "c");
                     criteria.add(Restrictions.eq("c.ano", ((Calendario) filters.get(key)).getAno()));
@@ -191,20 +190,30 @@ public class EventoDao {
     public int rowCount(Map<String, Object> filters) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
-        for (String field : filters.keySet()) {
-            if (field.equals("assunto")) {
-                criteria.add(Restrictions.like(field, filters.get(field).toString(), MatchMode.ANYWHERE).ignoreCase());
+        for (String key : filters.keySet()) {
+            if (key.equals("assunto")) {
+                criteria.add(Restrictions.like(key, filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase());
             }
-            if (field.equals("periodo")) {
-                System.out.println("implementar filtro periodo");
+            if (key.equals("periodo")) {
+                Map periodo = (Map) filters.get(key);
+                criteria.add(Restrictions.and(Restrictions.ge("inicio", periodo.get("inicio")))
+                        .add(Restrictions.le("termino", periodo.get("termino"))));
             }
-            if (field.equals("descricao")) {
-                System.out.println("implementar filtro descricao");
+
+            if (key.equals("calendario")) {
+                criteria.createAlias("calendario", "c");
+                criteria.add(Restrictions.eq("c.ano", ((Calendario) filters.get(key)).getAno()));
             }
-            if (field.equals("interessado")) {
+            if (key.equals("termo")) {
+                criteria.add(Restrictions.or(
+                        Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
+                        Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
+            }
+            
+            if (key.equals("interessado")) {
                 System.out.println("implementar filtro interessado");
             }
-            if (field.equals("regional")) {
+            if (key.equals("regional")) {
                 System.out.println("implementar filtro regional");
             }
         }

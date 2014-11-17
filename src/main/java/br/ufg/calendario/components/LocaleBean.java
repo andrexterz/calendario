@@ -2,6 +2,8 @@ package br.ufg.calendario.components;
 
 
 import java.util.ResourceBundle;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,6 +16,8 @@ import java.util.ResourceBundle;
  * @author André
  */
 
+@Component
+@Scope(value = "session")
 public class LocaleBean {
     
     private String locale = "pt_BR";

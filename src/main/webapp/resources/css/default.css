@@ -114,21 +114,9 @@ hr {
 }
 
 /********************************* menu left **********************************/
-.menuLeftHeader {
-    background: #dcdcdc;
-    height: 60px;
-    padding: 1.0em;
-}
-
-.menuLeftHeader span {
-    color: #333;
-    vertical-align: middle;
-    font-size: 1.5em;
-}
-
 .menuLeftButtons {
     position: fixed;
-    width: 40px;
+    width: 48px;
     height: 100%;    
     margin: 0;
     top: 60px;
@@ -233,16 +221,9 @@ hr {
     margin-right: 8px;
 }
 
-.filterMenuHeader {
-    height: 60px;
-    background: #dcdcdc;
-}
-
-.filterButtons {
-    margin-top: 8px;
-    width: 100%;
-    text-align: right;
-    padding-right: 16px;
+.filterMenuLabel {
+    color: #555;
+    margin-left: 16px;
 }
 
 .menuFilterButton {
@@ -292,6 +273,12 @@ hr {
     padding: 2em;
 }
 
+.inputSearch {
+    background-image: url("#{resource['img/filter.png']}");
+    background-position: 99% 50%;
+    background-repeat: no-repeat;
+}
+
 @media(max-width: 767px) {
     .filters {
         position: fixed;
@@ -308,7 +295,7 @@ hr {
     .content {
         position: relative;
         margin-top: 60px;
-        margin-left: 40px;
+        margin-left: 48px;
     }
 }
 

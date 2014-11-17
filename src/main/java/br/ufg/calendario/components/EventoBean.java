@@ -115,14 +115,13 @@ public class EventoBean {
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
                 filters = new HashMap();
-                
+                setPageSize(pageSize);
                 if (getCalendario() != null) {
                     filters.put("calendario", getCalendario());
                 }
                 if (getTermoBusca() != null && !getTermoBusca().isEmpty()) {
                     System.out.println("termo: " + getTermoBusca());
                     filters.put("termo", getTermoBusca());
-                    //data = eventoDao.buscarPorTexto(getTermoBusca());
                 }
                 if (getBuscaDataInicio() != null && getBuscaDataTermino() != null) {
                     Map periodo = new HashMap();
@@ -131,19 +130,17 @@ public class EventoBean {
                     filters.put("periodo", periodo);
                     
                 }
-                data = eventoDao.listar(first, pageSize, null, null, filters);
-                setPageSize(pageSize);
+                data = eventoDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
                 if (!filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
-
                 } else {
                     setRowCount(eventoDao.rowCount());
                 }
                 if (data.size() > pageSize) {
                     try {
-                        return data.subList(first, first + pageSize);
+                        data = data.subList(first, first + pageSize);
                     } catch (IndexOutOfBoundsException e) {
-                        return data.subList(first, first + (data.size() % pageSize));
+                        data = data.subList(first, first + (data.size() % pageSize));
                     }
                 }
                 return data;
@@ -268,6 +265,14 @@ public class EventoBean {
         }
     }
     
+    public void checkDateBusca(SelectEvent event) {
+        Date selectedDate = (Date) event.getObject();
+        if (getBuscaDataTermino() != null && getBuscaDataTermino().before(selectedDate)) {
+            setBuscaDataTermino(selectedDate);
+        }
+    }
+    
+    
     public void adicionaRegional() {
         evento.addRegional(getSelecaoRegional());
     }
@@ -287,7 +292,7 @@ public class EventoBean {
         Interessado interessado = (Interessado) requestMap.get("interessado");
         evento.removeInteressado(interessado);
     }
-
+    
     public Evento getEvento() {
         return evento;
     }

@@ -8,13 +8,10 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:form>
         <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
-            <div class="menuLeftHeader">
-                <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu();" />
-                <span>#{msg.menu}</span>
-            </div>
             <p:toolbar>
                 <f:facet name="left">
-                    <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" />
+                    <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu();" />
+                    <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" styleClass="filterMenuLabel" />
                     <h:selectOneMenu value="#{eventoBean.tipoBusca}">
                         <p:ajax event="change" process="@this" update="filterContent" />
                         <f:selectItems value="#{eventoBean.tipoBuscaList}"
@@ -23,37 +20,37 @@
                                        itemValue="#{tipoBuscaItem}" />
                     </h:selectOneMenu>
                 </f:facet>
-            </p:toolbar>
-            <h:panelGroup layout="block" id="filterContent" class="filterMenuContent">
-                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
-                    <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
-                    <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" />
-                </h:panelGroup>
-                <h:panelGrid columns="2" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
-                    <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
-                    <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}"
-                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                        <p:ajax event="dateSelect" update="buscaDataTermino" />
-                    </p:calendar>
-                    <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
-                    <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
-                                mindate="#{eventoBean.buscaDataInicio}"
-                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:calendar>
-                </h:panelGrid>                
-                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
-                </h:panelGroup>
-                <h:panelGroup layout="block" styleClass="filterButtons">
+                <f:facet name="right">
+                    <p:commandLink title="#{msg.limpar}" styleClass="menuResetButton"
+                                   update="filterContent" process="@this"
+                                   actionListener="#{eventoBean.limpaFiltro}" />                    
                     <p:commandLink title="#{msg.confirmar}"
                                    update=":eventoPanel"
                                    styleClass="menuFilterButton"
                                    action="home?faces-redirect=true" />
-
-                    <p:commandLink title="#{msg.limpar}" styleClass="menuResetButton"
-                                   update="filters :eventoPanel" process="@this"
-                                   actionListener="#{eventoBean.limpaFiltro}" />
+                </f:facet>
+            </p:toolbar>
+            <h:panelGroup layout="block" id="filterContent" class="filterMenuContent">
+                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
+                    <h:panelGrid styleClass="formGrid" columns="2">
+                        <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
+                        <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
+                    </h:panelGrid>
+                </h:panelGroup>
+                <h:panelGrid columns="2" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
+                    <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
+                    <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
+                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
+                        <p:ajax event="dateSelect" update="buscaDataTermino" process="@this" listener="#{eventoBean.checkDateBusca}" />
+                    </p:calendar>
+                    <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
+                    <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
+                                mindate="#{eventoBean.buscaDataInicio}" 
+                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
+                        <p:ajax event="dateSelect" process="@this" />
+                    </p:calendar>
+                </h:panelGrid>                
+                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
