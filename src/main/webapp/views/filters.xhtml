@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:form id="searchForm">
+    <h:form>
         <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
             <div class="menuLeftHeader">
                 <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu();" />
@@ -29,28 +29,32 @@
                     <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" />
                 </h:panelGroup>
-                <h:panelGrid columns="2" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
+                <h:panelGrid columns="2" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}"
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <p:ajax event="dateSelect" update="buscaDataTermino" />
                     </p:calendar>
                     <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
                     <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
+                                mindate="#{eventoBean.buscaDataInicio}"
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:calendar>
                 </h:panelGrid>                
                 <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
                 </h:panelGroup>
-                <p:commandLink title="#{msg.confirmar}"
-                               update=":eventoPanel"
-                               styleClass="menuFilterButton"
-                               action="home?faces-redirect=true" />
-                
-                <p:commandLink title="#{msg.limpar}" update=":searchForm :eventoPanel"
-                               actionListener="#{eventoBean.limpaFiltro}" />
+                <h:panelGroup layout="block" styleClass="filterButtons">
+                    <p:commandLink title="#{msg.confirmar}"
+                                   update=":eventoPanel"
+                                   styleClass="menuFilterButton"
+                                   action="home?faces-redirect=true" />
 
+                    <p:commandLink title="#{msg.limpar}" styleClass="menuResetButton"
+                                   update="filters :eventoPanel" process="@this"
+                                   actionListener="#{eventoBean.limpaFiltro}" />
+                </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
         <div class="menuLeftButtons transitionDefault">

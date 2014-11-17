@@ -74,7 +74,7 @@ hr {
     .logo {
         position: absolute;
         float: left;
-        margin-left: 2px;
+        margin-left: 4px;
         margin-top: 4px;
         margin-right: 2px;
         margin-bottom: 4px;
@@ -83,8 +83,8 @@ hr {
 
     .appTitle {
         margin-top: 0.4em;
-        margin-left: 16px;
-        font-size: 0.9em;
+        margin-left: 24px;
+        font-size: 1em;
     }
 }
 /********************************** menu top **********************************/
@@ -238,6 +238,13 @@ hr {
     background: #dcdcdc;
 }
 
+.filterButtons {
+    margin-top: 8px;
+    width: 100%;
+    text-align: right;
+    padding-right: 16px;
+}
+
 .menuFilterButton {
     display: inline-block;
     width: 32px;
@@ -255,6 +262,27 @@ hr {
 }
 
 .menuFilterButton:hover {
+    background-color: #efefef!important;
+    background-position: 0 -32px;
+}
+
+.menuResetButton {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("#{resource['img/reset-round-button.png']}");
+    background-color: #c9c9c9!important;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.menuResetButton:hover {
     background-color: #efefef!important;
     background-position: 0 -32px;
 }
@@ -647,11 +675,14 @@ col40 {
 .formGrid {
     width: 100%;
     margin: 2px;
-
 }
 
 .formGrid tr {
     border: 0 transparent;
+}
+
+.formGrid td {
+    padding: 2px 0 2px 0;
 }
 
 .dialogButtons {
