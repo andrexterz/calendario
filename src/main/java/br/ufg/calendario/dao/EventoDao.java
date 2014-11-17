@@ -157,6 +157,14 @@ public class EventoDao {
                             Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
                             Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
                 }
+                
+                if (key.equals("periodo")) {
+                    Map periodo = (Map) filters.get(key);
+                    criteria.add(Restrictions.and(Restrictions.ge("inicio", periodo.get("inicio")))
+                            .add(Restrictions.le("termino", periodo.get("termino"))));
+                    
+                }
+                
                 if (key.equals("calendario")) {
                     criteria.createAlias("calendario", "c");
                     criteria.add(Restrictions.eq("c.ano", ((Calendario) filters.get(key)).getAno()));

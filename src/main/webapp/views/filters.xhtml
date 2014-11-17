@@ -29,25 +29,35 @@
                     <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" />
                 </h:panelGroup>
-                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
-                    <p:outputLabel for="buscaDataInicio" value="#{msg.inicio}" />
-                    <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999" />
-                </h:panelGroup>                
+                <h:panelGrid columns="2" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
+                    <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
+                    <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}"
+                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                    <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
+                    <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
+                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                </h:panelGrid>                
                 <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
-            </h:panelGroup>
-            <p:commandLink title="#{msg.confirmar}"
-                           update=":eventoPanel"
-                           styleClass="menuFilterButton"
-                           action="home?faces-redirect=true" />
+                </h:panelGroup>
+                <p:commandLink title="#{msg.confirmar}"
+                               update=":eventoPanel"
+                               styleClass="menuFilterButton"
+                               action="home?faces-redirect=true" />
+                
+                <p:commandLink title="#{msg.limpar}" update=":searchForm :eventoPanel" />
 
+            </h:panelGroup>
         </h:panelGroup>
-    </h:panelGroup>
-    <div class="menuLeftButtons transitionDefault">
-        <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu();" />
-        <hr />
-        <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
-        <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
-    </div>
-</h:form>
+        <div class="menuLeftButtons transitionDefault">
+            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu();" />
+            <hr />
+            <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
+            <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
+        </div>
+    </h:form>
 </ui:composition>
 

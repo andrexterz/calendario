@@ -115,6 +115,7 @@ public class EventoBean {
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
                 filters = new HashMap();
+                
                 if (getCalendario() != null) {
                     filters.put("calendario", getCalendario());
                 }
@@ -122,6 +123,13 @@ public class EventoBean {
                     System.out.println("termo: " + getTermoBusca());
                     filters.put("termo", getTermoBusca());
                     //data = eventoDao.buscarPorTexto(getTermoBusca());
+                }
+                if (getBuscaDataInicio() != null && getBuscaDataTermino() != null) {
+                    Map periodo = new HashMap();
+                    periodo.put("inicio", getBuscaDataInicio());
+                    periodo.put("termino", getBuscaDataTermino());
+                    filters.put("periodo", periodo);
+                    
                 }
                 data = eventoDao.listar(first, pageSize, null, null, filters);
                 setPageSize(pageSize);
@@ -246,6 +254,12 @@ public class EventoBean {
         eventosImportados.clear();
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void limpaFiltro() {
+        setTermoBusca(null);
+        setBuscaDataInicio(null);
+        setBuscaDataTermino(null);
     }
 
     public void checkDate(SelectEvent event) {
