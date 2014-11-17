@@ -48,7 +48,8 @@
                                styleClass="menuFilterButton"
                                action="home?faces-redirect=true" />
                 
-                <p:commandLink title="#{msg.limpar}" update=":searchForm :eventoPanel" />
+                <p:commandLink title="#{msg.limpar}" update=":searchForm :eventoPanel"
+                               actionListener="#{eventoBean.limpaFiltro}" />
 
             </h:panelGroup>
         </h:panelGroup>
