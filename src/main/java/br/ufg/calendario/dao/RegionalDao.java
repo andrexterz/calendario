@@ -5,11 +5,14 @@
  */
 package br.ufg.calendario.dao;
 
+import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Regional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -71,7 +74,7 @@ public class RegionalDao {
         Session session = sessionFactory.getCurrentSession();
         return (Regional) session.get(Regional.class, id);
     }
-
+    
     @Transactional(readOnly = true)
     public List<Regional> listar() {
         Session session = sessionFactory.getCurrentSession();

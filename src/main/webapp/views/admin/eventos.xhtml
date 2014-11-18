@@ -67,12 +67,12 @@
                             <p class="eventoDescricao">#{evento.descricao}</p>
                         </p:panel>
                         <p:panel header="#{msg.interessado}">
-                            <p:dataList value="#{evento.interessado}" var="interessado">
+                            <p:dataList value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
                                 #{interessado.nome}
                             </p:dataList>
                         </p:panel>
                         <p:panel header="#{msg.regional}">
-                            <p:dataList value="#{evento.regional}" var="regional">
+                            <p:dataList value="#{evento.regional}" var="regional" emptyMessage="#{msg.vazio}">
                                 #{regional.nome}
                             </p:dataList>
                         </p:panel>
