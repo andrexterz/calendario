@@ -14,10 +14,12 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -136,12 +138,39 @@ public class EventoDao {
     @Transactional(readOnly = true)
     public List<Evento> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         Session session = sessionFactory.getCurrentSession();
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Evento.class);
+        if (filters != null && !filters.isEmpty()) {
+            for (String key : filters.keySet()) {
+                if (key.equals("termo")) {
+                    detachedCriteria.add(Restrictions.or(
+                            Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
+                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
+                }
+
+                if (key.equals("periodo")) {
+                    Map periodo = (Map) filters.get(key);
+                    detachedCriteria.add(Restrictions.and(Restrictions.ge("inicio", periodo.get("inicio")))
+                            .add(Restrictions.le("termino", periodo.get("termino"))));
+
+                }
+
+                if (key.equals("calendario")) {
+                    detachedCriteria.createAlias("calendario", "c");
+                    detachedCriteria.add(Restrictions.eq("c.ano", ((Calendario) filters.get(key)).getAno()));
+                }
+
+            }
+        }
+        if (filters == null || !filters.containsKey("calendario")) {
+            detachedCriteria.createAlias("calendario", "c");
+            detachedCriteria.add(Restrictions.eq("c.ativo", true));
+        }
+        detachedCriteria.setProjection(Projections.distinct(Projections.id()));
         Criteria criteria = session.createCriteria(Evento.class);
-        criteria.setFirstResult(first);
-        criteria.setMaxResults(pageSize);
+        criteria.add(Subqueries.propertyIn("id", detachedCriteria));
         if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
             if (sortOrder.equals("ASCENDING")) {
-                criteria.addOrder(Order.asc(sortField));
+               criteria.addOrder(Order.asc(sortField));
             }
             if (sortOrder.equals("DESCENDING")) {
                 criteria.addOrder(Order.desc(sortField));
@@ -149,33 +178,8 @@ public class EventoDao {
         } else {
             criteria.addOrder(Order.asc("inicio"));
         }
-        if (filters != null && !filters.isEmpty()) {
-            for (String key : filters.keySet()) {
-                if (key.equals("termo")) {
-                    criteria.add(Restrictions.or(
-                            Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
-                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
-                }
-
-                if (key.equals("periodo")) {
-                    Map periodo = (Map) filters.get(key);
-                    criteria.add(Restrictions.and(Restrictions.ge("inicio", periodo.get("inicio")))
-                            .add(Restrictions.le("termino", periodo.get("termino"))));
-
-                }
-
-                if (key.equals("calendario")) {
-                    criteria.createAlias("calendario", "c");
-                    criteria.add(Restrictions.eq("c.ano", ((Calendario) filters.get(key)).getAno()));
-                }
-
-            }
-        }
-        if (filters == null || !filters.containsKey("calendario")) {
-            criteria.createAlias("calendario", "c");
-            criteria.add(Restrictions.eq("c.ativo", true));
-        }
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        criteria.setFirstResult(first);
+        criteria.setMaxResults(pageSize);
         return criteria.list();
     }
 
@@ -209,7 +213,7 @@ public class EventoDao {
                         Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
                         Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
             }
-            
+
             if (key.equals("interessado")) {
                 System.out.println("implementar filtro interessado");
             }

@@ -130,12 +130,13 @@ public class EventoBean {
                     filters.put("periodo", periodo);
                     
                 }
-                data = eventoDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
+                
                 if (!filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
                 } else {
                     setRowCount(eventoDao.rowCount());
                 }
+                data = eventoDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
                 if (data.size() > pageSize) {
                     try {
                         data = data.subList(first, first + pageSize);
