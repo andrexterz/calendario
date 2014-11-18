@@ -83,8 +83,8 @@ hr {
 
     .appTitle {
         margin-top: 0.4em;
-        margin-left: 24px;
-        font-size: 1em;
+        margin-left: 28px;
+        font-size: 20px;
     }
 }
 /********************************** menu top **********************************/
@@ -320,26 +320,28 @@ hr {
 .event {
     background-color: #fefefe;
     border: 1px solid #dcdcdc;
-    margin: 4px;
+    margin: 8px 4px 8px 4px;
     padding: 2px 8px 2px 8px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
 }
 
 .event h1 {
     display: inline-block;
     vertical-align: middle;
-    font-size: 1.5em;
-    color: #333;    
+    font-size: 1.2em;
+    color: #00027e;    
     margin-right: 1em;
 }
 
 .event h2 {
     display: inline-block;
     vertical-align: middle;
-    font-size: 1em;
-    color: #3333ff;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #f15a24;
+    margin-right: 1em;
 }
 
 .event.detail {

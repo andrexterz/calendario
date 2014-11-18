@@ -56,7 +56,6 @@
                                 styleClass="eventDisplay">
                     <h:panelGroup layout="block">
                         <article class="event">
-                            <h1>#{evento.assunto}</h1>
                             <h2>
                                 <h:outputText value="#{evento.inicio}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -66,6 +65,7 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </h2>
+                            <h1>#{evento.assunto}</h1>
                             <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail('description#{evento.id}')">#{msg.detalhes}</span>
                             <p id="description#{evento.id}">#{evento.descricao}</p>
                         </article>
