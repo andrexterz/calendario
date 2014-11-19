@@ -72,19 +72,13 @@ hr {
 
 @media (max-width: 767px) {
     .logo {
-        position: absolute;
-        float: left;
-        margin-left: 4px;
-        margin-top: 4px;
-        margin-right: 2px;
-        margin-bottom: 4px;
-        vertical-align: middle;
+        display: none;
     }
 
     .appTitle {
         margin-top: 0.4em;
-        margin-left: 28px;
-        font-size: 20px;
+        margin-left: 2px;
+        font-size: 16px;
     }
 }
 /********************************** menu top **********************************/
@@ -272,6 +266,10 @@ hr {
     color: #efefef;
     padding: 2em;
 }
+
+.filterMenuContent select {
+   color: #333;
+ }
 
 .inputSearch {
     background-image: url("#{resource['img/filter.png']}");

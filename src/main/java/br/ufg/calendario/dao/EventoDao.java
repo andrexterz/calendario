@@ -7,6 +7,8 @@ package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
+import br.ufg.calendario.models.Interessado;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -156,6 +158,12 @@ public class EventoDao {
                     criteria.add(Restrictions.or(
                             Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
                             Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
+                }
+                
+                if (key.equals("interessado")) {
+                    List<Interessado> interessado = new ArrayList<>();
+                    interessado.add((Interessado) filters.get(key));
+                    criteria.add(Restrictions.and(Restrictions.in("interessado", interessado)));
                 }
 
                 if (key.equals("periodo")) {

@@ -31,12 +31,10 @@
                 </f:facet>
             </p:toolbar>
             <h:panelGroup layout="block" id="filterContent" class="filterMenuContent">
-                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
-                    <h:panelGrid styleClass="formGrid" columns="2">
-                        <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
-                        <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
-                    </h:panelGrid>
-                </h:panelGroup>
+                <h:panelGrid styleClass="formGrid" columns="2" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
+                    <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
+                    <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
+                </h:panelGrid>
                 <h:panelGrid columns="2" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
@@ -50,8 +48,16 @@
                         <p:ajax event="dateSelect" process="@this" />
                     </p:calendar>
                 </h:panelGrid>                
-                <h:panelGroup layout="block" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
-                </h:panelGroup>
+                <h:panelGrid styleClass="formGrid" columns="2" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
+                    <p:outputLabel for="buscaInteressado" value="#{msg.interessado}" />
+                    <h:selectOneMenu id="buscaInteressado" value="#{eventoBean.buscaInteressado}" converter="#{interessadoConverter}">
+                        <f:selectItems value="#{interessadoDao.listar()}"
+                                       var="interessado"
+                                       itemLabel="#{interessado.nome}"
+                                       itemValue="#{interessado}">
+                        </f:selectItems>
+                    </h:selectOneMenu>
+                </h:panelGrid>
             </h:panelGroup>
         </h:panelGroup>
         <div class="menuLeftButtons transitionDefault">

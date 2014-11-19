@@ -131,6 +131,15 @@ public class EventoBean {
                     
                 }
                 
+                if (getBuscaInteressado() != null) {
+                    System.out.println("interessado: "  + getBuscaInteressado().getNome());
+                    filters.put("interessado", getBuscaInteressado());
+                }
+                
+                if (getBuscaRegional() != null) {
+                    filters.put("regional", getBuscaRegional());
+                }
+                
                 if (!filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
                 } else {
