@@ -267,8 +267,9 @@ hr {
     padding: 2em;
 }
 
-.filterMenuContent select {
+.filterMenuContent select, input {
    color: #333;
+   border: 1px solid #333;
  }
 
 .inputSearch {
@@ -368,6 +369,15 @@ hr {
     display: block;
 }
 
+.event ul {
+    
+}
+
+.event ul li {
+    display: inline;
+    margin: 2px 8px 2px 8px;
+}
+
 @media(min-width: 767px) {
     .event span {
         display: none;
@@ -410,6 +420,10 @@ hr {
 
 .labelSpace {
     margin-right: 1em;
+}
+
+.noBorder {
+    border: none;
 }
 
 .defaultTable {

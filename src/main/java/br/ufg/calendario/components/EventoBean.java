@@ -132,7 +132,6 @@ public class EventoBean {
                 }
                 
                 if (getBuscaInteressado() != null) {
-                    System.out.println("interessado: "  + getBuscaInteressado().getNome());
                     filters.put("interessado", getBuscaInteressado());
                 }
                 
@@ -267,6 +266,10 @@ public class EventoBean {
         setTermoBusca(null);
         setBuscaDataInicio(null);
         setBuscaDataTermino(null);
+        setBuscaInteressado(null);
+        setBuscaRegional(null);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"info", LocaleBean.getMessage("filtroVazio"));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void checkDate(SelectEvent event) {

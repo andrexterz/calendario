@@ -26,6 +26,7 @@
             </script>
         </h:head>
         <h:body>
+            <p:growl autoUpdate="true" globalOnly="true" showDetail="true" life="3000" />
             <p:ajaxStatus styleClass="ajaxStatus">
                 <f:facet name="start">
                     <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />

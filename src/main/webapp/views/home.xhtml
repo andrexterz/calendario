@@ -39,7 +39,6 @@
                                                        itemLabel="#{msg.calendario}: #{calendario.ano}"
                                                        itemValue="#{calendario}" />
                                     </h:selectOneMenu>
-
                                 </li>
                             </ul>
                         </h:form>
@@ -68,6 +67,13 @@
                             <h1>#{evento.assunto}</h1>
                             <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail('description#{evento.id}')">#{msg.detalhes}</span>
                             <p id="description#{evento.id}">#{evento.descricao}</p>
+                            <p:panelGrid styleClass="col100 formGrid" columns="3" columnClasses="col5,col5,col90" rendered="#{not empty evento.interessado}">
+                                <div class="menuItem userIcon" />
+                                <h:outputText value="#{msg.interessados}" />
+                                <p:dataList styleClass="noBorder" value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
+                                    <h:outputText value="#{interessado.nome}" />
+                                </p:dataList>
+                            </p:panelGrid>
                         </article>
                     </h:panelGroup>
                 </p:dataScroller>

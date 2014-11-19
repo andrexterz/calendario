@@ -8,10 +8,12 @@ package br.ufg.calendario.dao;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
+import br.ufg.calendario.models.Regional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -159,11 +161,19 @@ public class EventoDao {
                             Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
                             Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
                 }
-                
+
                 if (key.equals("interessado")) {
-                    List<Interessado> interessado = new ArrayList<>();
-                    interessado.add((Interessado) filters.get(key));
-                    criteria.add(Restrictions.and(Restrictions.in("interessado", interessado)));
+                    Interessado interessado = (Interessado) filters.get(key);
+                    System.out.println("interessado: " + interessado.getNome());
+                    criteria.createCriteria("interessado")
+                            .add(Restrictions.eq("id", interessado.getId()));
+                }
+                
+                if (key.equals("regional")) {
+                    Regional regional = (Regional) filters.get(key);
+                    System.out.println("regional: " + regional.getNome());
+                    criteria.createCriteria("regional")
+                            .add(Restrictions.eq("id", regional.getId()));
                 }
 
                 if (key.equals("periodo")) {
@@ -186,7 +196,7 @@ public class EventoDao {
         }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         List<Evento> resultado = criteria.list();
-        for (Evento evt: resultado) {
+        for (Evento evt : resultado) {
             Hibernate.initialize(evt.getInteressado());
             Hibernate.initialize(evt.getRegional());
         }
