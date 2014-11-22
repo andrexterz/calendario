@@ -1,6 +1,7 @@
 package br.ufg.calendario.components;
 
 
+import java.io.Serializable;
 import java.util.ResourceBundle;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value = "session")
-public class LocaleBean {
+public class LocaleBean implements Serializable {
     
     private String locale = "pt_BR";
     private static LocaleBean instance = null;

@@ -10,12 +10,13 @@ and open the template in the editor.
 /********************************** html & body ********************************/
 body {
     font-size: 10pt;
-    font-family: "Lucida Grande", lucida, "Helvetica CE", sans-serif;    
+    font-family: "gotham-light", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;    
 }
 
 hr {
-    border-width: 1px;
-    border-color: #999;
+    border: none;
+    height: 1px;
+    background-color: #999;
     margin-top: 4px;
     margin-bottom: 4px;
     margin-left: 4px;
@@ -23,6 +24,13 @@ hr {
 }
 
 /********************************** ui override *******************************/
+.ui-widget-header {
+    border: 1px solid #1c1a26;
+    background:  #37354d;
+    color: #5c5caa;
+    text-shadow: none;
+}
+
 .ui-panel-content, .ui-panel-content {
     padding: 0!important;
     overflow: visible!important;
@@ -50,24 +58,48 @@ hr {
 
 
 /********************************** menu top **********************************/
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #00588f;
+    z-index: 199;
+}
 
 .logo {
     float: left;
-    margin-left: 1em;
+    margin-left: 32px;
     margin-top: 4px;
-    margin-right: 1em;
+    margin-right: 32px;
     margin-bottom: 4px;
     vertical-align: middle;
 }
 
 .appTitle {
-    margin-top: 0.4em;
-    font-size: 1.5em;
+    display: inline-block;
+    color: #ffffff;
+    margin-top: 0.6em;
+    font-size: 2em;
+    font-weight: normal;
 }
 
-.menuCalendar {
-    margin: 15px 0 0 15px!important;
-    width: 100%;
+.menuCalendario {
+   display: inline-block;
+   width: 16px;
+   height: 16px;
+   background-position: 0 0;
+}
+
+.arrowLeft {
+    margin-left: 8px;
+    background-image: url("#{resource['img/arrow-left.png']}");
+}
+
+.arrowRight {
+    margin-right: 8px;
+    background-image: url("#{resource['img/arrow-right.png']}");
 }
 
 @media (max-width: 767px) {
@@ -76,41 +108,32 @@ hr {
     }
 
     .appTitle {
-        margin-top: 0.4em;
-        margin-left: 2px;
-        font-size: 16px;
+        margin-top: 16px;
+        margin-left: 24px;
+        font-size: 18px;
     }
-}
-/********************************** menu top **********************************/
 
-.navbar-mini-buttons {
-    background-color: transparent;
-    border-color: #ddd;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
-    float: right;
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 12px;
-    padding-right: 12px;
-}
+    .mini-menu {
+        background-image: url("#{resource['img/search.png']}");
+        display: inline-block;
+        float: right;
+        margin: 12px;
+        width: 32px;
+        height: 32px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        vertical-align: middle;
+    }
 
-.menuCalendar {
-    margin: 15px auto auto 15px!important;
-    width: 95%;
+    .mini-menu:hover {
+        background-position: 0 -32px; 
+    }
 }
 
 /********************************* menu left **********************************/
-.menuLeftButtons {
+.menuLeft {
     position: fixed;
-    width: 48px;
+    width: 54px;
     height: 100%;    
     margin: 0;
     top: 60px;
@@ -123,8 +146,61 @@ hr {
     z-index: 1000;
 }
 
+@media(max-width: 767px) {
+    .menuLeft {
+        display: none;
+    }
+}
+
+.filters {
+    position: fixed;
+    width: 400px;
+    height: 100%;
+    top: 60px;
+    left: -100%;
+    background-color: #575757;
+    z-index: 1001;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #555;
+    box-shadow: 2px 2px 8px #999;
+    -moz-box-shadow: 2px 2px 8px #999;
+    -webkit-box-shadow: 2px 2px 8px #999;
+}
+
+.filters.toggleMenu {
+    left: 0;
+}
+
+.filters label {
+    margin-right: 8px;
+}
+
+.filterButton:hover {
+    background-position: 0 -32px;
+}
+
+
+
+.filterMenuContent {
+    color: #efefef;
+    padding: 16px;
+}
+
+.filterMenuContent select, input {
+    color: #333;
+    border: 1px solid #333;
+}
+
+.inputSearch {
+    background-image: url("#{resource['img/filter.png']}");
+    background-position: 99% 50%;
+    background-repeat: no-repeat;
+}
+
 .menuItem {
     display: inline-block;
+    vertical-align: middle;
     margin: 6px;
     width: 32px;
     height: 32px;
@@ -160,20 +236,28 @@ hr {
     background-image: url("#{resource['img/user.png']}");
 }
 
-.menuLeftBackButton {
+.backButton {
     margin-right: 8px;
-    background: url("#{resource['img/back-round-button.png']}");
+    background: url("#{resource['img/back-button.png']}");
+}
+
+.filterButton {
+    background: url("#{resource['img/ok-button.png']}");
+}
+
+.resetButton {
+    background: url("#{resource['img/reset.png']}");
 }
 
 .menuButton {
     display: inline-block;
     width: 32px;
     height: 32px;
-    background-color: #c9c9c9!important;
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position: 0 0;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    margin-left: 4px;
+    margin-right: 4px;
     vertical-align: middle;
     border-radius: 50%;
     -moz-border-radius: 50%;
@@ -181,101 +265,7 @@ hr {
 }
 
 .menuButton:hover {
-    background-color: #efefef!important;
     background-position: 0 -32px;
-}
-
-@media(max-width: 767px) {
-    .menuLeftButtons {
-        display: none;
-    }
-}
-/********************************* filter Menu ********************************/
-.filters {
-    position: fixed;
-    width: 400px;
-    height: 100%;
-    top: 60px;
-    left: -100%;
-    background-color: #575757;
-    z-index: 1001;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid #555;
-    box-shadow: 2px 2px 8px #999;
-    -moz-box-shadow: 2px 2px 8px #999;
-    -webkit-box-shadow: 2px 2px 8px #999;
-}
-
-.filters.toggleMenu {
-    left: 0;
-}
-
-.filters label {
-    margin-right: 8px;
-}
-
-.filterMenuLabel {
-    color: #555;
-    margin-left: 16px;
-}
-
-.menuFilterButton {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: url("#{resource['img/ok-round-button.png']}");
-    background-color: #c9c9c9!important;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    vertical-align: middle;
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-}
-
-.menuFilterButton:hover {
-    background-color: #efefef!important;
-    background-position: 0 -32px;
-}
-
-.menuResetButton {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: url("#{resource['img/reset-round-button.png']}");
-    background-color: #c9c9c9!important;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    vertical-align: middle;
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-}
-
-.menuResetButton:hover {
-    background-color: #efefef!important;
-    background-position: 0 -32px;
-}
-
-.filterMenuContent {
-    color: #efefef;
-    padding: 2em;
-}
-
-.filterMenuContent select, input {
-   color: #333;
-   border: 1px solid #333;
- }
-
-.inputSearch {
-    background-image: url("#{resource['img/filter.png']}");
-    background-position: 99% 50%;
-    background-repeat: no-repeat;
 }
 
 @media(max-width: 767px) {
@@ -290,6 +280,10 @@ hr {
     }
 }
 /********************************* content ************************************/
+.content {
+    background-color: #e4e4e4;
+}
+
 @media(min-width: 767px) {
     .content {
         position: relative;
@@ -316,6 +310,11 @@ hr {
     margin-left: 0;
     margin-right: 0;
 }
+
+.eventDisplay div:first-child {
+    background-color: transparent;
+}
+
 .event {
     background-color: #fefefe;
     border: 1px solid #dcdcdc;
@@ -351,7 +350,7 @@ hr {
     cursor: pointer;
     text-decoration: none;
     display: block;
-    width: 100%;
+    width: auto;
     border: 1px;
     padding: 4px;
     color: #fff;
@@ -369,13 +368,54 @@ hr {
     display: block;
 }
 
-.event ul {
-    
+.event div {
+    display: inline-block;
+    border: none!important;
+    background-color: transparent;
 }
 
+.detailInteressadoRegional {
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: #a7e1c7!important;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    overflow: hidden;
+}
+
+.event ul {
+    padding: 0;
+}
+
+
 .event ul li {
-    display: inline;
-    margin: 2px 8px 2px 8px;
+    color: #93278f;
+    display: inline-block;
+    margin: 2px 4px 2px 4px;
+    border: 1px solid #888;
+    padding: 4px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.detailInteressadoRegionalTag {
+    width: 128px;
+    color: #ffffff;
+    background-color: #ff69a1!important;
+    padding: 2px 12px 2px 12px;
+}
+
+.detailInteressadoRegionalIcon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 6px;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
 }
 
 @media(min-width: 767px) {
@@ -402,9 +442,19 @@ hr {
     .event p.toggle {
         display: block;
     }
+
+    .detailInteressadoRegionalTag {
+        width: 100%;
+        padding: 0;
+    }
 }
 
 /********************************* generic styles******************************/
+.menuLabel {
+    color: #ffffff;
+    margin-left: 16px;
+}
+
 .transitionDefault {
     -o-transition: all 250ms;
     -moz-transition: all 250ms;
@@ -420,10 +470,6 @@ hr {
 
 .labelSpace {
     margin-right: 1em;
-}
-
-.noBorder {
-    border: none;
 }
 
 .defaultTable {
@@ -517,6 +563,11 @@ col40 {
     .collapsedCol {
         width: 0;
         visibility: collapse;
+    }
+
+    .menuLabel {
+        margin-left: 2px;
+        font-size: 1em!important;
     }
 }
 

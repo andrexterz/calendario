@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
@@ -61,7 +62,7 @@ public class EventoBean {
     @Autowired
     private transient InteressadoDao interessadoDao;
 
-    @Autowired
+    @Autowired(required = true)
     private transient CalendarioDao calendarioDao;
 
     @Autowired
@@ -82,12 +83,17 @@ public class EventoBean {
     private Interessado buscaInteressado;
     private Date buscaDataInicio;
     private Date buscaDataTermino;
+    
+    @PostConstruct
+    private void init() {
+        this.calendario = calendarioDao.buscarAtivo();
+        System.out.println("calendario ativo: " + calendario);
+    }
 
     public EventoBean() {
         evento = new Evento();
         itemSelecionado = null;
         calendario = null;
-        System.out.println("calendario default: " +  calendario);
         selecaoRegional = null;
         selecaoInteressado = null;
         eventosImportados = new ArrayList<>();

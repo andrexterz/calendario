@@ -10,8 +10,8 @@
         <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandLink styleClass="menuButton menuLeftBackButton" onclick="javascript:toggleMenu();" />
-                    <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" styleClass="filterMenuLabel" />
+                    <p:commandLink styleClass="menuButton backButton" onclick="javascript:toggleMenu();" />
+                    <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" styleClass="menuLabel" />
                     <h:selectOneMenu value="#{eventoBean.tipoBusca}">
                         <p:ajax event="change" process="@this" update="filterContent" />
                         <f:selectItems value="#{eventoBean.tipoBuscaList}"
@@ -21,12 +21,12 @@
                     </h:selectOneMenu>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandLink title="#{msg.limpar}" styleClass="menuResetButton"
+                    <p:commandLink title="#{msg.limpar}" styleClass="menuButton resetButton"
                                    update="filterContent :eventoPanel" process="@this"
                                    actionListener="#{eventoBean.limpaFiltro}" />                    
                     <p:commandLink title="#{msg.confirmar}"
                                    update=":eventoPanel"
-                                   styleClass="menuFilterButton"
+                                   styleClass="menuButton filterButton"
                                    action="home?faces-redirect=true" />
                 </f:facet>
             </p:toolbar>
@@ -35,7 +35,7 @@
                     <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
                 </h:panelGrid>
-                <h:panelGrid columns="2" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
+                <h:panelGrid columns="1" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
@@ -50,29 +50,29 @@
                 </h:panelGrid>                
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
                     <p:outputLabel for="buscaInteressado" value="#{msg.interessado}" />
-                    <h:selectOneMenu id="buscaInteressado" value="#{eventoBean.buscaInteressado}" converter="#{interessadoConverter}"  styleClass="force100">
+                    <p:selectOneMenu id="buscaInteressado" value="#{eventoBean.buscaInteressado}" converter="#{interessadoConverter}"  styleClass="force100">
                         <f:selectItem itemLabel="#{msg.interessado}" itemValue="#{null}" />
                         <f:selectItems value="#{interessadoDao.listar()}"
                                        var="interessado"
                                        itemLabel="#{interessado.nome}"
                                        itemValue="#{interessado}">
                         </f:selectItems>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
                 </h:panelGrid>
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'REGIONAL'}">
                     <p:outputLabel for="buscaRegional" value="#{msg.regional}" />
-                    <h:selectOneMenu id="buscaRegional" value="#{eventoBean.buscaRegional}" converter="#{regionalConverter}" styleClass="force100" >
+                    <p:selectOneMenu id="buscaRegional" value="#{eventoBean.buscaRegional}" converter="#{regionalConverter}" styleClass="force100" >
                         <f:selectItem itemLabel="#{msg.regional}" itemValue="#{null}" />
                         <f:selectItems value="#{regionalDao.listar()}"
                                        var="regional"
                                        itemLabel="#{regional.nome}"
                                        itemValue="#{regional}">
                         </f:selectItems>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
                 </h:panelGrid>
             </h:panelGroup>
         </h:panelGroup>
-        <div class="menuLeftButtons transitionDefault">
+        <div class="menuLeft transitionDefault">
             <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu();" />
             <hr />
             <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />

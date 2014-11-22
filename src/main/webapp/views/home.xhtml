@@ -8,43 +8,16 @@
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="menuTop">
-            <div id="menuTop" class="navbar navbar-default navbar-fixed-top">
-                <p:graphicImage value="#{resource['img/ufg-logo.png']}" styleClass="logo" />
-                <h:panelGroup layout="block" styleClass="container">
-                    <h:panelGroup layout="block" styleClass="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">mini menu</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <button type="button" onclick="toggleMenu()" class="navbar-mini-buttons">
-                            <h:graphicImage value="#{resource['img/filter.png']}" />
-                        </button>
-                        <h:outputText value="#{msg.appNome}" styleClass="navbar-brand appTitle" />
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="navbar-collapse collapse">
-                        <h:form id="calendarioSelectorForm" styleClass="navbar-form">
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <p:commandLink value="#{msg.inicio}" action="home" />
-                                </li>
-                                <li>
-                                    <h:selectOneMenu styleClass="menuCalendar"
-                                                     converter="#{calendarioConverter}"
-                                                     value="#{eventoBean.calendario}">
-                                        <p:ajax event="change" process="@this" update=":eventoPanel" />
-                                        <f:selectItem itemLabel="#{msg.calendario}" value="#{null}" />
-                                        <f:selectItems value="#{calendarioBean.calendarioList}" var="calendario"
-                                                       itemLabel="#{msg.calendario}: #{calendario.ano}"
-                                                       itemValue="#{calendario}" />
-                                    </h:selectOneMenu>
-                                </li>
-                            </ul>
-                        </h:form>
-                    </h:panelGroup>
+            <h:panelGroup id="menuTop" styleClass="navbar">
+                <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
+                <h:panelGroup styleClass="appTitle">
+                    <h:outputText value="#{msg.appNome}"  />
+                    <p:commandLink styleClass="menuCalendario arrowLeft" />
+                    <h:outputText value="#{eventoBean.calendario.ano}" />
+                    <p:commandLink styleClass="menuCalendario arrowRight" />
                 </h:panelGroup>
-            </div>            
+                <p:commandLink title="#{msg.menu}" styleClass="mini-menu" onclick="javascript:toggleMenu();" />
+            </h:panelGroup>            
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="eventoPanel" layout="block" styleClass="content">
@@ -67,15 +40,27 @@
                             <h1>#{evento.assunto}</h1>
                             <span id="detail#{evento.id}" onclick="javascript:toggleEventDetail('description#{evento.id}')">#{msg.detalhes}</span>
                             <p id="description#{evento.id}">#{evento.descricao}</p>
-                            <p:panelGrid styleClass="col100 formGrid" columns="3" columnClasses="col5,col5,col90" rendered="#{not empty evento.interessado}">
-                                <div class="menuItem userIcon" />
-                                <h:outputText value="#{msg.interessados}" />
-                                <p:dataList styleClass="noBorder" value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
+                            <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.interessado}">
+                                <div class="detailInteressadoRegionalTag">
+                                    <div class="detailInteressadoRegionalIcon userIcon" />
+                                    <h:outputText value="#{msg.interessados}" />
+                                </div>
+                                <p:dataList value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
                                     <h:outputText value="#{interessado.nome}" />
                                 </p:dataList>
-                            </p:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.regional}">
+                                <div class="detailInteressadoRegionalTag">
+                                    <div class="detailInteressadoRegionalIcon moduleIcon" />
+                                    <h:outputText value="#{msg.regionais}" />
+                                </div>
+                                <p:dataList value="#{evento.regional}" var="regional" emptyMessage="#{msg.vazio}">
+                                    <h:outputText value="#{regional.nome}" />
+                                </p:dataList>
+                            </h:panelGroup>
                         </article>
                     </h:panelGroup>
+                    <hr />
                 </p:dataScroller>
             </h:panelGroup>
         </ui:define>
