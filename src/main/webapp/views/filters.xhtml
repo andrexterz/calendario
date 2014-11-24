@@ -22,7 +22,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandLink title="#{msg.limpar}" styleClass="menuButton resetButton"
-                                   update="filterContent :eventoPanel" process="@this"
+                                   update="filterContent :eventoPanel infoFiltro" process="@this"
                                    actionListener="#{eventoBean.limpaFiltro}" />                    
                     <p:commandLink title="#{msg.confirmar}"
                                    update=":eventoPanel"
@@ -30,20 +30,20 @@
                                    action="home?faces-redirect=true" />
                 </f:facet>
             </p:toolbar>
-            <h:panelGroup layout="block" id="filterContent" class="filterMenuContent">
+            <h:panelGroup layout="block" id="filterContent" class="filterContent">
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
                     <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
                 </h:panelGrid>
-                <h:panelGrid columns="1" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
+                <h:panelGrid columns="2" columnClasses="col40,col60" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
-                                pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
+                                size="10" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" update="buscaDataTermino" process="@this" listener="#{eventoBean.checkDateBusca}" />
                     </p:calendar>
                     <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
                     <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
-                                mindate="#{eventoBean.buscaDataInicio}" 
+                                mindate="#{eventoBean.buscaDataInicio}" size="10" 
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" process="@this" />
                     </p:calendar>
@@ -70,6 +70,59 @@
                         </f:selectItems>
                     </p:selectOneMenu>
                 </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="infoFilter">
+                <p:panelGrid id="infoFiltro" styleClass="formGrid">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2" styleClass="toolbar">#{msg.filtrosAplicados}</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column styleClass="alignRight col20">
+                            <h:outputLabel value="#{msg.termo}:" />
+                        </p:column>
+                        <p:column styleClass="alignLeft col80">
+                            <h:outputText value="#{eventoBean.termoBusca}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <h:outputLabel value="#{msg.interessado}:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <h:outputLabel value="#{msg.regional}:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{eventoBean.buscaRegional.nome}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <h:outputLabel value="#{msg.dataInicio}:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{eventoBean.buscaDataInicio}">
+                                <f:convertDateTime locale="#{localeBean.locale}" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <h:outputLabel value="#{msg.dataTermino}:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{eventoBean.buscaDataTermino}">
+                                <f:convertDateTime locale="#{localeBean.locale}" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </h:panelGroup>
         </h:panelGroup>
         <div class="menuLeft transitionDefault">

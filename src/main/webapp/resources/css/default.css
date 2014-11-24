@@ -193,12 +193,13 @@ hr {
 
 
 
-.filterMenuContent {
+.filterContent {
     color: #efefef;
     padding: 16px;
+    height: 160px;
 }
 
-.filterMenuContent select, input {
+.filterContent select, input {
     color: #333;
     border: 1px solid #333;
 }
@@ -222,6 +223,43 @@ hr {
 .menuItem:hover {
     background-position: 0 -32px;    
 }
+
+.menuButton {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.menuButton:hover {
+    background-position: 0 -32px;
+}
+
+.infoFilter {
+    overflow: hidden;
+    margin: 12px;
+    border: 2px solid #1c1a26;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+ }
+ 
+ .infoFilter table {
+     margin: 0;
+ }
+ 
+ .infoFilter table tr {
+     color: #fff;
+     background-color: transparent;
+ }
 
 .searchIcon {
     background-image: url("#{resource['img/search.png']}");
@@ -260,25 +298,6 @@ hr {
     background: url("#{resource['img/reset.png']}");
 }
 
-.menuButton {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    margin-left: 4px;
-    margin-right: 4px;
-    vertical-align: middle;
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-}
-
-.menuButton:hover {
-    background-position: 0 -32px;
-}
-
 @media(max-width: 767px) {
     .filters {
         width: 100%;
@@ -288,6 +307,7 @@ hr {
         z-index: 1001;
     }
 }
+
 /********************************* content ************************************/
 .content {
     background-color: #edf3f6;
