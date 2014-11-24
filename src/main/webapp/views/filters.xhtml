@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:form>
+    <h:form id="filterForm">
         <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
             <p:toolbar styleClass="toolbar">
                 <f:facet name="left">
@@ -31,17 +31,18 @@
                 </f:facet>
             </p:toolbar>
             <h:panelGroup layout="block" id="filterContent" class="filterContent">
+                <p:effect type="slide" speed="120" event="load" />
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
                     <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
                 </h:panelGrid>
-                <h:panelGrid columns="2" columnClasses="col40,col60" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
+                <h:panelGrid columns="2" columnClasses="col50,col50" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
+                    <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
                                 size="10" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" update="buscaDataTermino" process="@this" listener="#{eventoBean.checkDateBusca}" />
                     </p:calendar>
-                    <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
                     <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
                                 mindate="#{eventoBean.buscaDataInicio}" size="10" 
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
@@ -130,6 +131,14 @@
             <hr />
             <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
             <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
+            <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
+                <f:facet name="start">
+                    <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
         </div>
     </h:form>
 </ui:composition>
