@@ -26,7 +26,7 @@ public enum TipoBusca {
     }
 
     public String getValue() {
-        return value;
+        return LocaleBean.getMessage(value);
     }
     
     public static List<TipoBusca> getValues() {

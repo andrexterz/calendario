@@ -113,24 +113,25 @@ hr {
 
     .appTitle {
         margin-top: 16px;
-        margin-left: 24px;
-        font-size: 18px;
+        margin-left: 16px;
+        font-size: 16px;
     }
 
     .mini-menu {
         background-image: url("#{resource['img/search.png']}");
+        background-size: 24px 48px;
         display: inline-block;
         float: right;
         margin: 12px;
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         background-repeat: no-repeat;
         background-position: 0 0;
         vertical-align: middle;
     }
 
     .mini-menu:hover {
-        background-position: 0 -32px; 
+        background-position: 0 -24px; 
     }
 }
 

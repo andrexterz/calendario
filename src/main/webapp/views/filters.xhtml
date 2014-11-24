@@ -11,7 +11,7 @@
             <p:toolbar styleClass="toolbar">
                 <f:facet name="left">
                     <p:commandLink styleClass="menuButton backButton" onclick="javascript:toggleMenu();" />
-                    <p:outputLabel value="#{msg.busca} #{msg.prepPor}:" styleClass="menuLabel" />
+                    <p:outputLabel value="#{msg.filtrar} #{msg.prepPor}:" styleClass="menuLabel" />
                     <h:selectOneMenu value="#{eventoBean.tipoBusca}">
                         <p:ajax event="change" process="@this" update="filterContent" />
                         <f:selectItems value="#{eventoBean.tipoBuscaList}"
@@ -33,7 +33,7 @@
             <h:panelGroup layout="block" id="filterContent" class="filterContent">
                 <p:effect type="slide" speed="120" event="load" />
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'TERMO'}">
-                    <p:outputLabel for="buscaTextual" value="#{msg.busca}" />
+                    <p:outputLabel for="buscaTextual" value="#{msg.digiteOTexto}" />
                     <p:inputText id="buscaTextual" value="#{eventoBean.termoBusca}" styleClass="force100 inputSearch" />
                 </h:panelGrid>
                 <h:panelGrid columns="2" columnClasses="col50,col50" styleClass="formGrid" rendered="#{eventoBean.tipoBusca eq 'PERIODO'}">
@@ -50,9 +50,9 @@
                     </p:calendar>
                 </h:panelGrid>                
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'INTERESSADO'}">
-                    <p:outputLabel for="buscaInteressado" value="#{msg.interessado}" />
+                    <p:outputLabel for="buscaInteressado" value="#{msg.selecioneOInteressado}" />
                     <p:selectOneMenu id="buscaInteressado" value="#{eventoBean.buscaInteressado}" converter="#{interessadoConverter}"  styleClass="force100">
-                        <f:selectItem itemLabel="#{msg.interessado}" itemValue="#{null}" />
+                        <f:selectItem itemLabel="" itemValue="#{null}" />
                         <f:selectItems value="#{interessadoDao.listar()}"
                                        var="interessado"
                                        itemLabel="#{interessado.nome}"
@@ -61,9 +61,9 @@
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <h:panelGrid styleClass="formGrid" columns="1" rendered="#{eventoBean.tipoBusca eq 'REGIONAL'}">
-                    <p:outputLabel for="buscaRegional" value="#{msg.regional}" />
+                    <p:outputLabel for="buscaRegional" value="#{msg.selecioneARegional}" />
                     <p:selectOneMenu id="buscaRegional" value="#{eventoBean.buscaRegional}" converter="#{regionalConverter}" styleClass="force100" >
-                        <f:selectItem itemLabel="#{msg.regional}" itemValue="#{null}" />
+                        <f:selectItem itemLabel="" itemValue="#{null}" />
                         <f:selectItems value="#{regionalDao.listar()}"
                                        var="regional"
                                        itemLabel="#{regional.nome}"
@@ -127,7 +127,7 @@
             </h:panelGroup>
         </h:panelGroup>
         <div class="menuLeft transitionDefault">
-            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.busca}" onclick="javascript:toggleMenu();" />
+            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.filtrar}" onclick="javascript:toggleMenu();" />
             <hr />
             <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
             <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
