@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 /********************************** html & body ********************************/
 body {
+    margin: 0;
     font-size: 10pt;
     font-family: "gotham-light", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;    
 }
@@ -18,17 +19,30 @@ hr {
     height: 1px;
     background-color: #999;
     margin-top: 4px;
-    margin-bottom: 4px;
+    margin-bottom: 16px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+@media (max-width: 767px) {
+ hr {
+    border: none;
+    height: 1px;
+    background-color: #999;
+    margin-top: 4px;
+    margin-bottom: 8px;
     margin-left: 4px;
     margin-right: 4px;
 }
+}
+
 
 /********************************** ui override *******************************/
 .ui-widget-header {
-/*    border: 1px solid #1c1a26;
-    background:  #37354d;
-    color: #5c5caa;
-    text-shadow: none;*/
+    /*    border: 1px solid #1c1a26;
+        background:  #37354d;
+        color: #5c5caa;
+        text-shadow: none;*/
 }
 
 .ui-panel-content, .ui-panel-content {
@@ -86,10 +100,10 @@ hr {
 }
 
 .menuCalendario {
-   display: inline-block;
-   width: 16px;
-   height: 16px;
-   background-position: 0 0;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-position: 0 0;
 }
 
 .menuCalendario:hover {
@@ -251,16 +265,16 @@ hr {
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
- }
- 
- .infoFilter table {
-     margin: 0;
- }
- 
- .infoFilter table tr {
-     color: #fff;
-     background-color: transparent;
- }
+}
+
+.infoFilter table {
+    margin: 0;
+}
+
+.infoFilter table tr {
+    color: #fff;
+    background-color: transparent;
+}
 
 .searchIcon {
     background-image: url("#{resource['img/search.png']}");
@@ -312,20 +326,16 @@ hr {
 /********************************* content ************************************/
 .content {
     background-color: #edf3f6;
-}
-
-@media(min-width: 767px) {
-    .content {
-        position: relative;
-        margin-top: 60px;
-        margin-left: 48px;
-    }
+    position: relative;
+    margin-top: 60px;
+    margin-left: 0;
 }
 
 @media(max-width: 767px) {
     .content {
         position: relative;
-        margin-top: 60px;        
+        margin-top: 60px;
+        margin-left: 0;
     }
 
     .content.toggle {
@@ -345,10 +355,20 @@ hr {
     background-color: transparent;
 }
 
+/*
 .event {
     background-color: #fefefe;
     border: 1px solid #dcdcdc;
     margin: 8px 4px 8px 4px;
+    padding: 2px 8px 2px 8px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+}
+*/
+
+.event {
+    margin: 8px 10% 8px 10%;
     padding: 2px 8px 2px 8px;
     border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -400,6 +420,8 @@ hr {
 }
 
 .event p {
+    font-size: 1.1em;
+    color: #00027e;
     display: block;
     margin: 4px 0 24px 0;
 }
@@ -412,9 +434,10 @@ hr {
 
 .detailInteressadoRegional {
     width: 100%;
+    height: 40px;
     margin-top: 2px;
     margin-bottom: 2px;
-    background-color: #a7e1c7!important;
+    background-color: #d3f2e4!important;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -430,7 +453,7 @@ hr {
     color: #93278f;
     display: inline-block;
     margin: 2px 4px 2px 4px;
-    border: 1px solid #888;
+    border: 1px solid #b4d2c8;
     padding: 4px;
     border-radius: 4px;
     -moz-border-radius: 4px;
@@ -439,19 +462,21 @@ hr {
 
 .detailInteressadoRegionalTag {
     width: 128px;
-    color: #ffffff;
-    background-color: #6e6999!important;
+    color: #333;
     padding: 2px 12px 2px 12px;
+    border-right: 1px solid #ccc!important;
 }
 
 .detailInteressadoRegionalIcon {
     display: inline-block;
     vertical-align: middle;
     margin: 6px;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     background-repeat: no-repeat;
-    background-position: 0 0;
+    background-size: 24px 48px;    
+    background-position: 0 -24px;
+
 }
 
 @media(min-width: 767px) {
@@ -460,6 +485,13 @@ hr {
     }
 }
 @media(max-width: 767px) {
+    .event {
+        margin: 8px 4px 8px 4px;
+        padding: 2px 8px 2px 8px;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+    }    
     .event h1 {
         font-size: 1.2em;
         vertical-align: auto;
@@ -671,7 +703,7 @@ col40 {
     width: auto;
     height: 60px;
     vertical-align: middle;
-  
+
 }
 
 .adminTopMenu form {
