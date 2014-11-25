@@ -9,15 +9,27 @@
         <ui:define name="title">#{msg.inicio}</ui:define>
         <ui:define name="menuTop">
             <h:panelGroup id="menuTop" styleClass="navbar">
-                <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
-                <h:panelGroup styleClass="appTitle">
-                    <h:outputText value="#{msg.appNome}"  />
-                    <!--p:commandLink styleClass="menuCalendario arrowLeft" /-->
-                    <h:outputText value="#{eventoBean.calendario.ano}" />
-                    <!--p:commandLink styleClass="menuCalendario arrowRight" /-->
+                <h:panelGroup layout="block" styleClass="appTopbar">
+                    <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
+                    <h:panelGroup styleClass="appTitle">
+                        <h:outputText value="#{msg.appNome} #{eventoBean.calendario.ano}"  />
+                    </h:panelGroup>
+                    <p:commandLink title="#{msg.menu}" styleClass="mini-menu" onclick="javascript:toggleMenu();" />
                 </h:panelGroup>
-                <p:commandLink title="#{msg.menu}" styleClass="mini-menu" onclick="javascript:toggleMenu();" />
-            </h:panelGroup>            
+                <h:panelGroup layout="block" styleClass="toolbar alignCenter">
+                    <h:outputText styleClass="eventTitle" value="#{msg.eventos}" />
+                    <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
+                        <f:facet name="start">
+                            <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                        </f:facet>
+                        <f:facet name="complete">
+                            <h:outputText value=""/>
+                        </f:facet>
+                    </p:ajaxStatus>
+
+                    <p:commandLink styleClass="menuItem menuIcon floatRight" title="#{msg.filtrar}" onclick="javascript:toggleMenu();" />
+                </h:panelGroup>           
+            </h:panelGroup>
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="eventoPanel" layout="block" styleClass="content">

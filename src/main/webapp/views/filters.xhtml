@@ -40,11 +40,11 @@
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
                     <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
-                                size="10" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
+                                size="8" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" update="buscaDataTermino" process="@this" listener="#{eventoBean.checkDateBusca}" />
                     </p:calendar>
                     <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
-                                mindate="#{eventoBean.buscaDataInicio}" size="10" 
+                                mindate="#{eventoBean.buscaDataInicio}" size="8" 
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" process="@this" />
                     </p:calendar>
@@ -126,20 +126,6 @@
                 </p:panelGrid>
             </h:panelGroup>
         </h:panelGroup>
-        <div class="menuLeft transitionDefault">
-            <p:commandLink styleClass="menuItem searchIcon" title="#{msg.filtrar}" onclick="javascript:toggleMenu();" />
-            <hr />
-            <p:commandLink styleClass="menuItem listIcon" title="#{msg.modoLista}" />
-            <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.modoCalendario}" />
-            <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
-                <f:facet name="start">
-                    <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
-                </f:facet>
-                <f:facet name="complete">
-                    <h:outputText value=""/>
-                </f:facet>
-            </p:ajaxStatus>
-        </div>
     </h:form>
 </ui:composition>
 

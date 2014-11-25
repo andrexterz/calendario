@@ -11,7 +11,7 @@ and open the template in the editor.
 body {
     margin: 0;
     font-size: 10pt;
-    font-family: "gotham-light", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;    
+    font-family: "gotham-light", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
 }
 
 hr {
@@ -82,6 +82,20 @@ hr {
     z-index: 199;
 }
 
+.appTopbar {
+    width: 100%;
+    height: 56px;
+    display: block;
+}
+
+.eventTitle {
+    display: inline-block;
+    margin: 4px;
+    font-size: 1.5em;
+    font-weight: normal;
+    text-transform: capitalize;
+}
+
 .logo {
     float: left;
     margin-left: 32px;
@@ -99,17 +113,6 @@ hr {
     font-weight: normal;
 }
 
-.menuCalendario {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-position: 0 0;
-}
-
-.menuCalendario:hover {
-    background-position: 0 -16px;
-}
-
 .arrowLeft {
     margin-left: 8px;
     background-image: url("#{resource['img/arrow-left.png']}");
@@ -118,6 +121,14 @@ hr {
 .arrowRight {
     margin-right: 8px;
     background-image: url("#{resource['img/arrow-right.png']}");
+}
+
+.toolbar {
+    border: 1px solid #1c1a26;
+    color: #fff;
+    background:  #37354d;
+    text-shadow: none;
+    height: 40px;
 }
 
 @media (max-width: 767px) {
@@ -152,10 +163,10 @@ hr {
 /********************************* menu left **********************************/
 .menuLeft {
     position: fixed;
-    width: 54px;
-    height: 100%;    
+    width: 48px;
+    height: 48px;    
     margin: 0;
-    top: 60px;
+    top: 92px;
     right: 0;
     left: 0;
     bottom: 0;    
@@ -171,18 +182,11 @@ hr {
     }
 }
 
-.toolbar {
-    border: 1px solid #1c1a26;
-    background:  #37354d;
-    color: #5c5caa;
-    text-shadow: none;
-}
-
 .filters {
     position: fixed;
-    width: 400px;
-    height: 100%;
-    top: 60px;
+    width: 360px;
+    height: 440px;
+    top: 56px;
     left: -100%;
     background-color: #534f73;
     z-index: 1001;
@@ -261,7 +265,7 @@ hr {
 .infoFilter {
     overflow: hidden;
     margin: 12px;
-    border: 2px solid #1c1a26;
+    border: 1px solid #1c1a26;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -288,7 +292,7 @@ hr {
     background-image: url("#{resource['img/event.png']}");
 }
 
-.listIcon {
+.menuIcon {
     background-image: url("#{resource['img/list.png']}");
 }
 
@@ -327,14 +331,13 @@ hr {
 .content {
     background-color: #edf3f6;
     position: relative;
-    margin-top: 60px;
+    margin-top: 90px;
     margin-left: 0;
 }
 
 @media(max-width: 767px) {
     .content {
         position: relative;
-        margin-top: 60px;
         margin-left: 0;
     }
 
@@ -354,18 +357,6 @@ hr {
 .eventDisplay div:first-child {
     background-color: transparent;
 }
-
-/*
-.event {
-    background-color: #fefefe;
-    border: 1px solid #dcdcdc;
-    margin: 8px 4px 8px 4px;
-    padding: 2px 8px 2px 8px;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-}
-*/
 
 .event {
     margin: 8px 10% 8px 10%;
@@ -470,12 +461,11 @@ hr {
 .detailInteressadoRegionalIcon {
     display: inline-block;
     vertical-align: middle;
-    margin: 6px;
-    width: 24px;
-    height: 24px;
+    margin: 2px;
+    width: 32px;
+    height: 32px;
     background-repeat: no-repeat;
-    background-size: 24px 48px;    
-    background-position: 0 -24px;
+    background-position: 0 -32px;
 
 }
 
