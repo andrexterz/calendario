@@ -139,10 +139,19 @@ hr {
 .eventTitle {
     display: inline-block;
     margin-left: 12%;
-    margin-top: 8px;
     font-size: 1.5em;
     font-weight: normal;
     text-transform: capitalize;
+    vertical-align: middle;
+}
+
+.selectedFilters {
+    display: inline-block;    
+    margin: 8px 4px 4px 32px;
+    width: 200px;
+}
+
+.selectedFilters span {
     vertical-align: middle;
 }
 
@@ -234,8 +243,6 @@ hr {
 .filterButton:hover {
     background-position: 0 -32px;
 }
-
-
 
 .filterContent {
     color: #efefef;

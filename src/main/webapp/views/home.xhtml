@@ -18,6 +18,9 @@
                 <h:panelGroup layout="block" styleClass="toolbar">
                     <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" />
                     <h:outputText styleClass="eventTitle" value="#{msg.eventos}" />
+                    <h:panelGroup layout="block" styleClass="selectedFilters">
+                        <span><h:outputText value="#{msg.filtrosAplicados}:" /></span>
+                    </h:panelGroup>
                     <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
                         <f:facet name="start">
                             <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
