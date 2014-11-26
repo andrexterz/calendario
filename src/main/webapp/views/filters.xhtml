@@ -4,8 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="filterForm">
         <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
             <p:toolbar styleClass="toolbar">
@@ -22,7 +21,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandLink title="#{msg.limpar}" styleClass="menuButton resetButton"
-                                   update="filterContent :eventoPanel infoFiltro" process="@this"
+                                   update="filterContent :eventoPanel" process="@this"
                                    actionListener="#{eventoBean.limpaFiltro}" />                    
                     <p:commandLink title="#{msg.confirmar}"
                                    update=":eventoPanel"
@@ -71,59 +70,6 @@
                         </f:selectItems>
                     </p:selectOneMenu>
                 </h:panelGrid>
-            </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="infoFilter">
-                <p:panelGrid id="infoFiltro" styleClass="formGrid">
-                    <f:facet name="header">
-                        <p:row>
-                            <p:column colspan="2" styleClass="toolbar">#{msg.filtrosAplicados}</p:column>
-                        </p:row>
-                    </f:facet>
-                    <p:row>
-                        <p:column styleClass="alignRight col20">
-                            <h:outputLabel value="#{msg.termo}:" />
-                        </p:column>
-                        <p:column styleClass="alignLeft col80">
-                            <h:outputText value="#{eventoBean.termoBusca}" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="alignRight">
-                            <h:outputLabel value="#{msg.interessado}:" />
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="alignRight">
-                            <h:outputLabel value="#{msg.regional}:" />
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{eventoBean.buscaRegional.nome}" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="alignRight">
-                            <h:outputLabel value="#{msg.dataInicio}:" />
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{eventoBean.buscaDataInicio}">
-                                <f:convertDateTime locale="#{localeBean.locale}" />
-                            </h:outputText>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="alignRight">
-                            <h:outputLabel value="#{msg.dataTermino}:" />
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{eventoBean.buscaDataTermino}">
-                                <f:convertDateTime locale="#{localeBean.locale}" />
-                            </h:outputText>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
             </h:panelGroup>
         </h:panelGroup>
     </h:form>

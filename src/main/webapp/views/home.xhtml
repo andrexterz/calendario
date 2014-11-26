@@ -14,9 +14,9 @@
                     <h:panelGroup styleClass="appTitle">
                         <h:outputText value="#{msg.appNome} #{eventoBean.calendario.ano}"  />
                     </h:panelGroup>
-                    <p:commandLink title="#{msg.menu}" styleClass="mini-menu" onclick="javascript:toggleMenu();" />
                 </h:panelGroup>
-                <h:panelGroup layout="block" styleClass="toolbar alignCenter">
+                <h:panelGroup layout="block" styleClass="toolbar">
+                    <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" />
                     <h:outputText styleClass="eventTitle" value="#{msg.eventos}" />
                     <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
                         <f:facet name="start">
@@ -26,8 +26,6 @@
                             <h:outputText value=""/>
                         </f:facet>
                     </p:ajaxStatus>
-
-                    <p:commandLink styleClass="menuItem menuIcon floatRight" title="#{msg.filtrar}" onclick="javascript:toggleMenu();" />
                 </h:panelGroup>           
             </h:panelGroup>
         </ui:define>
@@ -59,7 +57,7 @@
                             <h:panelGroup layout="block" styleClass="detailToggle" rendered="#{not empty evento.interessado or not empty evento.regional}">
                                 <p:commandLink value="#{msg.detalhes}" onclick="javascript:toggleEventDetail('detail#{evento.id}')" />
                             </h:panelGroup>                            
-                            <div id="detail#{evento.id}" class="detail transitionDefault">
+                            <div id="detail#{evento.id}" class="detail">
                                 <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.interessado}">
                                     <div class="detailInteressadoRegionalTag">
                                         <div class="detailInteressadoRegionalIcon userIcon" />

@@ -25,15 +25,15 @@ hr {
 }
 
 @media (max-width: 767px) {
- hr {
-    border: none;
-    height: 1px;
-    background-color: #999;
-    margin-top: 4px;
-    margin-bottom: 8px;
-    margin-left: 4px;
-    margin-right: 4px;
-}
+    hr {
+        border: none;
+        height: 1px;
+        background-color: #999;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
 }
 
 
@@ -82,20 +82,6 @@ hr {
     z-index: 199;
 }
 
-.appTopbar {
-    width: 100%;
-    height: 56px;
-    display: block;
-}
-
-.eventTitle {
-    display: inline-block;
-    margin: 4px;
-    font-size: 1.5em;
-    font-weight: normal;
-    text-transform: capitalize;
-}
-
 .logo {
     float: left;
     margin-left: 32px;
@@ -131,9 +117,43 @@ hr {
     height: 40px;
 }
 
+.mini-menu {
+    position: absolute;
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin: 4px 8px 4px 32px;
+    background-position: 0 0;
+}
+
+.mini-menu:hover {
+    background-position: 0 -32px;
+}
+
+.appTopbar {
+    width: 100%;
+    height: 56px;
+    display: block;
+}
+
+.eventTitle {
+    display: inline-block;
+    margin-left: 12%;
+    margin-top: 8px;
+    font-size: 1.5em;
+    font-weight: normal;
+    text-transform: capitalize;
+    vertical-align: middle;
+}
+
 @media (max-width: 767px) {
     .logo {
-        display: none;
+        float: left;
+        margin-left: 16px;
+        margin-top: 4px;
+        margin-right: 16px;
+        margin-bottom: 4px;
+        vertical-align: middle;
     }
 
     .appTitle {
@@ -143,21 +163,24 @@ hr {
     }
 
     .mini-menu {
-        background-image: url("#{resource['img/search.png']}");
-        background-size: 24px 48px;
+        position: absolute;
+        float: left;
+        width: 32px;
+        height: 32px;
+        margin: 4px 8px 4px 16px;
+    }
+
+    .eventTitle {
         display: inline-block;
-        float: right;
-        margin: 12px;
-        width: 24px;
-        height: 24px;
-        background-repeat: no-repeat;
-        background-position: 0 0;
+        margin-left: 96px;
+        margin-top: 8px;
+        font-size: 1.5em;
+        font-weight: normal;
+        text-transform: capitalize;
         vertical-align: middle;
     }
 
-    .mini-menu:hover {
-        background-position: 0 -24px; 
-    }
+
 }
 
 /********************************* menu left **********************************/
@@ -184,12 +207,13 @@ hr {
 
 .filters {
     position: fixed;
-    width: 360px;
-    height: 440px;
+    width: 340px;
+    height: 160px;
     top: 56px;
-    left: -100%;
+    top: -100%;
     background-color: #534f73;
-    z-index: 1001;
+    opacity: 0.95;
+    z-index: -1;
     border-radius: 4px;
     overflow: hidden;
     border: 1px solid #555;
@@ -199,7 +223,8 @@ hr {
 }
 
 .filters.toggleMenu {
-    left: 0;
+    top: 96px;
+    z-index: 100;
 }
 
 .filters label {
@@ -216,6 +241,7 @@ hr {
     color: #efefef;
     padding: 16px;
     height: 160px;
+    background: transparent;
 }
 
 .filterContent select, input {
@@ -262,24 +288,6 @@ hr {
     background-position: 0 -32px;
 }
 
-.infoFilter {
-    overflow: hidden;
-    margin: 12px;
-    border: 1px solid #1c1a26;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-}
-
-.infoFilter table {
-    margin: 0;
-}
-
-.infoFilter table tr {
-    color: #fff;
-    background-color: transparent;
-}
-
 .searchIcon {
     background-image: url("#{resource['img/search.png']}");
 }
@@ -305,6 +313,7 @@ hr {
 }
 
 .backButton {
+    display: none;
     margin-right: 8px;
     background: url("#{resource['img/back-button.png']}");
 }
@@ -322,8 +331,20 @@ hr {
         width: 100%;
         height: 100%;
         top: 0;
-        left: -100%;
+        left: -120%;
         z-index: 1001;
+    }
+
+    .filters.toggleMenu {
+        top: 56px;
+        left: 0;
+        z-index: 200;
+    }
+
+    .backButton {
+        display: inline-block;
+        margin-right: 8px;
+        background: url("#{resource['img/back-button.png']}");
     }
 }
 
@@ -395,13 +416,15 @@ hr {
     border: 1px;
     padding: 4px;
     color: #fff;
-    background: #999;
+    background: #b4d2c8;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
 
 .detailToggle a {
+    display: inline-block;
+    width: 100%;
     cursor: pointer;
     text-decoration: none;
 }
@@ -415,6 +438,7 @@ hr {
     color: #00027e;
     display: block;
     margin: 4px 0 24px 0;
+    text-align: justify;
 }
 
 .event div div {
@@ -501,6 +525,18 @@ hr {
         display: block;
     }
 
+    .detailInteressadoRegional {
+        width: 100%;
+        height: auto;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        background-color: #d3f2e4!important;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        overflow: hidden;
+    }
+
     .detailInteressadoRegionalTag {
         width: 100%;
         padding: 0;
@@ -509,8 +545,11 @@ hr {
 
 /********************************* generic styles******************************/
 .menuLabel {
+    display: inline-block;
     color: #ffffff;
+    margin-top: 8px;
     margin-left: 16px;
+
 }
 
 .transitionDefault {
