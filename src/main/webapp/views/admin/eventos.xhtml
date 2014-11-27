@@ -27,12 +27,14 @@
                         <p:commandButton icon="ui-icon-pencil"
                                          value="#{msg.editar}"
                                          update=":salvaEvento"
+                                         disabled="#{eventoBean.itemSelecionado eq null}"
                                          oncomplete="PF('salvaEvento').show()"
                                          actionListener="#{eventoBean.editar}"/>
                         
                         <p:commandButton icon="ui-icon-trash"
                                          value="#{msg.excluir}"
                                          title="#{msg.excluir}"
+                                         disabled="#{eventoBean.itemSelecionado eq null}"
                                          oncomplete="PF('excluiEvento').show()" />
                     </f:facet>
                 </p:toolbar>

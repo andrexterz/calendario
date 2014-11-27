@@ -21,7 +21,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandLink title="#{msg.limpar}" styleClass="menuButton resetButton"
-                                   update="filterContent :eventoPanel" process="@this"
+                                   update="filterContent :eventoPanel :selectedFilters" process="@this"
                                    actionListener="#{eventoBean.limpaFiltro}" />                    
                     <p:commandLink title="#{msg.confirmar}"
                                    update=":eventoPanel"
