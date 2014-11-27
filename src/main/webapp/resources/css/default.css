@@ -111,7 +111,7 @@ hr {
 
 .toolbar {
     margin: 0;
-    height: 40px;
+    height: 32px;
     border: 1px solid #1c1a26;
     color: #fff;
     background:  #37354d;
@@ -120,10 +120,13 @@ hr {
 }
 
 .mini-menu {
-    float: left;
+    display: inline-block;  
+    vertical-align: middle;
     width: 32px;
     height: 32px;
-    margin: 4px 8px 4px 28px;
+    margin: 0 0 0 28px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
     background-position: 0 0;
 }
 
@@ -133,8 +136,10 @@ hr {
 
 
 .eventTitle {
+    position: absolute;
     display: inline-block;
-    margin-left: 8%;
+    vertical-align: middle;
+    margin: 4px 45% 4px 45%;
     font-size: 1.5em;
     font-weight: normal;
     text-transform: capitalize;
@@ -142,19 +147,13 @@ hr {
 
 .selectedFilters {
     display: inline-block;
-    margin-left: 8%;
-    width: auto;
-    height: 38px;
+    height: 40px;
 }
-
-.selectedFilters * {
-    margin-right: 4px;
-}
-
 
 .appTopbar {
     width: 100%;
     height: 56px;
+    margin-bottom: 4px;
     display: block;
 }
 
@@ -163,9 +162,10 @@ hr {
     display: inline-block;
     width: 24px;
     height: 24px;
-    margin: 0 4px 0 4px;
+    margin: 4px;
     background-repeat: no-repeat;
     background-position: 50%; 
+    vertical-align: middle;
 }
 
 .textIcon {
@@ -184,8 +184,8 @@ hr {
     display: inline-block;
     vertical-align: middle;
     width: 40px;
+    height: 40px;
     padding: 8px;
-    float: right;
 }
 
 @media (max-width: 767px) {
@@ -205,10 +205,14 @@ hr {
     }
 
     .mini-menu {
-        float: left;
+        display: inline-block;  
+        vertical-align: middle;
         width: 32px;
         height: 32px;
-        margin: 4px 8px 4px 16px;
+        margin: 0 0 0 12px;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-position: 0 0;        
     }
 
     .eventTitle {
@@ -217,10 +221,7 @@ hr {
         font-size: 1.5em;
         font-weight: normal;
         text-transform: capitalize;
-        vertical-align: middle;
     }
-
-
 }
 
 /********************************* menu left **********************************/
@@ -390,7 +391,6 @@ hr {
 .content {
     background-color: #edf3f6;
     position: relative;
-    margin-top: 96px;
     margin-left: 0;
 }
 
