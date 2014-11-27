@@ -145,9 +145,11 @@ hr {
     text-transform: capitalize;
 }
 
-.selectedFilters {
+.panelSelectedFilters {
     display: inline-block;
-    height: 40px;
+    height: 32px;
+    color: #fff;
+    background: transparent;
 }
 
 .appTopbar {
@@ -165,6 +167,8 @@ hr {
     margin: 4px;
     background-repeat: no-repeat;
     background-position: 50%; 
+    text-indent: 32px;
+    font-weight: normal;
     vertical-align: middle;
 }
 
@@ -391,7 +395,7 @@ hr {
 .content {
     background-color: #edf3f6;
     position: relative;
-    margin-left: 0;
+    margin: 40px 0 0 0;
 }
 
 @media(max-width: 767px) {

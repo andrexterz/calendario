@@ -14,6 +14,22 @@
                     <h:panelGroup styleClass="appTitle">
                         <h:outputText value="#{msg.appNome} #{eventoBean.calendario.ano}"  />
                     </h:panelGroup>
+                    <h:panelGroup styleClass="panelSelectedFilters">
+                        <h:outputLabel value="#{msg.filtrosAplicados}:" />
+                        <h:panelGroup rendered="#{not empty eventoBean.termoBusca}">
+                            <span title="#{msg.termo}" class="selectedItemIcon textIcon">
+                                <h:outputText value="#{eventoBean.termoBusca}" />
+                            </span>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty eventoBean.buscaInteressado}">
+                            <span title="#{msg.interessado}" class="selectedItemIcon interssadoIcon" />
+                            <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty eventoBean.buscaRegional}">
+                            <span title="#{msg.regional}" class="selectedItemIcon regionalIcon" />
+                            <h:outputText value="#{eventoBean.buscaRegional.nome}" />
+                        </h:panelGroup>
+                    </h:panelGroup>
                 </h:panelGroup>
                 <p:toolbar id="selectedFilters" styleClass="toolbar">
                     <f:facet name="left">
@@ -21,22 +37,6 @@
                         <h:outputLabel styleClass="eventTitle" value="#{msg.eventos}" />              
                     </f:facet>
                     <f:facet name="right">
-                        <h:outputLabel value="#{msg.filtrosAplicados}:" />
-                        <h:panelGroup layout="block" styleClass="selectedFilters">
-                            <h:panelGroup rendered="#{not empty eventoBean.termoBusca}">
-                                <span title="#{msg.termo}" class="selectedItemIcon textIcon">
-                                    <h:outputText value="#{eventoBean.termoBusca}" />
-                                </span>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{not empty eventoBean.buscaInteressado}">
-                                <span title="#{msg.interessado}" class="selectedItemIcon interssadoIcon" />
-                                <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{not empty eventoBean.buscaRegional}">
-                                <span title="#{msg.regional}" class="selectedItemIcon regionalIcon" />
-                                <h:outputText value="#{eventoBean.buscaRegional.nome}" />
-                            </h:panelGroup>
-                        </h:panelGroup>                        
                         <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
                             <f:facet name="start">
                                 <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
@@ -47,35 +47,6 @@
                         </p:ajaxStatus>
                     </f:facet>
                 </p:toolbar>
-                <!--
-                <h:panelGroup layout="block" styleClass="toolbar">
-                    <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" />     
-                    <h:outputText styleClass="eventTitle" value="#{msg.eventos}" />              
-                    <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
-                        <f:facet name="start">
-                            <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
-                        </f:facet>
-                        <f:facet name="complete">
-                            <h:outputText value=""/>
-                        </f:facet>
-                    </p:ajaxStatus>
-                    <h:panelGroup id="selectedFilters" layout="block" styleClass="selectedFilters">
-                        <span><h:outputLabel value="#{msg.filtrosAplicados}:" /></span>
-                        <h:panelGroup rendered="#{not empty eventoBean.termoBusca}">
-                            <span title="#{msg.termo}" class="selectedItemIcon textIcon" />
-                            <h:outputText value="#{eventoBean.termoBusca}" />
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty eventoBean.buscaInteressado}">
-                            <span title="#{msg.interessado}" class="selectedItemIcon interssadoIcon" />
-                            <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty eventoBean.buscaRegional}">
-                            <span title="#{msg.regional}" class="selectedItemIcon regionalIcon" />
-                            <h:outputText value="#{eventoBean.buscaRegional.nome}" />
-                        </h:panelGroup>
-                    </h:panelGroup>                    
-                </h:panelGroup>
-                -->
             </h:panelGroup>
         </ui:define>
         <ui:define name="content">
