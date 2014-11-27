@@ -111,25 +111,13 @@ hr {
 
 .toolbar {
     margin: 0;
-    padding: 0!important;
+    height: 40px;
     border: 1px solid #1c1a26;
     color: #fff;
     background:  #37354d;
     text-shadow: none;
-    height: 40px;
-}
 
-.toolbarGrid {
-    background: transparent;
-    width: 100%;
-    height: 36px;
-    margin: 0;
-    padding: 0;
 }
-
-.toolbarGrid td {
-    padding: 0!important;
- }
 
 .mini-menu {
     float: left;
@@ -143,11 +131,6 @@ hr {
     background-position: 0 -32px;
 }
 
-.appTopbar {
-    width: 100%;
-    height: 56px;
-    display: block;
-}
 
 .eventTitle {
     display: inline-block;
@@ -155,23 +138,24 @@ hr {
     font-size: 1.5em;
     font-weight: normal;
     text-transform: capitalize;
-    vertical-align: middle;
 }
 
 .selectedFilters {
-    display: inline-block;    
-    margin: 8px 4px 4px 32px;
+    display: inline-block;
+    margin-left: 8%;
+    width: auto;
+    height: 38px;
+}
+
+.selectedFilters * {
+    margin-right: 4px;
+}
+
+
+.appTopbar {
     width: 100%;
-    height: 28px;
-    text-align: left;
-}
-
-.selectedFilters span {
-    vertical-align: middle;
-}
-
-.selectedFilters label {
-    margin-right: 8px;
+    height: 56px;
+    display: block;
 }
 
 .selectedItemIcon {
@@ -194,6 +178,14 @@ hr {
 
 .regionalIcon {
     background-image: url("#{resource['img/regional.png']}");
+}
+
+.ajaxStatus {
+    display: inline-block;
+    vertical-align: middle;
+    width: 40px;
+    padding: 8px;
+    float: right;
 }
 
 @media (max-width: 767px) {
@@ -398,7 +390,7 @@ hr {
 .content {
     background-color: #edf3f6;
     position: relative;
-    margin-top: 90px;
+    margin-top: 96px;
     margin-left: 0;
 }
 
@@ -426,7 +418,7 @@ hr {
 }
 
 .event {
-    margin: 8px 10% 8px 10%;
+    margin: 4px 10% 0 10%;
     padding: 2px 8px 2px 8px;
     border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -439,7 +431,7 @@ hr {
     font-weight: normal;
     font-size: 1.2em;
     color: #00027e;    
-    margin-right: 1em;
+    margin: 4px 1em 8px 0;
 }
 
 .event h2 {
@@ -448,11 +440,16 @@ hr {
     font-weight: normal;
     font-size: 1.2em;
     color: #f15a24;
-    margin-right: 1em;
+    margin: 4px 1em 8px 0;
 }
 
 .detail {
     width: 100%;
+    display: none;
+}
+
+
+.toggle {
     display: block;
 }
 
@@ -462,7 +459,7 @@ hr {
     border: 1px;
     padding: 4px;
     color: #fff;
-    background: #b4d2c8;
+    background: #ccdde4;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -471,6 +468,7 @@ hr {
 .detailToggle a {
     display: inline-block;
     width: 100%;
+    margin-left: 4px;
     cursor: pointer;
     text-decoration: none;
 }
@@ -483,7 +481,7 @@ hr {
     font-size: 1.1em;
     color: #00027e;
     display: block;
-    margin: 4px 0 24px 0;
+    margin: 0 0 8px 0;
     text-align: justify;
 }
 
@@ -539,11 +537,6 @@ hr {
 
 }
 
-@media(min-width: 767px) {
-    .detailToggle {
-        display: none;
-    }
-}
 @media(max-width: 767px) {
     .event {
         margin: 8px 4px 8px 4px;
@@ -563,13 +556,6 @@ hr {
         font-size: 1em;
         margin-left: 0;
     }    
-    .detail {
-        display: none;
-    }
-
-    .toggle {
-        display: block;
-    }
 
     .detailInteressadoRegional {
         width: 100%;
@@ -902,14 +888,6 @@ col40 {
     right: 0; 
     height: 32px;
     background: #777;
-}
-
-.ajaxStatus {
-    display: inline-block;
-    vertical-align: middle;
-    width: 40px;
-    padding: 8px;
-    float: right;
 }
 
 @media(max-width: 767px) {

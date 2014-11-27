@@ -16,43 +16,31 @@
                     </h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="toolbar">
-                    <table class="toolbarGrid">
-                        <tr>
-                            <td class="col10">
-                                <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" />     
-                            </td>
-                            <td class="col40">
-                                <h:outputText styleClass="eventTitle" value="#{msg.eventos}" />              
-                            </td>
-                            <td class="col40">
-                                <h:panelGroup id="selectedFilters" layout="block" styleClass="selectedFilters alignLeft">
-                                    <span><h:outputLabel value="#{msg.filtrosAplicados}:" /></span>
-                                    <h:panelGroup rendered="#{not empty eventoBean.termoBusca}">
-                                        <span title="#{msg.termo}" class="selectedItemIcon textIcon" />
-                                        <h:outputText value="#{eventoBean.termoBusca}" />
-                                    </h:panelGroup>
-                                    <h:panelGroup rendered="#{not empty eventoBean.buscaInteressado}">
-                                        <span title="#{msg.interessado}" class="selectedItemIcon interssadoIcon" />
-                                        <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
-                                    </h:panelGroup>
-                                    <h:panelGroup rendered="#{not empty eventoBean.buscaRegional}">
-                                        <span title="#{msg.regional}" class="selectedItemIcon regionalIcon" />
-                                        <h:outputText value="#{eventoBean.buscaRegional.nome}" />
-                                    </h:panelGroup>
-                                </h:panelGroup>
-                            </td>
-                            <td class="col10">
-                                <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
-                                    <f:facet name="start">
-                                        <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
-                                    </f:facet>
-                                    <f:facet name="complete">
-                                        <h:outputText value=""/>
-                                    </f:facet>
-                                </p:ajaxStatus>
-                            </td>
-                        </tr>
-                    </table>
+                    <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" />     
+                    <h:outputText styleClass="eventTitle" value="#{msg.eventos}" />              
+                    <h:panelGroup id="selectedFilters" layout="block" styleClass="selectedFilters alignLeft">
+                        <span><h:outputLabel value="#{msg.filtrosAplicados}:" /></span>
+                        <h:panelGroup rendered="#{not empty eventoBean.termoBusca}">
+                            <span title="#{msg.termo}" class="selectedItemIcon textIcon" />
+                            <h:outputText value="#{eventoBean.termoBusca}" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty eventoBean.buscaInteressado}">
+                            <span title="#{msg.interessado}" class="selectedItemIcon interssadoIcon" />
+                            <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty eventoBean.buscaRegional}">
+                            <span title="#{msg.regional}" class="selectedItemIcon regionalIcon" />
+                            <h:outputText value="#{eventoBean.buscaRegional.nome}" />
+                        </h:panelGroup>
+                    </h:panelGroup>
+                    <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
+                        <f:facet name="start">
+                            <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                        </f:facet>
+                        <f:facet name="complete">
+                            <h:outputText value=""/>
+                        </f:facet>
+                    </p:ajaxStatus>
                 </h:panelGroup>           
             </h:panelGroup>
         </ui:define>
@@ -82,7 +70,7 @@
                             <h1>#{evento.assunto}</h1>
                             <p id="description#{evento.id}">#{evento.descricao}</p>
                             <h:panelGroup layout="block" styleClass="detailToggle" rendered="#{not empty evento.interessado or not empty evento.regional}">
-                                <p:commandLink value="#{msg.detalhes}" onclick="javascript:toggleEventDetail('detail#{evento.id}')" />
+                                <p:commandLink value="#{msg.simboloMais} #{msg.detalhes}" onclick="javascript:toggleEventDetail('detail#{evento.id}')" />
                             </h:panelGroup>                            
                             <div id="detail#{evento.id}" class="detail">
                                 <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.interessado}">
