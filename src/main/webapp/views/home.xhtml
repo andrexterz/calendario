@@ -21,7 +21,7 @@
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
-                            <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}" disabled="#{eventoBean.termoBusca eq null}" styleClass="selectedItemIcon textIcon" />
+                            <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}" disabled="#{empty eventoBean.termoBusca}" styleClass="selectedItemIcon textIcon" />
                             <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}" disabled="#{eventoBean.buscaInteressado eq null}" styleClass="selectedItemIcon interessadoIcon" />
                             <p:commandLink title="#{msg.periodo}" disabled="#{eventoBean.buscaDataInicio eq null}" styleClass="selectedItemIcon periodoIcon" />
                             <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}" disabled="#{eventoBean.buscaRegional eq null}" styleClass="selectedItemIcon regionalIcon" />
