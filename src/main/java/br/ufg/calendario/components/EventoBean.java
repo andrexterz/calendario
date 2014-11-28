@@ -291,6 +291,15 @@ public class EventoBean {
         }
     }
     
+    public void resetDateBusca() {
+        setBuscaDataInicio(null);
+        setBuscaDataTermino(null);
+    }
+    
+    public boolean isDateBuscaValid() {
+        return (getBuscaDataInicio() != null && getBuscaDataTermino() != null);
+    }
+    
     
     public void adicionaRegional() {
         evento.addRegional(getSelecaoRegional());
