@@ -14,27 +14,18 @@
                     <h:panelGroup styleClass="appTitle">
                         <h:outputText value="#{msg.appNome} #{eventoBean.calendario.ano}"  />
                     </h:panelGroup>
-                    <h:panelGroup styleClass="panelSelectedFilters">
-                        <h:outputLabel value="#{msg.filtrosAplicados}:" />
-                        <h:panelGroup rendered="#{not empty eventoBean.termoBusca}">
-                            <span title="#{msg.termo}" class="selectedItemIcon textIcon">
-                                <h:outputText value="#{eventoBean.termoBusca}" />
-                            </span>
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty eventoBean.buscaInteressado}">
-                            <span title="#{msg.interessado}" class="selectedItemIcon interssadoIcon" />
-                            <h:outputText value="#{eventoBean.buscaInteressado.nome}" />
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty eventoBean.buscaRegional}">
-                            <span title="#{msg.regional}" class="selectedItemIcon regionalIcon" />
-                            <h:outputText value="#{eventoBean.buscaRegional.nome}" />
-                        </h:panelGroup>
-                    </h:panelGroup>
                 </h:panelGroup>
                 <p:toolbar id="selectedFilters" styleClass="toolbar">
                     <f:facet name="left">
                         <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" /> 
-                        <h:outputLabel styleClass="eventTitle" value="#{msg.eventos}" />              
+                        <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+                            <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}" disabled="#{eventoBean.termoBusca eq null}" styleClass="selectedItemIcon textIcon" />
+                            <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}" disabled="#{eventoBean.buscaInteressado eq null}" styleClass="selectedItemIcon interessadoIcon" />
+                            <p:commandLink title="#{msg.periodo}" disabled="#{eventoBean.buscaDataInicio eq null}" styleClass="selectedItemIcon periodoIcon" />
+                            <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}" disabled="#{eventoBean.buscaRegional eq null}" styleClass="selectedItemIcon regionalIcon" />
+                        <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
                     </f:facet>
                     <f:facet name="right">
                         <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">

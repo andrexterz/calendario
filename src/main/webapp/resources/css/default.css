@@ -122,8 +122,8 @@ hr {
 .mini-menu {
     display: inline-block;  
     vertical-align: middle;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     margin: 0 0 0 28px;
     background-position: 0 0;
     background-repeat: no-repeat;
@@ -131,7 +131,7 @@ hr {
 }
 
 .mini-menu:hover {
-    background-position: 0 -32px;
+    background-position: 0 -24px;
 }
 
 
@@ -139,17 +139,10 @@ hr {
     position: absolute;
     display: inline-block;
     vertical-align: middle;
-    margin: 4px 45% 4px 45%;
+    margin: 4px auto 4px 30%;
     font-size: 1.5em;
     font-weight: normal;
     text-transform: capitalize;
-}
-
-.panelSelectedFilters {
-    display: inline-block;
-    height: 32px;
-    color: #fff;
-    background: transparent;
 }
 
 .appTopbar {
@@ -160,28 +153,15 @@ hr {
 }
 
 .selectedItemIcon {
-    border: 1px solid #ccc;
     display: inline-block;
     width: 24px;
     height: 24px;
-    margin: 4px;
+    border: 1px solid #5a575f;
+    margin: 2px;
+    vertical-align: middle;
     background-repeat: no-repeat;
     background-position: 50%; 
-    text-indent: 32px;
     font-weight: normal;
-    vertical-align: middle;
-}
-
-.textIcon {
-    background-image: url("#{resource['img/texto.png']}");
-}
-
-.interssadoIcon {
-    background-image: url("#{resource['img/interessado.png']}");
-}
-
-.regionalIcon {
-    background-image: url("#{resource['img/regional.png']}");
 }
 
 .ajaxStatus {
@@ -211,8 +191,8 @@ hr {
     .mini-menu {
         display: inline-block;  
         vertical-align: middle;
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         margin: 0 0 0 12px;
         background-position: 0 0;
         background-repeat: no-repeat;
@@ -292,12 +272,6 @@ hr {
     border: 1px solid #333;
 }
 
-.inputSearch {
-    background-image: url("#{resource['img/filter.png']}");
-    background-position: 99% 50%;
-    background-repeat: no-repeat;
-}
-
 .menuItem {
     display: inline-block;
     vertical-align: middle;
@@ -331,6 +305,29 @@ hr {
     background-position: 0 -32px;
 }
 
+.inputSearch {
+    background-image: url("#{resource['img/filter.png']}");
+    background-position: 99% 50%;
+    background-repeat: no-repeat;
+}
+
+
+.textIcon {
+    background-image: url("#{resource['img/texto.png']}");
+}
+
+.interessadoIcon {
+    background-image: url("#{resource['img/interessado.png']}");
+}
+
+.periodoIcon {
+    background-image: url("#{resource['img/periodo.png']}");
+}
+
+.regionalIcon {
+    background-image: url("#{resource['img/regional.png']}");
+}
+
 .searchIcon {
     background-image: url("#{resource['img/search.png']}");
 }
@@ -344,7 +341,7 @@ hr {
 }
 
 .menuIcon {
-    background-image: url("#{resource['img/list.png']}");
+    background-image: url("#{resource['img/mini-menu.png']}");
 }
 
 .moduleIcon {
