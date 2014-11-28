@@ -160,8 +160,12 @@ hr {
     margin: 2px;
     vertical-align: middle;
     background-repeat: no-repeat;
-    background-position: 50%; 
+    background-position: 0 0; 
     font-weight: normal;
+}
+
+.selectedItemIcon:hover {
+    background-position: 0 -24px; 
 }
 
 .ajaxStatus {
