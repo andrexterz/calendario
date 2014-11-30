@@ -11,7 +11,7 @@ and open the template in the editor.
 body {
     margin: 0;
     font-size: 10pt;
-    font-family: "gotham-light", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
+    font-family:"Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 hr {
@@ -84,9 +84,9 @@ hr {
 
 .logo {
     float: left;
-    margin-left: 32px;
-    margin-top: 4px;
-    margin-right: 32px;
+    margin-left: 28px;
+    margin-top: 10px;
+    margin-right: 16px;
     margin-bottom: 4px;
     vertical-align: middle;
 }
@@ -95,7 +95,7 @@ hr {
     display: inline-block;
     color: #ffffff;
     margin-top: 0.6em;
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: normal;
 }
 
@@ -147,7 +147,7 @@ hr {
 
 .appTopbar {
     width: 100%;
-    height: 56px;
+    height: 48px;
     margin-bottom: 4px;
     display: block;
 }
@@ -172,7 +172,7 @@ hr {
     display: inline-block;
     vertical-align: middle;
     width: 40px;
-    height: 40px;
+    height: 12px;
     padding: 8px;
 }
 
@@ -218,7 +218,7 @@ hr {
     width: 48px;
     height: 48px;    
     margin: 0;
-    top: 92px;
+    top: 90px;
     right: 0;
     left: 0;
     bottom: 0;    
@@ -252,7 +252,7 @@ hr {
 }
 
 .filters.toggleMenu {
-    top: 96px;
+    top: 90px;
     z-index: 100;
 }
 
@@ -380,7 +380,7 @@ hr {
     }
 
     .filters.toggleMenu {
-        top: 56px;
+        top: 52px;
         left: 0;
         z-index: 200;
     }
@@ -396,7 +396,7 @@ hr {
 .content {
     background-color: #edf3f6;
     position: relative;
-    margin: 40px 0 0 0;
+    margin: 64px 0 0 0;
 }
 
 @media(max-width: 767px) {
@@ -500,7 +500,7 @@ hr {
     width: 100%;
     height: 40px;
     margin-top: 2px;
-    margin-bottom: 2px;
+    margin-bottom: 0;
     background-color: #d3f2e4!important;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -697,6 +697,8 @@ col40 {
     .collapsedCol {
         width: 0;
         visibility: collapse;
+        padding: 0!important;
+        border: none!important;
     }
 
     .menuLabel {
@@ -883,20 +885,4 @@ col40 {
 
 .separator {
     margin: 0;
-}
-
-/************************************ footer **********************************/
-.footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0; 
-    height: 32px;
-    background: #777;
-}
-
-@media(max-width: 767px) {
-    .footer {
-        position: initial;
-    }
 }

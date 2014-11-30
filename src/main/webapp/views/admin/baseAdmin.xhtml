@@ -26,7 +26,15 @@
                     <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.calendarios}" action="calendarios" />
                     <p:commandLink styleClass="menuItem eventIcon" title="#{msg.eventos}" action="eventos" />
                     <p:commandLink styleClass="menuItem moduleIcon" title="#{msg.regionais}" action="regionais" />
-                    <p:commandLink styleClass="menuItem userIcon" title="#{msg.interessados}" action="interessados" />                    
+                    <p:commandLink styleClass="menuItem userIcon" title="#{msg.interessados}" action="interessados" />   
+                    <p:ajaxStatus styleClass="ajaxStatus">
+                        <f:facet name="start">
+                            <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" styleClass="ajaxStatus" />
+                        </f:facet>
+                        <f:facet name="complete">
+                            <h:outputText value=""/>
+                        </f:facet>
+                    </p:ajaxStatus> 
                 </h:form>
                 <ui:insert name="menuTop">
                 </ui:insert>                
@@ -34,16 +42,6 @@
             <h:panelGroup layout="block" id="content" class="contentAdmin">
                 <ui:insert name="content">
                 </ui:insert>
-            </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="footer">
-                <p:ajaxStatus>
-                    <f:facet name="start">
-                        <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" styleClass="ajaxStatus" />
-                    </f:facet>
-                    <f:facet name="complete">
-                        <h:outputText value=""/>
-                    </f:facet>
-                </p:ajaxStatus>                
             </h:panelGroup>
         </h:body>
     </f:view>
