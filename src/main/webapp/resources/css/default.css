@@ -483,10 +483,10 @@ hr {
 }
 
 .event p {
-    font-size: 1.1em;
-    color: #00027e;
+    font-size: 1.15em;
+    color: #060526;
     display: block;
-    margin: 0 0 8px 0;
+    margin: 4px 0 8px 0;
     text-align: justify;
 }
 
