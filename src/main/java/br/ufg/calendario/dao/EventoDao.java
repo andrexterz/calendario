@@ -109,7 +109,7 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Evento> buscarPorTexto(String termo) {
+    public List<Evento> listar(String termo) {
         Session session = sessionFactory.getCurrentSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         QueryBuilder queryBuilder = fullTextSession

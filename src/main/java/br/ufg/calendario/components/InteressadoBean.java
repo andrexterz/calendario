@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class InteressadoBean implements Serializable {
 
     @Autowired
-    transient InteressadoDao interessadoDao;
+    private transient InteressadoDao interessadoDao;
 
     private Interessado interessado;
 
