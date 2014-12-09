@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.text.ParseException;
@@ -51,10 +52,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(value = "session")
-public class EventoBean {
+public class EventoBean implements Serializable {
 
     @Autowired
-    private Validator validator;
+    private transient Validator validator;
 
     @Autowired
     private transient EventoDao eventoDao;

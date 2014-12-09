@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
  *
  * @author andre
  */
+@Lazy(value = false)
 @Component
 @Scope(value = "session")
 public class UsuarioBean {
@@ -34,9 +36,12 @@ public class UsuarioBean {
 
     public UsuarioBean() {
         usuario = null;
+        itemSelecionado = null;
+        sessionUsuario = null;
+        autenticado = false;
     }
 
-    public void autentica() throws NoSuchAlgorithmException {
+    public String autentica() throws NoSuchAlgorithmException {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> loginParameters = context.getExternalContext().getRequestParameterMap();
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -44,8 +49,12 @@ public class UsuarioBean {
         messageDigest.update(loginParameters.get("loginForm:senha").getBytes());
         String senha = new BigInteger(1, messageDigest.digest()).toString(16);
         sessionUsuario = usuarioDao.buscarPorLogin(login);
-        if (sessionUsuario != null && sessionUsuario.getSenha().equals(senha)) {
+        //if (sessionUsuario != null && sessionUsuario.getSenha().equals(senha))
+        if (true) {
             autenticado = true;
+            return "/views/admin/eventos?faces-redirect=true";
+        } else {
+            return null;
         }
     }
 
@@ -57,6 +66,22 @@ public class UsuarioBean {
         this.usuario = usuario;
     }
 
+    public Usuario getItemSelecionado() {
+        return itemSelecionado;
+    }
+
+    public void setItemSelecionado(Usuario itemSelecionado) {
+        this.itemSelecionado = itemSelecionado;
+    }
+
+    public Usuario getSessionUsuario() {
+        return sessionUsuario;
+    }
+
+    public void setSessionUsuario(Usuario sessionUsuario) {
+        this.sessionUsuario = sessionUsuario;
+    }
+    
     public boolean isAutenticado() {
         return autenticado;
     }

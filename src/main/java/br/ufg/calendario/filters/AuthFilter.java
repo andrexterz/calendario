@@ -17,6 +17,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class AuthFilter implements Filter {
     
     private UsuarioBean usuarioBean;
+    private final Logger logger = Logger.getLogger("AuthFilter");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -37,11 +39,21 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
         String path = httpRequest.getContextPath();
+        try {
+            usuarioBean = (UsuarioBean) session.getAttribute("usuarioBean");
+            if (usuarioBean != null && usuarioBean.isAutenticado()){
+                chain.doFilter(request, response);
+            } else {
+                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+        } catch (NullPointerException e) {
+            logger.error(e.getLocalizedMessage());
+            
+        }
     }
 
     @Override
     public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
