@@ -6,7 +6,12 @@
 
 package br.ufg.calendario.models;
 
+import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 
 /**
  *
@@ -21,7 +26,12 @@ public class Usuario extends Base {
     private String login;
     
     private String senha;
+    
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private List<PerfilEnum> perfil;
 
+ 
     /**
      * @return the nome
      */
@@ -43,25 +53,32 @@ public class Usuario extends Base {
         return login;
     }
 
-    /**
-     * @param login the login to set
-     */
     public void setLogin(String login) {
         this.login = login;
     }
 
-    /**
-     * @return the senha
-     */
     public String getSenha() {
         return senha;
     }
 
-    /**
-     * @param senha the senha to set
-     */
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<PerfilEnum> getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(List<PerfilEnum> perfil) {
+        this.perfil = perfil;
+    }
+    
+    public void addPerfil(PerfilEnum p) {
+        this.perfil.add(p);
+    }
+    
+    public void removePerfil(PerfilEnum p){
+        this.perfil.remove(p);
     }
     
 }
