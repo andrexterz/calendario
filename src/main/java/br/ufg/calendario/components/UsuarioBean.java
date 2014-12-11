@@ -6,11 +6,14 @@
 package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.UsuarioDao;
+import br.ufg.calendario.models.PerfilEnum;
 import br.ufg.calendario.models.Usuario;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -24,7 +27,7 @@ import org.springframework.stereotype.Component;
 @Lazy(value = false)
 @Component
 @Scope(value = "session")
-public class UsuarioBean {
+public class UsuarioBean implements Serializable {
 
     private Usuario usuario;
     private Usuario itemSelecionado;
@@ -39,6 +42,11 @@ public class UsuarioBean {
         itemSelecionado = null;
         sessionUsuario = null;
         autenticado = false;
+    }
+    
+    @PostConstruct
+    private void test() {
+        System.out.println("running test add user");
     }
 
     public String autentica() throws NoSuchAlgorithmException {

@@ -15,6 +15,16 @@ import javax.persistence.Entity;
 
 @Entity
 public class Regional extends Base {
+
+    public Regional() {
+        codigo = null;
+        nome = null;
+    }
+
+    public Regional(String codigo, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
+    }
     
     private String codigo;
 

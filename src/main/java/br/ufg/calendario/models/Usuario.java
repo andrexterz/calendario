@@ -6,6 +6,7 @@
 
 package br.ufg.calendario.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -20,6 +21,19 @@ import javax.persistence.FetchType;
 
 @Entity
 public class Usuario extends Base {
+
+    public Usuario() {
+        nome = null;
+        login = null;
+        perfil = new ArrayList<>();
+    }
+
+    public Usuario(String nome, String login, String senha, List<PerfilEnum> perfil) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.perfil = perfil;
+    }
     
     private String nome;
     

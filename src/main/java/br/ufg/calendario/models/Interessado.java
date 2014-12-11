@@ -15,7 +15,17 @@ import javax.persistence.Entity;
 
 @Entity
 public class Interessado extends Base {
-   
+
+    public Interessado() {
+        sigla = null;
+        nome = null;
+    }
+
+    public Interessado(String sigla, String nome) {
+        this.sigla = sigla;
+        this.nome = nome;
+    }
+    
     private String sigla;
     private String nome;
 
