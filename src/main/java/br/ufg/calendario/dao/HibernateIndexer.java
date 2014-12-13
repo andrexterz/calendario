@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Scope;
  *
  * @author André
  */
-@Resource
+
+@Resource(name = "hibernateIndexer")
 @Scope(value = "singleton")
 public class HibernateIndexer {
 

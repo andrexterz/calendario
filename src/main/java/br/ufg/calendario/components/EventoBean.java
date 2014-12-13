@@ -172,7 +172,6 @@ public class EventoBean implements Serializable {
         if (itemSelecionado != null) {
             evento = itemSelecionado;
         }
-
     }
 
     public void salvar() {

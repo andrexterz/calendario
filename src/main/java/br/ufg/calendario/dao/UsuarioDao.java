@@ -115,12 +115,12 @@ public class UsuarioDao {
         }
         if (filters != null && !filters.isEmpty()) {
             for (String key : filters.keySet()) {
-                if (key.equals("nome")) {
-                    criteria.add(Restrictions.like("nome", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase());
-                }
-
-                if (key.equals("login")) {
-                    criteria.add(Restrictions.like("login", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase());
+                if (key.equals("termo")) {
+                    criteria.add(
+                            Restrictions.or(Restrictions.like("nome", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
+                                    Restrictions.like("login", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()
+                            )
+                    );
                 }
 
                 if (key.equals("perfil")) {

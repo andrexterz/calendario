@@ -12,11 +12,15 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -24,15 +28,17 @@ import org.springframework.stereotype.Component;
  *
  * @author andre
  */
-@Lazy(value = false)
 @Component
 @Scope(value = "session")
 public class UsuarioBean implements Serializable {
-
+    
+    private String termoBusca;
+    private PerfilEnum buscaPerfil;
     private Usuario usuario;
     private Usuario itemSelecionado;
     private Usuario sessionUsuario;
     private boolean autenticado;
+    private final LazyDataModel<Usuario> usuarios;
 
     @Autowired
     private transient UsuarioDao usuarioDao;
@@ -42,11 +48,54 @@ public class UsuarioBean implements Serializable {
         itemSelecionado = null;
         sessionUsuario = null;
         autenticado = false;
-    }
-    
-    @PostConstruct
-    private void test() {
-        System.out.println("running test add user");
+        usuarios = new LazyDataModel<Usuario>() {
+            private List<Usuario> data;
+            @Override
+            public Object getRowKey(Usuario object) {
+                return object.getId().toString();
+            }
+
+            @Override
+            public Usuario getRowData(String rowKey) {
+                for (Usuario u : data) {
+                    if (u.getId().toString().equals(rowKey)) {
+                        return u;
+                    }
+                }
+                return null;
+            }
+            
+            @Override
+            public List<Usuario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                //reset primefaces filter
+                filters = new HashMap();
+                setPageSize(pageSize);
+      
+                if (getTermoBusca() != null && !getTermoBusca().isEmpty()) {
+                    System.out.println("termo: " + getTermoBusca());
+                    filters.put("termo", getTermoBusca());
+                }
+                
+                if (getBuscaPerfil() != null) {
+                    filters.put("perfil", getBuscaPerfil());
+                }
+                
+                if (!filters.isEmpty()) {
+                    setRowCount(usuarioDao.rowCount(filters));
+                } else {
+                    setRowCount(usuarioDao.rowCount());
+                }
+                data = usuarioDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
+                if (data.size() > pageSize) {
+                    try {
+                        data = data.subList(first, first + pageSize);
+                    } catch (IndexOutOfBoundsException e) {
+                        data = data.subList(first, first + (data.size() % pageSize));
+                    }
+                }
+                return data;
+            }
+        };
     }
 
     public String autentica() throws NoSuchAlgorithmException {
@@ -66,6 +115,64 @@ public class UsuarioBean implements Serializable {
         }
     }
 
+    public void adicionar() {
+        usuario = new Usuario();
+    }
+
+    public void editar() {
+        if (itemSelecionado != null) {
+            usuario = itemSelecionado;
+        }
+    }
+
+    public void salvar() {
+        //inserir validador
+        FacesMessage msg;
+        boolean saveStatus;
+        if (usuario.getId() == null) {
+            saveStatus = usuarioDao.adicionar(usuario);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
+        } else {
+            saveStatus = usuarioDao.atualizar(usuario);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
+        }
+        if (!saveStatus) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
+    }
+
+    public void excluir() {
+        FacesMessage msg;
+        boolean saveStatus = usuarioDao.excluir(itemSelecionado);
+        if (saveStatus) {
+            itemSelecionado = null;
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemExcluido"));
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroExcluir"));
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
+    }
+
+    public String getTermoBusca() {
+        return termoBusca;
+    }
+
+    public void setTermoBusca(String termoBusca) {
+        this.termoBusca = termoBusca;
+    }
+
+    public PerfilEnum getBuscaPerfil() {
+        return buscaPerfil;
+    }
+
+    public void setBuscaPerfil(PerfilEnum buscaPerfil) {
+        this.buscaPerfil = buscaPerfil;
+    }
+    
     public Usuario getUsuario() {
         return usuario;
     }
@@ -89,8 +196,12 @@ public class UsuarioBean implements Serializable {
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
-    
+
     public boolean isAutenticado() {
         return autenticado;
+    }
+
+    public LazyDataModel<Usuario> getUsuarios() {
+        return usuarios;
     }
 }
