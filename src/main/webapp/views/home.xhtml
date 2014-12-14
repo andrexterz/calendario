@@ -21,29 +21,29 @@
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
-                            <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}"
-                                           update=":selectedFilters :filterForm :eventoPanel"
-                                           disabled="#{empty eventoBean.termoBusca}"
-                                           styleClass="selectedItemIcon textIcon">
-                                <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{null}" />
-                            </p:commandLink>
-                            <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}"
-                                           update=":selectedFilters :filterForm :eventoPanel"
-                                           disabled="#{eventoBean.buscaInteressado eq null}"
-                                           styleClass="selectedItemIcon interessadoIcon">
-                                <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{null}" />
-                            </p:commandLink>
-                            <p:commandLink title="#{msg.periodo}"
-                                           actionListener="#{eventoBean.resetDateBusca}"
-                                           update=":selectedFilters :filterForm :eventoPanel"
-                                           disabled="#{!eventoBean.dateBuscaValid}"
-                                           styleClass="selectedItemIcon periodoIcon" />
-                            <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}"
-                                           disabled="#{eventoBean.buscaRegional eq null}"
-                                           update=":selectedFilters :filterForm :eventoPanel"
-                                           styleClass="selectedItemIcon regionalIcon">
-                                <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{null}" />
-                            </p:commandLink>
+                        <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       disabled="#{empty eventoBean.termoBusca}"
+                                       styleClass="selectedItemIcon textIcon">
+                            <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{null}" />
+                        </p:commandLink>
+                        <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       disabled="#{eventoBean.buscaInteressado eq null}"
+                                       styleClass="selectedItemIcon interessadoIcon">
+                            <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{null}" />
+                        </p:commandLink>
+                        <p:commandLink title="#{msg.periodo}"
+                                       actionListener="#{eventoBean.resetDateBusca}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       disabled="#{!eventoBean.dateBuscaValid}"
+                                       styleClass="selectedItemIcon periodoIcon" />
+                        <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}"
+                                       disabled="#{eventoBean.buscaRegional eq null}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       styleClass="selectedItemIcon regionalIcon">
+                            <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{null}" />
+                        </p:commandLink>
                         <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
                     </f:facet>
                     <f:facet name="right">

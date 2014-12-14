@@ -151,7 +151,12 @@ public class EventoBean implements Serializable {
                 } else {
                     setRowCount(eventoDao.rowCount());
                 }
-                data = eventoDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
+                if (termoBusca != null && !termoBusca.isEmpty()) {
+                    data = eventoDao.listar(first, pageSize, termoBusca);
+                } else {
+                    data = eventoDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
+                }
+                
                 if (data.size() > pageSize) {
                     try {
                         data = data.subList(first, first + pageSize);

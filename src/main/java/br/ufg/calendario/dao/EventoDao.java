@@ -109,7 +109,7 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Evento> listar(String termo) {
+    public List<Evento> listar(int first, int pageSize, String termo) {
         Session session = sessionFactory.getCurrentSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         QueryBuilder queryBuilder = fullTextSession
@@ -119,11 +119,12 @@ public class EventoDao {
 
         org.apache.lucene.search.Query searchQuery = queryBuilder
                 .phrase()
-                .withSlop(10)
+                .withSlop(3)
                 .onField("assunto").andField("descricao")
                 .sentence(termo)
                 .createQuery();
         org.hibernate.Query query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
+        query.setFirstResult(first).setMaxResults(pageSize);
         List result = query.list();
         System.out.println("Result size: " + result.size());
         return result;

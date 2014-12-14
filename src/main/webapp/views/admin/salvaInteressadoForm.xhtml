@@ -12,6 +12,14 @@
                 <p:panelGrid styleClass="formGrid">
                     <p:row>
                         <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.sigla}" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText value="#{interessadoBean.interessado.sigla}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
                             <p:outputLabel value="#{msg.interessado}" />
                         </p:column>
                         <p:column>

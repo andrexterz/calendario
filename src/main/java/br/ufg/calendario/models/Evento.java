@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ufg.calendario.models;
 
 import java.util.Date;
@@ -19,26 +18,43 @@ import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
+import org.apache.solr.analysis.PortugueseStemFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 
 /**
  *
  * @author André Luiz Fernandes Ribeiro Barca (andrexterz@gmail.com)
  */
-
 @Entity
 @Indexed
+@AnalyzerDef(name = "portugueseAnalyzer",
+        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+        filters = {
+            @TokenFilterDef(factory = PortugueseStemFilterFactory.class),
+            @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+            @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+                @Parameter(name = "language", value = "Portuguese")
+            })
+        })
 public class Evento extends Base {
 
     public Evento() {
         this.assunto = null;
         this.inicio = new Date();
         this.termino = new Date();
-        this.descricao = null;        
+        this.descricao = null;
         this.regional = new HashSet();
         this.interessado = new HashSet();
         this.aprovado = false;
@@ -54,43 +70,44 @@ public class Evento extends Base {
         this.interessado = interessado;
         this.aprovado = aprovado;
     }
-    
-    
-    @NotNull   
+
+    @NotNull
     @Column
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String assunto;
-    
+
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date inicio;
-    
+
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date termino;
-    
+
     @NotNull
     @Column
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
+    @Analyzer(definition = "portugueseAnalyzer")
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String descricao;
-    
+
     @NotNull
     @ManyToOne
     private Calendario calendario;
-    
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinTable(name = "evento_regional", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "regional_id")})
+    @JoinTable(name = "evento_regional", joinColumns = {
+        @JoinColumn(name = "evento_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "regional_id")})
     private Set<Regional> regional;
-    
+
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinTable(name = "evento_interessado", joinColumns = {@JoinColumn(name = "evento_id")}, inverseJoinColumns = {@JoinColumn(name = "interessado_id")})
+    @JoinTable(name = "evento_interessado", joinColumns = {
+        @JoinColumn(name = "evento_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "interessado_id")})
     private Set<Interessado> interessado;
-    
-    
+
     @Column(columnDefinition = "boolean default false")
     private Boolean aprovado;
-        
 
     /**
      * @return the assunto
@@ -175,11 +192,11 @@ public class Evento extends Base {
     public void setRegional(Set<Regional> regional) {
         this.regional = regional;
     }
-    
+
     public void addRegional(Regional regional) {
         this.regional.add(regional);
     }
-    
+
     public void removeRegional(Regional regional) {
         this.regional.remove(regional);
     }
@@ -197,11 +214,11 @@ public class Evento extends Base {
     public void setInteressado(Set<Interessado> interessado) {
         this.interessado = interessado;
     }
-    
+
     public void addInteressado(Interessado interessado) {
         this.interessado.add(interessado);
     }
-    
+
     public void removeInteressado(Interessado interessado) {
         this.interessado.remove(interessado);
     }

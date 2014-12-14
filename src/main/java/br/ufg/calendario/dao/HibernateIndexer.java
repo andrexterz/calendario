@@ -5,29 +5,31 @@
  */
 package br.ufg.calendario.dao;
 
-import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author André
  */
 
-@Resource(name = "hibernateIndexer")
-@Scope(value = "singleton")
+@Lazy(false)
+@Component
 public class HibernateIndexer {
 
     @Autowired
     private SessionFactory sessionFactory;
     private final Logger logger = Logger.getLogger("FullTextSession");
-    private HibernateIndexer() throws InterruptedException {
+    
+    private void HibernateIndexer() throws InterruptedException {
         FullTextSession fullTextSession = Search.getFullTextSession(this.sessionFactory.getCurrentSession());
         fullTextSession.createIndexer().startAndWait();
-        logger.info("indexer started!");
+        logger.info("\n\n\n\n\nindexer started!\n\n\n\n\n");
+        System.out.println("starting indexer...");
     }
 }
