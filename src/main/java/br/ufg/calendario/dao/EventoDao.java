@@ -116,13 +116,22 @@ public class EventoDao {
                 .getSearchFactory()
                 .buildQueryBuilder()
                 .forEntity(Evento.class).get();
-
-        org.apache.lucene.search.Query searchQuery = queryBuilder
-                .phrase()
-                .withSlop(3)
-                .onField("assunto").andField("descricao")
-                .sentence(termo)
-                .createQuery();
+        org.apache.lucene.search.Query searchQuery;
+        String words[] = termo.split("\\s");
+        if (words.length > 1) {
+            searchQuery = queryBuilder.phrase()
+                    .withSlop(5)
+                    .onField("assunto").andField("descricao")
+                    .sentence(termo)
+                    .createQuery();
+        } else {
+            searchQuery = queryBuilder.keyword()
+                    .fuzzy()
+                    .withThreshold(0.7f)
+                    .onField("assunto").andField("descricao")
+                    .matching(termo)
+                    .createQuery();
+        }
         org.hibernate.Query query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
         query.setFirstResult(first).setMaxResults(pageSize);
         List result = query.list();
@@ -167,7 +176,7 @@ public class EventoDao {
                     criteria.createCriteria("interessado")
                             .add(Restrictions.eq("id", interessado.getId()));
                 }
-                
+
                 if (key.equals("regional")) {
                     Regional regional = (Regional) filters.get(key);
                     System.out.println("regional: " + regional.getNome());

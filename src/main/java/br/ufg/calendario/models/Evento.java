@@ -22,6 +22,7 @@ import org.apache.solr.analysis.PortugueseStemFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.apache.solr.analysis.StopFilterFactory;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -44,6 +45,8 @@ import org.hibernate.search.annotations.TokenizerDef;
         filters = {
             @TokenFilterDef(factory = PortugueseStemFilterFactory.class),
             @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+            @TokenFilterDef(factory = StopFilterFactory.class, params = {@Parameter(name="words", value = "br/ufg/calendario/search/stopwords.properties"),
+                @Parameter(name="ignoreCase", value="true")}),
             @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
                 @Parameter(name = "language", value = "Portuguese")
             })
