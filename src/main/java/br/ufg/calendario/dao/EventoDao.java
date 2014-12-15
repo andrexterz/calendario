@@ -101,6 +101,14 @@ public class EventoDao {
             return false;
         }
     }
+    
+    public boolean excluir(List<Evento> eventos) {
+        return false;
+    }
+    
+    public boolean excluirTodos() {
+        return false;
+    }
 
     @Transactional(readOnly = true)
     public Evento buscarPorId(Long id) {

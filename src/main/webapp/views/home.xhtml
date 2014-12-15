@@ -12,7 +12,7 @@
                 <h:panelGroup layout="block" styleClass="appTopbar">
                     <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
                     <h:panelGroup styleClass="appTitle">
-                        <h:outputText value="#{msg.appNome} #{eventoBean.calendario.ano}"  />
+                        <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
                     </h:panelGroup>
                 </h:panelGroup>
                 <p:toolbar id="selectedFilters" styleClass="toolbar">
@@ -21,28 +21,28 @@
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
-                        <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}"
+                        <p:commandLink title="#{msg.termo}: #{homeBean.termoBusca}"
                                        update=":selectedFilters :filterForm :eventoPanel"
-                                       disabled="#{empty eventoBean.termoBusca}"
+                                       disabled="#{empty homeBean.termoBusca}"
                                        styleClass="selectedItemIcon textIcon">
-                            <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{null}" />
+                            <f:setPropertyActionListener target="#{homeBean.termoBusca}" value="#{null}" />
                         </p:commandLink>
-                        <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}"
+                        <p:commandLink title="#{msg.interessado}: #{homeBean.buscaInteressado.nome}"
                                        update=":selectedFilters :filterForm :eventoPanel"
-                                       disabled="#{eventoBean.buscaInteressado eq null}"
+                                       disabled="#{homeBean.buscaInteressado eq null}"
                                        styleClass="selectedItemIcon interessadoIcon">
-                            <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{null}" />
+                            <f:setPropertyActionListener target="#{homeBean.buscaInteressado}" value="#{null}" />
                         </p:commandLink>
                         <p:commandLink title="#{msg.periodo}"
-                                       actionListener="#{eventoBean.resetDateBusca}"
+                                       actionListener="#{homeBean.resetDateBusca}"
                                        update=":selectedFilters :filterForm :eventoPanel"
-                                       disabled="#{!eventoBean.dateBuscaValid}"
+                                       disabled="#{!homeBean.dateBuscaValid}"
                                        styleClass="selectedItemIcon periodoIcon" />
-                        <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}"
-                                       disabled="#{eventoBean.buscaRegional eq null}"
+                        <p:commandLink title="#{msg.regional}: #{homeBean.buscaRegional.nome}"
+                                       disabled="#{homeBean.buscaRegional eq null}"
                                        update=":selectedFilters :filterForm :eventoPanel"
                                        styleClass="selectedItemIcon regionalIcon">
-                            <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{null}" />
+                            <f:setPropertyActionListener target="#{homeBean.buscaRegional}" value="#{null}" />
                         </p:commandLink>
                         <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
                     </f:facet>
@@ -61,7 +61,7 @@
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="eventoPanel" layout="block" styleClass="content">
-                <p:dataScroller value="#{eventoBean.eventos}"
+                <p:dataScroller value="#{homeBean.eventos}"
                                 lazy="true"
                                 var="evento"
                                 chunkSize="10"
