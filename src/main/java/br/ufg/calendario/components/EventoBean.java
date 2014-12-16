@@ -8,6 +8,7 @@ package br.ufg.calendario.components;
 import br.ufg.calendario.dao.CalendarioDao;
 import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.dao.InteressadoDao;
+import br.ufg.calendario.dao.RegionalDao;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
@@ -62,6 +63,9 @@ public class EventoBean implements Serializable {
 
     @Autowired
     private transient InteressadoDao interessadoDao;
+
+    @Autowired
+    private transient RegionalDao regionalDao;
 
     @Autowired(required = true)
     private transient CalendarioDao calendarioDao;
@@ -244,21 +248,27 @@ public class EventoBean implements Serializable {
             Calendario cal = null;
             for (CSVRecord record : parser) {
                 //adicionar entidade calendario (select box) na tela importar eventos.
-                Date dataInicio = dateFormatter.parse(record.get(0));
-                Date dataTermino = dateFormatter.parse(record.get(1));
-                String assunto = record.get(2);
-                String descricao = record.get(3);
-                String[] interessadoArray = record.get(4).split(configBean.getRegexSplitter());
-                ano = Integer.parseInt(record.get(5));
+                ano = Integer.parseInt(record.get(0));
+                Date dataInicio = dateFormatter.parse(record.get(1));
+                Date dataTermino = dateFormatter.parse(record.get(2));
+                String assunto = record.get(3);
+                String descricao = record.get(4);
+                String[] interessadoArray = record.get(5).split(configBean.getRegexSplitter());
+                String[] regionalArray = record.get(6).split(configBean.getRegexSplitter());
+
                 if (cal == null) {
+                    //buscar apenas uma vez
                     cal = calendarioDao.buscar(ano);
                 }
-                Set<Interessado> interessadoList = new HashSet();
+                Set<Interessado> interessadoSet = new HashSet();
                 for (String interessado : interessadoArray) {
-                    interessadoList.addAll(interessadoDao.listar(interessado));
+                    interessadoSet.addAll(interessadoDao.listar(interessado));
                 }
-                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, null, interessadoList, false);
-                //dividir string interessado em array ou list e depois fazer busca por entidade com mesmo nome.
+                Set<Regional> regionalSet = new HashSet();
+                for (String regional : regionalArray) {
+                    regionalSet.addAll(regionalDao.listar(regional));
+                }
+                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, regionalSet, interessadoSet, false);
                 eventosImportados.add(evt);
             }
         } catch (IOException | ParseException e) {

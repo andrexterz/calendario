@@ -15,6 +15,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +76,16 @@ public class RegionalDao {
         Session session = sessionFactory.getCurrentSession();
         return (Regional) session.get(Regional.class, id);
     }
-    
+
+    @Transactional(readOnly = true)
+    public List<Regional> listar(String termo) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Regional.class);
+        criteria.add(Restrictions.like("nome", termo, MatchMode.ANYWHERE).ignoreCase())
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
     @Transactional(readOnly = true)
     public List<Regional> listar() {
         Session session = sessionFactory.getCurrentSession();

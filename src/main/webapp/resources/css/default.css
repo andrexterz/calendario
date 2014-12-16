@@ -320,16 +320,23 @@ hr {
 }
 
 
-.textIcon {
+.textFilterIcon {
     background-image: url("#{resource['img/textoFilter.png']}");
 }
 
 .interessadoIcon {
+    background-image: url("#{resource['img/interessado.png']}");
+}
+.interessadoFilterIcon {
     background-image: url("#{resource['img/interessadoFilter.png']}");
 }
 
-.periodoIcon {
-    background-image: url("#{resource['img/periodo.png']}");
+.regionalFilterIcon {
+    background-image: url("#{resource['img/regionalFilter.png']}");
+}
+
+.periodoFilterIcon {
+    background-image: url("#{resource['img/periodoFilter.png']}");
 }
 
 .regionalIcon {
@@ -354,10 +361,6 @@ hr {
 
 .menuIconSearch {
     background-image: url("#{resource['img/mini-menu-search.png']}");
-}
-
-.regionalIcon {
-    background-image: url("#{resource['img/regionalFilter.png']}");
 }
 
 .userIcon {

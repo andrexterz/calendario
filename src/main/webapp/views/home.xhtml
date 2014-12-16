@@ -24,24 +24,24 @@
                         <p:commandLink title="#{msg.termo}: #{homeBean.termoBusca}"
                                        update=":selectedFilters :filterForm :eventoPanel"
                                        disabled="#{empty homeBean.termoBusca}"
-                                       styleClass="selectedItemIcon textIcon">
+                                       styleClass="selectedItemIcon textFilterIcon">
                             <f:setPropertyActionListener target="#{homeBean.termoBusca}" value="#{null}" />
                         </p:commandLink>
                         <p:commandLink title="#{msg.interessado}: #{homeBean.buscaInteressado.nome}"
                                        update=":selectedFilters :filterForm :eventoPanel"
                                        disabled="#{homeBean.buscaInteressado eq null}"
-                                       styleClass="selectedItemIcon interessadoIcon">
+                                       styleClass="selectedItemIcon interessadoFilterIcon">
                             <f:setPropertyActionListener target="#{homeBean.buscaInteressado}" value="#{null}" />
                         </p:commandLink>
                         <p:commandLink title="#{msg.periodo}"
                                        actionListener="#{homeBean.resetDateBusca}"
                                        update=":selectedFilters :filterForm :eventoPanel"
                                        disabled="#{!homeBean.dateBuscaValid}"
-                                       styleClass="selectedItemIcon periodoIcon" />
+                                       styleClass="selectedItemIcon periodoFilterIcon" />
                         <p:commandLink title="#{msg.regional}: #{homeBean.buscaRegional.nome}"
                                        disabled="#{homeBean.buscaRegional eq null}"
                                        update=":selectedFilters :filterForm :eventoPanel"
-                                       styleClass="selectedItemIcon regionalIcon">
+                                       styleClass="selectedItemIcon regionalFilterIcon">
                             <f:setPropertyActionListener target="#{homeBean.buscaRegional}" value="#{null}" />
                         </p:commandLink>
                         <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />

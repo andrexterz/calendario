@@ -10,6 +10,7 @@
         <ui:define name="content">
             <ui:include src="importaEventoForm.xhtml" />
             <ui:include src="salvaEventoForm.xhtml" />
+            <ui:include src="limpaEventoForm.xhtml" />
             <ui:include src="excluiEventoForm.xhtml" />
             <h:form id="eventosForm">
                 <p:toolbar id="toolbar">
@@ -34,8 +35,8 @@
                         <p:commandButton icon="ui-icon-trash"
                                          value="#{msg.limpar}"
                                          title="#{msg.limpar}"
-                                         update="eventosTable"
-                                         actionListener="#{eventoBean.excluirPorCalendario}" />
+                                         update=":limpaEvento"
+                                         oncomplete="PF('limpaEvento').show()" />
                     </f:facet>
                 </p:toolbar>
                 <p:dataTable id="eventosTable" value="#{eventoBean.eventos}" var="evento" emptyMessage="#{msg.vazio}"
