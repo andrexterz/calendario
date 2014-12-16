@@ -35,7 +35,7 @@
                                          value="#{msg.limpar}"
                                          title="#{msg.limpar}"
                                          update="eventosTable"
-                                         actionListener="#{eventoBean.excluirTodos}" />
+                                         actionListener="#{eventoBean.excluirPorCalendario}" />
                     </f:facet>
                 </p:toolbar>
                 <p:dataTable id="eventosTable" value="#{eventoBean.eventos}" var="evento" emptyMessage="#{msg.vazio}"

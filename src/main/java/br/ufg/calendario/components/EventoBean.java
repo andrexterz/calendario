@@ -211,9 +211,9 @@ public class EventoBean implements Serializable {
         RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 
-    public void excluirTodos() {
+    public void excluirPorCalendario() {
         FacesMessage msg;
-        boolean saveStatus = eventoDao.excluirTodos();
+        boolean saveStatus = eventoDao.excluir(calendario);
         if (saveStatus) {
             itemSelecionado = null;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));

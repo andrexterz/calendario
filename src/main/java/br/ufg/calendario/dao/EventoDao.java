@@ -116,10 +116,11 @@ public class EventoDao {
     }
 
     @Transactional
-    public boolean excluirTodos() {
+    public boolean excluir(Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
         try {
-            session.createQuery("delete from Evento").executeUpdate();
+            session.createQuery("delete from Evento e where e.calendario.id = :id")
+                    .setLong("id",calendario.getId()).executeUpdate();
             return true;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
