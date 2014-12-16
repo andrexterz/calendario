@@ -17,7 +17,7 @@
                 </h:panelGroup>
                 <p:toolbar id="selectedFilters" styleClass="toolbar">
                     <f:facet name="left">
-                        <p:commandLink styleClass="mini-menu menuIcon" title="#{msg.menu}" onclick="javascript:toggleMenu();" /> 
+                        <p:commandLink styleClass="mini-menu menuIconSearch" value="#{msg.filtrar}" onclick="javascript:toggleMenu();" /> 
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
@@ -90,7 +90,7 @@
                             <div id="detail#{evento.id}" class="detail">
                                 <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.interessado}">
                                     <div class="detailInteressadoRegionalTag">
-                                        <div class="detailInteressadoRegionalIcon userIcon" />
+                                        <div class="detailInteressadoRegionalIcon interessadoDetailIcon" />
                                         <h:outputText value="#{msg.interessados}" />
                                     </div>
                                     <p:dataList value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
@@ -99,7 +99,7 @@
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.regional}">
                                     <div class="detailInteressadoRegionalTag">
-                                        <div class="detailInteressadoRegionalIcon moduleIcon" />
+                                        <div class="detailInteressadoRegionalIcon regionalDetailIcon" />
                                         <h:outputText value="#{msg.regionais}" />
                                     </div>
                                     <p:dataList value="#{evento.regional}" var="regional" emptyMessage="#{msg.vazio}">

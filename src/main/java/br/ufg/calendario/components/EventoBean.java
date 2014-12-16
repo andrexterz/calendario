@@ -84,7 +84,7 @@ public class EventoBean implements Serializable {
     private Interessado buscaInteressado;
     private Date buscaDataInicio;
     private Date buscaDataTermino;
-    
+
     @PostConstruct
     private void init() {
         this.calendario = calendarioDao.buscarAtivo();
@@ -117,7 +117,7 @@ public class EventoBean implements Serializable {
                 }
                 return null;
             }
-            
+
             @Override
             public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
@@ -135,17 +135,17 @@ public class EventoBean implements Serializable {
                     periodo.put("inicio", getBuscaDataInicio());
                     periodo.put("termino", getBuscaDataTermino());
                     filters.put("periodo", periodo);
-                    
+
                 }
-                
+
                 if (getBuscaInteressado() != null) {
                     filters.put("interessado", getBuscaInteressado());
                 }
-                
+
                 if (getBuscaRegional() != null) {
                     filters.put("regional", getBuscaRegional());
                 }
-                
+
                 if (!filters.isEmpty()) {
                     setRowCount(eventoDao.rowCount(filters));
                 } else {
@@ -154,9 +154,9 @@ public class EventoBean implements Serializable {
                 if (termoBusca != null && !termoBusca.isEmpty()) {
                     data = eventoDao.listar(first, pageSize, termoBusca);
                 } else {
-                    data = eventoDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
+                    data = eventoDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
                 }
-                
+
                 if (data.size() > pageSize) {
                     try {
                         data = data.subList(first, first + pageSize);
@@ -203,6 +203,20 @@ public class EventoBean implements Serializable {
         if (saveStatus) {
             itemSelecionado = null;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemExcluido"));
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroExcluir"));
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
+    }
+
+    public void excluirTodos() {
+        FacesMessage msg;
+        boolean saveStatus = eventoDao.excluirTodos();
+        if (saveStatus) {
+            itemSelecionado = null;
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
         } else {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroExcluir"));
         }
@@ -272,14 +286,14 @@ public class EventoBean implements Serializable {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void limpaFiltro() {
         setTermoBusca(null);
         setBuscaDataInicio(null);
         setBuscaDataTermino(null);
         setBuscaInteressado(null);
         setBuscaRegional(null);
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"info", LocaleBean.getMessage("filtroVazio"));
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("filtroVazio"));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -288,24 +302,23 @@ public class EventoBean implements Serializable {
             evento.setTermino((Date) event.getObject());
         }
     }
-    
+
     public void checkDateBusca(SelectEvent event) {
         Date selectedDate = (Date) event.getObject();
         if (getBuscaDataTermino() != null && getBuscaDataTermino().before(selectedDate)) {
             setBuscaDataTermino(selectedDate);
         }
     }
-    
+
     public void resetDateBusca() {
         setBuscaDataInicio(null);
         setBuscaDataTermino(null);
     }
-    
+
     public boolean isDateBuscaValid() {
         return (getBuscaDataInicio() != null && getBuscaDataTermino() != null);
     }
-    
-    
+
     public void adicionaRegional() {
         evento.addRegional(getSelecaoRegional());
     }
@@ -325,7 +338,7 @@ public class EventoBean implements Serializable {
         Interessado interessado = (Interessado) requestMap.get("interessado");
         evento.removeInteressado(interessado);
     }
-    
+
     public Evento getEvento() {
         return evento;
     }
@@ -350,7 +363,7 @@ public class EventoBean implements Serializable {
         System.out.println("calendario alterado: " + calendario.getAno());
         this.calendario = calendario;
     }
-    
+
     public LazyDataModel<Evento> getEventos() {
         return eventos;
     }
@@ -410,7 +423,7 @@ public class EventoBean implements Serializable {
     public void setBuscaInteressado(Interessado buscaInteressado) {
         this.buscaInteressado = buscaInteressado;
     }
-    
+
     public Date getBuscaDataInicio() {
         return buscaDataInicio;
     }
@@ -426,5 +439,5 @@ public class EventoBean implements Serializable {
     public void setBuscaDataTermino(Date buscaDataTermino) {
         this.buscaDataTermino = buscaDataTermino;
     }
-    
+
 }

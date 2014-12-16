@@ -32,10 +32,10 @@
                                          actionListener="#{eventoBean.editar}"/>
                         
                         <p:commandButton icon="ui-icon-trash"
-                                         value="#{msg.excluir}"
-                                         title="#{msg.excluir}"
-                                         disabled="#{eventoBean.itemSelecionado eq null}"
-                                         oncomplete="PF('excluiEvento').show()" />
+                                         value="#{msg.limpar}"
+                                         title="#{msg.limpar}"
+                                         update="eventosTable"
+                                         actionListener="#{eventoBean.excluirTodos}" />
                     </f:facet>
                 </p:toolbar>
                 <p:dataTable id="eventosTable" value="#{eventoBean.eventos}" var="evento" emptyMessage="#{msg.vazio}"

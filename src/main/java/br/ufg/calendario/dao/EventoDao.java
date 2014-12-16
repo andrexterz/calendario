@@ -101,13 +101,31 @@ public class EventoDao {
             return false;
         }
     }
-    
+
+    @Transactional
     public boolean excluir(List<Evento> eventos) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.delete(eventos);
+            return true;
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+            session.clear();
+            return false;
+        }
     }
-    
+
+    @Transactional
     public boolean excluirTodos() {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.createQuery("delete from Evento").executeUpdate();
+            return true;
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+            session.clear();
+            return false;
+        }
     }
 
     @Transactional(readOnly = true)

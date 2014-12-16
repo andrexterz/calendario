@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : André
 */
 /********************************** html & body ********************************/
+html * {
+     color: #ffffff;
+    background: #000000;
+    
+}
 body {
     margin: 0;
     font-size: 10pt;
@@ -17,7 +22,7 @@ body {
 hr {
     border: none;
     height: 1px;
-    background-color: #999;
+    background-color: #fff;
     margin-top: 4px;
     margin-bottom: 16px;
     margin-left: 10%;
@@ -28,7 +33,7 @@ hr {
     hr {
         border: none;
         height: 1px;
-        background-color: #999;
+        background-color: #fff;
         margin-top: 4px;
         margin-bottom: 8px;
         margin-left: 4px;
@@ -38,13 +43,9 @@ hr {
 
 
 /********************************** ui override *******************************/
-.ui-widget-header {
-    /*    border: 1px solid #1c1a26;
-        background:  #37354d;
-        color: #5c5caa;
-        text-shadow: none;*/
+.ui-widget-content {
+    border: none;
 }
-
 .ui-panel-content, .ui-panel-content {
     padding: 0!important;
     overflow: visible!important;
@@ -78,7 +79,6 @@ hr {
     left: 0;
     right: 0;
     height: 60px;
-    background: #00588f;
     z-index: 199;
 }
 
@@ -114,7 +114,7 @@ hr {
     height: 32px;
     border: 1px solid #1c1a26;
     color: #fff;
-    background:  #37354d;
+    background:  #000000;
     text-shadow: none;
 
 }
@@ -134,7 +134,7 @@ hr {
 }
 
 .mini-menu:hover {
-    color: #009fe3!important;
+    color: #00588f!important;
     background-position: 0 -24px;
 }
 
@@ -321,11 +321,11 @@ hr {
 
 
 .textIcon {
-    background-image: url("#{resource['img/textoFilter.png']}");
+    background-image: url("#{resource['img/texto.png']}");
 }
 
 .interessadoIcon {
-    background-image: url("#{resource['img/interessadoFilter.png']}");
+    background-image: url("#{resource['img/interessado.png']}");
 }
 
 .periodoIcon {
@@ -348,28 +348,16 @@ hr {
     background-image: url("#{resource['img/event.png']}");
 }
 
-.menuIconList {
-    background-image: url("#{resource['img/mini-menu-list.png']}");
+.menuIcon {
+    background-image: url("#{resource['img/mini-menu.png']}");
 }
 
-.menuIconSearch {
-    background-image: url("#{resource['img/mini-menu-search.png']}");
-}
-
-.regionalIcon {
-    background-image: url("#{resource['img/regionalFilter.png']}");
+.moduleIcon {
+    background-image: url("#{resource['img/module.png']}");
 }
 
 .userIcon {
     background-image: url("#{resource['img/user.png']}");
-}
-
-.interessadoDetailIcon {
-    background-image: url("#{resource['img/interessadoDetail.png']}");
-}
-
-.regionalDetailIcon {
-    background-image: url("#{resource['img/regionalDetail.png']}");
 }
 
 .backButton {
@@ -477,10 +465,9 @@ hr {
 .detailToggle {
     display: block;
     width: auto;
-    border: 1px;
+    border: 1px solid #ffffff;
     padding: 4px;
     color: #fff;
-    background: #ccdde4;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
