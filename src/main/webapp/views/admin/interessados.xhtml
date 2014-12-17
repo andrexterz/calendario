@@ -39,11 +39,11 @@
                         </f:facet>
                         <f:facet name="right">
                             <h:inputText id="searchInteressado" styleClass="inputSearch"/>
-                            <p:watermark for="searchInteressado" value="#{msg.busca}" />
+                            <p:watermark for="searchInteressado" value="#{msg.buscaTextual}" />
                         </f:facet>                        
                     </p:toolbar>
                     <p:dataTable id="interessadosTable" value="#{interessadoBean.interessados}" var="interessado" rows="10"
-                                 lazy="true" selectionMode="single" selection="#{interessadoBean.itemSelecionado}">
+                                 paginator="true" paginatorPosition="top" lazy="true" selectionMode="single" selection="#{interessadoBean.itemSelecionado}">
                         <p:ajax event="rowSelect" update=":interessadosForm:toolbar" />
                         <p:column headerText="#{msg.id}" styleClass="col10">
                             #{interessado.id}
