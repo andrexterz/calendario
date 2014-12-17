@@ -76,6 +76,7 @@ public class Evento extends Base {
 
     @NotNull
     @Column
+    @Analyzer(definition = "portugueseAnalyzer")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String assunto;
 
