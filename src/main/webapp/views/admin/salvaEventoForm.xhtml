@@ -86,7 +86,7 @@
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
-                        <p:dataTable id="eventoRegional" value="#{eventoBean.evento.regional.toArray()}" var="regional">
+                        <p:dataTable id="eventoRegional" value="#{eventoBean.evento.regional.toArray()}" var="regional" emptyMessage="#{msg.vazio}">
                             <p:column headerText="#{msg.regional}" styleClass="90">
                                 <h:outputText value="#{regional.nome}" />
                             </p:column>
@@ -121,7 +121,7 @@
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
-                        <p:dataTable id="eventoInteressado" value="#{eventoBean.evento.interessado.toArray()}" var="interessado">
+                        <p:dataTable id="eventoInteressado" value="#{eventoBean.evento.interessado.toArray()}" var="interessado"  emptyMessage="#{msg.vazio}">
                             <p:column headerText="#{msg.interessado}" styleClass="90">
                                 <h:outputText value="#{interessado.nome}" />
                             </p:column>

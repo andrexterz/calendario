@@ -155,7 +155,7 @@ public class EventoDao {
             searchQuery = queryBuilder.keyword()
                     .fuzzy()
                     .withThreshold(0.7f)
-                    .onField("assunto").andField("descricao")
+                    .onFields("assunto", "descricao")
                     .matching(termo)
                     .createQuery();
         }

@@ -14,16 +14,6 @@ body {
     font-family:"Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-hr {
-    border: none;
-    height: 1px;
-    background-color: #999;
-    margin-top: 4px;
-    margin-bottom: 16px;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
 @media (max-width: 767px) {
     hr {
         border: none;
@@ -69,7 +59,6 @@ hr {
         margin-right: auto;
     }
 }
-
 
 /********************************** menu top **********************************/
 .navbar {
@@ -472,6 +461,16 @@ hr {
     display: none;
 }
 
+.eventSeparator {
+    border: none;
+    height: 1px;
+    background-color: #999;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 
 .toggle {
     display: block;
@@ -606,6 +605,13 @@ hr {
     margin-top: 8px;
     margin-left: 16px;
 
+}
+
+.toolbarLabel {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 8px;
+    padding: 0.32em;
 }
 
 .transitionDefault {

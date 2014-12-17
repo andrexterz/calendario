@@ -262,16 +262,21 @@ public class EventoBean implements Serializable {
                 }
                 Set<Interessado> interessadoSet = new HashSet();
                 for (String interessado : interessadoArray) {
-                    interessadoSet.addAll(interessadoDao.listar(interessado));
+                    if (!interessado.isEmpty()) {
+                        interessadoSet.addAll(interessadoDao.listar(interessado.trim()));
+                    }
                 }
                 Set<Regional> regionalSet = new HashSet();
                 for (String regional : regionalArray) {
-                    regionalSet.addAll(regionalDao.listar(regional));
+                    if (!regional.isEmpty()) {
+                        regionalSet.addAll(regionalDao.listar(regional.trim()));
+                    }
+                    System.out.format("Regional: %s - %d", regional, regionalSet.size());
                 }
                 Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, regionalSet, interessadoSet, false);
                 eventosImportados.add(evt);
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | ArrayIndexOutOfBoundsException | NullPointerException e) {
             System.out.println("erro: " + e.getMessage());
         }
         System.out.println("arquivo enviado: " + arquivo.getFileName());
@@ -289,6 +294,7 @@ public class EventoBean implements Serializable {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroImportacao"));
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 
     public void limpaEventosImportados() {

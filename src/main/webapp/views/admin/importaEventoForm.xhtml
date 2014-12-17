@@ -55,10 +55,10 @@
                             <p:commandButton value="#{msg.importar}"
                                              icon="ui-icon-disk"
                                              title="#{msg.importar}"
-                                             oncomplete="dialogHandler('importaEvento',xhr, status, args)"
                                              actionListener="#{eventoBean.importaEvento}"
+                                             oncomplete="dialogHandler('importaEvento',xhr, status, args)"
                                              update=":eventosForm:eventosTable"
-                                             process="@form"  />
+                                             process="@form" />
 
                             <p:commandButton value="#{msg.limpar}"
                                              icon=" ui-icon-trash"

@@ -6,22 +6,8 @@
     <h:form id="limpaEvento">
         <p:confirmDialog widgetVar="limpaEvento" hideEffect="puff"
                          appendTo="@(body)" width="360" severity="alert"
-                         header="#{msg.excluir} #{msg.evento}?"
-                         message="#{msg.excluir} #{msg.eventos} #{msg.prepDo} #{msg.calendario} #{msg.selecionado}?">
-            <p:panelGrid styleClass="formGrid">
-                <p:row>
-                    <p:column>
-                        <h:outputLabel value="#{msg.calendario}" />
-                    </p:column>
-                    <p:column>
-                        <p:selectOneMenu value="#{eventoBean.calendario}" converter="#{calendarioConverter}" styleClass="col100">
-                            <f:selectItem itemLabel="#{msg.calendario}" itemValue="#{null}" />
-                            <f:selectItems value="#{calendarioDao.listar()}"
-                                           var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
-                        </p:selectOneMenu>                            
-                    </p:column>
-                </p:row> 
-            </p:panelGrid>
+                         header="#{msg.excluir} #{msg.eventos}?"
+                         message="#{msg.excluir} #{msg.eventos} #{msg.prepDo} #{msg.calendario} #{eventoBean.calendario.ano}?">
             <h:panelGroup layout="block" styleClass="dialogButtons">
                 <p:commandButton icon="ui-icon-check"
                                  value="#{msg.sim}"
@@ -29,7 +15,7 @@
                                  process="@this"
                                  update=":eventosForm:eventosTable :eventosForm:toolbar"
                                  actionListener="#{eventoBean.excluirPorCalendario}"
-                                 oncomplete="dialogHandler('excluiEvento', xhr, status, args)" />
+                                 oncomplete="dialogHandler('limpaEvento', xhr, status, args)" />
 
                 <p:commandButton icon="ui-icon-cancel"
                                  value="#{msg.nao}"
