@@ -10,47 +10,45 @@
         <ui:define name="content">
             <ui:include src="salvaCalendarioForm.xhtml" />
             <ui:include src="excluiCalendarioForm.xhtml" />
-            <p:panel header="#{msg.calendarios}">
-                <h:form id="calendariosForm">
-                    <p:toolbar id="toolbar">
-                        <f:facet name="left">
-                            <p:commandButton icon="ui-icon-document"
-                                             value="#{msg.adicionar}"
-                                             title="#{msg.adicionar}"
-                                             oncomplete="PF('salvaCalendario').show()"
-                                             update=":salvaCalendario"
-                                             actionListener="#{calendarioBean.adicionar}" />
+            <h:form id="calendariosForm">
+                <p:toolbar id="toolbar">
+                    <f:facet name="left">
+                        <p:commandButton icon="ui-icon-document"
+                                         value="#{msg.adicionar}"
+                                         title="#{msg.adicionar}"
+                                         oncomplete="PF('salvaCalendario').show()"
+                                         update=":salvaCalendario"
+                                         actionListener="#{calendarioBean.adicionar}" />
 
-                            <p:commandButton icon="ui-icon-pencil"
-                                             value="#{msg.editar}"
-                                             title="#{msg.editar}"
-                                             disabled="#{calendarioBean.itemSelecionado eq null}"
-                                             oncomplete="PF('salvaCalendario').show()"
-                                             update=":salvaCalendario"
-                                             actionListener="#{calendarioBean.editar}" />
+                        <p:commandButton icon="ui-icon-pencil"
+                                         value="#{msg.editar}"
+                                         title="#{msg.editar}"
+                                         disabled="#{calendarioBean.itemSelecionado eq null}"
+                                         oncomplete="PF('salvaCalendario').show()"
+                                         update=":salvaCalendario"
+                                         actionListener="#{calendarioBean.editar}" />
 
-                            <p:commandButton icon="ui-icon-trash"
-                                             value="#{msg.excluir}"
-                                             title="#{msg.excluir}"
-                                             disabled="#{calendarioBean.itemSelecionado eq null}"
-                                             update=":excluiCalendario"
-                                             oncomplete="PF('excluiCalendario').show()" />
-                        </f:facet>
-                    </p:toolbar>
-                    <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}" var="calendario" lazy="true" emptyMessage="#{msg.vazio}"
-                                  rows="10" paginator="true" paginatorPosition="top" selectionMode="single" selection="#{calendarioBean.itemSelecionado}">
-                        <p:ajax event="rowSelect" update=":calendariosForm:toolbar" />
-                        <p:column headerText="#{msg.ano}" styleClass="col70" sortBy="#{calendario.ano}">
-                            <h:outputText styleClass="ui-icon ui-icon-calendar" style="display: inline-block" />
-                           <h:outputText value="#{calendario.ano}" />
-                        </p:column>
-                        <p:column headerText="#{msg.ativo}" styleClass="col30 alignCenter" sortBy="#{calendario.ativo}">
-                            <h:outputText styleClass="ui-icon ui-icon-check" value="#{calendario.ativo}" rendered="#{calendario.ativo}" />
-                            <h:outputText styleClass="ui-icon ui-icon-close" value="#{calendario.ativo}" rendered="#{!calendario.ativo}" />
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </p:panel>                                
+                        <p:commandButton icon="ui-icon-trash"
+                                         value="#{msg.excluir}"
+                                         title="#{msg.excluir}"
+                                         disabled="#{calendarioBean.itemSelecionado eq null}"
+                                         update=":excluiCalendario"
+                                         oncomplete="PF('excluiCalendario').show()" />
+                    </f:facet>
+                </p:toolbar>
+                <p:dataTable  id="calendariosTable" value="#{calendarioBean.calendarios}" var="calendario" lazy="true" emptyMessage="#{msg.vazio}"
+                              rows="10" paginator="true" paginatorPosition="top" selectionMode="single" selection="#{calendarioBean.itemSelecionado}">
+                    <p:ajax event="rowSelect" update=":calendariosForm:toolbar" />
+                    <p:column headerText="#{msg.ano}" styleClass="col70" sortBy="#{calendario.ano}">
+                        <h:outputText styleClass="ui-icon ui-icon-calendar" style="display: inline-block" />
+                        <h:outputText value="#{calendario.ano}" />
+                    </p:column>
+                    <p:column headerText="#{msg.ativo}" styleClass="col30 alignCenter" sortBy="#{calendario.ativo}">
+                        <h:outputText styleClass="ui-icon ui-icon-check" value="#{calendario.ativo}" rendered="#{calendario.ativo}" />
+                        <h:outputText styleClass="ui-icon ui-icon-close" value="#{calendario.ativo}" rendered="#{!calendario.ativo}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioDao {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Transactional
     public boolean adicionar(Usuario usuario) {

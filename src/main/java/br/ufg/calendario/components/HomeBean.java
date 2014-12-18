@@ -11,6 +11,7 @@ import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(value = "session")
-public class HomeBean {
+public class HomeBean implements Serializable {
 
     @Autowired
     private transient EventoDao eventoDao;

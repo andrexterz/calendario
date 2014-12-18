@@ -769,7 +769,7 @@ col40 {
 .adminTopMenu {
     position: absolute;
     width: auto;
-    height: 64px;
+    height: 48px;
     top: 0; 
     left: 0;
     right: 0;
@@ -806,7 +806,7 @@ col40 {
 
 @media(max-width: 767px) {
     .adminTopMenu {
-        height: 132px;
+        height: 114px;
     }
 
     .adminTopMenu form {
@@ -824,7 +824,7 @@ col40 {
 
 /***************************** admin content **********************************/
 .contentAdmin {
-    margin-top: 66px;
+    margin-top: 48px;
 }
 
 .eventoTab {
@@ -880,7 +880,7 @@ col40 {
 
 @media(max-width: 767px) {
     .contentAdmin {
-        margin-top: 134px;
+        margin-top: 114px;
         display: block;
     }
 }

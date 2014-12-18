@@ -10,53 +10,50 @@
         <ui:define name="content">
             <ui:include src="salvaInteressadoForm.xhtml" />
             <ui:include src="excluiInteressadoForm.xhtml" />
+            <h:form id="interessadosForm">
+                <p:toolbar id="toolbar">
+                    <f:facet name="left">
+                        <p:commandButton icon="ui-icon-document"
+                                         value="#{msg.adicionar}"
+                                         title="#{msg.adicionar}"
+                                         oncomplete="PF('salvaInteressado').show()"
+                                         update=":salvaInteressado"
+                                         actionListener="#{interessadoBean.adicionar}" />
 
-            <p:panel header="#{msg.interessados}">
-                <h:form id="interessadosForm">
-                    <p:toolbar id="toolbar">
-                        <f:facet name="left">
-                            <p:commandButton icon="ui-icon-document"
-                                             value="#{msg.adicionar}"
-                                             title="#{msg.adicionar}"
-                                             oncomplete="PF('salvaInteressado').show()"
-                                             update=":salvaInteressado"
-                                             actionListener="#{interessadoBean.adicionar}" />
+                        <p:commandButton icon="ui-icon-pencil"
+                                         value="#{msg.editar}"
+                                         title="#{msg.editar}"
+                                         disabled="#{interessadoBean.itemSelecionado eq null}"
+                                         oncomplete="PF('salvaInteressado').show()"
+                                         update=":salvaInteressado"
+                                         actionListener="#{interessadoBean.editar}" />
 
-                            <p:commandButton icon="ui-icon-pencil"
-                                             value="#{msg.editar}"
-                                             title="#{msg.editar}"
-                                             disabled="#{interessadoBean.itemSelecionado eq null}"
-                                             oncomplete="PF('salvaInteressado').show()"
-                                             update=":salvaInteressado"
-                                             actionListener="#{interessadoBean.editar}" />
-
-                            <p:commandButton icon="ui-icon-trash"
-                                             value="#{msg.excluir}"
-                                             title="#{msg.excluir}"
-                                             disabled="#{interessadoBean.itemSelecionado eq null}"
-                                             update=":excluiInteressado"
-                                             oncomplete="PF('excluiInteressado').show()" />
-                        </f:facet>
-                        <f:facet name="right">
-                            <h:inputText id="searchInteressado" styleClass="inputSearch"/>
-                            <p:watermark for="searchInteressado" value="#{msg.buscaTextual}" />
-                        </f:facet>                        
-                    </p:toolbar>
-                    <p:dataTable id="interessadosTable" value="#{interessadoBean.interessados}" var="interessado" rows="10"
-                                 paginator="true" paginatorPosition="top" lazy="true" selectionMode="single" selection="#{interessadoBean.itemSelecionado}">
-                        <p:ajax event="rowSelect" update=":interessadosForm:toolbar" />
-                        <p:column headerText="#{msg.id}" styleClass="col10">
-                            #{interessado.id}
-                        </p:column>
-                        <p:column headerText="#{msg.sigla}" styleClass="col30">
-                            #{interessado.sigla}
-                        </p:column>
-                        <p:column headerText="#{msg.interessado}" styleClass="col60">
-                            #{interessado.nome}
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </p:panel>
+                        <p:commandButton icon="ui-icon-trash"
+                                         value="#{msg.excluir}"
+                                         title="#{msg.excluir}"
+                                         disabled="#{interessadoBean.itemSelecionado eq null}"
+                                         update=":excluiInteressado"
+                                         oncomplete="PF('excluiInteressado').show()" />
+                    </f:facet>
+                    <f:facet name="right">
+                        <h:inputText id="searchInteressado" styleClass="inputSearch"/>
+                        <p:watermark for="searchInteressado" value="#{msg.buscar}" />
+                    </f:facet>                        
+                </p:toolbar>
+                <p:dataTable id="interessadosTable" value="#{interessadoBean.interessados}" var="interessado" rows="10"
+                             paginator="true" paginatorPosition="top" lazy="true" selectionMode="single" selection="#{interessadoBean.itemSelecionado}">
+                    <p:ajax event="rowSelect" update=":interessadosForm:toolbar" />
+                    <p:column headerText="#{msg.id}" styleClass="col10">
+                        #{interessado.id}
+                    </p:column>
+                    <p:column headerText="#{msg.sigla}" styleClass="col30">
+                        #{interessado.sigla}
+                    </p:column>
+                    <p:column headerText="#{msg.interessado}" styleClass="col60">
+                        #{interessado.nome}
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

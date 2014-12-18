@@ -15,6 +15,10 @@
             <h:form id="eventosForm">
                 <p:toolbar id="toolbar">
                     <f:facet name="left">
+                        <p:commandButton icon="	ui-icon-arrowrefresh-1-n"
+                                         value="#{msg.reindexar}"
+                                         actionListener="#{configBean.reindexLucene}" />
+                        
                         <p:commandButton icon="ui-icon-arrow-1-n"
                                          value="#{msg.importar}"
                                          oncomplete="PF('importaEvento').show()" />
@@ -39,7 +43,7 @@
                                          update=":excluiEvento"
                                          oncomplete="PF('excluiEvento').show()" />
 
-                        <p:commandButton icon="ui-icon-trash"
+                        <p:commandButton icon="	ui-icon-circle-close"
                                          value="#{msg.limpar}"
                                          title="#{msg.limpar}"
                                          update=":limpaEvento"

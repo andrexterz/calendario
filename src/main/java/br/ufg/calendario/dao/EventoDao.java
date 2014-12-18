@@ -103,24 +103,11 @@ public class EventoDao {
     }
 
     @Transactional
-    public boolean excluir(List<Evento> eventos) {
-        Session session = sessionFactory.getCurrentSession();
-        try {
-            session.delete(eventos);
-            return true;
-        } catch (HibernateException e) {
-            System.out.println(e.getMessage());
-            session.clear();
-            return false;
-        }
-    }
-
-    @Transactional
     public boolean excluir(Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
         try {
             session.createQuery("delete from Evento e where e.calendario.id = :id")
-                    .setLong("id",calendario.getId()).executeUpdate();
+                    .setLong("id", calendario.getId()).executeUpdate();
             return true;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

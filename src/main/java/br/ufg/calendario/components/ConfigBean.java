@@ -7,10 +7,15 @@
 package br.ufg.calendario.components;
 
 import java.util.Properties;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,9 +27,19 @@ import org.springframework.stereotype.Component;
 public class ConfigBean {
     
     @Autowired
+    private transient SessionFactory sessionFactory;
+    
+    @Autowired
     @Qualifier(value = "calendarioSettings")
     private Properties properties;
-    
+
+    @Transactional(readOnly = true)
+    public void reindexLucene() throws InterruptedException {
+        System.out.println("starting indexer...");
+        Session session = sessionFactory.getCurrentSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        fullTextSession.createIndexer().startAndWait();
+     }
     
     public String getFileLimit() {
         return properties.getProperty("fileLimit");
