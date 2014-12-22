@@ -108,6 +108,19 @@ body {
 
 }
 
+.acessibilidadeIcon {
+    display: inline-block;
+    float: right;
+    width: 24px;
+    height: 24px;
+    text-indent: 64px;
+    vertical-align: middle;
+    margin: 14px;
+    background-image: url("#{resource['img/high-contrast.png']}");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
 .mini-menu {
     color: #fff!important;
     text-indent: 32px;
@@ -316,6 +329,7 @@ body {
 .interessadoIcon {
     background-image: url("#{resource['img/interessado.png']}");
 }
+
 .interessadoFilterIcon {
     background-image: url("#{resource['img/interessadoFilter.png']}");
 }
