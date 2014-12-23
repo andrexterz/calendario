@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author André
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 
 @Component

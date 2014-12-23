@@ -8,7 +8,7 @@ package br.ufg.calendario.models;
 
 /**
  *
- * @author andre
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 public enum Mes {
     

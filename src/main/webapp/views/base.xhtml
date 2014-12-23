@@ -8,22 +8,15 @@
     <f:view locale="#{localeBean.locale}">
         <h:head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="author" content="Andre Luiz Fernandes Ribeiro Barca" />
             <link rel="shortcut icon" href="#{resource['img/favicon.png']}" type="image/png" /> 
             <title>
                 <ui:insert name="title">calendario</ui:insert>
             </title>
             <h:outputScript library="js" name="locale_pt.js" />
-            <h:outputScript library="js" name="jquery.ui.touch-punch.min.js" />
             <h:outputScript library="js" name="calendario.js" />
             <h:outputStylesheet library="css" name="default.css" />
-            <script type="text/javascript">
-                /*
-                jQuery(document).ready(
-                        function() {
-                            jQuery("article:first div").toggleClass("toggle");
-                        });
-               */
-            </script>
+            <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="accessibility.css" />
         </h:head>
         <h:body>
             <p:growl autoUpdate="true" globalOnly="true" showDetail="true" life="3000" />

@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author André
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 
 @Entity

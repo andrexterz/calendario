@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author andre
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 @Component
 @Scope(value = "session")

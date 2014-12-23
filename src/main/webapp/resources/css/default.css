@@ -5,7 +5,7 @@ and open the template in the editor.
 */
 /* 
     Created on : 10/09/2014, 17:31:58
-    Author     : André
+    Author     : Andre Luiz Fernandes Ribeiro Barca
 */
 /********************************** html & body ********************************/
 body {
@@ -28,13 +28,6 @@ body {
 
 
 /********************************** ui override *******************************/
-.ui-widget-header {
-    /*    border: 1px solid #1c1a26;
-        background:  #37354d;
-        color: #5c5caa;
-        text-shadow: none;*/
-}
-
 .ui-panel-content, .ui-panel-content {
     padding: 0!important;
     overflow: visible!important;
@@ -119,6 +112,13 @@ body {
     background-image: url("#{resource['img/high-contrast.png']}");
     background-repeat: no-repeat;
     background-position: 0 0;
+    border: 1px solid #000000;
+    border-radius: 50%;
+}
+
+.acessibilidadeIcon:hover {
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 8px #999;
 }
 
 .mini-menu {

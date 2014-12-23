@@ -16,7 +16,7 @@ import javax.persistence.FetchType;
 
 /**
  *
- * @author andre
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 
 @Entity

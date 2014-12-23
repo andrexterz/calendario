@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author André
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 public enum TipoBusca {
 

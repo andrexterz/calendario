@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author André
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 
 @Component

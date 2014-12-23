@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author andre
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 @Repository
 @Scope(value = "singleton")

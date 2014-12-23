@@ -5,71 +5,18 @@ and open the template in the editor.
 */
 /* 
     Created on : 10/09/2014, 17:31:58
-    Author     : André
+    Author     : Andre Luiz Fernandes Ribeiro Barca
 */
 /********************************** html & body ********************************/
-body {
-    margin: 0;
-    font-size: 10pt;
-    font-family:"Lucida Grande", Helvetica, Arial, sans-serif;
-    color: #fff;
-}
-
 @media (max-width: 767px) {
     hr {
-        border: none;
-        height: 1px;
         background-color: #fff;
-        margin-top: 4px;
-        margin-bottom: 8px;
-        margin-left: 4px;
-        margin-right: 4px;
-    }
-}
-
-
-/********************************** ui override *******************************/
-.ui-widget-header {
-    /*    border: 1px solid #1c1a26;
-        background:  #37354d;
-        color: #5c5caa;
-        text-shadow: none;*/
-}
-
-.ui-panel-content, .ui-panel-content {
-    padding: 0!important;
-    overflow: visible!important;
-}
-
-.ui-corner-all {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-
-@media (min-width: 767px) {
-    .navbar-mini-buttons {
-        display: none;
-    };
-}
-
-@media (max-width: 767px) {
-    div.ui-datepicker{
-        font-size:1.2em!important;
-        margin-left: auto;
-        margin-right: auto;
     }
 }
 
 /********************************** menu top **********************************/
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
     background: #00588f;
-    z-index: 199;
 }
 
 .logo {

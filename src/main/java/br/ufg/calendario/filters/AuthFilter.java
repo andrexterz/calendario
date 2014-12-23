@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author andre
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 public class AuthFilter implements Filter {
     

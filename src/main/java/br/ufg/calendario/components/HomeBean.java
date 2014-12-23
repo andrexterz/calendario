@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author André
+ * @author Andre Luiz Fernandes Ribeiro Barca
  */
 @Component
 @Scope(value = "session")
@@ -48,10 +48,12 @@ public class HomeBean implements Serializable {
     private Interessado buscaInteressado;
     private Date buscaDataInicio;
     private Date buscaDataTermino;
+    private boolean pageAccessibility;
 
     public HomeBean() {
         calendario = null;
         tipoBusca = TipoBusca.TERMO;
+        pageAccessibility = false;
         eventos = new LazyDataModel<Evento>() {
 
             private List<Evento> data;
@@ -127,7 +129,7 @@ public class HomeBean implements Serializable {
         this.setCalendario(calendarioDao.buscarAtivo());
         System.out.println("calendario ativo: " + getCalendario());
     }
-
+    
     public void limpaFiltro() {
         setTermoBusca(null);
         setBuscaDataInicio(null);
@@ -152,6 +154,14 @@ public class HomeBean implements Serializable {
 
     public boolean isDateBuscaValid() {
         return (getBuscaDataInicio() != null && getBuscaDataTermino() != null);
+    }
+    
+    public void switchPageStyleAccessibility() {
+      if (pageAccessibility) {
+          setPageAccessibility(false);
+      } else {
+          setPageAccessibility(true);
+      }
     }
 
     /**
@@ -263,4 +273,11 @@ public class HomeBean implements Serializable {
         this.buscaDataTermino = buscaDataTermino;
     }
 
+    public boolean isPageAccessibility() {
+        return pageAccessibility;
+    }
+
+    public void setPageAccessibility(boolean pageAccessibility) {
+        this.pageAccessibility = pageAccessibility;
+    }
 }

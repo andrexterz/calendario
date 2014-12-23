@@ -36,7 +36,7 @@ import org.hibernate.search.annotations.TokenizerDef;
 
 /**
  *
- * @author André Luiz Fernandes Ribeiro Barca (andrexterz@gmail.com)
+ * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca (andrexterz@gmail.com)
  */
 @Entity
 @Indexed
