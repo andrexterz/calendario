@@ -27,7 +27,6 @@ public class PerfilEnumConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         PerfilEnum perfilType = (PerfilEnum) value;
-        System.out.println(perfilType);
         return perfilType.toString();
     }
 
