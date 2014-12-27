@@ -4,10 +4,10 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <p:dialog widgetVar="salvaRegional" appendTo="@(body)" modal="true" hideEffect="puff"
+    <p:dialog id="salvaRegional" widgetVar="salvaRegional" appendTo="@(body)" modal="true" hideEffect="puff"
               closeOnEscape="true" resizable="false" width="360" position="center"
               header="#{msg.adicionar} #{msg.regional}">
-        <h:form id="salvaRegional">
+        <h:form>
             <f:validateBean disabled="true">
                 <p:panelGrid styleClass="formGrid">
                     <p:row>

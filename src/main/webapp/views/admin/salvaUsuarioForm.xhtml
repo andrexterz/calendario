@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog id="salvaUsuario" widgetVar="salvaUsuario" appendTo="@(body)" modal="true" hideEffect="puff"
+              closeOnEscape="true" resizable="false" width="380" position="center">
+        <f:facet name="header">
+            <h:outputText value="#{msg.adicionar} #{msg.usuario}" rendered="#{usuarioBean.usuario.id eq null}" />
+            <h:outputText value="#{msg.editar} #{msg.usuario}" rendered="#{usuarioBean.usuario.id ne null}" />
+        </f:facet>
+        <h:form>
+            <f:validateBean disabled="true">
+                <p:panelGrid styleClass="formGrid">
+                    <p:row>
+                        <p:column styleClass="alignRight col25">
+                            <p:outputLabel value="#{msg.login}" />
+                        </p:column>
+                        <p:column colspan="2" styleClass="col70">
+                            <p:inputText value="#{usuarioBean.usuario.login}" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.usuario}" />
+                        </p:column>
+                        <p:column colspan="2">
+                            <p:inputText value="#{usuarioBean.usuario.nome}" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.perfil}" />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu value="#{usuarioBean.selecaoPerfil}"
+                                             converter="#{perfilEnumConverter}">
+                                <p:ajax event="change" process="@this" />
+                                <f:selectItems value="#{usuarioBean.perfilList}" var="perfil" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="col5">
+                            <p:commandButton icon="ui-icon-plus" process="@this" title="#{msg.adicionar}"
+                                             actionListener="#{usuarioBean.adicionaPerfil}"
+                                             update="perfilUsuario" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:dataList id="perfilUsuario" emptyMessage="#{msg.vazio}" value="#{usuarioBean.usuario.perfil}"
+                                        var="p" type="ordered">
+                                <f:facet name="header">
+                                    #{msg.perfis}
+                                </f:facet>
+                                #{p}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="3">
+                            <hr class="separator" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="3" styleClass="alignCenter dialogButtons">
+                            <p:commandButton value="#{msg.salvar}"
+                                             icon="ui-icon-disk"
+                                             title="#{msg.salvar}"
+                                             oncomplete="dialogHandler('salvaUsuario',xhr, status, args)"
+                                             actionListener="#{usuarioBean.salvar}"
+                                             update=":usuariosForm:usuariosTable"
+                                             process="@form"  />
+
+                            <p:commandButton value="#{msg.cancelar}"
+                                             icon="ui-icon-close"
+                                             title="#{msg.cancelar}"
+                                             oncomplete="PF('salvaUsuario').hide()" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </f:validateBean>
+        </h:form>
+    </p:dialog>
+</ui:composition>

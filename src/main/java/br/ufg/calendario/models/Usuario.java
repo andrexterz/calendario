@@ -41,7 +41,7 @@ public class Usuario extends Base {
     
     private String senha;
     
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
     private List<PerfilEnum> perfil;
 

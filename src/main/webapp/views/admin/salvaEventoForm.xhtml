@@ -4,10 +4,10 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <p:dialog widgetVar="salvaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
+    <p:dialog id="salvaEvento" widgetVar="salvaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
               closeOnEscape="true" resizable="false" position="center" width="640"
               header="#{msg.adicionar} #{msg.evento}">
-        <h:form id="salvaEvento">
+        <h:form>
             <f:validateBean disabled="true">
                 <p:tabView styleClass="eventoTab">
                     <p:tab title="#{msg.evento}">
@@ -82,7 +82,7 @@
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column styleClass="col10">
-                                    <p:commandButton icon="ui-icon-plus" process="@this" actionListener="#{eventoBean.adicionaRegional}" update="eventoRegional" />
+                                    <p:commandButton icon="ui-icon-plus" title="#{msg.adicionar}" process="@this" actionListener="#{eventoBean.adicionaRegional}" update="eventoRegional" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -91,7 +91,7 @@
                                 <h:outputText value="#{regional.nome}" />
                             </p:column>
                             <p:column styleClass="col10">
-                                <p:commandButton icon="ui-icon-trash" actionListener="#{eventoBean.removeRegional}" update="eventoRegional">
+                                <p:commandButton icon="ui-icon-trash" title="#{msg.excluir}" actionListener="#{eventoBean.removeRegional}" update="eventoRegional">
                                     <f:param name="regional" value="#{regional}" />
                                 </p:commandButton>
                             </p:column>
@@ -117,7 +117,7 @@
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column styleClass="col10">
-                                    <p:commandButton icon="ui-icon-plus" process="@this" actionListener="#{eventoBean.adicionaInteressado}" update="eventoInteressado" />
+                                    <p:commandButton icon="ui-icon-plus" title="#{msg.adicionar}" process="@this" actionListener="#{eventoBean.adicionaInteressado}" update="eventoInteressado" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

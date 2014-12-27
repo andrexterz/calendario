@@ -677,8 +677,16 @@ body {
     width: 33%;
 }
 
+.col35 {
+    width: 35%;
+}
+
 col40 {
     width: 40%;
+}
+
+.col45 {
+    width: 45%;
 }
 
 .col50 {

@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class UsuarioBean implements Serializable {
     private String termoBusca;
     private PerfilEnum buscaPerfil;
     private Usuario usuario;
+    private PerfilEnum selecaoPerfil;
     private Usuario itemSelecionado;
     private Usuario sessionUsuario;
     private boolean autenticado;
@@ -156,6 +158,15 @@ public class UsuarioBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
+    
+    public void adicionaPerfil() {
+        usuario.addPerfil(getSelecaoPerfil());
+    }
+    
+    public void removePerfil() {
+        Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+        PerfilEnum perfil = (PerfilEnum) requestMap.get("perfil");
+    }
 
     public String getTermoBusca() {
         return termoBusca;
@@ -181,6 +192,14 @@ public class UsuarioBean implements Serializable {
         this.usuario = usuario;
     }
 
+    public PerfilEnum getSelecaoPerfil() {
+        return selecaoPerfil;
+    }
+
+    public void setSelecaoPerfil(PerfilEnum selecaoPerfil) {
+        this.selecaoPerfil = selecaoPerfil;
+    }
+    
     public Usuario getItemSelecionado() {
         return itemSelecionado;
     }
@@ -204,4 +223,9 @@ public class UsuarioBean implements Serializable {
     public LazyDataModel<Usuario> getUsuarios() {
         return usuarios;
     }
+    
+    public List<PerfilEnum> getPerfilList() {
+        return Arrays.asList(PerfilEnum.values());
+    }
+    
 }

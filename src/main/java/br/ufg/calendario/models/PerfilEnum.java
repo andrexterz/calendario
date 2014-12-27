@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ufg.calendario.models;
 
 /**
  *
  * @author Andre Luiz Fernandes Ribeiro Barca
  */
-
-
 public enum PerfilEnum {
-    
+
     ADMINISTRADOR,
-    REVISOR,
-    EDITOR
-    
+    EDITOR,
+    REVISOR
+
 }

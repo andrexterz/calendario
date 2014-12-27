@@ -10,6 +10,7 @@ import br.ufg.calendario.models.Usuario;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -132,6 +133,9 @@ public class UsuarioDao {
         }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         List<Usuario> resultado = criteria.list();
+        for (Usuario u: resultado) {
+            Hibernate.initialize(u.getPerfil());
+        }
         return resultado;
     }
 

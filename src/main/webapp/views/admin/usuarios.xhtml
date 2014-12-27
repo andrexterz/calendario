@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="baseAdmin.xhtml">
+        <ui:define name="title">#{msg.usuarios}</ui:define>
+        <ui:define name="content">
+            <ui:include src="salvaUsuarioForm.xhtml" />
+            <ui:include src="excluiUsuarioForm.xhtml" />
+            <h:form id="usuariosForm">
+                <p:toolbar id="toolbar">
+                    <f:facet name="left">
+                        <p:commandButton icon="ui-icon-document"
+                                         value="#{msg.adicionar}"
+                                         title="#{msg.adicionar}"
+                                         oncomplete="PF('salvaUsuario').show()"
+                                         update=":salvaUsuario"
+                                         actionListener="#{usuarioBean.adicionar}" />
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         value="#{msg.editar}"
+                                         title="#{msg.editar}"
+                                         disabled="#{usuarioBean.itemSelecionado eq null}"
+                                         oncomplete="PF('salvaUsuario').show()"
+                                         update=":salvaUsuario"
+                                         actionListener="#{usuarioBean.editar}" />
+
+                        <p:commandButton icon="ui-icon-trash"
+                                         value="#{msg.excluir}"
+                                         title="#{msg.excluir}"
+                                         disabled="#{usuarioBean.itemSelecionado eq null}"
+                                         update=":excluiUsuario"
+                                         oncomplete="PF('excluiUsuario').show()" />                        
+                    </f:facet>
+                    <f:facet name="right">
+                        <h:inputText id="searchUsuario" styleClass="inputSearch"/>
+                        <p:watermark for="searchUsuario" value="#{msg.buscar}" />
+                    </f:facet>
+
+                </p:toolbar>
+                <p:dataTable id="usuariosTable" value="#{usuarioBean.usuarios}" var="usuario"
+                             rows="16" paginator="true" paginatorPosition="top" lazy="true"
+                             selectionMode="single" selection="#{usuarioBean.itemSelecionado}">
+                    <p:ajax event="rowSelect" update=":usuariosForm:toolbar" />
+                    <p:column styleClass="col5">
+                        <p:rowToggler />
+                    </p:column>
+                    <p:column headerText="#{msg.nome}" styleClass="col10">
+                        #{usuario.id}
+                    </p:column>
+                    <p:column headerText="#{msg.login}" styleClass="col20">
+                        #{usuario.login}
+                    </p:column>
+                    <p:column headerText="#{msg.usuario}" styleClass="col70">
+                        #{usuario.nome}
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:panel header="#{msg.perfis}">
+                            <p:dataList value="#{usuario.perfil}" var="perfil" emptyMessage="#{msg.vazio}">
+                                #{perfil}
+                            </p:dataList>
+                        </p:panel>
+                    </p:rowExpansion>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
