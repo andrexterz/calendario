@@ -111,7 +111,7 @@ public class UsuarioBean implements Serializable {
         //if (sessionUsuario != null && sessionUsuario.getSenha().equals(senha))
         if (true) {
             autenticado = true;
-            return "/views/admin/eventos?faces-redirect=true";
+            return "/views/admin/usuarios?faces-redirect=true";
         } else {
             return null;
         }
@@ -119,11 +119,13 @@ public class UsuarioBean implements Serializable {
 
     public void adicionar() {
         usuario = new Usuario();
+        setSelecaoPerfil(null);
     }
 
     public void editar() {
         if (itemSelecionado != null) {
             usuario = itemSelecionado;
+            setSelecaoPerfil(null);
         }
     }
 
@@ -160,12 +162,16 @@ public class UsuarioBean implements Serializable {
     }
     
     public void adicionaPerfil() {
-        usuario.addPerfil(getSelecaoPerfil());
+        System.out.println("perfil: " + getSelecaoPerfil());
+        if (!usuario.getPerfil().contains(getSelecaoPerfil()) && getSelecaoPerfil() != null) {
+            usuario.addPerfil(getSelecaoPerfil());
+        }
     }
     
     public void removePerfil() {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         PerfilEnum perfil = (PerfilEnum) requestMap.get("perfil");
+        usuario.removePerfil(perfil);
     }
 
     public String getTermoBusca() {

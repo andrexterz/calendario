@@ -36,25 +36,33 @@
                         <p:column>
                             <p:selectOneMenu value="#{usuarioBean.selecaoPerfil}"
                                              converter="#{perfilEnumConverter}">
-                                <p:ajax event="change" process="@this" />
-                                <f:selectItems value="#{usuarioBean.perfilList}" var="perfil" />
+                                <p:ajax event="change" process="@this" update="addPerfil" />
+                                <f:selectItem itemDisabled="true" itemLabel="#{msg.perfil}" />
+                                <f:selectItems value="#{usuarioBean.perfilList}" var="perfil" itemLabel="#{perfil}" />
                             </p:selectOneMenu>
                         </p:column>
                         <p:column styleClass="col5">
-                            <p:commandButton icon="ui-icon-plus" process="@this" title="#{msg.adicionar}"
+                            <p:commandButton id="addPerfil" icon="ui-icon-plus" process="@this" title="#{msg.adicionar}"
+                                             disabled="#{usuarioBean.selecaoPerfil eq null}"
                                              actionListener="#{usuarioBean.adicionaPerfil}"
                                              update="perfilUsuario" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="3">
-                            <p:dataList id="perfilUsuario" emptyMessage="#{msg.vazio}" value="#{usuarioBean.usuario.perfil}"
-                                        var="p" type="ordered">
-                                <f:facet name="header">
-                                    #{msg.perfis}
-                                </f:facet>
-                                #{p}
-                            </p:dataList>
+                            <p:dataTable id="perfilUsuario" emptyMessage="#{msg.vazio}"
+                                         value="#{usuarioBean.usuario.perfil}" var="perfil">
+                                <p:column headerText="#{msg.perfis}" styleClass="col90">
+                                    <h:outputText value="#{perfil}" />
+                                </p:column>
+                                <p:column styleClass="col10">
+                                    <p:commandButton icon="ui-icon-trash" title="#{msg.excluir}"
+                                                     actionListener="#{usuarioBean.removePerfil}"
+                                                     process="@this" update="perfilUsuario">
+                                        <f:param name="perfil" value="#{perfil}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
                         </p:column>
                     </p:row>
                     <p:row>

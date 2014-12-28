@@ -91,7 +91,9 @@
                                 <h:outputText value="#{regional.nome}" />
                             </p:column>
                             <p:column styleClass="col10">
-                                <p:commandButton icon="ui-icon-trash" title="#{msg.excluir}" actionListener="#{eventoBean.removeRegional}" update="eventoRegional">
+                                <p:commandButton icon="ui-icon-trash" title="#{msg.excluir}"
+                                                 actionListener="#{eventoBean.removeRegional}"
+                                                 process="@this" update="eventoRegional">
                                     <f:param name="regional" value="#{regional}" />
                                 </p:commandButton>
                             </p:column>
@@ -126,7 +128,9 @@
                                 <h:outputText value="#{interessado.nome}" />
                             </p:column>
                             <p:column styleClass="col10">
-                                <p:commandButton icon="ui-icon-trash" actionListener="#{eventoBean.removeInteressado}" update="eventoInteressado">
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{eventoBean.removeInteressado}"
+                                                 process="@this" update="eventoInteressado">
                                     <f:param name="interessado" value="#{interessado}" />
                                 </p:commandButton>
                             </p:column>
