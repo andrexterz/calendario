@@ -11,7 +11,7 @@
             <title>
                 <ui:insert name="title">calendario</ui:insert>
             </title>
-             <link rel="shortcut icon" href="#{resource['img/favicon.png']}" type="image/png" /> 
+            <link rel="shortcut icon" href="#{resource['img/favicon.png']}" type="image/png" /> 
             <h:outputScript library="js" name="locale_pt.js" />
             <h:outputScript library="js" name="calendario.js" />
             <h:outputStylesheet library="css" name="default.css" />
@@ -24,6 +24,7 @@
                     <h:outputText value="#{msg.appNome}" />
                 </div>
                 <h:form>
+                    <p:commandLink styleClass="menuItem userIcon" title="#{msg.usuarios}" action="usuarios" />                       
                     <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.calendarios}" action="calendarios" />
                     <p:commandLink styleClass="menuItem eventIcon" title="#{msg.eventos}" action="eventos" />
                     <p:commandLink styleClass="menuItem regionalIcon" title="#{msg.regionais}" action="regionais" />

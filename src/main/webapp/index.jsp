@@ -8,6 +8,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <% response.sendRedirect("views/home.xhtml"); %>
+         <% response.sendRedirect("/calendario/views/home.xhtml"); %>
     </body>
 </html>

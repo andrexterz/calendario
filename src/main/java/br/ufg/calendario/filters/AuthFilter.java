@@ -48,6 +48,7 @@ public class AuthFilter implements Filter {
             }
         } catch (NullPointerException e) {
             logger.error(e.getLocalizedMessage());
+            httpResponse.sendRedirect(path);
             
         }
     }
