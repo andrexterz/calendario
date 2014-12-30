@@ -48,14 +48,18 @@
                     <p:column styleClass="col5">
                         <p:rowToggler />
                     </p:column>
-                    <p:column headerText="#{msg.nome}" styleClass="col10">
+                    <p:column headerText="#{msg.id}" styleClass="col10">
                         #{usuario.id}
                     </p:column>
                     <p:column headerText="#{msg.login}" styleClass="col20">
                         #{usuario.login}
                     </p:column>
-                    <p:column headerText="#{msg.usuario}" styleClass="col70">
+                    <p:column headerText="#{msg.usuario}" styleClass="col60">
                         #{usuario.nome}
+                    </p:column>
+                    <p:column headerText="#{msg.ativo}" styleClass="col10">
+                        <h:outputText styleClass="ui-icon ui-icon-check" value="#{usuario.ativo}" rendered="#{usuario.ativo}" />
+                        <h:outputText styleClass="ui-icon ui-icon-close" value="#{usuario.ativo}" rendered="#{!usuario.ativo}" />
                     </p:column>
                     <p:rowExpansion>
                         <p:panel header="#{msg.perfis}">

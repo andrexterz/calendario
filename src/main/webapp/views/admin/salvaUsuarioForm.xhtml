@@ -31,6 +31,14 @@
                     </p:row>
                     <p:row>
                         <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.ativo}" />
+                        </p:column>
+                        <p:column colspan="2">
+                            <p:selectBooleanButton onLabel="#{msg.ativo}" offLabel="#{msg.inativo}" value="#{usuarioBean.usuario.ativo}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
                             <p:outputLabel value="#{msg.perfil}" />
                         </p:column>
                         <p:column>

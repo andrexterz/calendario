@@ -8,6 +8,7 @@ package br.ufg.calendario.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,13 +27,15 @@ public class Usuario extends Base {
         nome = null;
         login = null;
         perfil = new ArrayList<>();
+        ativo = false;
     }
 
-    public Usuario(String nome, String login, String senha, List<PerfilEnum> perfil) {
+    public Usuario(String nome, String login, String senha, List<PerfilEnum> perfil, Boolean ativo) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.perfil = perfil;
+        this.ativo = ativo;
     }
     
     private String nome;
@@ -40,6 +43,9 @@ public class Usuario extends Base {
     private String login;
     
     private String senha;
+    
+    @Column(columnDefinition = "boolean default false")
+    private boolean ativo;
     
     @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
@@ -94,5 +100,18 @@ public class Usuario extends Base {
     public void removePerfil(PerfilEnum p){
         this.perfil.remove(p);
     }
-    
+
+    /**
+     * @return the ativo
+     */
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    /**
+     * @param ativo the ativo to set
+     */
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }
