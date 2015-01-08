@@ -28,6 +28,7 @@ public class Usuario extends Base {
         login = null;
         perfil = new ArrayList<>();
         ativo = false;
+        senha = null;
     }
 
     public Usuario(String nome, String login, String senha, List<PerfilEnum> perfil, Boolean ativo) {
