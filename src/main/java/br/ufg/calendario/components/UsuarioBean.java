@@ -116,6 +116,25 @@ public class UsuarioBean implements Serializable {
             return null;
         }
     }
+    
+    public String cadastrar() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> cadastroParameters = context.getExternalContext().getRequestParameterMap();
+        String nome = cadastroParameters.get("cadastraUsuarioForm:nomeUsuario");
+        String login = cadastroParameters.get("cadastraUsuarioForm:loginUsuario");
+        String senhaA = cadastroParameters.get("cadastraUsuarioForm:senhaUsuarioA");
+        String senhaB = cadastroParameters.get("cadastraUsuarioForm:senhaUsuarioB");
+        System.out.format("nome: %s,\n login: %s,\nsenhaA: %s,\nsenhaB: %s\n", nome, login, senhaA ,senhaB);
+        
+        FacesMessage msg;
+        boolean result = false;// return result? "/views/cadastroEfetivado": "/views/cadastraUsuario";
+        Usuario u = usuarioDao.buscarPorLogin(login);
+        if (u != null) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioIndisponivel"));
+            context.addMessage(null, msg);
+        }
+        return "/views/cadastraUsuario";
+    }
 
     public void adicionar() {
         usuario = new Usuario();
