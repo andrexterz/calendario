@@ -8,18 +8,22 @@
     </h:head>
     <h:body>
         <h:form id="cadastraUsuarioForm">
-            <p:outputLabel for="nomeUsuario" value="#{msg.nome}" />
-            <p:inputText id="nomeUsuario" />
-            <p:outputLabel for="loginUsuario" value="#{msg.login}" />
-            <p:inputText id="loginUsuario" />
-            <p:outputLabel for="senhaUsuarioA" value="#{msg.cadastrarSenha}" />
-            <p:password id="senhaUsuarioA" />
-            <p:outputLabel for="senhaUsuarioB" value="#{msg.redigitarSenha}" />
-            <p:password id="senhaUsuarioB" />
-            <p:commandButton value="#{msg.cadastrar}"
-                             action="#{usuarioBean.cadastrar}"
-                             update=":cadastraUsuarioForm"
-                             process="@form"/>
+            <p:panelGrid>
+                <p:outputLabel for="nomeUsuario" value="#{msg.nome}" />
+                <p:inputText id="nomeUsuario" />
+                <p:outputLabel for="loginUsuario" value="#{msg.login}" />
+                <p:inputText id="loginUsuario" />
+                <p:outputLabel for="emailUsuario" value="#{msg.email}" />
+                <p:inputText id="emailUsuario" />
+                <p:outputLabel for="senhaUsuarioA" value="#{msg.cadastrarSenha}" />
+                <p:password id="senhaUsuarioA" />
+                <p:outputLabel for="senhaUsuarioB" value="#{msg.redigitarSenha}" />
+                <p:password id="senhaUsuarioB" />
+                <p:commandButton value="#{msg.cadastrar}"
+                                 action="#{usuarioBean.cadastrar}"
+                                 update=":cadastraUsuarioForm"
+                                 process="@form"/>
+            </p:panelGrid>
             <p:messages autoUpdate="true" showDetail="true" />
         </h:form>
     </h:body>
