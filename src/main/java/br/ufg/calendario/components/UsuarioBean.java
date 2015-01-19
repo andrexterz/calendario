@@ -128,9 +128,12 @@ public class UsuarioBean implements Serializable {
         
         FacesMessage msg;
         boolean result = false;// return result? "/views/cadastroEfetivado": "/views/cadastraUsuario";
-        Usuario u = usuarioDao.buscarPorLogin(login);
+        Usuario u = usuarioDao.buscarPorLogin(login.trim());
         if (u != null) {
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioIndisponivel"));
+            context.addMessage(null, msg);
+        } else {
+             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
             context.addMessage(null, msg);
         }
         return "/views/cadastraUsuario";

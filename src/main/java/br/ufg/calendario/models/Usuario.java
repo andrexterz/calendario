@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ufg.calendario.models;
 
 import java.util.ArrayList;
@@ -14,45 +13,49 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import org.hibernate.validator.constraints.Email;
 
 /**
  *
  * @author Andre Luiz Fernandes Ribeiro Barca
  */
-
 @Entity
 public class Usuario extends Base {
 
     public Usuario() {
         nome = null;
         login = null;
+        email = null;
+        senha = null;
         perfil = new ArrayList<>();
         ativo = false;
-        senha = null;
     }
 
-    public Usuario(String nome, String login, String senha, List<PerfilEnum> perfil, Boolean ativo) {
+    public Usuario(String nome, String login, String email, String senha, List<PerfilEnum> perfil, Boolean ativo) {
         this.nome = nome;
         this.login = login;
+        this.email = email;
         this.senha = senha;
         this.perfil = perfil;
         this.ativo = ativo;
     }
-    
+
     private String nome;
-    
+
     private String login;
     
+    @Email
+    private String email;
+
     private String senha;
-    
+
     @Column(columnDefinition = "boolean default false")
     private boolean ativo;
-    
+
     @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
     private List<PerfilEnum> perfil;
 
- 
     /**
      * @return the nome
      */
@@ -78,6 +81,20 @@ public class Usuario extends Base {
         this.login = login;
     }
 
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getSenha() {
         return senha;
     }
@@ -93,12 +110,12 @@ public class Usuario extends Base {
     public void setPerfil(List<PerfilEnum> perfil) {
         this.perfil = perfil;
     }
-    
+
     public void addPerfil(PerfilEnum p) {
         this.perfil.add(p);
     }
-    
-    public void removePerfil(PerfilEnum p){
+
+    public void removePerfil(PerfilEnum p) {
         this.perfil.remove(p);
     }
 
@@ -115,4 +132,5 @@ public class Usuario extends Base {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
+
 }
