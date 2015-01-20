@@ -16,8 +16,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -32,7 +37,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = "session")
 public class UsuarioBean implements Serializable {
-    
+
     private String termoBusca;
     private PerfilEnum buscaPerfil;
     private Usuario usuario;
@@ -45,6 +50,9 @@ public class UsuarioBean implements Serializable {
     @Autowired
     private transient UsuarioDao usuarioDao;
 
+    @Autowired
+    Validator validator;
+
     public UsuarioBean() {
         usuario = null;
         itemSelecionado = null;
@@ -52,6 +60,7 @@ public class UsuarioBean implements Serializable {
         autenticado = false;
         usuarios = new LazyDataModel<Usuario>() {
             private List<Usuario> data;
+
             @Override
             public Object getRowKey(Usuario object) {
                 return object.getId().toString();
@@ -66,28 +75,28 @@ public class UsuarioBean implements Serializable {
                 }
                 return null;
             }
-            
+
             @Override
             public List<Usuario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 //reset primefaces filter
                 filters = new HashMap();
                 setPageSize(pageSize);
-      
+
                 if (getTermoBusca() != null && !getTermoBusca().isEmpty()) {
                     System.out.println("termo: " + getTermoBusca());
                     filters.put("termo", getTermoBusca());
                 }
-                
+
                 if (getBuscaPerfil() != null) {
                     filters.put("perfil", getBuscaPerfil());
                 }
-                
+
                 if (!filters.isEmpty()) {
                     setRowCount(usuarioDao.rowCount(filters));
                 } else {
                     setRowCount(usuarioDao.rowCount());
                 }
-                data = usuarioDao.listar(first, pageSize, sortField, sortOrder == null? null: sortOrder.name(), filters);
+                data = usuarioDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
                 if (data.size() > pageSize) {
                     try {
                         data = data.subList(first, first + pageSize);
@@ -116,25 +125,35 @@ public class UsuarioBean implements Serializable {
             return null;
         }
     }
-    
+
     public String cadastrar() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> cadastroParameters = context.getExternalContext().getRequestParameterMap();
         String nome = cadastroParameters.get("cadastraUsuarioForm:nomeUsuario");
         String login = cadastroParameters.get("cadastraUsuarioForm:loginUsuario");
+        String email = cadastroParameters.get("cadastraUsuarioForm:emailUsuario");
         String senhaA = cadastroParameters.get("cadastraUsuarioForm:senhaUsuarioA");
         String senhaB = cadastroParameters.get("cadastraUsuarioForm:senhaUsuarioB");
-        System.out.format("nome: %s,\n login: %s,\nsenhaA: %s,\nsenhaB: %s\n", nome, login, senhaA ,senhaB);
-        
+        System.out.format("nome: %s,\n login: %s,\nsenhaA: %s,\nsenhaB: %s\n", nome, login, senhaA, senhaB);
         FacesMessage msg;
         boolean result = false;// return result? "/views/cadastroEfetivado": "/views/cadastraUsuario";
-        Usuario u = usuarioDao.buscarPorLogin(login.trim());
-        if (u != null) {
+        boolean usuarioExiste = usuarioDao.buscarPorLogin(login.trim()) != null;
+        Usuario u = new Usuario(nome, login, email, senhaA, null, false);
+        Set<ConstraintViolation<Usuario>> errors = validator.validate(u);
+        if (usuarioExiste) {
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioIndisponivel"));
             context.addMessage(null, msg);
         } else {
-             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
-            context.addMessage(null, msg);
+            if (errors.isEmpty()) {
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
+                context.addMessage(null, msg);
+            } else {
+                for (ConstraintViolation<Usuario> v : errors) {
+                    String errorMessage = String.format("%s: %s", v.getPropertyPath().toString(), v.getMessage());
+                    msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
+                    context.addMessage(null, msg);
+                }
+            }
         }
         return "/views/cadastraUsuario";
     }
@@ -182,14 +201,14 @@ public class UsuarioBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
-    
+
     public void adicionaPerfil() {
         System.out.println("perfil: " + getSelecaoPerfil());
         if (!usuario.getPerfil().contains(getSelecaoPerfil()) && getSelecaoPerfil() != null) {
             usuario.addPerfil(getSelecaoPerfil());
         }
     }
-    
+
     public void removePerfil() {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         PerfilEnum perfil = (PerfilEnum) requestMap.get("perfil");
@@ -211,7 +230,7 @@ public class UsuarioBean implements Serializable {
     public void setBuscaPerfil(PerfilEnum buscaPerfil) {
         this.buscaPerfil = buscaPerfil;
     }
-    
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -227,7 +246,7 @@ public class UsuarioBean implements Serializable {
     public void setSelecaoPerfil(PerfilEnum selecaoPerfil) {
         this.selecaoPerfil = selecaoPerfil;
     }
-    
+
     public Usuario getItemSelecionado() {
         return itemSelecionado;
     }
@@ -251,9 +270,9 @@ public class UsuarioBean implements Serializable {
     public LazyDataModel<Usuario> getUsuarios() {
         return usuarios;
     }
-    
+
     public List<PerfilEnum> getPerfilList() {
         return Arrays.asList(PerfilEnum.values());
     }
-    
+
 }

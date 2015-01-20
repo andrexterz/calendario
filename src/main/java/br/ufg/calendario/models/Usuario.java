@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 
 /**
@@ -40,16 +42,23 @@ public class Usuario extends Base {
         this.ativo = ativo;
     }
 
+    @NotNull
+    @Size(min = 5, max = 128)
     private String nome;
-
+    
+    @NotNull
+    @Size(min = 3, max= 16)
     private String login;
     
-    @Email
+    @NotNull
+    @Email(regexp = "^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$")
     private String email;
-
+    
+    @NotNull
     private String senha;
 
     @Column(columnDefinition = "boolean default false")
+    @NotNull
     private boolean ativo;
 
     @ElementCollection(fetch = FetchType.LAZY)
