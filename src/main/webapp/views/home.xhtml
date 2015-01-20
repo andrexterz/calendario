@@ -64,6 +64,9 @@
                 </p:toolbar>
             </h:panelGroup>
         </ui:define>
+        <ui:define name="menuLeft">
+            <ui:include src="filters.xhtml" />
+        </ui:define>
         <ui:define name="content">
             <h:panelGroup id="eventoPanel" layout="block" styleClass="content">
                 <p:dataScroller value="#{homeBean.eventos}"
