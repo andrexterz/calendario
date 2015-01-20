@@ -117,8 +117,7 @@ public class UsuarioBean implements Serializable {
         messageDigest.update(loginParameters.get("loginForm:senha").getBytes());
         String senha = new BigInteger(1, messageDigest.digest()).toString(16);
         sessionUsuario = usuarioDao.buscarPorLogin(login);
-        //if (sessionUsuario != null && sessionUsuario.getSenha().equals(senha))
-        if (true) {
+        if (sessionUsuario != null && sessionUsuario.getSenha().equals(senha)) {
             autenticado = true;
             return "/views/admin/usuarios?faces-redirect=true";
         } else {
@@ -145,6 +144,8 @@ public class UsuarioBean implements Serializable {
             context.addMessage(null, msg);
         } else {
             if (errors.isEmpty()) {
+                usuarioDao.adicionar(u);
+                //envia email para administrador
                 msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
                 context.addMessage(null, msg);
             } else {
@@ -153,6 +154,7 @@ public class UsuarioBean implements Serializable {
                     msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
                     context.addMessage(null, msg);
                 }
+                return null;
             }
         }
         return "/views/cadastraUsuario";

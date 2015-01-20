@@ -51,7 +51,7 @@ public class Usuario extends Base {
     private String login;
     
     @NotNull
-    @Email(regexp = "^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$")
+    @Email(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
     private String email;
     
     @NotNull
@@ -140,6 +140,18 @@ public class Usuario extends Base {
      */
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+    
+    public boolean isAdministrador() {
+        return perfil.contains(PerfilEnum.ADMINISTRADOR);
+    }
+    
+    public boolean isRevisor() {
+        return perfil.contains(PerfilEnum.REVISOR);
+    }
+    
+    public boolean isEditor() {
+        return perfil.contains(PerfilEnum.EDITOR);
     }
 
 }
