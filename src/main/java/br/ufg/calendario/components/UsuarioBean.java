@@ -121,11 +121,13 @@ public class UsuarioBean implements Serializable {
             autenticado = true;
             return "/views/admin/usuarios?faces-redirect=true";
         } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioOuSenhaInvalidos"));
+            context.addMessage(null, msg);
             return null;
         }
     }
 
-    public String cadastrar() {
+    public String cadastrar() throws NoSuchAlgorithmException {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> cadastroParameters = context.getExternalContext().getRequestParameterMap();
         String nome = cadastroParameters.get("cadastraUsuarioForm:nomeUsuario");
@@ -133,21 +135,30 @@ public class UsuarioBean implements Serializable {
         String email = cadastroParameters.get("cadastraUsuarioForm:emailUsuario");
         String senhaA = cadastroParameters.get("cadastraUsuarioForm:senhaUsuarioA");
         String senhaB = cadastroParameters.get("cadastraUsuarioForm:senhaUsuarioB");
-        System.out.format("nome: %s,\n login: %s,\nsenhaA: %s,\nsenhaB: %s\n", nome, login, senhaA, senhaB);
         FacesMessage msg;
-        boolean result = false;// return result? "/views/cadastroEfetivado": "/views/cadastraUsuario";
         boolean usuarioExiste = usuarioDao.buscarPorLogin(login.trim()) != null;
-        Usuario u = new Usuario(nome, login, email, senhaA, null, false);
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        messageDigest.update(senhaA.getBytes());
+        String senha = new BigInteger(1, messageDigest.digest()).toString(16);
+        Usuario u = new Usuario(nome, login, email, senha, null, false);
         Set<ConstraintViolation<Usuario>> errors = validator.validate(u);
         if (usuarioExiste) {
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioIndisponivel"));
             context.addMessage(null, msg);
         } else {
             if (errors.isEmpty()) {
-                usuarioDao.adicionar(u);
                 //envia email para administrador
-                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
-                context.addMessage(null, msg);
+                if (usuarioDao.adicionar(u)) {
+                    setUsuario(u);
+                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
+                    context.addMessage(null, msg);
+                } else if (!senhaA.equals(senhaB)) {
+                    msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("senhaDivergente"));
+                    context.addMessage(null, msg);
+                } else {
+                    msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("erroSalvar"));
+                    context.addMessage(null, msg);
+                }
             } else {
                 for (ConstraintViolation<Usuario> v : errors) {
                     String errorMessage = String.format("%s: %s", v.getPropertyPath().toString(), v.getMessage());
@@ -161,13 +172,13 @@ public class UsuarioBean implements Serializable {
     }
 
     public void adicionar() {
-        usuario = new Usuario();
+        setUsuario(new Usuario());
         setSelecaoPerfil(null);
     }
 
     public void editar() {
         if (itemSelecionado != null) {
-            usuario = itemSelecionado;
+            setUsuario(itemSelecionado);
             setSelecaoPerfil(null);
         }
     }
