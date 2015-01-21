@@ -117,7 +117,8 @@ public class UsuarioBean implements Serializable {
         messageDigest.update(loginParameters.get("loginForm:senha").getBytes());
         String senha = new BigInteger(1, messageDigest.digest()).toString(16);
         sessionUsuario = usuarioDao.buscarPorLogin(login);
-        if (sessionUsuario != null && sessionUsuario.getSenha().equals(senha)) {
+        boolean senhaCompativel = sessionUsuario.getSenha() != null && sessionUsuario.getSenha().equals(senha);
+        if (sessionUsuario != null && senhaCompativel) {
             autenticado = true;
             return "/views/admin/usuarios?faces-redirect=true";
         } else {
@@ -160,8 +161,8 @@ public class UsuarioBean implements Serializable {
                     context.addMessage(null, msg);
                 }
             } else {
-                for (ConstraintViolation<Usuario> v : errors) {
-                    String errorMessage = String.format("%s: %s", v.getPropertyPath().toString(), v.getMessage());
+                for (ConstraintViolation<Usuario> violations : errors) {
+                    String errorMessage = String.format("%s: %s", violations.getPropertyPath().toString(), violations.getMessage());
                     msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
                     context.addMessage(null, msg);
                 }
@@ -184,20 +185,29 @@ public class UsuarioBean implements Serializable {
     }
 
     public void salvar() {
-        //inserir validador
+        FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage msg;
-        boolean saveStatus;
-        if (usuario.getId() == null) {
-            saveStatus = usuarioDao.adicionar(usuario);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
+        boolean saveStatus = false;
+        Set<ConstraintViolation<Usuario>> errors = validator.validate(usuario);
+        if (errors.isEmpty()) {
+            if (usuario.getId() == null) {
+                saveStatus = usuarioDao.adicionar(usuario);
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
+            } else {
+                saveStatus = usuarioDao.atualizar(usuario);
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
+            }
+            if (!saveStatus) {
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
+            }
+            context.addMessage(null, msg);
         } else {
-            saveStatus = usuarioDao.atualizar(usuario);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
+            for (ConstraintViolation<Usuario> violations : errors) {
+                String errorMessage = String.format("%s: %s", violations.getPropertyPath().toString(), violations.getMessage());
+                msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
+                context.addMessage(null, msg);
+            }
         }
-        if (!saveStatus) {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
-        }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 

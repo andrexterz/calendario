@@ -1,16 +1,42 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>login</title>
-    </h:head>
-    <h:body>
-        <h:form id="loginForm">
-            <h:inputText id="login" />
-            <h:inputSecret id="senha" />
-            <h:commandButton value="#{msg.entrar}" action="#{usuarioBean.autentica}"/>
-        </h:form>
-    </h:body>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="base.xhtml">
+        <ui:define name="title">#{msg.login}</ui:define>
+        <ui:define name="menuTop">
+            <div class="cadastroUsuarioTitle">#{msg.login}</div>
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="loginForm" styleClass="formCadastroUsuario">
+                <p:panelGrid styleClass="formGrid">
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="login" value="#{msg.login}" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="login" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="senha" value="#{msg.senha}" />
+                        </p:column>
+                        <p:column>
+                            <p:password id="senha" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2" styleClass="alignRight">
+                            <p:commandButton value="#{msg.entrar}" action="#{usuarioBean.autentica}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:messages autoUpdate="true" showSummary="false" showDetail="true" showIcon="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>
 

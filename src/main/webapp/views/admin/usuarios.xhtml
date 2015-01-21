@@ -54,8 +54,11 @@
                     <p:column headerText="#{msg.login}" styleClass="col20">
                         #{usuario.login}
                     </p:column>
-                    <p:column headerText="#{msg.usuario}" styleClass="col60">
+                    <p:column headerText="#{msg.usuario}" styleClass="col30">
                         #{usuario.nome}
+                    </p:column>
+                    <p:column headerText="#{msg.email}" styleClass="col30">
+                        #{usuario.email}
                     </p:column>
                     <p:column headerText="#{msg.ativo}" styleClass="col10">
                         <h:outputText styleClass="ui-icon ui-icon-check" value="#{usuario.ativo}" rendered="#{usuario.ativo}" />

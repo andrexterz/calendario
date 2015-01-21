@@ -31,6 +31,14 @@
                     </p:row>
                     <p:row>
                         <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.email}" />
+                        </p:column>
+                        <p:column colspan="2">
+                            <p:inputText value="#{usuarioBean.usuario.email}" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight">
                             <p:outputLabel value="#{msg.ativo}" />
                         </p:column>
                         <p:column colspan="2">
