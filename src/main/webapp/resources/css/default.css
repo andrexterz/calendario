@@ -593,23 +593,6 @@ body {
         font-size: 1em;
         margin-left: 0;
     }    
-
-    .detailInteressadoRegional {
-        width: 100%;
-        height: auto;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        background-color: #d3f2e4!important;
-        border-radius: 4px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        overflow: hidden;
-    }
-
-    .detailInteressadoRegionalTag {
-        width: 100%;
-        padding: 0;
-    }
 }
 
 /********************************* generic styles******************************/
@@ -826,6 +809,12 @@ col40 {
     vertical-align: text-bottom;
 }
 
+.logout {
+    float: right;
+    top: 8px;
+    right: 8px;
+}
+
 @media(max-width: 767px) {
     .adminTopMenu {
         height: 114px;
@@ -939,9 +928,14 @@ col40 {
     padding: 6px;
     border: 1px solid #ccc;
     width: 24%;
-    margin-left: 38%;
-    margin-right: 38%;
-    margin-top: 2%;
+    margin: 2% 38% 0 38%;
+}
+
+@media(max-width: 767px) {
+    .formCadastroUsuario {
+        margin: auto;
+        width: auto;
+    }
 }
 
 .cadastroUsuarioTitle {

@@ -17,10 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
@@ -117,7 +116,10 @@ public class UsuarioBean implements Serializable {
         messageDigest.update(loginParameters.get("loginForm:senha").getBytes());
         String senha = new BigInteger(1, messageDigest.digest()).toString(16);
         sessionUsuario = usuarioDao.buscarPorLogin(login);
-        boolean senhaCompativel = sessionUsuario.getSenha() != null && sessionUsuario.getSenha().equals(senha);
+        boolean senhaCompativel = false;
+        if (sessionUsuario != null) {
+            senhaCompativel = sessionUsuario.getSenha().equals(senha);
+        }
         if (sessionUsuario != null && senhaCompativel) {
             autenticado = true;
             return "/views/admin/usuarios?faces-redirect=true";
@@ -126,6 +128,12 @@ public class UsuarioBean implements Serializable {
             context.addMessage(null, msg);
             return null;
         }
+    }
+
+    public String encerraSessao() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
+        return "/views/home?faces-redirect=true";
     }
 
     public String cadastrar() throws NoSuchAlgorithmException {
@@ -150,7 +158,6 @@ public class UsuarioBean implements Serializable {
             if (errors.isEmpty()) {
                 //envia email para administrador
                 if (usuarioDao.adicionar(u)) {
-                    setUsuario(u);
                     msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("cadastroEfetivado"));
                     context.addMessage(null, msg);
                 } else if (!senhaA.equals(senhaB)) {

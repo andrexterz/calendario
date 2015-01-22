@@ -23,6 +23,7 @@
                 <div  class="appTitleAdmin">
                     <h:outputText value="#{msg.appNome}" />
                 </div>
+                <p:commandButton action="#{usuarioBean.encerraSessao}" value="#{msg.sair}" styleClass="logout" />
                 <h:form>
                     <p:commandLink styleClass="menuItem userIcon" title="#{msg.usuarios}" action="usuarios" />                       
                     <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.calendarios}" action="calendarios" />
@@ -36,10 +37,10 @@
                         <f:facet name="complete">
                             <h:outputText value=""/>
                         </f:facet>
-                    </p:ajaxStatus> 
+                    </p:ajaxStatus>
                 </h:form>
                 <ui:insert name="menuTop">
-                </ui:insert>                
+                </ui:insert>
             </h:panelGroup>
             <h:panelGroup layout="block" id="content" class="contentAdmin">
                 <ui:insert name="content">
