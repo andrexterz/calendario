@@ -59,7 +59,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    //height: 60px;
     background: #00588f;
     z-index: 199;
 }
@@ -102,13 +102,11 @@ body {
 }
 
 .acessibilidadeIcon {
-    display: inline-block;
     float: right;
     width: 24px;
     height: 24px;
     text-indent: 64px;
-    vertical-align: middle;
-    margin: 14px;
+    margin: 14px 8px 0 0;
     background-image: url("#{resource['img/high-contrast.png']}");
     background-repeat: no-repeat;
     background-position: 0 0;
@@ -153,7 +151,6 @@ body {
 .appTopbar {
     width: 100%;
     height: 48px;
-    margin-bottom: 4px;
     display: block;
 }
 
@@ -193,7 +190,7 @@ body {
 
     .appTitle {
         margin-top: 16px;
-        margin-left: 16px;
+        margin-left: 8px;
         font-size: 16px;
     }
 
@@ -224,7 +221,7 @@ body {
     width: 48px;
     height: 48px;    
     margin: 0;
-    top: 90px;
+    top: 88px;
     right: 0;
     left: 0;
     bottom: 0;    
@@ -258,7 +255,7 @@ body {
 }
 
 .filters.toggleMenu {
-    top: 90px;
+    top: 88px;
     z-index: 100;
 }
 
@@ -402,7 +399,7 @@ body {
     }
 
     .filters.toggleMenu {
-        top: 52px;
+        top: 48px;
         left: 0;
         z-index: 200;
     }
@@ -417,13 +414,11 @@ body {
 /********************************* content ************************************/
 .content {
     background-color: #edf3f6;
-    position: relative;
-    margin: 64px 0 0 0;
+    margin: 60px 0 0 0;
 }
 
 @media(max-width: 767px) {
     .content {
-        position: relative;
         margin-left: 0;
     }
 

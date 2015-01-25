@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="base.xhtml">
+        <ui:define name="title">#{msg.appNome}</ui:define>
+        <ui:define name="menuTop">
+            <h:panelGroup id="menuTop" styleClass="navbar">
+                <h:panelGroup layout="block" styleClass="appTopbar">
+                    <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
+                    <h:panelGroup styleClass="appTitle">
+                        <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
+                    </h:panelGroup>
+                    <p:commandLink title="#{msg.acessibilidade}"
+                                   actionListener="#{homeBean.switchPageStyleAccessibility}"
+                                   action="home.xhtml?faces-redirect=true"
+                                   value="#{msg.acessibilidade}"
+                                   styleClass="acessibilidadeIcon transitionDefault" />
+                </h:panelGroup>
+                <p:toolbar id="selectedFilters" styleClass="toolbar">
+                    <f:facet name="left">
+                        <p:commandLink styleClass="mini-menu menuIconSearch" value="#{msg.filtrar}" onclick="javascript:toggleMenu();" /> 
+                        <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+                        <p:commandLink title="#{msg.termo}: #{homeBean.termoBusca}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       disabled="#{empty homeBean.termoBusca}"
+                                       styleClass="selectedItemIcon textFilterIcon">
+                            <f:setPropertyActionListener target="#{homeBean.termoBusca}" value="#{null}" />
+                        </p:commandLink>
+                        <p:commandLink title="#{msg.interessado}: #{homeBean.buscaInteressado.nome}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       disabled="#{homeBean.buscaInteressado eq null}"
+                                       styleClass="selectedItemIcon interessadoFilterIcon">
+                            <f:setPropertyActionListener target="#{homeBean.buscaInteressado}" value="#{null}" />
+                        </p:commandLink>
+                        <p:commandLink title="#{msg.periodo}"
+                                       actionListener="#{homeBean.resetDateBusca}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       disabled="#{!homeBean.dateBuscaValid}"
+                                       styleClass="selectedItemIcon periodoFilterIcon" />
+                        <p:commandLink title="#{msg.regional}: #{homeBean.buscaRegional.nome}"
+                                       disabled="#{homeBean.buscaRegional eq null}"
+                                       update=":selectedFilters :filterForm :eventoPanel"
+                                       styleClass="selectedItemIcon regionalFilterIcon">
+                            <f:setPropertyActionListener target="#{homeBean.buscaRegional}" value="#{null}" />
+                        </p:commandLink>
+                        <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
+                    </f:facet>
+                    <f:facet name="right">
+                        <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
+                            <f:facet name="start">
+                                <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </p:ajaxStatus>
+                    </f:facet>
+                </p:toolbar>
+            </h:panelGroup>
+        </ui:define>
+        <ui:define name="menuLeft">
+            <ui:include src="filters.xhtml" />
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="eventoPanel" layout="block" styleClass="content">
+                <p:dataScroller value="#{homeBean.eventos}"
+                                lazy="true"
+                                var="evento"
+                                chunkSize="10"
+                                styleClass="eventDisplay">
+                    <h:panelGroup layout="block">
+                        <article class="event">
+                            <h2>
+                                <h:panelGroup rendered="#{evento.inicio ne evento.termino}">
+                                    <h:outputText value="#{evento.inicio}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                    &nbsp;#{msg.prepA}&nbsp; 
+                                    <h:outputText value="#{evento.termino}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </h:panelGroup>
+                                <h:outputText value="#{evento.inicio}" rendered="#{evento.inicio eq evento.termino}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </h2>
+                            <h1>#{evento.assunto}</h1>
+                            <p id="description#{evento.id}">#{evento.descricao}</p>
+                            <h:panelGroup layout="block" styleClass="detailToggle" rendered="#{not empty evento.interessado or not empty evento.regional}">
+                                <p:commandLink value="#{msg.simboloMais} #{msg.detalhes}" onclick="javascript:toggleEventDetail('detail#{evento.id}')" />
+                            </h:panelGroup>                            
+                            <div id="detail#{evento.id}" class="detail">
+                                <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.interessado}">
+                                    <div class="detailInteressadoRegionalTag">
+                                        <div class="detailInteressadoRegionalIcon interessadoDetailIcon" />
+                                        <h:outputText value="#{msg.interessados}" />
+                                    </div>
+                                    <p:dataList value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
+                                        <h:outputText value="#{interessado.nome}" />
+                                    </p:dataList>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="detailInteressadoRegional" rendered="#{not empty evento.regional}">
+                                    <div class="detailInteressadoRegionalTag">
+                                        <div class="detailInteressadoRegionalIcon regionalDetailIcon" />
+                                        <h:outputText value="#{msg.regionais}" />
+                                    </div>
+                                    <p:dataList value="#{evento.regional}" var="regional" emptyMessage="#{msg.vazio}">
+                                        <h:outputText value="#{regional.nome}" />
+                                    </p:dataList>
+                                </h:panelGroup>
+                            </div>
+                        </article>
+                    </h:panelGroup>
+                    <hr class="eventSeparator" />
+                </p:dataScroller>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>
+

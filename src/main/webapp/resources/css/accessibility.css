@@ -19,196 +19,64 @@ and open the template in the editor.
     background: #00588f;
 }
 
-.logo {
-    float: left;
-    margin-left: 28px;
-    margin-top: 10px;
-    margin-right: 16px;
-    margin-bottom: 4px;
-    vertical-align: middle;
-}
-
 .appTitle {
-    display: inline-block;
     color: #ffffff;
-    margin-top: 0.6em;
-    font-size: 1.8em;
-    font-weight: normal;
 }
 
 .arrowLeft {
-    margin-left: 8px;
     background-image: url("#{resource['img/arrow-left.png']}");
 }
 
 .arrowRight {
-    margin-right: 8px;
     background-image: url("#{resource['img/arrow-right.png']}");
 }
 
 .toolbar {
-    margin: 0;
-    height: 32px;
     border: 1px solid #1c1a26;
     color: #fff;
-    background:  #37354d;
+    background:  #333;
     text-shadow: none;
 
 }
 
 .mini-menu {
     color: #fff!important;
-    text-indent: 32px;
-    font-weight: normal;
-    text-decoration: none;
-    line-height: 150%;
-    display: inline-block;
-    width: 64px;
-    height: 24px;
-    margin: 4px 2px 0 28px;
-    background-position: 0 0;
-    background-repeat: no-repeat;
 }
 
 .mini-menu:hover {
     color: #ffff00!important;
-    background-position: 0 -24px;
 }
 
 .eventTitle {
-    position: absolute;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 4px auto 4px 30%;
-    font-size: 1.5em;
-    font-weight: normal;
-    text-transform: capitalize;
 }
 
 .appTopbar {
-    width: 100%;
-    height: 48px;
-    margin-bottom: 4px;
-    display: block;
 }
 
 .selectedItemIcon {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
     border: 1px solid #5a575f;
-    margin: 2px;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    background-position: 0 0; 
-    font-weight: normal;
 }
 
 .selectedItemIcon:hover {
     background-position: 0 -24px; 
 }
 
-.ajaxStatus {
-    display: inline-block;
-    vertical-align: middle;
-    width: 40px;
-    height: 12px;
-    padding: 8px;
-}
-
-@media (max-width: 767px) {
-    .logo {
-        float: left;
-        margin-left: 16px;
-        margin-top: 4px;
-        margin-right: 16px;
-        margin-bottom: 4px;
-        vertical-align: middle;
-    }
-
-    .appTitle {
-        margin-top: 16px;
-        margin-left: 16px;
-        font-size: 16px;
-    }
-
-    .mini-menu {
-        display: inline-block;  
-        vertical-align: middle;
-        text-indent: -100%;
-        width: 24px;
-        height: 24px;
-        margin: 0 0 0 12px;
-        background-position: 0 0;
-        background-repeat: no-repeat;
-        background-position: 0 0;        
-    }
-
-    .eventTitle {
-        display: inline-block;
-        margin-left:24px;
-        font-size: 1.5em;
-        font-weight: normal;
-        text-transform: capitalize;
-    }
-}
-
 /********************************* menu left **********************************/
 .menuLeft {
-    position: fixed;
-    width: 48px;
-    height: 48px;    
-    margin: 0;
-    top: 90px;
-    right: 0;
-    left: 0;
-    bottom: 0;    
     background-color: #333;
-    overflow: hidden;
     border: 1px solid #333;
-    z-index: 1000;
-}
-
-@media(max-width: 767px) {
-    .menuLeft {
-        display: none;
-    }
 }
 
 .filters {
-    position: fixed;
-    width: 340px;
-    height: 160px;
-    top: 56px;
-    top: -100%;
     background-color: #333;
-    opacity: 0.95;
-    z-index: -1;
-    border-radius: 0 0 8px 0;
-    overflow: hidden;
     border: 1px solid #555;
-    box-shadow: 2px 2px 8px #999;
-    -moz-box-shadow: 2px 2px 8px #999;
-    -webkit-box-shadow: 2px 2px 8px #999;
-}
-
-.filters.toggleMenu {
-    top: 90px;
-    z-index: 100;
-}
-
-.filters label {
-    margin-right: 8px;
-}
-
-.filterButton:hover {
-    background-position: 0 -32px;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 .filterContent {
     color: #efefef;
-    padding: 16px;
-    height: 160px;
     background: transparent;
 }
 
@@ -217,43 +85,12 @@ and open the template in the editor.
     border: 1px solid #333;
 }
 
-.menuItem {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 6px;
-    width: 32px;
-    height: 32px;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-}
-
-.menuItem:hover {
-    background-position: 0 -32px;    
-}
-
 .menuButton {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
     background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    margin-left: 4px;
-    margin-right: 4px;
-    vertical-align: middle;
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-}
-
-.menuButton:hover {
-    background-position: 0 -32px;
 }
 
 .inputSearch {
     background-image: url("#{resource['img/filter.png']}");
-    background-position: 99% 50%;
-    background-repeat: no-repeat;
 }
 
 
@@ -327,23 +164,7 @@ and open the template in the editor.
 }
 
 @media(max-width: 767px) {
-    .filters {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: -120%;
-        z-index: 1001;
-    }
-
-    .filters.toggleMenu {
-        top: 52px;
-        left: 0;
-        z-index: 200;
-    }
-
     .backButton {
-        display: inline-block;
-        margin-right: 8px;
         background: url("#{resource['img/back-button.png']}");
     }
 }
@@ -352,18 +173,10 @@ and open the template in the editor.
 .content {
     color: #fff;
     background-color: #000;
-    position: relative;
-    margin: 64px 0 0 0;
 }
 
 @media(max-width: 767px) {
-    .content {
-        position: relative;
-        margin-left: 0;
-    }
-
     .content.toggle {
-        display: none;
         background: transparent;
     }
 }
@@ -379,38 +192,19 @@ and open the template in the editor.
     background-color: transparent;
 }
 
-.event {
-    margin: 4px 10% 0 10%;
-    padding: 2px 8px 2px 8px;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-}
-
 .event h1 {
-    display: inline-block;
-    vertical-align: middle;
-    font-weight: normal;
-    font-size: 1.7em;
-    color: #ffaa00;    
-    margin: 4px 1em 8px 0;
+    font-size: 1.5em;
+    color: #fff;    
 }
 
 .event h2 {
-    display: inline-block;
-    vertical-align: middle;
-    font-weight: normal;
-    font-size: 1.7em;
+    font-size: 1.5em;
     color: #fff;
-    margin: 4px 1em 8px 0;
 }
 
 .event p {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #fff;
-    display: block;
-    margin: 4px 0 8px 0;
-    text-align: justify;
 }
 
 .event div div {
