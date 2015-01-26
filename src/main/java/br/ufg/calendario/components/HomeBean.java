@@ -12,6 +12,9 @@ import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -129,7 +132,7 @@ public class HomeBean implements Serializable {
         this.setCalendario(calendarioDao.buscarAtivo());
         System.out.println("calendario ativo: " + getCalendario());
     }
-    
+
     public void limpaFiltro() {
         setTermoBusca(null);
         setBuscaDataInicio(null);
@@ -155,13 +158,13 @@ public class HomeBean implements Serializable {
     public boolean isDateBuscaValid() {
         return (getBuscaDataInicio() != null && getBuscaDataTermino() != null);
     }
-    
+
     public void switchPageStyleAccessibility() {
-      if (pageAccessibility) {
-          setPageAccessibility(false);
-      } else {
-          setPageAccessibility(true);
-      }
+        if (pageAccessibility) {
+            setPageAccessibility(false);
+        } else {
+            setPageAccessibility(true);
+        }
     }
 
     /**
@@ -183,6 +186,19 @@ public class HomeBean implements Serializable {
      */
     public LazyDataModel<Evento> getEventos() {
         return eventos;
+    }
+
+    public List<Evento> getEventosRecentes() throws ParseException {
+        int ano = Calendar.getInstance().get(Calendar.YEAR);
+        int mes = Calendar.getInstance().get(Calendar.MONTH)+1;
+        int diaInicio = Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH);
+        int diaTermino = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-M-d");
+        System.out.format("ano: %d, mês: %d\n", ano, mes);
+        Date dataInicio = dateFormatter.parse(String.format("%04d-%02d-%02d", ano, mes, diaInicio));
+        Date dataTermino = dateFormatter.parse(String.format("%04d-%02d-%02d", ano, mes, diaTermino));
+        System.out.format("%s a %s\n", dateFormatter.format(dataInicio), dateFormatter.format(dataTermino));
+        return eventoDao.listar(dataInicio, dataTermino, calendario);
     }
 
     /**

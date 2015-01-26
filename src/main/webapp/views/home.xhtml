@@ -1,38 +1,102 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
-    <ui:composition template="base.xhtml">
-        <ui:define name="title">#{msg.appNome}</ui:define>
-        <ui:define name="menuTop">
-            <h:panelGroup id="menuTop" styleClass="navbar">
-                <h:panelGroup layout="block" styleClass="appTopbar">
-                    <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
-                    <h:panelGroup styleClass="appTitle">
-                        <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
-                    </h:panelGroup>
-                    <p:commandLink title="#{msg.acessibilidade}"
-                                   actionListener="#{homeBean.switchPageStyleAccessibility}"
-                                   action="home.xhtml?faces-redirect=true"
-                                   value="#{msg.acessibilidade}"
-                                   styleClass="acessibilidadeIcon transitionDefault" />
-                </h:panelGroup>
-            </h:panelGroup>
-        </ui:define>
-        <ui:define name="menuLeft">
-        </ui:define>
-        <ui:define name="content">
-            <h:panelGroup layout="block" styleClass="content">
-                eventos recentes
-                <ui:repeat var="evento" value="#{eventoDao.listar()}">
-                    <h:outputText value="#{evento.assunto}" />
-                </ui:repeat>
-            </h:panelGroup>
-        </ui:define>
-    </ui:composition>
+    <f:view locale="#{localeBean.locale}">
+        <h:head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="author" content="Andre Luiz Fernandes Ribeiro Barca" />
+            <link rel="shortcut icon" href="#{resource['img/favicon.png']}" type="image/png" /> 
+            <title>
+                <h:outputText value="#{msg.appNome}" />
+            </title>
+            <h:outputScript library="js" name="locale_pt.js" />
+            <h:outputScript library="js" name="jssor.slider.min.js" />
+            <h:outputStylesheet library="css" name="default.css" />
+            <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="accessibility.css" />
+            <script>
+                /*
+                 sliderStarter = function (containerId) {
+                 var options = {$AutoPlay: true};
+                 var slider = new $JssorSlider$(containerId, options);
+                 };
+                 */
+                jQuery(document).ready(function ($) {
+                    var options = {$AutoPlay: true};
+                    var slider = new $JssorSlider$('eventContainer', options);
+
+                    //responsive code begin
+                    //you can remove responsive code if you don't want the slider scales
+                    //while window resizes
+                    function ScaleSlider() {
+                        var parentWidth = jQuery('#eventContainer').parent().width();
+                        var homeContainerH = jQuery("#homeContainer").height();
+                        if (parentWidth) {
+                            slider.$ScaleWidth(parentWidth);
+                            if (jQuery("#eventContainer").position().top === 0) {
+                                slider.$ScaleHeight(homeContainerH);
+                            }
+                        }
+                        else
+                            window.setTimeout(ScaleSlider, 100);
+                    }
+                    //Scale slider after document ready
+                    ScaleSlider();
+
+                    //Scale slider while window load/resize/orientationchange.
+                    $(window).bind("load", ScaleSlider);
+                    $(window).bind("resize", ScaleSlider);
+                    $(window).bind("orientationchange", ScaleSlider);
+                    //responsive code end
+                });
+            </script>
+        </h:head>
+        <h:body>
+            <p:outputPanel layout="block" id="container" styleClass="container">
+                <div id="homeContainer" class="homeHeaderContainer">
+                    <div class="innerTitleContainer">
+                        <h:graphicImage library="img" name="ufg-logow.png" />
+                        <h:outputText value="#{msg.instituicao}" styleClass="instituicaoTitle" />
+                    </div>
+                    <div class="innerTitleContainer">
+                        <h:outputText value="#{msg.appNome}" styleClass="calendarTitle" />
+                        <h:outputText value="#{homeBean.calendario.ano}" styleClass="calendarYear" />
+                    </div>
+                </div>
+                <div class="eventContainer" id="eventContainer">
+                    <div u="slides" class="slides">
+                        <c:forEach var="evento" items="#{homeBean.eventosRecentes}">
+                            <div class="articleSlide">
+                                <div class="innerArticle">
+                                    <h1 class="slideDate">
+                                        <h:panelGroup rendered="#{evento.inicio ne evento.termino}">
+                                            <h:outputText value="#{evento.inicio}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                            &nbsp;#{msg.prepA}&nbsp; 
+                                            <h:outputText value="#{evento.termino}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </h:panelGroup>
+                                        <h:outputText value="#{evento.inicio}" rendered="#{evento.inicio eq evento.termino}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </h1>
+                                    <h1 class="titleSlide">#{evento.assunto}</h1>
+
+                                    <p>#{evento.descricao}</p>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </p:outputPanel>
+
+        </h:body>
+    </f:view>
 </html>
-
-
 

@@ -9,6 +9,7 @@ import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -157,6 +158,18 @@ public class EventoDao {
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
+        return criteria.list();
+    }
+    
+    @Transactional(readOnly= true)
+    public List<Evento> listar(Date inicio, Date termino, Calendario calendario) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
+        criteria.createAlias("calendario", "c");
+        criteria.add(Restrictions.between("inicio", inicio, termino));
+        criteria.add(Restrictions.between("termino", inicio, termino));
+        criteria.add(Restrictions.eq("c.ano",calendario.getAno()));
+        criteria.addOrder(Order.asc("inicio"));
         return criteria.list();
     }
 

@@ -383,7 +383,7 @@ public class EventoBean implements Serializable {
     public LazyDataModel<Evento> getEventos() {
         return eventos;
     }
-
+    
     public Regional getSelecaoRegional() {
         return selecaoRegional;
     }
