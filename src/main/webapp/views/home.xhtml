@@ -65,6 +65,13 @@
                         <h:outputText value="#{msg.appNome}" styleClass="calendarTitle" />
                         <h:outputText value="#{homeBean.calendario.ano}" styleClass="calendarYear" />
                     </div>
+                    <hr class="horizontalRule" />
+                    <h:form styleClass="homeLinks">
+                        <ul>
+                            <li><h:commandLink value="resolução xxx" styleClass="ui-icon-clock"/></li>
+                            <li><h:commandLink value="#{msg.eventos}" action="eventos?faces-redirect=true" styleClass="ui-icon-calendar"/></li>
+                        </ul>
+                    </h:form>
                 </div>
                 <div class="eventContainer" id="eventContainer">
                     <div u="slides" class="slides">
@@ -86,12 +93,41 @@
                                         </h:outputText>
                                     </h1>
                                     <h1 class="titleSlide">#{evento.assunto}</h1>
-
-                                    <p>#{evento.descricao}</p>
+                                    <p class="descriptionSlide">#{evento.descricao}</p>
+                                    <h:panelGroup rendered="#{not empty evento.interessado}">
+                                        <ul>
+                                            <li>
+                                                <div class="detailInteressadoRegionalIcon interessadoDetailIcon" title="#{msg.interessados}" />
+                                            </li>
+                                            <c:forEach var="interessado" items="#{evento.interessado}">
+                                                <li>#{interessado.nome}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{not empty evento.regional}">
+                                        <ul>
+                                            <li>
+                                                <div class="detailInteressadoRegionalIcon regionalDetailIcon" title="#{msg.regionais}" />
+                                            </li>
+                                            <c:forEach var="regional" items="#{evento.regional}">
+                                                <li>#{regional.nome}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </h:panelGroup>
                                 </div>
                             </div>
                         </c:forEach>
                     </div>
+                </div>
+                <div class="regionalContainer">
+                    <h:form>
+                        <h3 class="boxHeader"><h:outputText value="#{msg.regionais}" /></h3>
+                        
+                        <p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="regionalSelector">
+                            <f:selectItems var="regional" value="#{regionalDao.listar()}" itemLabel="#{regional.nome}">
+                            </f:selectItems>
+                        </p:selectManyMenu>
+                    </h:form>
                 </div>
             </p:outputPanel>
 

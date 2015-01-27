@@ -70,23 +70,24 @@ body {
 
 .homeHeaderContainer {
     display: inline-block;
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 248px;
     background-color: #00588f;
 }
 
 .instituicaoTitle {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: #fff;
 }
 
 .calendarTitle {
     display: inline-block;
     color: #FFF;
-    margin-top: 0.6em;
-    font-size: 2.3em;
+    margin-top: 4px;
+    font-size: 2em;
     font-weight: bold;
     text-align: center;
+    line-height: 100%;
     text-transform: uppercase;
     width: 100%;
 }
@@ -95,19 +96,41 @@ body {
     display: inline-block;
     color: #FFF;
     margin-top:0;
-    font-size: 6em;
+    font-size: 5em;
     font-weight: bold;
     text-align: center;
+    line-height: 100%;
     text-transform: uppercase;
     width: 100%;
 }
 
+.homeLinks {
+    display: block;
+    width: 100%;
+}
+
+.homeLinks a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.homeLinks ul {
+    margin: 0;
+    padding-left: 8px;
+}
+
+.homeLinks ul li {
+    list-style-type: none;
+}
+
+/********************************** home events********************************/
+
 .eventContainer {
     position: absolute;
-    top: 0px;
-    left: 300px; 
+    top: 0;
+    left: 284px; 
     width: 600px; 
-    height: 300px;
+    height: 260px;
     overflow: hidden;
 }
 
@@ -131,13 +154,59 @@ body {
 
 .slideDate {
     font-size: 1.2em;
+    line-height: 100%;
     color: #f15a24;
 }
 
 .titleSlide {
     font-size: 1.2em;
+    line-height: 100%;
     color: #00027e;
 }
+
+.descriptionSlide {
+    margin-top: 0;
+}
+
+.articleSlide ul {
+    padding: 0;
+}
+
+
+.articleSlide ul li {
+    color: #93278f;
+    display: inline-block;
+    margin: 2px 4px 2px 4px;
+    border: 1px solid #b4d2c8;
+    padding: 4px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.boxHeader {
+    margin: 8px;
+   text-transform: capitalize; 
+}
+
+.regionalContainer {
+    position: absolute;
+    top: 252px;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    background: #fff;
+}
+
+.regionalSelector {
+    border: 1px solid #ccc!important;
+    position: absolute;
+    width: 274px!important;
+    top: 32px;
+    bottom: 2px;
+    box-shadow: none!important;
+}
+
 @media(max-width: 767px) {
     .instituicaoTitle {
         display: inline-block;
@@ -159,7 +228,7 @@ body {
         left: 0px;
         right: 0px;
         width: 100%; 
-        height: 200px;
+        height: 360px;
         overflow: hidden;
     }
 
@@ -167,13 +236,13 @@ body {
         overflow: hidden; 
         left: 0px; top: 0px;
         width: 100%;
-        height: 150px;
+        height: 360px;
     }
 
     .calendarTitle {
         display: inline;
         color: #FFF;
-        margin-top: 0.6em;
+        margin-top: 6px;
         font-size: 1.3em;
         font-weight: bold;
         text-align: left;
@@ -732,6 +801,16 @@ body {
 }
 
 /********************************* generic styles******************************/
+.horizontalRule {
+    border: none;
+    height: 1px;
+    background-color: #999;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
 .menuLabel {
     display: inline-block;
     color: #ffffff;
