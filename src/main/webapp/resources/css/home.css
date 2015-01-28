@@ -144,9 +144,13 @@ body {
 }
 
 .boxHeader {
-    margin: 8px;
+    margin: 8px 2px 0 2px;
     text-transform: capitalize;
     font-weight: normal;
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    text-indent: 8px;
 }
 
 
