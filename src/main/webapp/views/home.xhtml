@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <f:view locale="#{localeBean.locale}">
         <h:head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,57 +12,17 @@
                 <h:outputText value="#{msg.appNome}" />
             </title>
             <h:outputScript library="js" name="locale_pt.js" />
-            <h:outputScript library="js" name="jssor.slider.min.js" />
-            <h:outputStylesheet library="css" name="default.css" />
-            <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="accessibility.css" />
-            <script>
-                /*
-                 sliderStarter = function (containerId) {
-                 var options = {$AutoPlay: true};
-                 var slider = new $JssorSlider$(containerId, options);
-                 };
-                 */
-                jQuery(document).ready(function ($) {
-                    var options = {$AutoPlay: true};
-                    var slider = new $JssorSlider$('eventContainer', options);
-
-                    //responsive code begin
-                    //you can remove responsive code if you don't want the slider scales
-                    //while window resizes
-                    function ScaleSlider() {
-                        var parentWidth = jQuery('#eventContainer').parent().width();
-                        var homeContainerH = jQuery("#homeContainer").height();
-                        if (parentWidth) {
-                            slider.$ScaleWidth(parentWidth);
-                            if (jQuery("#eventContainer").position().top === 0) {
-                                slider.$ScaleHeight(homeContainerH);
-                            }
-                        }
-                        else
-                            window.setTimeout(ScaleSlider, 100);
-                    }
-                    //Scale slider after document ready
-                    ScaleSlider();
-
-                    //Scale slider while window load/resize/orientationchange.
-                    $(window).bind("load", ScaleSlider);
-                    $(window).bind("resize", ScaleSlider);
-                    $(window).bind("orientationchange", ScaleSlider);
-                    //responsive code end
-                });
-            </script>
+            <h:outputStylesheet library="css" name="home.css" />
+            <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="home-accessibility.css" />
         </h:head>
         <h:body>
-            <p:outputPanel layout="block" id="container" styleClass="container">
-                <div id="homeContainer" class="homeHeaderContainer">
+            <h:panelGroup layout="block" id="container" styleClass="container">
+                <div id="homeContainer" class="homeHeader">
                     <div class="innerTitleContainer">
                         <h:graphicImage library="img" name="ufg-logow.png" />
                         <h:outputText value="#{msg.instituicao}" styleClass="instituicaoTitle" />
                     </div>
-                    <div class="innerTitleContainer">
-                        <h:outputText value="#{msg.appNome}" styleClass="calendarTitle" />
-                        <h:outputText value="#{homeBean.calendario.ano}" styleClass="calendarYear" />
-                    </div>
+                    <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}" styleClass="calendarTitle" />
                     <hr class="horizontalRule" />
                     <h:form styleClass="homeLinks">
                         <ul>
@@ -73,64 +31,39 @@
                         </ul>
                     </h:form>
                 </div>
-                <div class="eventContainer" id="eventContainer">
-                    <div u="slides" class="slides">
-                        <c:forEach var="evento" items="#{homeBean.eventosRecentes}">
-                            <div class="articleSlide">
-                                <div class="innerArticle">
-                                    <h1 class="slideDate">
-                                        <h:panelGroup rendered="#{evento.inicio ne evento.termino}">
-                                            <h:outputText value="#{evento.inicio}">
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                            &nbsp;#{msg.prepA}&nbsp; 
-                                            <h:outputText value="#{evento.termino}">
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </h:panelGroup>
-                                        <h:outputText value="#{evento.inicio}" rendered="#{evento.inicio eq evento.termino}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                                        </h:outputText>
-                                    </h1>
-                                    <h1 class="titleSlide">#{evento.assunto}</h1>
-                                    <p class="descriptionSlide">#{evento.descricao}</p>
-                                    <h:panelGroup rendered="#{not empty evento.interessado}">
-                                        <ul>
-                                            <li>
-                                                <div class="detailInteressadoRegionalIcon interessadoDetailIcon" title="#{msg.interessados}" />
-                                            </li>
-                                            <c:forEach var="interessado" items="#{evento.interessado}">
-                                                <li>#{interessado.nome}</li>
-                                            </c:forEach>
-                                        </ul>
-                                    </h:panelGroup>
-                                    <h:panelGroup rendered="#{not empty evento.regional}">
-                                        <ul>
-                                            <li>
-                                                <div class="detailInteressadoRegionalIcon regionalDetailIcon" title="#{msg.regionais}" />
-                                            </li>
-                                            <c:forEach var="regional" items="#{evento.regional}">
-                                                <li>#{regional.nome}</li>
-                                            </c:forEach>
-                                        </ul>
-                                    </h:panelGroup>
-                                </div>
-                            </div>
-                        </c:forEach>
+                <h:form styleClass="formContainer">
+                    <div class="boxContainer">
+                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.regionais}" /></h3>
+                        <div class="scroller">
+                            <h:dataTable var="regional" value="#{regionalDao.listar()}" styleClass="listSelector">
+                                <h:column>
+                                    <h:commandLink value="#{regional.nome}" />
+                                </h:column>
+                            </h:dataTable>
+                        </div>
                     </div>
-                </div>
-                <div class="regionalContainer">
-                    <h:form>
-                        <h3 class="boxHeader"><h:outputText value="#{msg.regionais}" /></h3>
-                        
-                        <p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="regionalSelector">
-                            <f:selectItems var="regional" value="#{regionalDao.listar()}" itemLabel="#{regional.nome}">
-                            </f:selectItems>
-                        </p:selectManyMenu>
-                    </h:form>
-                </div>
-            </p:outputPanel>
-
+                    <div class="boxContainer">
+                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.interessados}" /></h3>
+                        <div class="scroller">
+                            <h:dataTable var="interessado" value="#{interessadoDao.listar()}" styleClass="listSelector">
+                                <h:column>
+                                    <h:commandLink value="#{interessado.nome}" />
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </div>
+                    <div class="boxContainer">
+                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.assunto}" /></h3>
+                        <div class="scroller">
+                            <h:dataTable var="assunto" value="#{eventoDao.listarAssunto()}" styleClass="listSelector">
+                                <h:column>
+                                    <h:commandLink value="#{assunto}" />
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </div>
+                </h:form>
+            </h:panelGroup>
         </h:body>
     </f:view>
 </html>

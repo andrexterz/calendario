@@ -1,0 +1,168 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27/01/2015, 21:48:13
+    Author     : andre
+*/
+/******************************** generic styles ******************************/
+body {
+    font-family: Lucida Grande,Geneva,Helvetica,sans-serif;
+    margin: 0;
+}
+
+.horizontalRule {
+    border: none;
+    height: 1px;
+    background-color: #999;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+/********************************** home **************************************/
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #37354d;
+}
+
+.innerTitleContainer {
+    display: block;
+    padding: 8px;
+}
+
+.homeHeader {
+    width: 100%;
+    height: 136px;
+    margin-bottom: 2px;
+    background-color: #00588f;
+}
+
+.instituicaoTitle {
+    font-size: 1.1em;
+    color: #fff;
+}
+
+.calendarTitle {
+    display: inline-block;
+    color: #FFF;
+    font-size: 2em;
+    font-weight: bold;
+    text-indent: 8px;
+    text-align: left;
+    line-height: 100%;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.homeLinks {
+    display: block;
+    width: 100%;
+}
+
+.homeLinks a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.homeLinks ul {
+    margin: 0;
+    padding-left: 8px;
+}
+
+.homeLinks ul li {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.homeLinks ul li:nth-child(even) {
+    margin-left: 10px;
+}
+
+/********************************** forms *************************************/
+.formContainer {
+    text-align: center;
+}
+
+.boxContainer {
+    display: inline-block;
+    width: 32%;
+    height: 20%;
+    margin: 8px 3px;
+    background: #fff;
+}
+
+.scroller {
+    overflow-y: auto;
+    width: 99%;
+    height: 200px;
+    text-align: left;
+    margin-left: 1px;
+    border: 1px solid #ccc;
+}
+
+.scroller a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #555;
+}
+
+.scroller a:hover {
+    color: #000;
+}
+
+.boxHeader {
+    margin: 8px;
+    text-transform: capitalize;
+    font-weight: normal;
+}
+
+
+.listSelector {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+@media(max-width: 767px) {
+    .instituicaoTitle {
+        display: inline-block;
+        font-size: 1.0em;
+        color: #fff;
+    }
+
+    .calendarTitle {
+        margin-top: 6px;
+        font-size: 1.1em;
+    }
+
+    .boxContainer {
+        margin: 4px 2px;
+    }
+
+    .boxContainer:nth-child(-n+3) {
+        width: 48%;
+    }
+
+    .boxContainer:nth-child(n+4) {
+        width: 99%;
+    }
+
+}
+
+@media(max-width: 480px) {
+    .boxContainer:nth-child(-n+3) {
+        width: 99%;
+    }
+
+    .boxContainer:nth-child(n+4) {
+        width: 99%;
+    }
+}

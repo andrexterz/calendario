@@ -237,6 +237,13 @@ public class EventoDao {
         }
         return resultado;
     }
+    
+    @Transactional(readOnly = true)
+    public List<String> listarAssunto() {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("select distinct e.assunto from Evento e order by e.assunto asc")
+                .list();
+    }
 
     @Transactional(readOnly = true)
     public int rowCount() {
