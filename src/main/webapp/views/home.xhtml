@@ -31,9 +31,28 @@
                         </ul>
                     </h:form>
                 </div>
+                <div class="monthContainer">
+                    <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.mes}" /></h3>  
+                    <h:form>
+                        <h:panelGrid styleClass="monthGrid" columns="4">
+                            <h:commandButton value="#{msg.janeiro}" />
+                            <h:commandButton value="#{msg.fevereiro}" />
+                            <h:commandButton value="#{msg.marco}" />
+                            <h:commandButton value="#{msg.abril}" />
+                            <h:commandButton value="#{msg.maio}" />
+                            <h:commandButton value="#{msg.junho}" />
+                            <h:commandButton value="#{msg.julho}" />
+                            <h:commandButton value="#{msg.agosto}" />
+                            <h:commandButton value="#{msg.setembro}" />
+                            <h:commandButton value="#{msg.outubro}" />
+                            <h:commandButton value="#{msg.novembro}" />
+                            <h:commandButton value="#{msg.dezembro}" />
+                        </h:panelGrid>
+                    </h:form>
+                </div>
                 <h:form styleClass="formContainer">
                     <div class="boxContainer">
-                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.regionais}" /></h3>
+                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.regional}" /></h3>
                         <div class="scroller">
                             <h:dataTable var="regional" value="#{regionalDao.listar()}" styleClass="listSelector">
                                 <h:column>
@@ -43,7 +62,7 @@
                         </div>
                     </div>
                     <div class="boxContainer">
-                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.interessados}" /></h3>
+                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.interessado}" /></h3>
                         <div class="scroller">
                             <h:dataTable var="interessado" value="#{interessadoDao.listar()}" styleClass="listSelector">
                                 <h:column>
@@ -63,6 +82,9 @@
                         </div>
                     </div>
                 </h:form>
+                <div class="footer">
+                    footer
+                </div>
             </h:panelGroup>
         </h:body>
     </f:view>

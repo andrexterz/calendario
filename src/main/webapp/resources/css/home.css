@@ -29,7 +29,6 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #37354d;
 }
 
 .innerTitleContainer {
@@ -90,6 +89,32 @@ body {
     text-align: center;
 }
 
+.monthContainer {
+    display: inline-block;
+    width: 99%;
+    background: #fff;
+    text-align: center;
+}
+
+.monthGrid {
+    width: 98%;
+    border: 0;
+    border-collapse: collapse;
+    margin: 1%;
+}
+
+.monthGrid td {
+    width: 25%;
+    text-align: center;
+}
+
+.monthGrid input {
+    width: 98%;
+    padding: 2%;
+    border: 1px solid #999;
+    background-color: #efefef;
+}
+
 .boxContainer {
     display: inline-block;
     width: 32%;
@@ -131,6 +156,17 @@ body {
     height: 100%;
 }
 
+
+/**************************************** footer ******************************/
+.footer {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background: #00588f;
+}
+
+/********************************** adaptive layout ***************************/
+
 @media(max-width: 767px) {
     .instituicaoTitle {
         display: inline-block;
@@ -152,7 +188,7 @@ body {
     }
 
     .boxContainer:nth-child(n+4) {
-        width: 99%;
+        width: 97%;
     }
 
 }
