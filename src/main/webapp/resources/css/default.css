@@ -75,7 +75,7 @@ body {
 
 .appTitle {
     display: inline-block;
-    color: #ffffff;
+    color: #fff;
     margin-top: 0.6em;
     font-size: 1.8em;
     font-weight: normal;
@@ -101,22 +101,39 @@ body {
 
 }
 
-.acessibilidadeIcon {
+.toolbarLinks {
+    padding: 10px;
     float: right;
+}
+
+.toolbarIcons {
+    display: inline-block;
     width: 24px;
     height: 24px;
     text-indent: 64px;
-    margin: 14px 8px 0 0;
-    background-image: url("#{resource['img/high-contrast.png']}");
+    margin: 0 4px 0 4px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    border: 1px solid #000000;
     border-radius: 50%;
+
+}
+
+.toolbarIcons:hover {
+    box-shadow: 0 0 8px #999;
+}
+
+.homeIcon {
+    background-image: url("#{resource['img/home.png']}");
+    border: 1px solid #fff;
+}
+
+.acessibilidadeIcon {
+    background-image: url("#{resource['img/high-contrast.png']}");
+    border: 1px solid #000;
 }
 
 .acessibilidadeIcon:hover {
-    border: 1px solid #ffffff;
-    box-shadow: 0 0 8px #999;
+    border: 1px solid #fff;
 }
 
 .mini-menu {
@@ -181,16 +198,16 @@ body {
 @media (max-width: 767px) {
     .logo {
         float: left;
-        margin-left: 16px;
+        margin-left: 4px;
         margin-top: 4px;
-        margin-right: 16px;
+        margin-right: 4px;
         margin-bottom: 4px;
         vertical-align: middle;
     }
 
     .appTitle {
         margin-top: 16px;
-        margin-left: 8px;
+        margin-left: 4px;
         font-size: 16px;
     }
 
@@ -212,6 +229,10 @@ body {
         font-size: 1.5em;
         font-weight: normal;
         text-transform: capitalize;
+    }
+
+    .toolbarLinks {
+        padding: 10px 2px;
     }
 }
 
@@ -593,7 +614,7 @@ body {
 /********************************* generic styles******************************/
 .menuLabel {
     display: inline-block;
-    color: #ffffff;
+    color: #fff;
     margin-top: 8px;
     margin-left: 16px;
 

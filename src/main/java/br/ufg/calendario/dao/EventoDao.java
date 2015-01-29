@@ -32,7 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca (andrexterz@gmail.com)
+ * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca
+ * (andrexterz@gmail.com)
  */
 @Repository
 @Scope(value = "singleton")
@@ -160,15 +161,15 @@ public class EventoDao {
         Criteria criteria = session.createCriteria(Evento.class);
         return criteria.list();
     }
-    
-    @Transactional(readOnly= true)
+
+    @Transactional(readOnly = true)
     public List<Evento> listar(Date inicio, Date termino, Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
         criteria.createAlias("calendario", "c");
         criteria.add(Restrictions.between("inicio", inicio, termino));
         criteria.add(Restrictions.between("termino", inicio, termino));
-        criteria.add(Restrictions.eq("c.ano",calendario.getAno()));
+        criteria.add(Restrictions.eq("c.ano", calendario.getAno()));
         criteria.addOrder(Order.asc("inicio"));
         return criteria.list();
     }
@@ -213,9 +214,10 @@ public class EventoDao {
 
                 if (key.equals("periodo")) {
                     Map periodo = (Map) filters.get(key);
-                    criteria.add(Restrictions.and(Restrictions.ge("inicio", periodo.get("inicio")))
-                            .add(Restrictions.le("termino", periodo.get("termino"))));
-
+                    criteria.add(
+                            Restrictions.or(Restrictions.between("inicio", periodo.get("inicio"), periodo.get("termino")))
+                            .add(Restrictions.between("termino", periodo.get("inicio"), periodo.get("termino")))
+                    );
                 }
 
                 if (key.equals("calendario")) {
@@ -237,7 +239,7 @@ public class EventoDao {
         }
         return resultado;
     }
-    
+
     @Transactional(readOnly = true)
     public List<String> listarAssunto() {
         return this.sessionFactory.getCurrentSession()

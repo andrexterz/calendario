@@ -82,6 +82,7 @@ public class InteressadoDao {
     public List<Interessado> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Interessado.class);
+        criteria.addOrder(Order.asc("nome"));
         return criteria.list();
     }
     

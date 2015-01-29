@@ -7,6 +7,8 @@ package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.CalendarioDao;
 import br.ufg.calendario.dao.EventoDao;
+import br.ufg.calendario.dao.InteressadoDao;
+import br.ufg.calendario.dao.RegionalDao;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
@@ -22,6 +24,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -42,6 +45,12 @@ public class HomeBean implements Serializable {
 
     @Autowired(required = true)
     private transient CalendarioDao calendarioDao;
+    
+    @Autowired(required = true)
+    private transient RegionalDao regionalDao;
+    
+    @Autowired(required = true)
+    private transient InteressadoDao interessadoDao;
 
     private Calendario calendario;
     private final LazyDataModel<Evento> eventos;
@@ -167,6 +176,38 @@ public class HomeBean implements Serializable {
         }
     }
 
+    public void setMesListener(ActionEvent event) throws ParseException {
+        int mes = Integer.parseInt((String) event.getComponent().getAttributes().get("mes"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.YEAR, calendario.getAno());
+        calendar.set(Calendar.MONTH, mes - 1);
+        int diaInicio = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int diaTermino = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-M-d");
+        Date dataInicio = dateFormatter.parse(String.format("%04d-%02d-%02d", calendario.getAno(), mes, diaInicio));
+        Date dataTermino = dateFormatter.parse(String.format("%04d-%02d-%02d", calendario.getAno(), mes, diaTermino));
+        setBuscaDataInicio(dataInicio);
+        setBuscaDataTermino(dataTermino);
+        System.out.format("%02d/%02d/%04d - %02d/%02d/%04d\n", diaInicio, mes, calendario.getAno(), diaTermino, mes, calendario.getAno());
+        System.out.format("periodo: %s a %s\n", dateFormatter.format(dataInicio), dateFormatter.format(dataTermino));
+    }
+
+    public void setRegionalListener(ActionEvent event) {
+        Long regionalId = (Long) event.getComponent().getAttributes().get("regional");
+        setBuscaRegional(regionalDao.buscarPorId(regionalId));
+    }
+
+    public void setInteressadoListener(ActionEvent event) {
+        Long interessadoId = (Long) event.getComponent().getAttributes().get("interessado");
+        setBuscaInteressado(interessadoDao.buscarPorId(interessadoId));
+    }
+    
+    public void setAssuntoListener(ActionEvent event) {
+        String assunto = (String) event.getComponent().getAttributes().get("assunto");
+        setTermoBusca(assunto);
+    }
+
     /**
      * @return the calendario
      */
@@ -190,7 +231,7 @@ public class HomeBean implements Serializable {
 
     public List<Evento> getEventosRecentes() throws ParseException {
         int ano = Calendar.getInstance().get(Calendar.YEAR);
-        int mes = Calendar.getInstance().get(Calendar.MONTH)+1;
+        int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int diaInicio = Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH);
         int diaTermino = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-M-d");

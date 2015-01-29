@@ -26,7 +26,7 @@
                     <hr class="horizontalRule" />
                     <h:form styleClass="homeLinks">
                         <ul>
-                            <li><h:commandLink value="resolução xxx" styleClass="ui-icon-clock"/></li>
+                            <li><h:commandLink value="Resolução CEPEC n. 1323" styleClass="ui-icon-clock"/></li>
                             <li><h:commandLink value="#{msg.eventos}" action="eventos?faces-redirect=true" styleClass="ui-icon-calendar"/></li>
                         </ul>
                     </h:form>
@@ -35,18 +35,42 @@
                     <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.mes}" /></h3>  
                     <h:form>
                         <h:panelGrid styleClass="monthGrid" columns="4">
-                            <h:commandButton value="#{msg.janeiro}" />
-                            <h:commandButton value="#{msg.fevereiro}" />
-                            <h:commandButton value="#{msg.marco}" />
-                            <h:commandButton value="#{msg.abril}" />
-                            <h:commandButton value="#{msg.maio}" />
-                            <h:commandButton value="#{msg.junho}" />
-                            <h:commandButton value="#{msg.julho}" />
-                            <h:commandButton value="#{msg.agosto}" />
-                            <h:commandButton value="#{msg.setembro}" />
-                            <h:commandButton value="#{msg.outubro}" />
-                            <h:commandButton value="#{msg.novembro}" />
-                            <h:commandButton value="#{msg.dezembro}" />
+                            <h:commandButton value="#{msg.janeiro}" action="eventos?faces-redirect=true" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="1" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.fevereiro}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="2" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.marco}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="3" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.abril}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="4" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.maio}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="5" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.junho}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="6" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.julho}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="7" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.agosto}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="8" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.setembro}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="9" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.outubro}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="10" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.novembro}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="11" />
+                            </h:commandButton>
+                            <h:commandButton value="#{msg.dezembro}" action="eventos" actionListener="#{homeBean.setMesListener}">
+                                <f:attribute name="mes" value="12" />
+                            </h:commandButton>
                         </h:panelGrid>
                     </h:form>
                 </div>
@@ -56,7 +80,9 @@
                         <div class="scroller">
                             <h:dataTable var="regional" value="#{regionalDao.listar()}" styleClass="listSelector">
                                 <h:column>
-                                    <h:commandLink value="#{regional.nome}" />
+                                    <h:commandLink value="#{regional.nome}" action="eventos" actionListener="#{homeBean.setRegionalListener}">
+                                        <f:attribute name="regional" value="#{regional.id}" />
+                                    </h:commandLink>
                                 </h:column>
                             </h:dataTable>
                         </div>
@@ -66,7 +92,9 @@
                         <div class="scroller">
                             <h:dataTable var="interessado" value="#{interessadoDao.listar()}" styleClass="listSelector">
                                 <h:column>
-                                    <h:commandLink value="#{interessado.nome}" />
+                                    <h:commandLink value="#{interessado.nome}" action="eventos" actionListener="#{homeBean.setAssuntoListener}">
+                                        <f:attribute name="interessado" value="#{interessado.id}" />
+                                    </h:commandLink>
                                 </h:column>
                             </h:dataTable>
                         </div>
@@ -76,14 +104,27 @@
                         <div class="scroller">
                             <h:dataTable var="assunto" value="#{eventoDao.listarAssunto()}" styleClass="listSelector">
                                 <h:column>
-                                    <h:commandLink value="#{assunto}" />
+                                    <h:commandLink value="#{assunto}" action="eventos" actionListener="#{homeBean.setAssuntoListener}">
+                                        <f:attribute name="assunto" value="#{assunto}" />
+                                    </h:commandLink>
                                 </h:column>
                             </h:dataTable>
                         </div>
                     </div>
                 </h:form>
                 <div class="footer">
-                    rodapé - falta inserir informações aqui
+                    <table class="footerGrid">
+                        <tr>
+                            <td class="col20">
+                                <h:graphicImage library="img" name="ufg-logow-high.png" />
+                                <a href="http://www.ufg.br">UFG - Universidade Federal de Goiás</a>
+                                <p>Campus Samambaia - Prédio da Reitoria</p>
+                                <p>CEP 74690-900</p>
+                                <p>Goiânia - Goiás - Brasil</p>
+                                <h4> #{msg.appNome} &copy;</h4>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </h:panelGroup>
         </h:body>

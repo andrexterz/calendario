@@ -14,11 +14,15 @@
                     <h:panelGroup styleClass="appTitle">
                         <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
                     </h:panelGroup>
-                    <p:commandLink title="#{msg.acessibilidade}"
-                                   actionListener="#{homeBean.switchPageStyleAccessibility}"
-                                   action="eventos?faces-redirect=true"
-                                   value="#{msg.acessibilidade}"
-                                   styleClass="acessibilidadeIcon transitionDefault" />
+                    <div class="toolbarLinks">
+                        <h:link outcome="home"
+                                styleClass="toolbarIcons homeIcon"
+                                title="#{msg.home}" />
+                        <p:commandLink title="#{msg.acessibilidade}"
+                                       actionListener="#{homeBean.switchPageStyleAccessibility}"
+                                       action="eventos?faces-redirect=true"
+                                       styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
+                    </div>
                 </h:panelGroup>
                 <p:toolbar id="selectedFilters" styleClass="toolbar">
                     <f:facet name="left">

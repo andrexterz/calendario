@@ -87,6 +87,7 @@ public class RegionalDao {
     public List<Regional> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Regional.class);
+        criteria.addOrder(Order.asc("nome"));
         return criteria.list();
     }
 
