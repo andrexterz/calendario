@@ -6,16 +6,22 @@
 package br.ufg.calendario.components;
 
 import br.ufg.calendario.dao.CalendarioDao;
+import br.ufg.calendario.models.Arquivo;
 import br.ufg.calendario.models.Calendario;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -39,9 +45,9 @@ public class CalendarioBean implements Serializable {
         calendario = new Calendario();
         itemSelecionado = null;
         calendarios = new LazyDataModel<Calendario>() {
-            
+
             private List<Calendario> data;
-            
+
             @Override
             public Calendario getRowData(String rowKey) {
                 for (Calendario cal : data) {
@@ -112,12 +118,34 @@ public class CalendarioBean implements Serializable {
         } else {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroExcluir"));
         }
-        
+
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void selecionaItem(SelectEvent event) {
         itemSelecionado = (Calendario) event.getObject();
+    }
+
+    public void handleArquivoListener(FileUploadEvent event) {
+        Arquivo arquivo = new Arquivo();
+        arquivo.setNomeArquivo(event.getFile().getFileName());
+        arquivo.setConteudo(event.getFile().getContents());
+        arquivo.setMimetype(event.getFile().getContentType());
+        calendario.setArquivo(arquivo);
+        System.out.format("arquivo: <%s> foi enviado\n", arquivo.getNomeArquivo());
+    }
+
+    public StreamedContent getArquivoCalendario() {
+        DefaultStreamedContent content = new DefaultStreamedContent();
+        try {
+            InputStream inputStream = new ByteArrayInputStream(calendario.getArquivo().getConteudo());
+            content.setName(calendario.getArquivo().getNomeArquivo());
+            content.setContentType(calendario.getArquivo().getMimetype());
+            content.setStream(inputStream);
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
+        return content;
     }
 
     public Calendario getCalendario() {
@@ -139,7 +167,7 @@ public class CalendarioBean implements Serializable {
     public LazyDataModel<Calendario> getCalendarios() {
         return calendarios;
     }
-    
+
     public List<Calendario> getCalendarioList() {
         return calendarioDao.listar();
     }

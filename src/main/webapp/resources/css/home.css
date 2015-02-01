@@ -12,6 +12,7 @@ body {
     font-family: Lucida Grande,Geneva,Helvetica,sans-serif;
     margin: 0;
     background-color: #edf3f6;
+    font-size: 1em;
 }
 
 .horizontalRule {
@@ -22,6 +23,11 @@ body {
     margin-bottom: 8px;
     margin-left: 4px;
     margin-right: 4px;
+}
+
+.ui-widget {
+    font-family: Lucida Grande,Geneva,Helvetica,sans-serif;
+    font-size: 1em;
 }
 /********************************** home **************************************/
 .container {
@@ -78,6 +84,7 @@ body {
 .homeLinks ul {
     margin: 0;
     padding-left: 8px;
+    text-transform: capitalize;
 }
 
 .homeLinks ul li {
@@ -260,6 +267,15 @@ body {
 }
 
 @media(max-width: 480px) {
+    .homeLinks ul li {
+        display: block;
+    }
+
+    .homeLinks ul li:nth-child(n) {
+        margin-left: 4px;
+        font-size: 0.9em;
+    }
+
     .boxContainer:nth-child(-n+3) {
         width: 99%;
     }

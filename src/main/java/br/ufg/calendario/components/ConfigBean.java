@@ -64,4 +64,10 @@ public class ConfigBean {
     public char getDelimiter() {
         return properties.getProperty("csvDelimiter").charAt(0);
     }
+    
+    public String getCalendarAllowTypes() {
+        return properties.getProperty("calendarAllowTypes");
+    }
+    
+    
 }

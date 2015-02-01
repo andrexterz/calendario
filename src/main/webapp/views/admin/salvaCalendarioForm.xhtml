@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog id="salvaCalendario" widgetVar="salvaCalendario" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="360" position="center"
+              closeOnEscape="true" resizable="false" width="640" position="center"
               header="#{msg.adicionar} #{msg.calendario}">
         <h:form>
             <f:validateBean disabled="true">
@@ -30,6 +30,36 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column styleClass="alignRight">
+                            <p:outputLabel value="#{msg.enviar} #{msg.arquivo}" />
+                        </p:column>
+                        <p:column>
+                            <p:fileUpload allowTypes="#{configBean.calendarAllowTypes}"
+                                          mode="advanced" dragDropSupport="true"
+                                          multiple="false"
+                                          fileLimit="#{configBean.fileLimit}"
+                                          sizeLimit="#{configBean.sizeLimit}"
+                                          label="#{msg.selecionar}"
+                                          uploadLabel="#{msg.enviar}"
+                                          cancelLabel="#{msg.cancelar}"
+                                          fileLimitMessage="#{msg.arquivoLimiteInvalido}"
+                                          invalidFileMessage="#{msg.arquivoInvalido}"
+                                          invalidSizeMessage="#{msg.arquivoTamanhoInvalido}"
+                                          process="@this"
+                                          fileUploadListener="#{calendarioBean.handleArquivoListener}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                         <p:column styleClass="alignRight">
+                            <h:outputLabel value="#{msg.arquivo}" />
+                        </p:column>
+                        <p:column>
+                            <p:commandLink value="#{calendarioBean.calendario.arquivo.nomeArquivo}" ajax="false">
+                                <p:fileDownload value="#{calendarioBean.arquivoCalendario}" />
+                            </p:commandLink>
+                        </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column colspan="2">
                             <hr class="separator" />
                         </p:column>
@@ -43,7 +73,7 @@
                                              actionListener="#{calendarioBean.salvar}"
                                              update=":calendariosForm:calendariosTable"
                                              process="@form"  />
-                            
+
                             <p:commandButton value="#{msg.cancelar}"
                                              icon="ui-icon-close"
                                              title="#{msg.cancelar}"

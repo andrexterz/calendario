@@ -9,10 +9,13 @@ import br.ufg.calendario.dao.CalendarioDao;
 import br.ufg.calendario.dao.EventoDao;
 import br.ufg.calendario.dao.InteressadoDao;
 import br.ufg.calendario.dao.RegionalDao;
+import br.ufg.calendario.models.Arquivo;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,9 +28,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -206,6 +212,29 @@ public class HomeBean implements Serializable {
     public void setAssuntoListener(ActionEvent event) {
         String assunto = (String) event.getComponent().getAttributes().get("assunto");
         setTermoBusca(assunto);
+    }
+    
+    
+    public void handleArquivoListener(FileUploadEvent event) {
+        Arquivo arquivo = new Arquivo();
+        arquivo.setNomeArquivo(event.getFile().getFileName());
+        arquivo.setConteudo(event.getFile().getContents());
+        arquivo.setMimetype(event.getFile().getContentType());
+        calendario.setArquivo(arquivo);
+        System.out.format("arquivo: <%s> foi enviado\n", arquivo.getNomeArquivo());
+    }
+
+    public StreamedContent getArquivoCalendario() {
+        DefaultStreamedContent content = new DefaultStreamedContent();
+        try {
+            InputStream inputStream = new ByteArrayInputStream(calendario.getArquivo().getConteudo());
+            content.setName(calendario.getArquivo().getNomeArquivo());
+            content.setContentType(calendario.getArquivo().getMimetype());
+            content.setStream(inputStream);
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
+        return content;
     }
 
     /**

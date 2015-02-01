@@ -6,8 +6,11 @@
 
 package br.ufg.calendario.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -33,6 +36,9 @@ public class Calendario extends Base {
     
     @NotNull
     private boolean ativo;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Arquivo arquivo;
 
     /**
      * @return the ano
@@ -60,6 +66,20 @@ public class Calendario extends Base {
      */
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    /**
+     * @return the arquivo
+     */
+    public Arquivo getArquivo() {
+        return arquivo;
+    }
+
+    /**
+     * @param arquivo the arquivo to set
+     */
+    public void setArquivo(Arquivo arquivo) {
+        this.arquivo = arquivo;
     }
     
     
