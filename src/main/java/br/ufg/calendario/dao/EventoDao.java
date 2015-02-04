@@ -9,9 +9,11 @@ import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.apache.lucene.search.BooleanQuery;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -125,37 +127,6 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Evento> listar(int first, int pageSize, String termo) {
-        Session session = sessionFactory.getCurrentSession();
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-        QueryBuilder queryBuilder = fullTextSession
-                .getSearchFactory()
-                .buildQueryBuilder()
-                .forEntity(Evento.class).get();
-        org.apache.lucene.search.Query searchQuery;
-        String words[] = termo.split("\\s");
-        if (words.length > 1) {
-            searchQuery = queryBuilder.phrase()
-                    .withSlop(5)
-                    .onField("assunto").andField("descricao")
-                    .sentence(termo)
-                    .createQuery();
-        } else {
-            searchQuery = queryBuilder.keyword()
-                    .fuzzy()
-                    .withThreshold(0.7f)
-                    .onFields("assunto", "descricao")
-                    .matching(termo)
-                    .createQuery();
-        }
-        org.hibernate.Query query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
-        query.setFirstResult(first).setMaxResults(pageSize);
-        List result = query.list();
-        System.out.println("Result size: " + result.size());
-        return result;
-    }
-
-    @Transactional(readOnly = true)
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
@@ -173,6 +144,36 @@ public class EventoDao {
         criteria.addOrder(Order.asc("inicio"));
         return criteria.list();
     }
+    
+    private List<Long> buscarTermo(Session session, String termo) {
+        String[] words = termo.split("\\s");
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        QueryBuilder queryBuilder = fullTextSession
+                .getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(Evento.class).get();
+        org.apache.lucene.search.Query searchQuery;
+        if (words.length > 1) {
+            searchQuery = queryBuilder.phrase()
+                    .withSlop(5)
+                    .onField("assunto").andField("descricao")
+                    .sentence(termo).createQuery();
+        } else {
+            searchQuery = queryBuilder.keyword()
+                    .fuzzy()
+                    .withThreshold(0.7f)
+                    .onFields("assunto", "descricao")
+                    .matching(termo)
+                    .createQuery();
+        }
+        org.hibernate.search.FullTextQuery query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
+        query.setProjection("id");
+        List<Long> result = new ArrayList<>();
+        for (Object obj: query.list()) {
+            result.add((Long) ((Object[]) obj)[0]);
+        }
+        return result;
+    }
 
     @Transactional(readOnly = true)
     public List<Evento> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
@@ -180,6 +181,7 @@ public class EventoDao {
         Criteria criteria = session.createCriteria(Evento.class);
         criteria.setFirstResult(first);
         criteria.setMaxResults(pageSize);
+        
         if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
             if (sortOrder.equals("ASCENDING")) {
                 criteria.addOrder(Order.asc(sortField));
@@ -193,9 +195,14 @@ public class EventoDao {
         if (filters != null && !filters.isEmpty()) {
             for (String key : filters.keySet()) {
                 if (key.equals("termo")) {
-                    criteria.add(Restrictions.or(
+                    List foundList = buscarTermo(session, filters.get("termo").toString());
+                    if (foundList.size() > 0) {
+                        criteria.add(Restrictions.in("id", foundList));
+                    } else {
+                        criteria.add(Restrictions.or(
                             Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
                             Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
+                    }
                 }
 
                 if (key.equals("interessado")) {

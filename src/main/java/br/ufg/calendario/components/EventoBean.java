@@ -155,11 +155,7 @@ public class EventoBean implements Serializable {
                 } else {
                     setRowCount(eventoDao.rowCount());
                 }
-                if (termoBusca != null && !termoBusca.isEmpty()) {
-                    data = eventoDao.listar(first, pageSize, termoBusca);
-                } else {
-                    data = eventoDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
-                }
+                data = eventoDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
 
                 if (data.size() > pageSize) {
                     try {
@@ -383,7 +379,7 @@ public class EventoBean implements Serializable {
     public LazyDataModel<Evento> getEventos() {
         return eventos;
     }
-    
+
     public Regional getSelecaoRegional() {
         return selecaoRegional;
     }

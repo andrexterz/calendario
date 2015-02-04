@@ -26,17 +26,21 @@ import org.apache.solr.analysis.StopFilterFactory;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
 /**
  *
- * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca (andrexterz@gmail.com)
+ * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca
+ * (andrexterz@gmail.com)
  */
 @Entity
 @Indexed
@@ -45,8 +49,9 @@ import org.hibernate.search.annotations.TokenizerDef;
         filters = {
             @TokenFilterDef(factory = PortugueseStemFilterFactory.class),
             @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-            @TokenFilterDef(factory = StopFilterFactory.class, params = {@Parameter(name="words", value = "br/ufg/calendario/search/stopwords.properties"),
-                @Parameter(name="ignoreCase", value="true")}),
+            @TokenFilterDef(factory = StopFilterFactory.class, params = {
+                @Parameter(name = "words", value = "br/ufg/calendario/search/stopwords.properties"),
+                @Parameter(name = "ignoreCase", value = "true")}),
             @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
                 @Parameter(name = "language", value = "Portuguese")
             })
@@ -82,10 +87,14 @@ public class Evento extends Base {
 
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
+    @DateBridge(resolution = Resolution.DAY)
     private Date inicio;
 
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
+    @DateBridge(resolution = Resolution.DAY)
     private Date termino;
 
     @NotNull
@@ -96,18 +105,21 @@ public class Evento extends Base {
 
     @NotNull
     @ManyToOne
+    @IndexedEmbedded
     private Calendario calendario;
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(name = "evento_regional", joinColumns = {
         @JoinColumn(name = "evento_id")}, inverseJoinColumns = {
         @JoinColumn(name = "regional_id")})
+    @IndexedEmbedded
     private Set<Regional> regional;
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(name = "evento_interessado", joinColumns = {
         @JoinColumn(name = "evento_id")}, inverseJoinColumns = {
         @JoinColumn(name = "interessado_id")})
+    @IndexedEmbedded
     private Set<Interessado> interessado;
 
     @Column(columnDefinition = "boolean default false")

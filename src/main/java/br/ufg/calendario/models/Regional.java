@@ -7,6 +7,7 @@
 package br.ufg.calendario.models;
 
 import javax.persistence.Entity;
+import org.hibernate.search.annotations.Field;
 
 /**
  *
@@ -28,6 +29,7 @@ public class Regional extends Base {
     
     private String codigo;
 
+    @Field
     private String nome;
 
     public String getCodigo() {

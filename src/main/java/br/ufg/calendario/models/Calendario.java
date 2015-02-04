@@ -9,9 +9,10 @@ package br.ufg.calendario.models;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.NumericField;
 
 /**
  *
@@ -32,6 +33,8 @@ public class Calendario extends Base {
     
     @Column(unique = true)
     @NotNull
+    @Field
+    @NumericField
     private Integer ano;
     
     @NotNull

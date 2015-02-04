@@ -124,11 +124,8 @@ public class HomeBean implements Serializable {
                 } else {
                     setRowCount(eventoDao.rowCount());
                 }
-                if (getTermoBusca() != null && !termoBusca.isEmpty()) {
-                    data = eventoDao.listar(first, pageSize, getTermoBusca());
-                } else {
-                    data = eventoDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
-                }
+
+                data = eventoDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
 
                 if (data.size() > pageSize) {
                     try {

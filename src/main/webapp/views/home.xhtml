@@ -99,7 +99,7 @@
                         <div class="scroller">
                             <h:dataTable var="interessado" value="#{interessadoDao.listar()}" styleClass="listSelector">
                                 <h:column>
-                                    <h:commandLink value="#{interessado.nome}" action="eventos" actionListener="#{homeBean.setAssuntoListener}">
+                                    <h:commandLink value="#{interessado.nome}" action="eventos" actionListener="#{homeBean.setInteressadoListener}">
                                         <f:attribute name="interessado" value="#{interessado.id}" />
                                     </h:commandLink>
                                 </h:column>
