@@ -14,6 +14,12 @@ body {
     font-family:"Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+hr {
+    border: none;
+    height: 1px;
+    background-color: #999;
+}
+
 @media (max-width: 767px) {
     hr {
         border: none;
@@ -943,19 +949,17 @@ col40 {
 .formCadastroUsuario {
     padding: 6px;
     border: 1px solid #ccc;
-    width: 24%;
-    margin: 2% 38% 0 38%;
+    width: 310px;
+    margin: 32px 33% 0 33%;
 }
 
 @media(max-width: 767px) {
     .formCadastroUsuario {
-        margin: auto;
-        width: auto;
+        margin: 32px auto;
     }
 }
 
 .cadastroUsuarioTitle {
-    position: absolute;
     top: 1px;
     border: 1px solid #999;
     background: #ccc;

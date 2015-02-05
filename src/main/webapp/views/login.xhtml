@@ -6,36 +6,43 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.login}</ui:define>
-        <ui:define name="menuTop">
-            <div class="cadastroUsuarioTitle">#{msg.login}</div>
+        <ui:define name="header">
+            <h:outputText value="#{msg.appNome}" />
         </ui:define>
         <ui:define name="content">
-            <h:form id="loginForm" styleClass="formCadastroUsuario">
-                <p:panelGrid styleClass="formGrid">
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="login" value="#{msg.login}" />
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="login" styleClass="force100" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="senha" value="#{msg.senha}" />
-                        </p:column>
-                        <p:column>
-                            <p:password id="senha" styleClass="force100" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="2" styleClass="alignRight">
-                            <p:commandButton value="#{msg.entrar}" action="#{usuarioBean.autentica}"/>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
-                <p:messages autoUpdate="true" showSummary="false" showDetail="true" showIcon="true" />
-            </h:form>
+            <h:panelGroup layout="block" styleClass="formCadastroUsuario">
+                <h:form id="loginForm">
+                    <div class="cadastroUsuarioTitle">#{msg.login}</div>
+                    <p:panelGrid styleClass="formGrid">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="login" value="#{msg.login}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="login" styleClass="force100" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="senha" value="#{msg.senha}" />
+                            </p:column>
+                            <p:column>
+                                <p:password id="senha" styleClass="force100" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2" styleClass="alignRight">
+                                <p:commandButton value="#{msg.entrar}" action="#{usuarioBean.autentica}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:messages autoUpdate="true" showSummary="false" showDetail="true" showIcon="true" />
+                    <hr/>
+                </h:form>
+                <h:panelGroup layout="block" styleClass="alignRight">
+                    <h:link value="#{msg.cadastrar} #{msg.usuario}" outcome="cadastraUsuario" />
+                </h:panelGroup>
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </html>

@@ -6,64 +6,71 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.cadastroUsuarios}</ui:define>
-        <ui:define name="menuTop">
-            <div class="cadastroUsuarioTitle">#{msg.cadastroUsuarios}</div>
+        <ui:define name="header">
+            <h:outputText value="#{msg.appNome}" />
         </ui:define>
         <ui:define name="content">
-            <h:form id="cadastraUsuarioForm" styleClass="formCadastroUsuario">
-                <p:panelGrid styleClass="formGrid">
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="nomeUsuario" value="#{msg.nome}" />
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="nomeUsuario" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="loginUsuario" value="#{msg.login}" />
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="loginUsuario" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="emailUsuario" value="#{msg.email}" />
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="emailUsuario" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="senhaUsuarioA" value="#{msg.cadastrarSenha}" />
+            <h:panelGroup layout="block" styleClass="formCadastroUsuario">
+                <h:form id="cadastraUsuarioForm">
+                    <div class="cadastroUsuarioTitle">#{msg.cadastroUsuarios}</div>
+                    <p:panelGrid styleClass="formGrid">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nomeUsuario" value="#{msg.nome}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nomeUsuario" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="loginUsuario" value="#{msg.login}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="loginUsuario" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="emailUsuario" value="#{msg.email}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="emailUsuario" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="senhaUsuarioA" value="#{msg.cadastrarSenha}" />
 
-                        </p:column>
-                        <p:column>
-                            <p:password id="senhaUsuarioA" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="senhaUsuarioB" value="#{msg.redigitarSenha}" />
-                        </p:column>
-                        <p:column>
-                            <p:password id="senhaUsuarioB" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="2" styleClass="alignRight">
-                            <p:commandButton value="#{msg.cadastrar}"
-                                             action="#{usuarioBean.cadastrar}"
-                                             update=":cadastraUsuarioForm"
-                                             process="@form"/>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
-                <p:messages autoUpdate="true" showSummary="false" showDetail="true" showIcon="true" />
-            </h:form>
+                            </p:column>
+                            <p:column>
+                                <p:password id="senhaUsuarioA" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="senhaUsuarioB" value="#{msg.redigitarSenha}" />
+                            </p:column>
+                            <p:column>
+                                <p:password id="senhaUsuarioB" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2" styleClass="alignRight">
+                                <p:commandButton value="#{msg.cadastrar}"
+                                                 action="#{usuarioBean.cadastrar}"
+                                                 update=":cadastraUsuarioForm"
+                                                 process="@form"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:messages autoUpdate="true" showSummary="false" showDetail="true" showIcon="true" />
+                    <hr/>
+                </h:form>
+                <h:panelGroup layout="block" styleClass="alignRight">
+                    <h:link value="#{msg.login}" outcome="login" />
+                </h:panelGroup>
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </html>

@@ -29,6 +29,27 @@
                 </f:facet>
             </p:ajaxStatus>
             <ui:insert name="menuTop">
+                <h:panelGroup id="menuTop" styleClass="navbar">
+                    <h:panelGroup layout="block" styleClass="appTopbar">
+                        <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
+                        <h:panelGroup styleClass="appTitle">
+                            <ui:insert name="header">
+                                <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
+                            </ui:insert>
+                        </h:panelGroup>
+                        <div class="toolbarLinks">
+                            <h:form>
+                                <h:link outcome="home"
+                                        styleClass="toolbarIcons homeIcon"
+                                        title="#{msg.home}" />
+                                <p:commandLink title="#{msg.acessibilidade}"
+                                               actionListener="#{homeBean.switchPageStyleAccessibility}"
+                                               action="eventos?faces-redirect=true"
+                                               styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
+                            </h:form>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
             </ui:insert>
             <ui:insert name="menuLeft">
             </ui:insert>

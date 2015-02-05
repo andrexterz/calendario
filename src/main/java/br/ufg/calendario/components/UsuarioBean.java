@@ -50,7 +50,7 @@ public class UsuarioBean implements Serializable {
     private transient UsuarioDao usuarioDao;
 
     @Autowired
-    Validator validator;
+    private transient Validator validator;
 
     public UsuarioBean() {
         usuario = null;
@@ -117,15 +117,23 @@ public class UsuarioBean implements Serializable {
         String senha = new BigInteger(1, messageDigest.digest()).toString(16);
         sessionUsuario = usuarioDao.buscarPorLogin(login);
         boolean senhaCompativel = false;
+        boolean usuarioAtivo = false;
         if (sessionUsuario != null) {
-            senhaCompativel = sessionUsuario.getSenha().equals(senha);
+            usuarioAtivo = sessionUsuario.isAtivo();
+            senhaCompativel = sessionUsuario.getSenha().equals(senha) && usuarioAtivo;
         }
-        if (sessionUsuario != null && senhaCompativel) {
+        if (senhaCompativel) {
             autenticado = true;
             return "/views/admin/usuarios?faces-redirect=true";
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioOuSenhaInvalidos"));
-            context.addMessage(null, msg);
+            if (!senhaCompativel) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioOuSenhaInvalidos"));
+                context.addMessage(null, msg);
+            }
+            if (!usuarioAtivo) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioInativo"));
+                context.addMessage(null, msg);
+            }
             return null;
         }
     }
