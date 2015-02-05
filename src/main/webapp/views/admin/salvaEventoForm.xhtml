@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog id="salvaEvento" widgetVar="salvaEvento" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" position="center" width="640"
+              closeOnEscape="true" resizable="false" position="center" width="680"
               header="#{msg.adicionar} #{msg.evento}">
         <h:form>
             <f:validateBean disabled="true">
@@ -16,11 +16,14 @@
                                 <p:column styleClass="col10">
                                     <p:outputLabel value="#{msg.calendario}" />
                                 </p:column>
-                                <p:column styleClass="col45">
+                                <p:column styleClass="col30">
                                     <p:outputLabel value="#{msg.dataInicio}" />
                                 </p:column>
-                                <p:column styleClass="col45">
+                                <p:column styleClass="col30">
                                     <p:outputLabel value="#{msg.dataTermino}" />
+                                </p:column>
+                                <p:column styleClass="col30">
+                                    <p:outputLabel value="#{msg.aprovado}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -42,24 +45,27 @@
                                         <p:ajax event="dateSelect" process="@this" />
                                     </p:calendar>
                                 </p:column>
+                                <p:column styleClass="alignRight">
+                                    <p:selectBooleanButton value="#{eventoBean.evento.aprovado}" onLabel="#{msg.sim}" offLabel="#{msg.nao}" />
+                                </p:column>
                             </p:row>
                             <p:row>
-                                <p:column colspan="3">
+                                <p:column colspan="4">
                                     <p:outputLabel value="#{msg.assunto}" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column colspan="3">
+                                <p:column colspan="4">
                                     <p:inputText value="#{eventoBean.evento.assunto}" styleClass="force100" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column colspan="3">
+                                <p:column colspan="4">
                                     <p:outputLabel value="#{msg.descricao}" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column colspan="3">
+                                <p:column colspan="4">
                                     <p:inputTextarea value="#{eventoBean.evento.descricao}" rows="8"
                                                      autoResize="false" styleClass="force100" />
                                 </p:column>

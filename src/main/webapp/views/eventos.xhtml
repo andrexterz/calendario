@@ -78,7 +78,7 @@
                                 var="evento"
                                 chunkSize="10"
                                 styleClass="eventDisplay">
-                    <h:panelGroup layout="block">
+                    <h:panelGroup layout="block" rendered="#{evento.aprovado}">
                         <article class="event">
                             <h2>
                                 <h:panelGroup rendered="#{evento.inicio ne evento.termino}">
@@ -120,8 +120,8 @@
                                 </h:panelGroup>
                             </div>
                         </article>
+                        <hr class="eventSeparator" />
                     </h:panelGroup>
-                    <hr class="eventSeparator" />
                 </p:dataScroller>
             </h:panelGroup>
         </ui:define>

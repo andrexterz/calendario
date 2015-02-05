@@ -7,7 +7,6 @@
 package br.ufg.calendario.models;
 
 import javax.persistence.Entity;
-import org.hibernate.search.annotations.Field;
 
 /**
  *
@@ -29,7 +28,6 @@ public class Interessado extends Base {
     
     private String sigla;
     
-    @Field
     private String nome;
 
     public String getSigla() {

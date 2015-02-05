@@ -29,7 +29,9 @@ public class LocaleBean implements Serializable {
     }
     
     public void setLocale(String locale) {
-        this.locale = locale;
+        if (locale != null) {
+            this.locale = locale;
+        }
     }
     
     public static LocaleBean getInstance() {

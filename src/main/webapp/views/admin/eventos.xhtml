@@ -18,7 +18,7 @@
                         <p:commandButton icon="	ui-icon-arrowrefresh-1-n"
                                          value="#{msg.reindexar}"
                                          actionListener="#{configBean.reindexLucene}" />
-                        
+
                         <p:commandButton icon="ui-icon-arrow-1-n"
                                          value="#{msg.importar}"
                                          oncomplete="PF('importaEvento').show()" />
@@ -82,8 +82,12 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column headerText="#{msg.assunto}" styleClass="col40 alignLeft">
+                    <p:column headerText="#{msg.assunto}" styleClass="col35 alignLeft">
                         #{evento.assunto}
+                    </p:column>
+                    <p:column headerText="#{msg.aprovado}" styleClass="col5 alignLeft">
+                        <h:outputText styleClass="ui-icon ui-icon-check" value="#{evento.aprovado}" rendered="#{evento.aprovado}" />
+                        <h:outputText styleClass="ui-icon ui-icon-close" value="#{evento.aprovado}" rendered="#{!evento.aprovado}" />
                     </p:column>
                     <p:rowExpansion>
                         <p:panel header="#{msg.descricao}">

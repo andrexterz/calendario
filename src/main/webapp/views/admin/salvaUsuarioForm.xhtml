@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog id="salvaUsuario" widgetVar="salvaUsuario" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="380" position="center">
+              closeOnEscape="true" resizable="false" width="420" position="center">
         <f:facet name="header">
             <h:outputText value="#{msg.adicionar} #{msg.usuario}" rendered="#{usuarioBean.usuario.id eq null}" />
             <h:outputText value="#{msg.editar} #{msg.usuario}" rendered="#{usuarioBean.usuario.id ne null}" />
@@ -68,10 +68,10 @@
                         <p:column colspan="3">
                             <p:dataTable id="perfilUsuario" emptyMessage="#{msg.vazio}"
                                          value="#{usuarioBean.usuario.perfil}" var="perfil">
-                                <p:column headerText="#{msg.perfis}" styleClass="col90">
+                                <p:column headerText="#{msg.perfis}" styleClass="col85">
                                     <h:outputText value="#{perfil}" />
                                 </p:column>
-                                <p:column styleClass="col10">
+                                <p:column styleClass="col15">
                                     <p:commandButton icon="ui-icon-trash" title="#{msg.excluir}"
                                                      actionListener="#{usuarioBean.removePerfil}"
                                                      process="@this" update="perfilUsuario">
