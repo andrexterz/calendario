@@ -634,10 +634,10 @@ hr {
 }
 
 .transitionDefault {
-    -o-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -webkit-transition: all 250ms;
-    transition: all 250ms;    
+    -o-transition: all 100ms;
+    -moz-transition: all 100ms;
+    -webkit-transition: all 100ms;
+    transition: all 100ms;
 }
 
 .iconDefault {

@@ -6,10 +6,10 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="filterForm">
-        <h:panelGroup layout="block" id="filters" class="filters transitionDefault">
+        <h:panelGroup layout="block" id="filters" class="filters">
             <p:toolbar styleClass="toolbar">
                 <f:facet name="left">
-                    <p:commandLink title="#{msg.voltar}" styleClass="menuButton backButton" onclick="javascript:toggleMenu();" />
+                    <p:commandLink title="#{msg.voltar}" styleClass="menuButton backButton" onclick="toggleMenu()" />
                     <p:outputLabel value="#{msg.filtrar} #{msg.prepPor}:" styleClass="menuLabel" />
                     <h:selectOneMenu value="#{homeBean.tipoBusca}">
                         <p:ajax event="change" process="@this" update="filterContent" />
