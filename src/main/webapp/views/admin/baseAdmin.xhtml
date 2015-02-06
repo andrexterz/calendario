@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view locale="pt_BR">
+    <f:view locale="#{localeBean.locale}">
         <h:head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <title>
@@ -25,11 +25,11 @@
                 </div>
                 <p:commandButton action="#{usuarioBean.encerraSessao}" value="#{msg.sair}" styleClass="logout" />
                 <h:form>
-                    <p:commandLink styleClass="menuItem userIcon" title="#{msg.usuarios}" action="usuarios" />                       
-                    <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.calendarios}" action="calendarios" />
-                    <p:commandLink styleClass="menuItem eventIcon" title="#{msg.eventos}" action="eventos" />
-                    <p:commandLink styleClass="menuItem regionalIcon" title="#{msg.regionais}" action="regionais" />
-                    <p:commandLink styleClass="menuItem interessadoIcon" title="#{msg.interessados}" action="interessados" />   
+                    <p:commandLink styleClass="menuItem userIcon" title="#{msg.usuarios}" action="usuarios?faces-redirect=true" />                       
+                    <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.calendarios}" action="calendarios?faces-redirect=true" />
+                    <p:commandLink styleClass="menuItem eventIcon" title="#{msg.eventos}" action="eventos?faces-redirect=true" />
+                    <p:commandLink styleClass="menuItem regionalIcon" title="#{msg.regionais}" action="regionais?faces-redirect=true" />
+                    <p:commandLink styleClass="menuItem interessadoIcon" title="#{msg.interessados}" action="interessados?faces-redirect=true" />   
                     <p:ajaxStatus styleClass="ajaxStatus">
                         <f:facet name="start">
                             <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" styleClass="ajaxStatus" />

@@ -117,25 +117,26 @@ public class UsuarioBean implements Serializable {
         String senha = new BigInteger(1, messageDigest.digest()).toString(16);
         sessionUsuario = usuarioDao.buscarPorLogin(login);
         boolean senhaCompativel = false;
-        boolean usuarioAtivo = false;
         if (sessionUsuario != null) {
-            usuarioAtivo = sessionUsuario.isAtivo();
-            senhaCompativel = sessionUsuario.getSenha().equals(senha) && usuarioAtivo;
-        }
-        if (senhaCompativel) {
-            autenticado = true;
-            return "/views/admin/usuarios?faces-redirect=true";
-        } else {
-            if (!senhaCompativel) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioOuSenhaInvalidos"));
-                context.addMessage(null, msg);
-            }
+            boolean usuarioAtivo = sessionUsuario.isAtivo();
+            senhaCompativel = sessionUsuario.getSenha().equals(senha);
             if (!usuarioAtivo) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioInativo"));
                 context.addMessage(null, msg);
             }
-            return null;
+            if (!senhaCompativel) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioOuSenhaInvalidos"));
+                context.addMessage(null, msg);
+            } 
+            if (senhaCompativel  && usuarioAtivo) {
+                autenticado = true;
+                return "/views/admin/usuarios?faces-redirect=true";
+            }
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioNaoCadastrado"));
+            context.addMessage(null, msg);
         }
+        return null;
     }
 
     public String encerraSessao() {

@@ -87,6 +87,7 @@ public class UsuarioDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Usuario.class);
         criteria.add(Restrictions.eq("login", login));
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return (Usuario) criteria.uniqueResult();
     }
 

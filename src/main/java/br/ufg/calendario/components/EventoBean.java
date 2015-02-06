@@ -251,7 +251,7 @@ public class EventoBean implements Serializable {
                 String descricao = record.get(4);
                 String[] interessadoArray = record.get(5).split(configBean.getRegexSplitter());
                 String[] regionalArray = record.get(6).split(configBean.getRegexSplitter());
-
+                boolean aprovado = record.get(7) != null && record.get(7).trim().toUpperCase().equals("S");
                 if (cal == null) {
                     //buscar apenas uma vez
                     cal = calendarioDao.buscar(ano);
@@ -269,7 +269,7 @@ public class EventoBean implements Serializable {
                     }
                     System.out.format("Regional: %s - %d", regional, regionalSet.size());
                 }
-                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, regionalSet, interessadoSet, false);
+                Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, regionalSet, interessadoSet, aprovado);
                 eventosImportados.add(evt);
             }
         } catch (IOException | ParseException | ArrayIndexOutOfBoundsException | NullPointerException e) {

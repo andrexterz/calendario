@@ -16,6 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -71,12 +72,12 @@ public class InteressadoDao {
             return false;
         }
     }
-    
+
     @Transactional(readOnly = true)
     public Interessado buscarPorId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return (Interessado) session.get(Interessado.class, id);
-    }    
+    }
 
     @Transactional(readOnly = true)
     public List<Interessado> listar() {
@@ -85,7 +86,7 @@ public class InteressadoDao {
         criteria.addOrder(Order.asc("nome"));
         return criteria.list();
     }
-    
+
     @Transactional(readOnly = true)
     public List<Interessado> listar(String termo) {
         Session session = sessionFactory.getCurrentSession();
@@ -96,7 +97,7 @@ public class InteressadoDao {
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
-    
+
     @Transactional(readOnly = true)
     public List<Interessado> listar(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         Session session = sessionFactory.getCurrentSession();
@@ -112,10 +113,30 @@ public class InteressadoDao {
             }
         }
         if (filters != null && !filters.isEmpty()) {
-            for (Entry<String, Object> filter: filters.entrySet()) {
+            for (Entry<String, Object> filter : filters.entrySet()) {
                 criteria.add(Restrictions.eq(filter.getKey(), filter.getValue()));
             }
         }
         return criteria.list();
     }
+
+    @Transactional(readOnly = true)
+    public int rowCount() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Interessado.class);
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+    }
+
+    @Transactional(readOnly = true)
+    public int rowCount(String termo) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Interessado.class);
+        if (termo != null && !termo.isEmpty()) {
+            criteria.add(Restrictions.or(
+                    Restrictions.like("sigla", termo.trim(), MatchMode.ANYWHERE).ignoreCase(),
+                    Restrictions.like("nome", termo.trim(), MatchMode.ANYWHERE).ignoreCase()));
+        }
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+    }
+
 }

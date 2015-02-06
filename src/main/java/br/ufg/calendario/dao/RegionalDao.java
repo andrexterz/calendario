@@ -15,6 +15,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -110,5 +111,21 @@ public class RegionalDao {
         }
         return criteria.list();
     }
+    
+    @Transactional(readOnly = true)
+    public int rowCount() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Regional.class);
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+    }
 
+    @Transactional(readOnly = true)
+    public int rowCount(String termo) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Regional.class);
+        if (termo != null && !termo.isEmpty()) {
+            criteria.add(Restrictions.like("nome", termo.trim(), MatchMode.ANYWHERE).ignoreCase());
+        }
+        return ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+    }
 }

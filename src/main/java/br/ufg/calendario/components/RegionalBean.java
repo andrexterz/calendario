@@ -34,11 +34,14 @@ public class RegionalBean implements Serializable{
     
     private Regional itemSelecionado;
     
+    private String termo;
+    
     private final LazyDataModel<Regional> regionais;
 
     public RegionalBean() {
         regional = new Regional();
         itemSelecionado = null;
+        termo = null;
         regionais = new LazyDataModel<Regional>() {
             
             private List<Regional> data;
@@ -62,7 +65,11 @@ public class RegionalBean implements Serializable{
             public List<Regional> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = regionalDao.listar(first, pageSize, sortField, sortOrder.name(), filters);
                 setPageSize(pageSize);
-                setRowCount(data.size());
+                if (termo == null || termo.isEmpty()) {
+                    setRowCount(regionalDao.rowCount());
+                } else {
+                    setRowCount(regionalDao.rowCount(termo));
+                }
                 if (data.size() > pageSize) {
                     try {
                         return data.subList(first, first + pageSize);
@@ -130,6 +137,14 @@ public class RegionalBean implements Serializable{
 
     public void setItemSelecionado(Regional itemSelecionado) {
         this.itemSelecionado = itemSelecionado;
+    }
+
+    public String getTermo() {
+        return termo;
+    }
+
+    public void setTermo(String termo) {
+        this.termo = termo;
     }
 
     public LazyDataModel<Regional> getRegionais() {

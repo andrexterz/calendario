@@ -363,4 +363,8 @@ public class HomeBean implements Serializable {
     public void setPageAccessibility(boolean pageAccessibility) {
         this.pageAccessibility = pageAccessibility;
     }
+    
+    public List<String> getAssunto() {
+        return eventoDao.listarAssunto(calendario);
+    }
 }

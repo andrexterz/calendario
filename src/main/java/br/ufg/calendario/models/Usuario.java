@@ -48,6 +48,7 @@ public class Usuario extends Base {
     
     @NotNull
     @Size(min = 3, max= 16)
+    @Column(unique = true)
     private String login;
     
     @NotNull

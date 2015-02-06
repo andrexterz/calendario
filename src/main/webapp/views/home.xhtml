@@ -109,7 +109,7 @@
                     <div class="boxContainer">
                         <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.assunto}" /></h3>
                         <div class="scroller">
-                            <h:dataTable var="assunto" value="#{eventoDao.listarAssunto()}" styleClass="listSelector">
+                            <h:dataTable var="assunto" value="#{homeBean.assunto}" styleClass="listSelector">
                                 <h:column>
                                     <h:commandLink value="#{assunto}" action="eventos" actionListener="#{homeBean.setAssuntoListener}">
                                         <f:attribute name="assunto" value="#{assunto}" />

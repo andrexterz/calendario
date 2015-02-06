@@ -33,12 +33,15 @@ public class InteressadoBean implements Serializable {
     private Interessado interessado;
 
     private Interessado itemSelecionado;
+    
+    private String termo;
 
     private final LazyDataModel<Interessado> interessados;
 
     public InteressadoBean() {
         interessado = new Interessado();
         itemSelecionado = null;
+        termo = null;
         interessados = new LazyDataModel<Interessado>() {
 
             private List<Interessado> data;
@@ -62,7 +65,11 @@ public class InteressadoBean implements Serializable {
             public List<Interessado> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 data = interessadoDao.listar(first, pageSize, sortField, sortOrder.name(), filters);
                 setPageSize(pageSize);
-                setRowCount(data.size());
+                if (termo == null || termo.isEmpty()) {
+                    setRowCount(interessadoDao.rowCount());
+                } else {
+                    setRowCount(interessadoDao.rowCount(termo));
+                }
                 if (data.size() > pageSize) {
                     try {
                         return data.subList(first, first + pageSize);
@@ -131,6 +138,14 @@ public class InteressadoBean implements Serializable {
         this.itemSelecionado = itemSelecionado;
     }
 
+    public String getTermo() {
+        return termo;
+    }
+
+    public void setTermo(String termo) {
+        this.termo = termo;
+    }
+    
     public LazyDataModel<Interessado> getInteressados() {
         return interessados;
     }
