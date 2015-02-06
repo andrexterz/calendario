@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view locale="#{localeBean.locale}">
+    <f:view locale="pt_BR">
         <h:head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="author" content="Andre Luiz Fernandes Ribeiro Barca" />
@@ -42,10 +42,12 @@
                                 <h:link outcome="home"
                                         styleClass="toolbarIcons homeIcon"
                                         title="#{msg.home}" />
-                                <p:commandLink title="#{msg.acessibilidade}"
-                                               actionListener="#{homeBean.switchPageStyleAccessibility}"
-                                               action="eventos?faces-redirect=true"
-                                               styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
+                                <ui:insert name="accessibility">
+                                    <p:commandLink title="#{msg.acessibilidade}"
+                                                   actionListener="#{homeBean.switchPageStyleAccessibility}"
+                                                   action="eventos?faces-redirect=true"
+                                                   styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
+                                </ui:insert>
                             </h:form>
                         </div>
                     </h:panelGroup>

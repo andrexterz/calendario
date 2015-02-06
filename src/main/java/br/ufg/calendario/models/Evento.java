@@ -77,7 +77,7 @@ public class Evento extends Base {
     }
 
     @NotNull
-    @Column
+    @Column(length = 510)
     @Analyzer(definition = "portugueseAnalyzer")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String assunto;
@@ -91,7 +91,7 @@ public class Evento extends Base {
     private Date termino;
 
     @NotNull
-    @Column(length = 1000)
+    @Column(length = 1200)
     @Analyzer(definition = "portugueseAnalyzer")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String descricao;

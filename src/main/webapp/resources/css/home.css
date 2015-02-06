@@ -85,6 +85,7 @@ body {
     margin: 0;
     padding-left: 8px;
     text-transform: capitalize;
+    display: inline-block;
 }
 
 .homeLinks ul li {
@@ -94,6 +95,15 @@ body {
 
 .homeLinks ul li:nth-child(even) {
     margin-left: 10px;
+}
+
+.loginLink {
+    float: right;
+    background-image: url("#{resource['img/settings-mini.png']}");
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
 }
 
 /********************************** forms *************************************/

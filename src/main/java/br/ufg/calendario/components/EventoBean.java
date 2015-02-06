@@ -242,6 +242,8 @@ public class EventoBean implements Serializable {
             }
             Integer ano;
             Calendario cal = null;
+            List<Regional> regionais = regionalDao.listar();
+            List<Interessado> interessados = interessadoDao.listar();
             for (CSVRecord record : parser) {
                 //adicionar entidade calendario (select box) na tela importar eventos.
                 ano = Integer.parseInt(record.get(0));
@@ -259,15 +261,22 @@ public class EventoBean implements Serializable {
                 Set<Interessado> interessadoSet = new HashSet();
                 for (String interessado : interessadoArray) {
                     if (!interessado.isEmpty()) {
-                        interessadoSet.addAll(interessadoDao.listar(interessado.trim()));
+                        for (Interessado i : interessados) {
+                            if (i.getNome().equals(interessado.trim())) {
+                                interessadoSet.add(i);
+                            }
+                        }
                     }
                 }
                 Set<Regional> regionalSet = new HashSet();
                 for (String regional : regionalArray) {
                     if (!regional.isEmpty()) {
-                        regionalSet.addAll(regionalDao.listar(regional.trim()));
+                        for (Regional r : regionais) {
+                            if (r.getNome().equals(regional.trim())) {
+                                regionalSet.add(r);
+                            }
+                        }
                     }
-                    System.out.format("Regional: %s - %d", regional, regionalSet.size());
                 }
                 Evento evt = new Evento(assunto, dataInicio, dataTermino, descricao, cal, regionalSet, interessadoSet, aprovado);
                 eventosImportados.add(evt);
