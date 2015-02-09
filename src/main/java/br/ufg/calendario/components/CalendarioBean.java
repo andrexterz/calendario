@@ -127,12 +127,17 @@ public class CalendarioBean implements Serializable {
     }
 
     public void handleArquivoListener(FileUploadEvent event) {
-        Arquivo arquivo = new Arquivo();
-        arquivo.setNomeArquivo(event.getFile().getFileName());
-        arquivo.setConteudo(event.getFile().getContents());
-        arquivo.setMimetype(event.getFile().getContentType());
-        calendario.setArquivo(arquivo);
-        System.out.format("arquivo: <%s> foi enviado\n", arquivo.getNomeArquivo());
+        if (calendario.getArquivo() != null) {
+            calendario.getArquivo().setNomeArquivo(event.getFile().getFileName());
+            calendario.getArquivo().setConteudo(event.getFile().getContents());
+            calendario.getArquivo().setMimetype(event.getFile().getContentType());
+        } else {
+            Arquivo arquivo = new Arquivo();
+            arquivo.setNomeArquivo(event.getFile().getFileName());
+            arquivo.setConteudo(event.getFile().getContents());
+            arquivo.setMimetype(event.getFile().getContentType());
+            calendario.setArquivo(arquivo);
+        }
     }
 
     public StreamedContent getArquivoCalendario() {

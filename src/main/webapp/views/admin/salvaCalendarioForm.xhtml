@@ -46,15 +46,17 @@
                                           invalidFileMessage="#{msg.arquivoInvalido}"
                                           invalidSizeMessage="#{msg.arquivoTamanhoInvalido}"
                                           process="@this"
+                                          update="arquivoLink arquivoNome"
                                           fileUploadListener="#{calendarioBean.handleArquivoListener}" />
                         </p:column>
                     </p:row>
                     <p:row>
-                         <p:column styleClass="alignRight">
+                        <p:column styleClass="alignRight">
                             <h:outputLabel value="#{msg.arquivo}" />
                         </p:column>
                         <p:column>
-                            <p:commandLink value="#{calendarioBean.calendario.arquivo.nomeArquivo}" ajax="false">
+                            <p:inputText id="arquivoNome" value="#{calendarioBean.calendario.arquivo.nomeArquivo}" />
+                            <p:commandLink id="arquivoLink" styleClass="arquivo" title="#{calendarioBean.calendario.arquivo.nomeArquivo}" ajax="false">
                                 <p:fileDownload value="#{calendarioBean.arquivoCalendario}" />
                             </p:commandLink>
                         </p:column>

@@ -912,6 +912,24 @@ col40 {
     background-image: url("#{resource['img/calendar.png']}");
 }
 
+.arquivo {
+    display: inline-block;
+    text-decoration: none;
+    text-indent: 24px;
+    color: #999;
+    width:20px;
+    height: 20px;
+    margin-left: 16px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-image: url("#{resource['img/pdf.png']}");
+}
+
+.arquivo:hover {
+    color: #0303ff;
+}
+
 @media(max-width: 767px) {
     .contentAdmin {
         margin-top: 114px;

@@ -1,7 +1,9 @@
 package br.ufg.calendario.components;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -18,11 +20,19 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = "session")
 public class LocaleBean implements Serializable {
-    public LocaleBean () {
-            locale = "pt_BR";
+
+    public LocaleBean() {
+        locales = new HashMap();
+        locale = PT_BR;
     }
+
     private String locale;
-    private static LocaleBean instance = null;
+    private static Map<String, Locale> locales;
+
+    private static final String PT_BR = "pt";
+    private static final String EN_US = "en";
+
+    private static LocaleBean instance;
 
     public String getLocale() {
         return locale;
@@ -41,8 +51,7 @@ public class LocaleBean implements Serializable {
 
     public static String getMessage(String msg) {
         ResourceBundle messages = ResourceBundle.getBundle(
-                "br.ufg.calendario.locale.messages",
-                new Locale(getInstance().getLocale()));
+                "br.ufg.calendario.locale.messages", new Locale(getInstance().getLocale()));
         return messages.getString(msg);
     }
 }
