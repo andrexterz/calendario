@@ -51,10 +51,10 @@ public class HomeBean implements Serializable {
 
     @Autowired(required = true)
     private transient CalendarioDao calendarioDao;
-    
+
     @Autowired(required = true)
     private transient RegionalDao regionalDao;
-    
+
     @Autowired(required = true)
     private transient InteressadoDao interessadoDao;
 
@@ -180,20 +180,25 @@ public class HomeBean implements Serializable {
     }
 
     public void setMesListener(ActionEvent event) throws ParseException {
-        int mes = Integer.parseInt((String) event.getComponent().getAttributes().get("mes"));
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.YEAR, calendario.getAno());
-        calendar.set(Calendar.MONTH, mes - 1);
-        int diaInicio = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
-        int diaTermino = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-M-d");
-        Date dataInicio = dateFormatter.parse(String.format("%04d-%02d-%02d", calendario.getAno(), mes, diaInicio));
-        Date dataTermino = dateFormatter.parse(String.format("%04d-%02d-%02d", calendario.getAno(), mes, diaTermino));
-        setBuscaDataInicio(dataInicio);
-        setBuscaDataTermino(dataTermino);
-        System.out.format("%02d/%02d/%04d - %02d/%02d/%04d\n", diaInicio, mes, calendario.getAno(), diaTermino, mes, calendario.getAno());
-        System.out.format("periodo: %s a %s\n", dateFormatter.format(dataInicio), dateFormatter.format(dataTermino));
+        try {
+            int mes = Integer.parseInt((String) event.getComponent().getAttributes().get("mes"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.clear();
+            calendar.set(Calendar.YEAR, calendario.getAno());
+            calendar.set(Calendar.MONTH, mes - 1);
+            int diaInicio = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+            int diaTermino = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-M-d");
+            Date dataInicio = dateFormatter.parse(String.format("%04d-%02d-%02d", calendario.getAno(), mes, diaInicio));
+            Date dataTermino = dateFormatter.parse(String.format("%04d-%02d-%02d", calendario.getAno(), mes, diaTermino));
+            setBuscaDataInicio(dataInicio);
+            setBuscaDataTermino(dataTermino);
+            System.out.format("%02d/%02d/%04d - %02d/%02d/%04d\n", diaInicio, mes, calendario.getAno(), diaTermino, mes, calendario.getAno());
+            System.out.format("periodo: %s a %s\n", dateFormatter.format(dataInicio), dateFormatter.format(dataTermino));
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
+
     }
 
     public void setRegionalListener(ActionEvent event) {
@@ -205,13 +210,12 @@ public class HomeBean implements Serializable {
         Long interessadoId = (Long) event.getComponent().getAttributes().get("interessado");
         setBuscaInteressado(interessadoDao.buscarPorId(interessadoId));
     }
-    
+
     public void setAssuntoListener(ActionEvent event) {
         String assunto = (String) event.getComponent().getAttributes().get("assunto");
         setTermoBusca(assunto);
     }
-    
-    
+
     public void handleArquivoListener(FileUploadEvent event) {
         Arquivo arquivo = new Arquivo();
         arquivo.setNomeArquivo(event.getFile().getFileName());
@@ -363,8 +367,13 @@ public class HomeBean implements Serializable {
     public void setPageAccessibility(boolean pageAccessibility) {
         this.pageAccessibility = pageAccessibility;
     }
-    
+
     public List<String> getAssunto() {
-        return eventoDao.listarAssunto(calendario);
+        try {
+            return eventoDao.listarAssunto(calendario);
+        } catch (Exception e) {
+            System.out.println("error:" + e.getMessage());
+        }
+        return null;
     }
 }

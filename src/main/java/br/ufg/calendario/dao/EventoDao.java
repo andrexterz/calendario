@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.apache.lucene.search.BooleanQuery;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
