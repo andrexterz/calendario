@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog id="alteraUsuario" widgetVar="alteraUsuario" appendTo="@(body)" modal="true" hideEffect="puff"
+              closeOnEscape="true" resizable="false" width="420" position="center">
+        <f:facet name="header">
+            <h:outputText value="#{msg.alterar} #{msg.senha}" />
+        </f:facet>
+        <h:form id="alteraUsuarioForm">
+            <f:validateBean disabled="true">
+                <p:panel id="panelUsuario">
+                    <p:panelGrid styleClass="formGrid">
+                        <p:row>
+                            <p:column styleClass="alignRight col25">
+                                <p:outputLabel value="#{msg.login}" />
+                            </p:column>
+                            <p:column colspan="2" styleClass="col70">
+                                <h:outputText value="#{usuarioBean.sessionUsuario.login}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="alignRight">
+                                <p:outputLabel value="#{msg.usuario}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <h:outputText value="#{usuarioBean.sessionUsuario.nome}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="alignRight">
+                                <p:outputLabel value="#{msg.email}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <h:outputText value="#{usuarioBean.sessionUsuario.email}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="alignRight">
+                                <p:outputLabel for="senhaUsuario" value="#{msg.senha}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:password id="senhaUsuario"  styleClass="force100" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="alignRight">
+                                <p:outputLabel for="senhaUsuarioA" value="#{msg.cadastrarSenha}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:password id="senhaUsuarioA" styleClass="force100" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="alignRight">
+                                <p:outputLabel for="senhaUsuarioB" value="#{msg.redigitarSenha}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:password id="senhaUsuarioB" styleClass="force100" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="alignRight">
+                                <p:outputLabel value="#{msg.ativo}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <h:outputText styleClass="ui-icon ui-icon-check" value="#{usuarioBean.sessionUsuario.ativo}" rendered="#{usuarioBean.sessionUsuario.ativo}" />
+                                <h:outputText styleClass="ui-icon ui-icon-close" value="#{usuarioBean.sessionUsuario.ativo}" rendered="#{!usuarioBean.sessionUsuario.ativo}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:dataTable id="perfilUsuario" emptyMessage="#{msg.vazio}"
+                                             value="#{usuarioBean.sessionUsuario.perfil}" var="perfil">
+                                    <p:column headerText="#{msg.perfis}" styleClass="col100">
+                                        <h:outputText value="#{perfil}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3">
+                                <hr class="separator" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3" styleClass="alignCenter dialogButtons">
+                                <p:commandButton value="#{msg.salvar}"
+                                                 icon="ui-icon-disk"
+                                                 title="#{msg.salvar}"
+                                                 oncomplete="dialogHandler('alteraUsuario',xhr, status, args)"
+                                                 actionListener="#{usuarioBean.alterar}"
+                                                 update=":content :alteraUsuarioForm:panelUsuario"
+                                                 process="@form"  />
+
+                                <p:commandButton value="#{msg.cancelar}"
+                                                 icon="ui-icon-close"
+                                                 title="#{msg.cancelar}"
+                                                 process="@none"
+                                                 oncomplete="PF('alteraUsuario').hide()" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </f:validateBean>
+        </h:form>
+    </p:dialog>
+</ui:composition>

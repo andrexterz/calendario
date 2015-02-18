@@ -42,7 +42,8 @@
 
                 </p:toolbar>
                 <p:dataTable id="regionaisTable" value="#{regionalBean.regionais}" var="regional" rows="10"
-                             paginator="true" paginatorPosition="top" lazy="true" selectionMode="single" selection="#{regionalBean.itemSelecionado}">
+                             paginator="true" paginatorPosition="top" lazy="true" selectionMode="single"
+                             emptyMessage="#{msg.vazio}" selection="#{regionalBean.itemSelecionado}">
                     <p:ajax event="rowSelect" update=":regionaisForm:toolbar" />
                     <p:column headerText="#{msg.codigo}" styleClass="col30">
                         #{regional.codigo}

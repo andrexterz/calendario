@@ -127,8 +127,8 @@ public class UsuarioBean implements Serializable {
             if (!senhaCompativel) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("usuarioOuSenhaInvalidos"));
                 context.addMessage(null, msg);
-            } 
-            if (senhaCompativel  && usuarioAtivo) {
+            }
+            if (senhaCompativel && usuarioAtivo) {
                 autenticado = true;
                 return "/views/admin/usuarios?faces-redirect=true";
             }
@@ -186,6 +186,45 @@ public class UsuarioBean implements Serializable {
             }
         }
         return "/views/cadastraUsuario";
+    }
+
+    public void alterar() throws NoSuchAlgorithmException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage msg;
+        Map<String, String> cadastroParameters = context.getExternalContext().getRequestParameterMap();
+        boolean saveStatus = false;
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        String senha = cadastroParameters.get("alteraUsuarioForm:senhaUsuario");
+        String senhaA = cadastroParameters.get("alteraUsuarioForm:senhaUsuarioA");
+        String senhaB = cadastroParameters.get("alteraUsuarioForm:senhaUsuarioB");
+        messageDigest.update(senha.getBytes());
+        senha = new BigInteger(1, messageDigest.digest()).toString(16);
+        Set<ConstraintViolation<Usuario>> errors = validator.validate(sessionUsuario);
+        if (errors.isEmpty()) {
+            if (getSessionUsuario().getSenha().equals(senha)) {
+                if ((!senhaA.isEmpty() && !senhaB.isEmpty()) && senhaA.equals(senhaB)) {
+                    messageDigest.update(senhaA.getBytes());
+                    senha = new BigInteger(1, messageDigest.digest()).toString(16);
+                    sessionUsuario.setSenha(senha);
+                    usuarioDao.atualizar(sessionUsuario);
+                    saveStatus = true;
+                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("senhaAlterada"));
+                    RequestContext.getCurrentInstance().reset("alteraUsuarioForm:panelUsuario");
+                } else {
+                    msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("senhaDivergente"));
+                }
+            } else {
+                msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", LocaleBean.getMessage("senhaInvalida"));
+            }
+            context.addMessage(null, msg);
+        } else {
+            for (ConstraintViolation<Usuario> violations : errors) {
+                String errorMessage = String.format("%s: %s", violations.getPropertyPath().toString(), violations.getMessage());
+                msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
+                context.addMessage(null, msg);
+            }
+        }
+        RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 
     public void adicionar() {

@@ -13,8 +13,11 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -36,6 +39,9 @@ public class CalendarioBean implements Serializable {
 
     @Autowired
     private transient CalendarioDao calendarioDao;
+
+    @Autowired
+    private transient Validator validator;
 
     private Calendario calendario;
     private Calendario itemSelecionado;
@@ -94,19 +100,30 @@ public class CalendarioBean implements Serializable {
     }
 
     public void salvar() {
+        FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage msg;
-        boolean saveStatus;
-        if (calendario.getId() == null) {
-            saveStatus = calendarioDao.adicionar(calendario);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
+        boolean saveStatus = false;
+        Set<ConstraintViolation<Calendario>> errors = validator.validate(calendario);
+        if (errors.isEmpty()) {
+            if (calendario.getId() == null) {
+                saveStatus = calendarioDao.adicionar(calendario);
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemSalvo"));
+            } else {
+                saveStatus = calendarioDao.atualizar(calendario);
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
+            }
+            if (!saveStatus) {
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
+            }
+            context.addMessage(null, msg);
         } else {
-            saveStatus = calendarioDao.atualizar(calendario);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("itemAtualizado"));
+            for (ConstraintViolation<Calendario> violations : errors) {
+                String errorMessage = String.format("%s: %s", violations.getPropertyPath().toString(), violations.getMessage());
+                msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
+                context.addMessage(null, msg);
+            }
         }
-        if (!saveStatus) {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("erroSalvar"));
-        }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+
         RequestContext.getCurrentInstance().addCallbackParam("resultado", saveStatus);
     }
 

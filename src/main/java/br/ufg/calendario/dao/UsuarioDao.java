@@ -88,7 +88,11 @@ public class UsuarioDao {
         Criteria criteria = session.createCriteria(Usuario.class);
         criteria.add(Restrictions.eq("login", login));
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        return (Usuario) criteria.uniqueResult();
+        Usuario usuario = (Usuario) criteria.uniqueResult();
+        if (usuario != null) {
+             Hibernate.initialize(usuario.getPerfil());
+        }
+        return usuario;
     }
 
     @Transactional(readOnly = true)

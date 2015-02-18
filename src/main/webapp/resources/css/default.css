@@ -831,10 +831,15 @@ col40 {
     vertical-align: text-bottom;
 }
 
-.logout {
+.userInfo {
     float: right;
-    top: 8px;
-    right: 8px;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.userInfo button {
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 @media(max-width: 767px) {

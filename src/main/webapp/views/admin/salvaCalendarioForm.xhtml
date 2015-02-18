@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog id="salvaCalendario" widgetVar="salvaCalendario" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="640" position="center"
+              closeOnEscape="true" resizable="false" width="740" position="center"
               header="#{msg.adicionar} #{msg.calendario}">
         <h:form>
             <f:validateBean disabled="true">
@@ -15,7 +15,7 @@
                             <p:outputLabel value="#{msg.calendario}" />
                         </p:column>
                         <p:column>
-                            <p:inputText value="#{calendarioBean.calendario.ano}" onkeypress="return number(event);" />
+                            <p:inputText value="#{calendarioBean.calendario.ano}" required="true" onkeypress="return number(event);" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -46,7 +46,7 @@
                                           invalidFileMessage="#{msg.arquivoInvalido}"
                                           invalidSizeMessage="#{msg.arquivoTamanhoInvalido}"
                                           process="@this"
-                                          update="arquivoLink arquivoNome"
+                                          update="arquivo"
                                           fileUploadListener="#{calendarioBean.handleArquivoListener}" />
                         </p:column>
                     </p:row>
@@ -55,10 +55,15 @@
                             <h:outputLabel value="#{msg.arquivo}" />
                         </p:column>
                         <p:column>
-                            <p:inputText id="arquivoNome" value="#{calendarioBean.calendario.arquivo.nomeArquivo}" />
-                            <p:commandLink id="arquivoLink" styleClass="arquivo" title="#{calendarioBean.calendario.arquivo.nomeArquivo}" ajax="false">
-                                <p:fileDownload value="#{calendarioBean.arquivoCalendario}" />
-                            </p:commandLink>
+                            <h:panelGroup id="arquivo" layout="block" styleClass="formGrid">
+                                <p:inputText rendered="#{calendarioBean.calendario.arquivo ne null}" value="#{calendarioBean.calendario.arquivo.nomeArquivo}" />
+                                <p:commandLink styleClass="arquivo"
+                                               title="#{calendarioBean.calendario.arquivo.nomeArquivo}"
+                                               ajax="false" rendered="#{calendarioBean.calendario.arquivo ne null}">
+                                    <p:fileDownload value="#{calendarioBean.arquivoCalendario}" />
+                                </p:commandLink>
+                            </h:panelGroup>
+
                         </p:column>
                     </p:row>
                     <p:row>
@@ -79,6 +84,7 @@
                             <p:commandButton value="#{msg.cancelar}"
                                              icon="ui-icon-close"
                                              title="#{msg.cancelar}"
+                                             process="@none"
                                              oncomplete="PF('salvaCalendario').hide()" />
                         </p:column>
                     </p:row>

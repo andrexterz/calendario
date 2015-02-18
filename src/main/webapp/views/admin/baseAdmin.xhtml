@@ -17,13 +17,17 @@
             <h:outputStylesheet library="css" name="default.css" />
         </h:head>
         <h:body>
+            <ui:include src="alteraUsuarioForm.xhtml" />
             <p:growl autoUpdate="true" globalOnly="true" showDetail="true" life="3000" />
             <h:panelGroup layout="block" styleClass="adminTopMenu">
                 <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logoAdmin" />
                 <div  class="appTitleAdmin">
                     <h:outputText value="#{msg.appNome}" />
                 </div>
-                <p:commandButton action="#{usuarioBean.encerraSessao}" value="#{msg.sair}" styleClass="logout" />
+                <div class="userInfo">
+                    <p:commandButton value="#{usuarioBean.sessionUsuario.login}" icon="ui-icon-gear" oncomplete="PF('alteraUsuario').show()" />
+                    <p:commandButton action="#{usuarioBean.encerraSessao}" value="#{msg.sair}" icon=" ui-icon-arrowthickstop-1-s" />
+                </div>
                 <h:form>
                     <p:commandLink styleClass="menuItem userIcon" title="#{msg.usuarios}" action="usuarios?faces-redirect=true" />                       
                     <p:commandLink styleClass="menuItem calendarIcon" title="#{msg.calendarios}" action="calendarios?faces-redirect=true" />

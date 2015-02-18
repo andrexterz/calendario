@@ -16,6 +16,7 @@
                         <p:commandButton icon="ui-icon-document"
                                          value="#{msg.adicionar}"
                                          title="#{msg.adicionar}"
+                                         disabled="#{!usuarioBean.sessionUsuario.administrador}"
                                          oncomplete="PF('salvaUsuario').show()"
                                          update=":salvaUsuario"
                                          actionListener="#{usuarioBean.adicionar}" />
@@ -23,7 +24,7 @@
                         <p:commandButton icon="ui-icon-pencil"
                                          value="#{msg.editar}"
                                          title="#{msg.editar}"
-                                         disabled="#{usuarioBean.itemSelecionado eq null}"
+                                         disabled="#{usuarioBean.itemSelecionado eq null or !usuarioBean.sessionUsuario.administrador}"
                                          oncomplete="PF('salvaUsuario').show()"
                                          update=":salvaUsuario"
                                          actionListener="#{usuarioBean.editar}" />
@@ -31,7 +32,7 @@
                         <p:commandButton icon="ui-icon-trash"
                                          value="#{msg.excluir}"
                                          title="#{msg.excluir}"
-                                         disabled="#{usuarioBean.itemSelecionado eq null}"
+                                         disabled="#{usuarioBean.itemSelecionado eq null or !usuarioBean.sessionUsuario.administrador}"
                                          update=":excluiUsuario"
                                          oncomplete="PF('excluiUsuario').show()" />                        
                     </f:facet>

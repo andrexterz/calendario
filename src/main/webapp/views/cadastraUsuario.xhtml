@@ -16,44 +16,44 @@
                     <div class="cadastroUsuarioTitle">#{msg.cadastroUsuarios}</div>
                     <p:panelGrid styleClass="formGrid">
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="nomeUsuario" value="#{msg.nome}" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="nomeUsuario" />
+                                <p:inputText id="nomeUsuario" required="true" />
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="loginUsuario" value="#{msg.login}" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="loginUsuario" />
+                                <p:inputText id="loginUsuario" required="true" />
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="emailUsuario" value="#{msg.email}" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="emailUsuario" />
+                                <p:inputText id="emailUsuario" required="true" />
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="senhaUsuarioA" value="#{msg.cadastrarSenha}" />
 
                             </p:column>
                             <p:column>
-                                <p:password id="senhaUsuarioA" />
+                                <p:password id="senhaUsuarioA" required="true" />
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="senhaUsuarioB" value="#{msg.redigitarSenha}" />
                             </p:column>
                             <p:column>
-                                <p:password id="senhaUsuarioB" />
+                                <p:password id="senhaUsuarioB" required="true" />
                             </p:column>
                         </p:row>
                         <p:row>

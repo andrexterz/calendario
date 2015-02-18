@@ -16,19 +16,19 @@
                     <div class="cadastroUsuarioTitle">#{msg.login}</div>
                     <p:panelGrid styleClass="formGrid">
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="login" value="#{msg.login}" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="login" styleClass="force100" />
+                                <p:inputText id="login" required="true" styleClass="force100" />
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="alignRight">
                                 <p:outputLabel for="senha" value="#{msg.senha}" />
                             </p:column>
                             <p:column>
-                                <p:password id="senha" styleClass="force100" />
+                                <p:password id="senha" required="true" styleClass="force100" />
                             </p:column>
                         </p:row>
                         <p:row>
