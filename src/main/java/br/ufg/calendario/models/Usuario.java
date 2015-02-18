@@ -5,6 +5,7 @@
  */
 package br.ufg.calendario.models;
 
+import br.ufg.calendario.components.LocaleBean;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 
@@ -48,6 +50,7 @@ public class Usuario extends Base {
     
     @NotNull
     @Size(min = 3, max= 16)
+    @Pattern(regexp = "(^[^\\s^\\d]\\w+)$", message = "{loginInvalido}")
     @Column(unique = true)
     private String login;
     
