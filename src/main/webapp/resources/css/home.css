@@ -11,8 +11,9 @@ and open the template in the editor.
 body {
     font-family: Lucida Grande,Geneva,Helvetica,sans-serif;
     margin: 0;
-    background-color: #edf3f6;
+    background-color: #555;
     font-size: 1em;
+    align-content: center;
 }
 
 .horizontalRule {
@@ -32,10 +33,13 @@ body {
 /********************************** home **************************************/
 .container {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    bottom: 2%;
+    background: #fff;
+    border: 2px solid #00588f;
+    border-radius: 4px;
 }
 
 .innerTitleContainer {
@@ -50,6 +54,10 @@ body {
     background-color: #00588f;
 }
 
+.headerRule {
+    background-color: #fff;
+}
+
 .instituicaoTitle {
     font-size: 1.1em;
     color: #fff;
@@ -58,7 +66,7 @@ body {
 .calendarTitle {
     display: inline-block;
     color: #FFF;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
     text-indent: 8px;
     text-align: left;
@@ -69,20 +77,25 @@ body {
 
 .homeLinks {
     display: block;
-    width: 100%;
+    width: 100%; 
 }
 
-.homeLinks a {
+.homeLinks ul a {
     color: #fff;
     text-decoration: none;
+    background-color: rgba(167, 225, 199, 0.5);
+    padding: 6px;
+    border-radius: 4px;
+    transition: all 250ms ease-in-out;
 }
 
-.homeLinks a:hover {
-    color: #ffff00;
+.homeLinks ul a:hover {
+    color: #93278f;
+    background-color: rgba(167, 225, 199, 1);
 }
 
 .homeLinks ul {
-    margin: 0;
+    margin: 6px 0 0 0;
     padding-left: 8px;
     text-transform: capitalize;
     display: inline-block;
@@ -93,10 +106,6 @@ body {
     list-style-type: none;
 }
 
-.homeLinks ul li:nth-child(even) {
-    margin-left: 10px;
-}
-
 .loginLink {
     float: right;
     background-image: url("#{resource['img/settings-mini.png']}");
@@ -104,106 +113,117 @@ body {
     margin-right: 8px;
     width: 16px;
     height: 16px;
+    padding: 1px;
+    opacity: 0.5;
+    transition: all 0.25s ease-in-out;
 }
 
-/********************************** forms *************************************/
-.formContainer {
-    text-align: center;
-}
-
-.monthContainer {
-    display: inline-block;
-    width: 99%;
-    background: transparent;
-    text-align: center;
-}
-
-.monthGrid {
-    width: 98%;
-    border: 0;
-    border-collapse: collapse;
-    margin: 1%;
-}
-
-.monthGrid td {
-    width: 25%;
-    text-align: center;
-}
-
-.monthGrid input {
-    width: 98%;
-    padding: 4% 2%;
-    margin: 2px 0 2px 0;
-    border: 1px solid #999;
-    color: #555;
-    background-color: #fff;
-}
-
-.monthGrid input:hover {
-    color: #000;
-    background-color: #d3f2e4;
-    cursor: pointer;
-}
-
-.boxContainer {
-    display: inline-block;
-    width: 32%;
-    height: 20%;
-    margin: 8px 3px;
-    background: transparent;
-}
-
-.scroller {
-    overflow-y: auto;
-    width: 99%;
-    height: 200px;
-    text-align: left;
-    margin-left: 1px;
-    border: 1px solid #ccc;
-}
-
-.scroller a {
-    display: block;
-    width: 100%;
-    text-decoration: none;
-    color: #555;
-}
-
-.scroller a:hover {
-    color: #000;
-}
-
-.boxHeader {
-    margin: 8px 2px 0 2px;
-    text-transform: capitalize;
-    font-weight: normal;
-    display: inline-block;
-    text-align: left;
-    width: 100%;
-    text-indent: 8px;
+.loginLink:hover {
+    opacity: 1.0;
 }
 
 
-.listSelector {
+/******************************** contents ************************************/
+#content {
+    position: absolute;
+    top: 140px;
+    left: 10px;
+    right: 10px;
+    bottom: 106px;
+    background-color: #575757;
+    overflow: hidden;
+}
+/********************************** tabs **************************************/
+.tabGroup {
     display: block;
     width: 100%;
     height: 100%;
+    background: #fff;
 }
 
+.tabGroup > input[type="radio"] {
+    display: none;
+}
+
+.tabGroup > input[type="radio"] + label {
+    display: inline-block;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0;
+    padding: 8px 8px;
+    background-color:#b3b3b3;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    height: 20px;
+}
+
+.tabGroup > input[type="radio"]:checked + label {
+    background: #00588f;
+    border-bottom: 0;
+    margin-bottom: -1px;
+    transition: all 300ms ease-in-out;
+}
+
+.tab {
+    display: none;
+    height: 100%;
+    overflow: hidden;
+    transition: all 500ms ease-in-out;
+}
+
+.panelTitleCalendar {
+    width: 100%;
+    height: 36px;
+    padding-top: 12px;
+    color: aquamarine;
+    background-color: #00588f;
+    font-weight: bold;
+    font-size: 16pt;
+    text-indent: 12px;
+}
+
+.panelInfoCalendar {
+    position: absolute;
+    top: 34px;
+    bottom: 0;
+    left: 0;
+    right: 300px;
+    color: #fff;
+    background: #5b5b5b;
+    text-indent: 12px;
+}
+
+.panelInfoCalendar p {
+    font-size: 1em;
+     line-height: 0.8em;
+}
+
+.calendarSelector {
+    position: absolute;
+    top: 34px;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+}
 
 /**************************************** footer ******************************/
 .footer {
-    display: block;
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    height: 200px;
+    height: 96px;
     background: #00588f;
     text-align: center;
+    border-top: 1px solid #fff;
 }
 
 .footer img {
     display: block;
     width: 72px;
     height: auto;
+    float: left;
+    position: relative;
+    top: -5px;
 }
 
 .footer a {

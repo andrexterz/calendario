@@ -35,11 +35,6 @@
                                          update=":excluiRegional"
                                          oncomplete="PF('excluiRegional').show()" />                        
                     </f:facet>
-                    <f:facet name="right">
-                        <h:inputText id="searchRegional" styleClass="inputSearch"/>
-                        <p:watermark for="searchRegional" value="#{msg.buscar}" />
-                    </f:facet>
-
                 </p:toolbar>
                 <p:dataTable id="regionaisTable" value="#{regionalBean.regionais}" var="regional" rows="10"
                              paginator="true" paginatorPosition="top" lazy="true" selectionMode="single"

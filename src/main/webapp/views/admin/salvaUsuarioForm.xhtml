@@ -18,7 +18,15 @@
                             <p:outputLabel value="#{msg.login}" />
                         </p:column>
                         <p:column colspan="2" styleClass="col70">
-                            <p:inputText value="#{usuarioBean.usuario.login}" readonly="#{usuarioBean.usuario.id ne null}" styleClass="force100" />
+                            <p:inputText value="#{usuarioBean.usuario.login}" readonly="#{usuarioBean.usuario.id ne null}" required="true" styleClass="force100" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="alignRight col25">
+                            <p:outputLabel value="#{msg.senha}" />
+                        </p:column>
+                        <p:column colspan="2" styleClass="col70">
+                            <p:inputText value="#{usuarioBean.usuario.senha}" readonly="#{usuarioBean.usuario.id ne null}" required="true" styleClass="force100" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -26,7 +34,7 @@
                             <p:outputLabel value="#{msg.usuario}" />
                         </p:column>
                         <p:column colspan="2">
-                            <p:inputText value="#{usuarioBean.usuario.nome}" styleClass="force100" />
+                            <p:inputText value="#{usuarioBean.usuario.nome}" required="true" styleClass="force100" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -34,7 +42,7 @@
                             <p:outputLabel value="#{msg.email}" />
                         </p:column>
                         <p:column colspan="2">
-                            <p:inputText value="#{usuarioBean.usuario.email}" styleClass="force100" />
+                            <p:inputText value="#{usuarioBean.usuario.email}" required="true" styleClass="force100" />
                         </p:column>
                     </p:row>
                     <p:row>

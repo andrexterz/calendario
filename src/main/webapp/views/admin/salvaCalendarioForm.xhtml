@@ -56,7 +56,7 @@
                         </p:column>
                         <p:column>
                             <h:panelGroup id="arquivo" layout="block" styleClass="formGrid">
-                                <p:inputText rendered="#{calendarioBean.calendario.arquivo ne null}" value="#{calendarioBean.calendario.arquivo.nomeArquivo}" />
+                                <p:inputText rendered="#{calendarioBean.calendario.arquivo ne null}" value="#{calendarioBean.calendario.arquivo.titulo}" />
                                 <p:commandLink styleClass="arquivo"
                                                title="#{calendarioBean.calendario.arquivo.nomeArquivo}"
                                                ajax="false" rendered="#{calendarioBean.calendario.arquivo ne null}">

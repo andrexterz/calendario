@@ -7,6 +7,7 @@ package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.PerfilEnum;
 import br.ufg.calendario.models.Usuario;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -40,6 +41,7 @@ public class UsuarioDao {
         Session session = sessionFactory.getCurrentSession();
         try {
             session.clear();
+            usuario.setDataCriacao(Calendar.getInstance().getTime());
             session.save(usuario);
             return true;
         } catch (HibernateException e) {
@@ -54,6 +56,7 @@ public class UsuarioDao {
         Session session = sessionFactory.getCurrentSession();
         try {
             session.clear();
+            usuario.setDataModificacao(Calendar.getInstance().getTime());
             session.update(usuario);
             return true;
         } catch (HibernateException e) {

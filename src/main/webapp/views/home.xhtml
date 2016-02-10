@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <f:view locale="#{localeBean.locale}">
         <h:head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,10 +14,14 @@
                 <h:outputText value="#{msg.appNome}" />
             </title>
             <h:outputScript library="js" name="locale_pt.js" />
+            <h:outputScript library="js" name="home.js" />
             <h:outputStylesheet library="css" name="home.css" />
             <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="home-accessibility.css" />
         </h:head>
         <h:body>
+            <f:facet name="last">
+                <h:outputStylesheet library="css" name="customCalendar.css" />
+            </f:facet>
             <h:panelGroup layout="block" id="container" styleClass="container">
                 <div id="homeContainer" class="homeHeader">
                     <div class="innerTitleContainer">
@@ -24,14 +29,14 @@
                         <h:outputText value="#{msg.instituicao}" styleClass="instituicaoTitle" />
                     </div>
                     <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}" styleClass="calendarTitle" />
-                    <hr class="horizontalRule" />
+                    <hr class="horizontalRule headerRule" />
                     <h:form styleClass="homeLinks">
                         <ul>
                             <li>
-                                <h:commandLink value="#{msg.eventos}" action="eventos?faces-redirect=true" />
+                                <p:commandLink value="#{msg.eventos}" action="eventos?faces-redirect=true" />
                             </li>
                             <li>
-                                <p:commandLink value="#{homeBean.calendario.arquivo.nomeArquivo}" ajax="false">
+                                <p:commandLink value="#{homeBean.calendario.arquivo.titulo}" title="#{homeBean.calendario.arquivo.nomeArquivo}" ajax="false">
                                     <p:fileDownload value="#{homeBean.arquivoCalendario}" />
                                 </p:commandLink>
                             </li>
@@ -39,87 +44,39 @@
                         <h:link title="#{msg.login}" outcome="login" styleClass="loginLink" />
                     </h:form>
                 </div>
-                <div class="monthContainer">
-                    <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.mes}" /></h3>  
-                    <h:form>
-                        <h:panelGrid styleClass="monthGrid" columns="4">
-                            <h:commandButton value="#{msg.janeiro}" action="eventos?faces-redirect=true" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="1" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.fevereiro}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="2" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.marco}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="3" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.abril}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="4" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.maio}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="5" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.junho}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="6" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.julho}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="7" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.agosto}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="8" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.setembro}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="9" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.outubro}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="10" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.novembro}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="11" />
-                            </h:commandButton>
-                            <h:commandButton value="#{msg.dezembro}" action="eventos" actionListener="#{homeBean.setMesListener}">
-                                <f:attribute name="mes" value="12" />
-                            </h:commandButton>
-                        </h:panelGrid>
-                    </h:form>
-                </div>
-                <h:form styleClass="formContainer">
-                    <div class="boxContainer">
-                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.regional}" /></h3>
-                        <div class="scroller">
-                            <h:dataTable var="regional" value="#{regionalDao.listar()}" styleClass="listSelector">
-                                <h:column>
-                                    <h:commandLink value="#{regional.nome}" action="eventos" actionListener="#{homeBean.setRegionalListener}">
-                                        <f:attribute name="regional" value="#{regional.id}" />
-                                    </h:commandLink>
-                                </h:column>
-                            </h:dataTable>
+                <ui:insert name="content">
+                    <h:panelGroup id="content" layout="block">
+                        <div class="tabGroup">
+                            <input type="radio" value="t1" onclick="activateTab(this)" name="tabMenu" id="selectMenu1" checked="checked" />
+                            <label for="selectMenu1">#{msg.calendario}</label>
+
+                            <input type="radio" value="t2" onclick="activateTab(this)" name="tabMenu" id="selectMenu2" />
+                            <label for="selectMenu2">#{msg.regionais}</label>
+
+                            <input type="radio" value="t3" onclick="activateTab(this)" name="tabMenu" id="selectMenu3" />
+                            <label for="selectMenu3">#{msg.interessados}</label>
+
+                            <input type="radio" value="t4" onclick="activateTab(this)" name="tabMenu" id="selectMenu4" />
+                            <label for="selectMenu4">#{msg.assunto}</label>
+
+                            <div id="t1" class="tab" style="display: block;">
+                                <div class="panelInfoCalendar">
+                                    <div class="panelTitleCalendar">dd de M de aaaa</div>
+                                    <p>Título do evento</p>
+                                    <p>início: dd/mm/aaaa</p>
+                                    <p>término: dd/mm/aaaa</p>
+                                    <p>descrição do evento</p>
+                                </div>
+                                <div class="calendarSelector">
+                                    <p:calendar mode="inline" />
+                                </div>
+                            </div>
+                            <div id="t2" class="tab">Tab 2 content</div>
+                            <div id="t3" class="tab">Tab 3 content</div>
+                            <div id="t4" class="tab">Tab 4 content</div>
                         </div>
-                    </div>
-                    <div class="boxContainer">
-                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.interessado}" /></h3>
-                        <div class="scroller">
-                            <h:dataTable var="interessado" value="#{interessadoDao.listar()}" styleClass="listSelector">
-                                <h:column>
-                                    <h:commandLink value="#{interessado.nome}" action="eventos" actionListener="#{homeBean.setInteressadoListener}">
-                                        <f:attribute name="interessado" value="#{interessado.id}" />
-                                    </h:commandLink>
-                                </h:column>
-                            </h:dataTable>
-                        </div>
-                    </div>
-                    <div class="boxContainer">
-                        <h3 class="boxHeader"><h:outputText value="#{msg.eventos} #{msg.prepPor} #{msg.assunto}" /></h3>
-                        <div class="scroller">
-                            <h:dataTable var="assunto" value="#{homeBean.assunto}" styleClass="listSelector">
-                                <h:column>
-                                    <h:commandLink value="#{assunto}" action="eventos" actionListener="#{homeBean.setAssuntoListener}">
-                                        <f:attribute name="assunto" value="#{assunto}" />
-                                    </h:commandLink>
-                                </h:column>
-                            </h:dataTable>
-                        </div>
-                    </div>
-                </h:form>
+                    </h:panelGroup>
+                </ui:insert>
                 <div class="footer">
                     <table class="footerGrid">
                         <tr>
@@ -129,7 +86,7 @@
                                 <p>Campus Samambaia - Prédio da Reitoria</p>
                                 <p>CEP 74690-900</p>
                                 <p>Goiânia - Goiás - Brasil</p>
-                                <h4> #{msg.appNome} &copy;</h4>
+                                <h4 title="copyright: ufg. créditos: Andre Luiz F. R. Barca"> #{msg.appNome} &copy;</h4>
                             </td>
                         </tr>
                     </table>

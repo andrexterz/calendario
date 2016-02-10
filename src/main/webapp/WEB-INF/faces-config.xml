@@ -12,6 +12,11 @@
             <base-name>br.ufg.calendario.locale.messages</base-name>
             <var>msg</var>
         </resource-bundle>
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+            <supported-locale>pt_BR</supported-locale>
+            <supported-locale>en_US</supported-locale>
+        </locale-config>
     </application>
     <application>
         <navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>

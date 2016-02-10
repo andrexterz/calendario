@@ -7,68 +7,51 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="base.xhtml">
         <ui:define name="title">#{msg.appNome}</ui:define>
-        <ui:define name="menuTop">
-            <h:panelGroup id="menuTop" styleClass="navbar">
-                <h:panelGroup layout="block" styleClass="appTopbar">
-                    <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
-                    <h:panelGroup styleClass="appTitle">
-                        <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
-                    </h:panelGroup>
-                    <div class="toolbarLinks">
-                        <h:link outcome="home"
-                                styleClass="toolbarIcons homeIcon"
-                                title="#{msg.home}" />
-                        <p:commandLink title="#{msg.acessibilidade}"
-                                       actionListener="#{homeBean.switchPageStyleAccessibility}"
-                                       action="eventos?faces-redirect=true"
-                                       styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
-                    </div>
-                </h:panelGroup>
-                <p:toolbar id="selectedFilters" styleClass="toolbar">
-                    <f:facet name="left">
-                        <p:commandLink styleClass="mini-menu menuIconSearch" value="#{msg.filtrar}" onclick="javascript:toggleMenu();" /> 
-                        <span class="ui-separator">
-                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                        </span>
-                        <p:commandLink title="#{msg.termo}: #{homeBean.termoBusca}"
-                                       update=":selectedFilters :filterForm :eventoPanel"
-                                       disabled="#{empty homeBean.termoBusca}"
-                                       styleClass="selectedItemIcon textFilterIcon">
-                            <f:setPropertyActionListener target="#{homeBean.termoBusca}" value="#{null}" />
-                        </p:commandLink>
-                        <p:commandLink title="#{msg.interessado}: #{homeBean.buscaInteressado.nome}"
-                                       update=":selectedFilters :filterForm :eventoPanel"
-                                       disabled="#{homeBean.buscaInteressado eq null}"
-                                       styleClass="selectedItemIcon interessadoFilterIcon">
-                            <f:setPropertyActionListener target="#{homeBean.buscaInteressado}" value="#{null}" />
-                        </p:commandLink>
-                        <p:commandLink title="#{msg.periodo}"
-                                       actionListener="#{homeBean.resetDateBusca}"
-                                       update=":selectedFilters :filterForm :eventoPanel"
-                                       disabled="#{!homeBean.dateBuscaValid}"
-                                       styleClass="selectedItemIcon periodoFilterIcon" />
-                        <p:commandLink title="#{msg.regional}: #{homeBean.buscaRegional.nome}"
-                                       disabled="#{homeBean.buscaRegional eq null}"
-                                       update=":selectedFilters :filterForm :eventoPanel"
-                                       styleClass="selectedItemIcon regionalFilterIcon">
-                            <f:setPropertyActionListener target="#{homeBean.buscaRegional}" value="#{null}" />
-                        </p:commandLink>
-                        <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
-                    </f:facet>
-                    <f:facet name="right">
-                        <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
-                            <f:facet name="start">
-                                <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
-                            </f:facet>
-                            <f:facet name="complete">
-                                <h:outputText value=""/>
-                            </f:facet>
-                        </p:ajaxStatus>
-                    </f:facet>
-                </p:toolbar>
-            </h:panelGroup>
+        <ui:define name="toolbar">
+            <p:toolbar id="selectedFilters" styleClass="toolbar">
+                <f:facet name="left">
+                    <p:commandLink styleClass="mini-menu menuIconSearch" value="#{msg.filtrar}" onclick="javascript:toggleMenu();" /> 
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:commandLink title="#{msg.termo}: #{homeBean.termoBusca}"
+                                   update=":selectedFilters :filterForm :eventoPanel"
+                                   disabled="#{empty homeBean.termoBusca}"
+                                   styleClass="selectedItemIcon textFilterIcon">
+                        <f:setPropertyActionListener target="#{homeBean.termoBusca}" value="#{null}" />
+                    </p:commandLink>
+                    <p:commandLink title="#{msg.interessado}: #{homeBean.buscaInteressado.nome}"
+                                   update=":selectedFilters :filterForm :eventoPanel"
+                                   disabled="#{homeBean.buscaInteressado eq null}"
+                                   styleClass="selectedItemIcon interessadoFilterIcon">
+                        <f:setPropertyActionListener target="#{homeBean.buscaInteressado}" value="#{null}" />
+                    </p:commandLink>
+                    <p:commandLink title="#{msg.periodo}"
+                                   actionListener="#{homeBean.resetDateBusca}"
+                                   update=":selectedFilters :filterForm :eventoPanel"
+                                   disabled="#{!homeBean.dateBuscaValid}"
+                                   styleClass="selectedItemIcon periodoFilterIcon" />
+                    <p:commandLink title="#{msg.regional}: #{homeBean.buscaRegional.nome}"
+                                   disabled="#{homeBean.buscaRegional eq null}"
+                                   update=":selectedFilters :filterForm :eventoPanel"
+                                   styleClass="selectedItemIcon regionalFilterIcon">
+                        <f:setPropertyActionListener target="#{homeBean.buscaRegional}" value="#{null}" />
+                    </p:commandLink>
+                    <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
+                        <f:facet name="start">
+                            <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                        </f:facet>
+                        <f:facet name="complete">
+                            <h:outputText value=""/>
+                        </f:facet>
+                    </p:ajaxStatus>
+                </f:facet>
+            </p:toolbar>
         </ui:define>
-        <ui:define name="menuLeft">
+         <ui:define name="menuLeft">
             <ui:include src="filters.xhtml" />
         </ui:define>
         <ui:define name="content">

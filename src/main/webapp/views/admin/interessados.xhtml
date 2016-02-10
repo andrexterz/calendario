@@ -35,10 +35,6 @@
                                          update=":excluiInteressado"
                                          oncomplete="PF('excluiInteressado').show()" />
                     </f:facet>
-                    <f:facet name="right">
-                        <h:inputText id="searchInteressado" styleClass="inputSearch"/>
-                        <p:watermark for="searchInteressado" value="#{msg.buscar}" />
-                    </f:facet>                        
                 </p:toolbar>
                 <p:dataTable id="interessadosTable" value="#{interessadoBean.interessados}" var="interessado" rows="10"
                              paginator="true" paginatorPosition="top" lazy="true" selectionMode="single"

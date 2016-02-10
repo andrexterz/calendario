@@ -29,8 +29,8 @@ public class LocaleBean implements Serializable {
     private String locale;
     private static Map<String, Locale> locales;
 
-    private static final String PT_BR = "pt";
-    private static final String EN_US = "en";
+    private static final String PT_BR = "pt_BR";
+    private static final String EN_US = "en_US";
 
     private static LocaleBean instance;
 

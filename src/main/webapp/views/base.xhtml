@@ -9,6 +9,7 @@
         <h:head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="author" content="Andre Luiz Fernandes Ribeiro Barca" />
+            <meta name="email" content="andreluiz.frb@gmail.com" />
             <link rel="shortcut icon" href="#{resource['img/favicon.png']}" type="image/png" /> 
             <title>
                 <ui:insert name="title">calendario</ui:insert>
@@ -16,7 +17,9 @@
             <h:outputScript library="js" name="locale_pt.js" />
             <h:outputScript library="js" name="calendario.js" />
             <h:outputStylesheet library="css" name="default.css" />
-            <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="accessibility.css" />
+            <ui:insert name="accessibility">
+                <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="accessibility.css" />
+            </ui:insert>
         </h:head>
         <h:body>
             <p:growl autoUpdate="true" globalOnly="true" showDetail="true" life="3000" />
@@ -31,26 +34,25 @@
             <ui:insert name="menuTop">
                 <h:panelGroup id="menuTop" styleClass="navbar">
                     <h:panelGroup layout="block" styleClass="appTopbar">
-                        <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
+                        <a href="http://www.ufg.br">
+                            <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logo" />
+                        </a>
                         <h:panelGroup styleClass="appTitle">
-                            <ui:insert name="header">
-                                <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
-                            </ui:insert>
+                            <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}"  />
                         </h:panelGroup>
                         <div class="toolbarLinks">
                             <h:form>
                                 <h:link outcome="home"
                                         styleClass="toolbarIcons homeIcon"
                                         title="#{msg.home}" />
-                                <ui:insert name="accessibility">
-                                    <p:commandLink title="#{msg.acessibilidade}"
-                                                   actionListener="#{homeBean.switchPageStyleAccessibility}"
-                                                   action="eventos?faces-redirect=true"
-                                                   styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
-                                </ui:insert>
+                                <p:commandLink title="#{msg.acessibilidade}"
+                                               actionListener="#{homeBean.switchPageStyleAccessibility}"
+                                               styleClass="toolbarIcons acessibilidadeIcon transitionDefault" />
                             </h:form>
                         </div>
                     </h:panelGroup>
+                    <ui:insert name="toolbar">
+                    </ui:insert>
                 </h:panelGroup>
             </ui:insert>
             <ui:insert name="menuLeft">

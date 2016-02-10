@@ -26,7 +26,7 @@
                 </div>
                 <div class="userInfo">
                     <p:commandButton value="#{usuarioBean.sessionUsuario.login}" icon="ui-icon-gear" oncomplete="PF('alteraUsuario').show()" />
-                    <p:commandButton action="#{usuarioBean.encerraSessao}" value="#{msg.sair}" icon=" ui-icon-arrowthickstop-1-s" />
+                    <p:commandButton action="#{usuarioBean.encerraSessao}" value="#{msg.sair}" icon="ui-icon-circle-arrow-e" />
                 </div>
                 <h:form>
                     <p:commandLink styleClass="menuItem userIcon" title="#{msg.usuarios}" action="usuarios?faces-redirect=true" />                       

@@ -21,7 +21,8 @@ public class Arquivo extends Base {
     public Arquivo() {
     }
 
-    public Arquivo(String nomeArquivo, byte[] conteudo, String mimetype) {
+    public Arquivo(String titulo, String nomeArquivo, byte[] conteudo, String mimetype) {
+        this.titulo = titulo;
         this.nomeArquivo = nomeArquivo;
         this.conteudo = conteudo;
         this.mimetype = mimetype;
@@ -29,8 +30,12 @@ public class Arquivo extends Base {
     
     @NotNull
     @Column
-    private String nomeArquivo;
+    private String titulo;
     
+    @NotNull
+    @Column
+    private String nomeArquivo;
+     
     @NotNull
     @Lob
     private byte[] conteudo;
@@ -38,6 +43,20 @@ public class Arquivo extends Base {
     @NotNull
     @Column
     private String mimetype;
+    
+    /**
+     * @return the titulo
+     */
+    public String getTitulo() {
+        return titulo;
+    }
+
+    /**
+     * @param titulo the titulo to set
+     */
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     /**
      * @return the nomeArquivo

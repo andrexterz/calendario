@@ -74,12 +74,12 @@
                     </p:column>
                     <p:column headerText="#{msg.dataInicio}" styleClass="col10 alignCenter">
                         <h:outputText value="#{evento.inicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime locale="#{localeBean.locale}" pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column headerText="#{msg.dataTermino}" styleClass="col10 alignCenter">
                         <h:outputText value="#{evento.termino}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime locale="#{localeBean.locale}" pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                     <p:column headerText="#{msg.assunto}" styleClass="col35 alignLeft">

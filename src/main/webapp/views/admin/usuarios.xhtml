@@ -13,14 +13,6 @@
             <h:form id="usuariosForm">
                 <p:toolbar id="toolbar">
                     <f:facet name="left">
-                        <p:commandButton icon="ui-icon-document"
-                                         value="#{msg.adicionar}"
-                                         title="#{msg.adicionar}"
-                                         disabled="#{!usuarioBean.sessionUsuario.administrador}"
-                                         oncomplete="PF('salvaUsuario').show()"
-                                         update=":salvaUsuario"
-                                         actionListener="#{usuarioBean.adicionar}" />
-
                         <p:commandButton icon="ui-icon-pencil"
                                          value="#{msg.editar}"
                                          title="#{msg.editar}"
@@ -36,34 +28,40 @@
                                          update=":excluiUsuario"
                                          oncomplete="PF('excluiUsuario').show()" />                        
                     </f:facet>
-                    <f:facet name="right">
-                        <h:inputText id="searchUsuario" styleClass="inputSearch"/>
-                        <p:watermark for="searchUsuario" value="#{msg.buscar}" />
-                    </f:facet>
-
                 </p:toolbar>
                 <p:dataTable id="usuariosTable" value="#{usuarioBean.usuarios}" var="usuario"
                              rows="16" paginator="true" paginatorPosition="top" lazy="true"
                              selectionMode="single" selection="#{usuarioBean.itemSelecionado}">
-                    <p:ajax event="rowSelect" update=":usuariosForm:toolbar" />
+                    <p:ajax event="rowSelect" update=":usuariosForm:toolbar :salvaUsuario" />
                     <p:column styleClass="col5">
                         <p:rowToggler />
                     </p:column>
-                    <p:column headerText="#{msg.id}" styleClass="col10">
+                    <p:column headerText="#{msg.id}" styleClass="col5">
                         #{usuario.id}
                     </p:column>
-                    <p:column headerText="#{msg.login}" styleClass="col20">
+                    <p:column headerText="#{msg.login}" styleClass="col10">
                         #{usuario.login}
                     </p:column>
                     <p:column headerText="#{msg.usuario}" styleClass="col30">
                         #{usuario.nome}
                     </p:column>
-                    <p:column headerText="#{msg.email}" styleClass="col30">
+                    <p:column headerText="#{msg.email}" styleClass="col20">
                         #{usuario.email}
                     </p:column>
                     <p:column headerText="#{msg.ativo}" styleClass="col10">
                         <h:outputText styleClass="ui-icon ui-icon-check" value="#{usuario.ativo}" rendered="#{usuario.ativo}" />
                         <h:outputText styleClass="ui-icon ui-icon-close" value="#{usuario.ativo}" rendered="#{!usuario.ativo}" />
+                    </p:column>
+                    <p:column headerText="#{msg.dataCriacao}" styleClass="col10">
+                        <h:outputText value="#{usuario.dataCriacao}">
+                            <f:convertDateTime locale="#{localeBean.locale}" pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="#{msg.dataModificacao}" styleClass="col10">
+                        <h:outputText value="#{usuario.dataModificacao}">
+                            <f:convertDateTime locale="#{localeBean.locale}" pattern="dd/MM/yyyy" />
+                        </h:outputText>
+
                     </p:column>
                     <p:rowExpansion>
                         <p:panel header="#{msg.perfis}">

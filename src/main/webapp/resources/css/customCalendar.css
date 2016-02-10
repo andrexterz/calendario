@@ -1,0 +1,90 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/02/2016, 00:42:57
+    Author     : andre
+*/
+
+.ui-datepicker {
+    width: 100%;
+    padding: 0;
+
+}
+
+.ui-datepicker-header {
+    background: #534f73!important;
+    border-bottom: 1px solid #52a0a1;
+    height: 40px;
+}
+
+.ui-datepicker-title {
+    color: #fff;
+    font-weight: normal;
+    text-shadow: none;
+    margin-top: 6px!important;
+}
+
+.ui-datepicker-prev, .ui-datepicker-next {
+    top: 8px!important;    
+}
+
+.ui-datepicker-prev:hover, .ui-datepicker-next:hover {
+    background-color: #52a0a1;
+    box-shadow: none;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+.ui-datepicker td a {
+    display: block;
+    padding: 0.6em;
+    text-align: right;
+    text-decoration: none;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    text-shadow: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    color: #fff!important;
+    font-weight: normal;
+    border: none;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+    border: 1px solid #554D92;
+}
+
+.ui-datepicker .ui-datepicker-current-day .ui-state-highlight, .ui-datepicker .ui-datepicker-current-day .ui-state-default {
+    background: none;
+    color: #52a0a1 !important;
+    font-weight: bold;
+    text-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #52a0a1;
+    border-radius: 50%;
+    -moz-border-radius:  50%;
+    -webkit-border-radius:  50%;
+}
+
+.ui-corner-all {
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+.ui-widget-content {
+    height: 314px;
+    color: #fff;
+    background: #554d92;
+    border: none;
+}
