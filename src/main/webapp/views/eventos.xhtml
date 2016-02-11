@@ -10,7 +10,7 @@
         <ui:define name="toolbar">
             <p:toolbar id="selectedFilters" styleClass="toolbar">
                 <f:facet name="left">
-                    <p:commandLink styleClass="mini-menu menuIconSearch" value="#{msg.filtrar}" onclick="javascript:toggleMenu();" /> 
+                    <p:commandLink styleClass="menu mini-menu menuIconSearch" value="#{msg.filtrar}" onclick="javascript:toggleMenu();" /> 
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
@@ -55,7 +55,7 @@
             <ui:include src="filters.xhtml" />
         </ui:define>
         <ui:define name="content">
-            <h:panelGroup id="eventoPanel" layout="block" styleClass="content">
+            <h:panelGroup id="eventoPanel" layout="block" styleClass="eventoPanel">
                 <p:dataScroller value="#{homeBean.eventos}"
                                 lazy="true"
                                 var="evento"

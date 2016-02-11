@@ -20,6 +20,8 @@
                     </h:selectOneMenu>
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandLink title="#{msg.esconder} #{msg.menu}" styleClass="menuButton upButton"
+                                   onclick="javascript:toggleMenu();" />                    
                     <p:commandLink title="#{msg.limpar}" styleClass="menuButton resetButton"
                                    update="filterContent :eventoPanel :selectedFilters" process="@this"
                                    actionListener="#{homeBean.limpaFiltro}" />                    

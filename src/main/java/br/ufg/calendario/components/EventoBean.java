@@ -262,7 +262,7 @@ public class EventoBean implements Serializable {
                 for (String interessado : interessadoArray) {
                     if (!interessado.isEmpty()) {
                         for (Interessado i : interessados) {
-                            if (i.getNome().equals(interessado.trim())) {
+                            if (i.getNome().toLowerCase().equals(interessado.toLowerCase().trim())) {
                                 interessadoSet.add(i);
                             }
                         }
@@ -272,7 +272,7 @@ public class EventoBean implements Serializable {
                 for (String regional : regionalArray) {
                     if (!regional.isEmpty()) {
                         for (Regional r : regionais) {
-                            if (r.getNome().equals(regional.trim())) {
+                            if (r.getNome().toLowerCase().equals(regional.toLowerCase().trim())) {
                                 regionalSet.add(r);
                             }
                         }

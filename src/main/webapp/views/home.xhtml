@@ -5,78 +5,76 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <f:view locale="#{localeBean.locale}">
-        <h:head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta name="author" content="Andre Luiz Fernandes Ribeiro Barca" />
-            <link rel="shortcut icon" href="#{resource['img/favicon.png']}" type="image/png" /> 
-            <title>
-                <h:outputText value="#{msg.appNome}" />
-            </title>
-            <h:outputScript library="js" name="locale_pt.js" />
-            <h:outputScript library="js" name="home.js" />
+    <ui:composition template="base.xhtml">
+        <ui:define name="headerResources">
             <h:outputStylesheet library="css" name="home.css" />
-            <h:outputStylesheet library="css" rendered="#{homeBean.pageAccessibility}" name="home-accessibility.css" />
-        </h:head>
-        <h:body>
+            <h:outputScript library="js" name="home.js" />
+            <script type="text/javascript" language="javascript">
+                window.onload = function() {
+                    //window.location = "/calendario/views/eventos.xhtml";
+                }
+            </script>
+        </ui:define>
+        <ui:define name="toolbar">
+            <p:toolbar id="homeMenu" styleClass="toolbar">
+                <f:facet name="left">
+                    <h:form>
+                        <p:commandLink styleClass="menu autowidth-menu eventIcon" value="#{msg.eventos}" action="eventos?faces-redirect=true" />
+                        <p:commandLink styleClass="menu autowidth-menu resolucaoIcon" value="#{homeBean.calendario.arquivo.titulo}" title="#{homeBean.calendario.arquivo.nomeArquivo}" ajax="false">
+                            <p:fileDownload value="#{homeBean.arquivoCalendario}" />
+                        </p:commandLink>
+                    </h:form>
+                </f:facet>
+                <f:facet name="right">
+                    <h:form>
+                        <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
+                            <f:facet name="start">
+                                <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <p:commandLink styleClass="loginLink" title="#{msg.login}" action="login?faces-redirect=true" />
+                    </h:form>
+                </f:facet>
+            </p:toolbar>
+        </ui:define>
+        <ui:define name="content">
             <f:facet name="last">
                 <h:outputStylesheet library="css" name="customCalendar.css" />
             </f:facet>
             <h:panelGroup layout="block" id="container" styleClass="container">
-                <div id="homeContainer" class="homeHeader">
-                    <div class="innerTitleContainer">
-                        <h:graphicImage library="img" name="ufg-logow.png" />
-                        <h:outputText value="#{msg.instituicao}" styleClass="instituicaoTitle" />
-                    </div>
-                    <h:outputText value="#{msg.appNome} #{homeBean.calendario.ano}" styleClass="calendarTitle" />
-                    <hr class="horizontalRule headerRule" />
-                    <h:form styleClass="homeLinks">
-                        <ul>
-                            <li>
-                                <p:commandLink value="#{msg.eventos}" action="eventos?faces-redirect=true" />
-                            </li>
-                            <li>
-                                <p:commandLink value="#{homeBean.calendario.arquivo.titulo}" title="#{homeBean.calendario.arquivo.nomeArquivo}" ajax="false">
-                                    <p:fileDownload value="#{homeBean.arquivoCalendario}" />
-                                </p:commandLink>
-                            </li>
-                        </ul>
-                        <h:link title="#{msg.login}" outcome="login" styleClass="loginLink" />
-                    </h:form>
-                </div>
-                <ui:insert name="content">
-                    <h:panelGroup id="content" layout="block">
-                        <div class="tabGroup">
-                            <input type="radio" value="t1" onclick="activateTab(this)" name="tabMenu" id="selectMenu1" checked="checked" />
-                            <label for="selectMenu1">#{msg.calendario}</label>
+                <h:panelGroup id="content" layout="block">
+                    <div class="tabGroup">
+                        <input type="radio" value="t1" onclick="activateTab(this)" name="tabMenu" id="selectMenu1" checked="checked" />
+                        <label for="selectMenu1">#{msg.calendario}</label>
 
-                            <input type="radio" value="t2" onclick="activateTab(this)" name="tabMenu" id="selectMenu2" />
-                            <label for="selectMenu2">#{msg.regionais}</label>
+                        <input type="radio" value="t2" onclick="activateTab(this)" name="tabMenu" id="selectMenu2" />
+                        <label for="selectMenu2">#{msg.regionais}</label>
 
-                            <input type="radio" value="t3" onclick="activateTab(this)" name="tabMenu" id="selectMenu3" />
-                            <label for="selectMenu3">#{msg.interessados}</label>
+                        <input type="radio" value="t3" onclick="activateTab(this)" name="tabMenu" id="selectMenu3" />
+                        <label for="selectMenu3">#{msg.interessados}</label>
 
-                            <input type="radio" value="t4" onclick="activateTab(this)" name="tabMenu" id="selectMenu4" />
-                            <label for="selectMenu4">#{msg.assunto}</label>
+                        <input type="radio" value="t4" onclick="activateTab(this)" name="tabMenu" id="selectMenu4" />
+                        <label for="selectMenu4">#{msg.assunto}</label>
 
-                            <div id="t1" class="tab" style="display: block;">
-                                <div class="panelInfoCalendar">
-                                    <div class="panelTitleCalendar">dd de M de aaaa</div>
-                                    <p>Título do evento</p>
-                                    <p>início: dd/mm/aaaa</p>
-                                    <p>término: dd/mm/aaaa</p>
-                                    <p>descrição do evento</p>
-                                </div>
-                                <div class="calendarSelector">
-                                    <p:calendar mode="inline" />
-                                </div>
+                        <div id="t1" class="tab" style="display: block;">
+                            <div class="panelInfoCalendar">
+                                <div class="panelTitleCalendar">dd de M de aaaa</div>
+                                <ui:repeat value="#{eventoDao.listar()}" var="evento">
+                                    <p>#{evento.assunto}</p>
+                                </ui:repeat>
                             </div>
-                            <div id="t2" class="tab">Tab 2 content</div>
-                            <div id="t3" class="tab">Tab 3 content</div>
-                            <div id="t4" class="tab">Tab 4 content</div>
+                            <div class="calendarSelector">
+                                <p:calendar mode="inline" />
+                            </div>
                         </div>
-                    </h:panelGroup>
-                </ui:insert>
+                        <div id="t2" class="tab">Tab 2 content</div>
+                        <div id="t3" class="tab">Tab 3 content</div>
+                        <div id="t4" class="tab">Tab 4 content</div>
+                    </div>
+                </h:panelGroup>
                 <div class="footer">
                     <table class="footerGrid">
                         <tr>
@@ -92,7 +90,7 @@
                     </table>
                 </div>
             </h:panelGroup>
-        </h:body>
-    </f:view>
+        </ui:define>
+    </ui:composition>
 </html>
 

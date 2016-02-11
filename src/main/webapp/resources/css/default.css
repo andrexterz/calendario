@@ -12,6 +12,7 @@ body {
     margin: 0;
     font-size: 10pt;
     font-family:"Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #3c4050;
 }
 
 hr {
@@ -141,21 +142,29 @@ hr {
     border: 1px solid #fff;
 }
 
-.mini-menu {
+.menu {
     color: #fff!important;
     text-indent: 32px;
     font-weight: normal;
     text-decoration: none;
     line-height: 150%;
     display: inline-block;
-    width: 64px;
     height: 24px;
     margin: 4px 2px 0 28px;
     background-position: 0 0;
     background-repeat: no-repeat;
+    background-size: 24px;
 }
 
-.mini-menu:hover {
+.autowidth-menu {
+    width: auto;
+}
+
+.mini-menu {
+    width: 64px;
+}
+
+.menu:hover {
     color: #009fe3!important;
     background-position: 0 -24px;
 }
@@ -369,6 +378,10 @@ hr {
     background-image: url("#{resource['img/regional.png']}");
 }
 
+.resolucaoIcon {
+    background-image: url("#{resource['img/resolucao.png']}");
+}
+
 .searchIcon {
     background-image: url("#{resource['img/search.png']}");
 }
@@ -401,10 +414,16 @@ hr {
     background-image: url("#{resource['img/regionalDetail.png']}");
 }
 
+
 .backButton {
     display: none;
     margin-right: 8px;
     background: url("#{resource['img/back-button.png']}");
+}
+
+.upButton {
+    display: inline-block;
+    background: url("#{resource['img/up-button.png']}");
 }
 
 .filterButton {
@@ -429,6 +448,10 @@ hr {
         left: 0;
         z-index: 200;
     }
+    
+    .upButton {
+        display: none;
+    }
 
     .backButton {
         display: inline-block;
@@ -438,17 +461,18 @@ hr {
 }
 
 /********************************* content ************************************/
-.content {
+.eventoPanel {
     background-color: #edf3f6;
-    margin: 60px 0 0 0;
+    margin: 60px 10% 0 10%;
 }
 
 @media(max-width: 767px) {
-    .content {
+    .eventoPanel {
         margin-left: 0;
+        margin-right: 0;
     }
 
-    .content.toggle {
+    .eventoPanel.toggle {
         display: none;
         background: transparent;
     }
@@ -973,6 +997,8 @@ col40 {
     border: 1px solid #ccc;
     width: 310px;
     margin: 32px 33% 0 33%;
+    background-color: #fff;
+    border-radius: 4px;
 }
 
 @media(max-width: 767px) {

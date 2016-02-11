@@ -367,6 +367,11 @@ public class HomeBean implements Serializable {
     public void setPageAccessibility(boolean pageAccessibility) {
         this.pageAccessibility = pageAccessibility;
     }
+    
+    public boolean isHomeLocation() {
+        String[] viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId().split("/");
+        return viewId[viewId.length -1].equals("home.xhtml");
+    }
 
     public List<String> getAssunto() {
         try {
