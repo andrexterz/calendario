@@ -14,28 +14,28 @@
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
-                    <p:commandLink title="#{msg.termo}: #{homeBean.termoBusca}"
+                    <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}"
                                    update=":selectedFilters :filterForm :eventoPanel"
-                                   disabled="#{empty homeBean.termoBusca}"
+                                   disabled="#{empty eventoBean.termoBusca}"
                                    styleClass="selectedItemIcon textFilterIcon">
-                        <f:setPropertyActionListener target="#{homeBean.termoBusca}" value="#{null}" />
+                        <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{null}" />
                     </p:commandLink>
-                    <p:commandLink title="#{msg.interessado}: #{homeBean.buscaInteressado.nome}"
+                    <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}"
                                    update=":selectedFilters :filterForm :eventoPanel"
-                                   disabled="#{homeBean.buscaInteressado eq null}"
+                                   disabled="#{eventoBean.buscaInteressado eq null}"
                                    styleClass="selectedItemIcon interessadoFilterIcon">
-                        <f:setPropertyActionListener target="#{homeBean.buscaInteressado}" value="#{null}" />
+                        <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{null}" />
                     </p:commandLink>
                     <p:commandLink title="#{msg.periodo}"
-                                   actionListener="#{homeBean.resetDateBusca}"
+                                   actionListener="#{eventoBean.resetDateBusca}"
                                    update=":selectedFilters :filterForm :eventoPanel"
-                                   disabled="#{!homeBean.dateBuscaValid}"
+                                   disabled="#{!eventoBean.dateBuscaValid}"
                                    styleClass="selectedItemIcon periodoFilterIcon" />
-                    <p:commandLink title="#{msg.regional}: #{homeBean.buscaRegional.nome}"
-                                   disabled="#{homeBean.buscaRegional eq null}"
+                    <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}"
+                                   disabled="#{eventoBean.buscaRegional eq null}"
                                    update=":selectedFilters :filterForm :eventoPanel"
                                    styleClass="selectedItemIcon regionalFilterIcon">
-                        <f:setPropertyActionListener target="#{homeBean.buscaRegional}" value="#{null}" />
+                        <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{null}" />
                     </p:commandLink>
                     <h:outputLabel value="#{msg.eventos}" styleClass="eventTitle" />
                 </f:facet>
@@ -56,7 +56,7 @@
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="eventoPanel" layout="block" styleClass="eventoPanel">
-                <p:dataScroller value="#{homeBean.eventos}"
+                <p:dataScroller value="#{eventoBean.eventos}"
                                 lazy="true"
                                 var="evento"
                                 chunkSize="10"

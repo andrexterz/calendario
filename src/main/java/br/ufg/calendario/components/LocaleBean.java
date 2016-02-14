@@ -23,10 +23,12 @@ public class LocaleBean implements Serializable {
 
     public LocaleBean() {
         locales = new HashMap();
-        locale = PT_BR;
+        locales.put(PT_BR, new Locale("pt", "BR"));
+        locales.put(EN_US, new Locale("en", "US"));
+        locale = locales.get(PT_BR);
     }
 
-    private String locale;
+    private Locale locale;
     private static Map<String, Locale> locales;
 
     private static final String PT_BR = "pt_BR";
@@ -34,12 +36,16 @@ public class LocaleBean implements Serializable {
 
     private static LocaleBean instance;
 
-    public String getLocale() {
+    public Locale getLocale() {
         return locale;
     }
 
-    public void setLocale(String locale) {
+    public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+    
+    public static Map<String, Locale> getLocales() {
+        return locales;
     }
 
     public static LocaleBean getInstance() {
@@ -51,7 +57,7 @@ public class LocaleBean implements Serializable {
 
     public static String getMessage(String msg) {
         ResourceBundle messages = ResourceBundle.getBundle(
-                "br.ufg.calendario.locale.messages", new Locale(getInstance().getLocale()));
+                "br.ufg.calendario.locale.messages", LocaleBean.getInstance().getLocale());
         return messages.getString(msg);
     }
 }

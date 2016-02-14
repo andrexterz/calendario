@@ -126,6 +126,28 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
+    public Date buscarPrimeiroDia(Calendario calendario) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
+        criteria.createAlias("calendario", "c");
+        criteria.add(Restrictions.eq("c.ano", calendario.getAno()));
+        criteria.setProjection(Projections.min("inicio"));
+        Date data = (Date) criteria.uniqueResult();
+        return data;
+    }
+
+    @Transactional(readOnly = true)
+    public Date buscarUltimoDia(Calendario calendario) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Evento.class);
+        criteria.createAlias("calendario", "c");
+        criteria.add(Restrictions.eq("c.ano", calendario.getAno()));
+        criteria.setProjection(Projections.max("termino"));
+        Date data = (Date) criteria.uniqueResult();
+        return data;
+    }
+
+    @Transactional(readOnly = true)
     public List<Evento> listar() {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
@@ -133,17 +155,16 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Evento> listar(Date inicio, Date termino, Calendario calendario) {
+    public List<Evento> listar(Date data, Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
         criteria.createAlias("calendario", "c");
-        criteria.add(Restrictions.between("inicio", inicio, termino));
-        criteria.add(Restrictions.between("termino", inicio, termino));
         criteria.add(Restrictions.eq("c.ano", calendario.getAno()));
+        //adicionar "criteria" que englobe períodos que incluam a data
         criteria.addOrder(Order.asc("inicio"));
         return criteria.list();
     }
-    
+
     private List<Long> buscarTermo(Session session, String termo) {
         String[] words = termo.split("\\s");
         FullTextSession fullTextSession = Search.getFullTextSession(session);
@@ -168,7 +189,7 @@ public class EventoDao {
         org.hibernate.search.FullTextQuery query = fullTextSession.createFullTextQuery(searchQuery, Evento.class);
         query.setProjection("id");
         List<Long> result = new ArrayList<>();
-        for (Object obj: query.list()) {
+        for (Object obj : query.list()) {
             result.add((Long) ((Object[]) obj)[0]);
         }
         return result;
@@ -180,7 +201,7 @@ public class EventoDao {
         Criteria criteria = session.createCriteria(Evento.class);
         criteria.setFirstResult(first);
         criteria.setMaxResults(pageSize);
-        
+
         if ((sortField != null && !sortField.isEmpty()) && (sortOrder != null && !sortOrder.isEmpty())) {
             if (sortOrder.equals("ASCENDING")) {
                 criteria.addOrder(Order.asc(sortField));
@@ -199,8 +220,8 @@ public class EventoDao {
                         criteria.add(Restrictions.in("id", foundList));
                     } else {
                         criteria.add(Restrictions.or(
-                            Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
-                            Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
+                                Restrictions.like("assunto", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase(),
+                                Restrictions.like("descricao", filters.get(key).toString(), MatchMode.ANYWHERE).ignoreCase()));
                     }
                 }
 

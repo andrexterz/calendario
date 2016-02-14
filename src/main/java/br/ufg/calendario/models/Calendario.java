@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ufg.calendario.models;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +15,9 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca (andrexterz@gmail.com)
+ * @author Andre Luiz Fernandes Ribeiro Barca Luiz Fernandes Ribeiro Barca
+ * (andrexterz@gmail.com)
  */
-
 @Entity
 public class Calendario extends Base {
 
@@ -28,14 +29,14 @@ public class Calendario extends Base {
         this.ano = ano;
         this.ativo = ativo;
     }
-    
+
     @Column(unique = true)
     @NotNull
     private Integer ano;
-    
+
     @NotNull
     private boolean ativo;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     private Arquivo arquivo;
 
@@ -80,6 +81,21 @@ public class Calendario extends Base {
     public void setArquivo(Arquivo arquivo) {
         this.arquivo = arquivo;
     }
-    
-    
+
+    public Date getPrimeiroDiaDoAno() {
+        GregorianCalendar calendario = new GregorianCalendar();
+        calendario.set(GregorianCalendar.YEAR,getAno());
+        calendario.set(GregorianCalendar.MONTH, GregorianCalendar.JANUARY);
+        calendario.set(GregorianCalendar.DATE, calendario.getActualMinimum(GregorianCalendar.DAY_OF_MONTH));
+        return calendario.getTime();
+    }
+
+    public Date getUltimoDiaDoAno() {
+        GregorianCalendar calendario = new GregorianCalendar();
+        calendario.set(GregorianCalendar.YEAR, getAno());
+        calendario.set(GregorianCalendar.MONTH, GregorianCalendar.DECEMBER);
+        calendario.set(GregorianCalendar.DATE, calendario.getActualMaximum(GregorianCalendar.DAY_OF_MONTH));
+        return calendario.getTime();
+    }
+
 }

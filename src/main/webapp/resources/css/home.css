@@ -104,12 +104,23 @@ and open the template in the editor.
     width: 100%;
     height: 36px;
     padding-top: 12px;
-    color: aquamarine;
     background-color: #00588f;
-    font-weight: bold;
-    font-size: 16pt;
-    text-indent: 12px;
+    font-weight: normal;
+    font-size: 14pt;
     border-bottom: 1px solid #52a0a1;
+}
+
+.panelTitleCalendar span:first-child {
+    color: aquamarine;
+
+    margin-left: 24px;
+    float: left;
+}
+
+.panelTitleCalendar span:last-child{
+    color: #fff;
+    margin-right: 24px;
+    float: right;
 }
 
 .panelInfoCalendar {
@@ -120,12 +131,31 @@ and open the template in the editor.
     right: 300px;
     color: #fff;
     background: #5b5b5b;
-    text-indent: 12px;
+}
+
+.panelInfoCalendar .title {
+    display: inline-block;    
+    width: 100%;
+    margin-top: 1em;
+}
+
+.panelInfoCalendar .title p {
+    display: inline;
+}
+
+.panelInfoCalendar .title p:first-child {
+    float: left;
+}
+
+.panelInfoCalendar .title p:last-child {
+    float: right;
 }
 
 .panelInfoCalendar p {
     font-size: 1em;
-     line-height: 0.8em;
+    text-indent: 16px;
+    text-align: justify;
+    margin: 1.5em;
 }
 
 .calendarSelector {

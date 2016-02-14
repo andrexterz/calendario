@@ -8,11 +8,22 @@
     <ui:composition template="base.xhtml">
         <ui:define name="headerResources">
             <h:outputStylesheet library="css" name="home.css" />
+            <h:outputStylesheet library="css" name="owl.carousel.css" />
+            <h:outputStylesheet library="css" name="owl.theme.css" />
             <h:outputScript library="js" name="home.js" />
+            <h:outputScript library="js" name="owl.carousel.min.js" />
             <script type="text/javascript" language="javascript">
-                window.onload = function() {
-                    //window.location = "/calendario/views/eventos.xhtml";
-                }
+                jQuery(document).ready(function () {
+                    jQuery("#owlSlider").owlCarousel(
+                            {
+                                items: 1,
+                                singleItem: true,
+                                pagination: false,
+                                navigation: true,
+                                navigationText: ["anterior", "próximo"]
+                            }
+                    );
+                });
             </script>
         </ui:define>
         <ui:define name="toolbar">
@@ -60,15 +71,46 @@
                         <label for="selectMenu4">#{msg.assunto}</label>
 
                         <div id="t1" class="tab" style="display: block;">
-                            <div class="panelInfoCalendar">
-                                <div class="panelTitleCalendar">dd de M de aaaa</div>
-                                <ui:repeat value="#{eventoDao.listar()}" var="evento">
-                                    <p>#{evento.assunto}</p>
-                                </ui:repeat>
-                            </div>
-                            <div class="calendarSelector">
-                                <p:calendar mode="inline" />
-                            </div>
+                            <h:form>
+                                <div class="panelInfoCalendar">
+
+                                    <h:panelGroup layout="block" id="panelTitleCalendar" class="panelTitleCalendar">
+                                        <span>
+                                            <h:outputText value="#{homeBean.dataSelecionada}">
+                                                <f:convertDateTime pattern="#{msg.formatoLongoData}" />
+                                            </h:outputText>
+                                        </span>
+                                        <span>
+                                            #{msg.eventos}: #{homeBean.numeroEventosSelecionados}
+                                        </span>
+                                    </h:panelGroup>
+                                    <div id="owlSlider" class="owl-carousel">
+                                        <ui:repeat value="#{homeBean.eventosSelecionados}" var="evento">
+                                            <div class="title">
+                                                <p>#{evento.assunto}</p>
+                                                <p>
+                                                    <h:outputText value="#{evento.inicio}">
+                                                        <f:convertDateTime locale="#{localeBean.locale}" />
+                                                    </h:outputText>
+                                                    #{msg.prepA}
+                                                    <h:outputText value="#{evento.termino}">
+                                                        <f:convertDateTime locale="#{localeBean.locale}" />
+                                                    </h:outputText>
+                                                </p>
+                                            </div>
+                                            <p>#{evento.descricao}</p>
+                                        </ui:repeat>
+                                    </div>
+
+                                </div>
+                                <div class="calendarSelector">
+                                    <p:calendar mode="inline" value="#{homeBean.dataSelecionada}"
+                                                mindate="#{homeBean.primeiraDataEvento}"
+                                                maxdate="#{homeBean.ultimaDataEvento}">
+                                        <p:ajax process="@this" event="dateSelect" update="panelTitleCalendar" />
+                                    </p:calendar>
+                                </div>
+                            </h:form>
                         </div>
                         <div id="t2" class="tab">Tab 2 content</div>
                         <div id="t3" class="tab">Tab 3 content</div>
