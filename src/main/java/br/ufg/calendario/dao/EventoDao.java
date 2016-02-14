@@ -16,6 +16,7 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -157,12 +158,16 @@ public class EventoDao {
     @Transactional(readOnly = true)
     public List<Evento> listar(Date data, Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Evento.class);
-        criteria.createAlias("calendario", "c");
-        criteria.add(Restrictions.eq("c.ano", calendario.getAno()));
-        //adicionar "criteria" que englobe períodos que incluam a data
-        criteria.addOrder(Order.asc("inicio"));
-        return criteria.list();
+        try {
+            Query query = session.createQuery("select e from Evento e where e.calendario.id = :id and :data >= e.inicio and :data <= e.termino order by e.inicio asc");
+            query.setLong("id", calendario.getId());
+            query.setDate("data", data);
+            return query.list();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+            session.clear();
+            return null;
+        }
     }
 
     private List<Long> buscarTermo(Session session, String termo) {

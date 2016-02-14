@@ -14,9 +14,6 @@ import br.ufg.calendario.models.Evento;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -49,21 +46,20 @@ public class HomeBean implements Serializable {
 
     private Calendario calendario;
     private Date dataSelecionada;
-    private int numeroEventosSelecionados;
+    private List<Evento> eventos;
 
     public HomeBean() {
         calendario = null;
-        dataSelecionada = null;
-        numeroEventosSelecionados = 0;
+        dataSelecionada = new Date();
+        eventos = null;
     }
 
     @PostConstruct
     private void init() {
         this.setCalendario(calendarioDao.buscarAtivo());
         System.out.println("calendario ativo: " + getCalendario());
-        if (dataSelecionada == null) {
-            dataSelecionada = new Date();
-        }
+        getDataSelecionada();
+        processaEventosSelecionados();
     }
 
     public StreamedContent getArquivoCalendario() {
@@ -78,15 +74,20 @@ public class HomeBean implements Serializable {
         }
         return content;
     }
+    
+    public void processaEventosSelecionados() {
+        eventos = eventoDao.listar(getDataSelecionada(), calendario);
+    }
 
-    public List<Evento> getEventosSelecionados() throws ParseException {
-        List<Evento> eventos = eventoDao.listar(getDataSelecionada(), calendario);
-        numeroEventosSelecionados = eventos.size();
+    public List<Evento> getEventosSelecionados() {
         return eventos;
     }
     
     public int getNumeroEventosSelecionados() {
-        return numeroEventosSelecionados;
+        if (eventos != null) {
+            return eventos.size();
+        }
+        return 0;
     }
 
     /**
@@ -108,7 +109,6 @@ public class HomeBean implements Serializable {
     }
 
     public void setDataSelecionada(Date dataSelecionada) {
-        System.out.println("Data selecionada: " + dataSelecionada.toString());
         this.dataSelecionada = dataSelecionada;
     }
     
