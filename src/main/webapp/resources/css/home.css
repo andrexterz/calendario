@@ -22,6 +22,7 @@ and open the template in the editor.
     font-family: Lucida Grande,Geneva,Helvetica,sans-serif;
     font-size: 1em;
 }
+
 /********************************** home **************************************/
 .container {
     position: absolute;
@@ -32,6 +33,8 @@ and open the template in the editor.
     background: #fff;
     border: 2px solid #00588f;
     border-radius: 0 0 4px 4px;
+    min-width: 800px;
+    min-height: 540px;
 }
 
 .loginLink {
@@ -70,11 +73,11 @@ and open the template in the editor.
     background: #fff;
 }
 
-.tabGroup > input[type="radio"] {
+.tabGroup input[type="radio"] {
     display: none;
 }
 
-.tabGroup > input[type="radio"] + label {
+.tabGroup input[type="radio"] + label {
     display: inline-block;
     border-radius: 4px 4px 0 0;
     border-bottom: 0;
@@ -86,7 +89,7 @@ and open the template in the editor.
     height: 20px;
 }
 
-.tabGroup > input[type="radio"]:checked + label {
+.tabGroup input[type="radio"]:checked + label {
     background: #00588f;
     border-bottom: 0;
     margin-bottom: -1px;
@@ -100,7 +103,7 @@ and open the template in the editor.
     transition: all 500ms ease-in-out;
 }
 
-.panelTitleCalendar {
+.panelTitle {
     width: 100%;
     height: 36px;
     padding-top: 12px;
@@ -110,17 +113,16 @@ and open the template in the editor.
     border-bottom: 1px solid #52a0a1;
 }
 
-.panelTitleCalendar span:first-child {
-    color: aquamarine;
-
-    margin-left: 24px;
-    float: left;
-}
-
-.panelTitleCalendar span:last-child{
+.panelTitle span:last-child{
     color: #fff;
     margin-right: 24px;
     float: right;
+}
+
+.panelTitle span:first-child {
+    color: aquamarine;
+    margin-left: 24px;
+    float: left;
 }
 
 .panelInfoCalendar {
@@ -129,33 +131,133 @@ and open the template in the editor.
     bottom: 0;
     left: 0;
     right: 300px;
-    color: #fff;
-    background: #5b5b5b;
+    color: #39235d;
+    background:#b4d2c8;
 }
 
-.panelInfoCalendar .title {
-    display: inline-block;    
+.panelInfo {
+    position: absolute;
+    top: 34px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #39235d;
+    background:#b4d2c8;
+}
+
+.panelInfoContent {
+    position: absolute;
+    top: 84px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #39235d;
+    background:#b4d2c8;
+}
+
+.panelInfoItems {
+    margin: 0;
+    background: #b4d2c8;
     width: 100%;
-    margin-top: 1em;
+    height: 100%;
+    display: block;
 }
 
-.panelInfoCalendar .title p {
-    display: inline;
+.panelInfoItems li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 1em;
+    padding: 8px 0px 0 8px;
+    min-width: 96px;
+    height: 24px;
+    color: #fff;
+    background-color: #39235d;
+    border: 1px solid #39235d;
+    vertical-align: middle;
+    cursor: pointer;
+    text-indent: 28px;
+    border-radius: 4px;
 }
 
-.panelInfoCalendar .title p:first-child {
+.panelInfoItems li:hover {
+    border: 1px solid #52a0a1;
+}
+
+.emptyEvent {
+    display: inline-block;
+    font-size: 2em;
+    color: #9c93ad;
+    margin-top: 20%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.selectedEvent {
+    display: block;
+    margin: 3em;
+}
+
+.selectedEvent img {
     float: left;
+    margin: 8px 16px;
+    padding: 6px;
+    width: 90px;
+    height: auto;
+    border: 1px solid #534f73;
 }
 
-.panelInfoCalendar .title p:last-child {
-    float: right;
+.selectedEvent h1 {
+    font-size: 14pt;
 }
 
-.panelInfoCalendar p {
-    font-size: 1em;
-    text-indent: 16px;
-    text-align: justify;
-    margin: 1.5em;
+.selectedEvent h2 {
+    color: orangered;
+    font-weight: normal;
+    font-size: 12pt;
+}
+
+.selectedEvent p {
+    font-size: 11pt;
+}
+
+.selectedEvent .details {
+    width: 100%;
+    height: auto;
+    clear: both;
+}
+
+.selectedEvent .detailRegionalInteressado {
+    width: 100%;
+    height: auto;
+}
+
+.selectedEvent .detailLabel {
+    display: inline-block;
+    width: 2.8em;
+    height: auto;
+    padding: 2px;
+    color: #333;
+}
+
+.selectedEvent .detailRegionalInteressado div {
+    display: inline-block;
+    width: auto;
+    height: 32px;
+}
+
+.selectedEvent .detailRegionalInteressado div div {
+    display: inline-block;
+}
+
+.selectedEvent .detailRegionalInteressado div div ul {
+    display: inline-block;
+}
+
+.selectedEvent .detailRegionalInteressado div div ul li {
+    display: inline-block;
+    margin-left: 1em;
+    color: #39235d;
+    font-weight: bold;
 }
 
 .calendarSelector {
@@ -169,22 +271,41 @@ and open the template in the editor.
 
 /**************************************** footer ******************************/
 .footer {
+    display: block;
     position: absolute;
     bottom: 0;
-    width: 100%;
-    height: 96px;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    min-height: 96px;
     background: #00588f;
     text-align: center;
     border-top: 1px solid #fff;
+    font-size: 0.9em;
 }
 
-.footer img {
-    display: block;
+.footerGrid {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    margin-top: 8px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.footerGrid img {
+    display: inline-block;
     width: 64px;
     height: auto;
     float: left;
     position: relative;
     top: -8px;
+}
+
+.footerGrid span {
+    float: left;
+    display: inline-block;
 }
 
 .footer a {
@@ -198,8 +319,7 @@ and open the template in the editor.
 }
 
 .footer p {
-    font-size: 0.9em;
-    color: #fff;
+    color: #aebcd4;
     line-height: 120%;
     margin: 0;
 }
@@ -211,11 +331,7 @@ and open the template in the editor.
     color: #eeee99;
 }
 
-.footerGrid {
-    display: inline-block;
-    width:95%;
-    text-align: left;
-}
+
 
 .col10 {
     width: 10%;
@@ -227,6 +343,10 @@ and open the template in the editor.
 
 .col25 {
     width: 25%;
+}
+
+.col30 {
+    width: 30%;
 }
 
 .col33 {

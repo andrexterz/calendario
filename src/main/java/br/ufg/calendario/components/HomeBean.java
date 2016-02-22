@@ -12,17 +12,29 @@ import br.ufg.calendario.dao.RegionalDao;
 import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -47,11 +59,13 @@ public class HomeBean implements Serializable {
     private Calendario calendario;
     private Date dataSelecionada;
     private List<Evento> eventos;
+    Map<Integer, List<String>> highlightDays;
 
     public HomeBean() {
         calendario = null;
         dataSelecionada = new Date();
         eventos = null;
+        highlightDays = new HashMap();
     }
 
     @PostConstruct
@@ -74,20 +88,24 @@ public class HomeBean implements Serializable {
         }
         return content;
     }
-    
+
     public void processaEventosSelecionados() {
-        eventos = eventoDao.listar(getDataSelecionada(), calendario);
+        eventos = eventoDao.listar(calendario, getDataSelecionada());
     }
 
     public List<Evento> getEventosSelecionados() {
         return eventos;
     }
-    
+
     public int getNumeroEventosSelecionados() {
         if (eventos != null) {
             return eventos.size();
         }
         return 0;
+    }
+
+    public boolean isEventoSelecionado() {
+        return eventos.size() > 0;
     }
 
     /**
@@ -111,11 +129,11 @@ public class HomeBean implements Serializable {
     public void setDataSelecionada(Date dataSelecionada) {
         this.dataSelecionada = dataSelecionada;
     }
-    
+
     public Date getPrimeiraDataEvento() {
         return eventoDao.buscarPrimeiroDia(getCalendario());
     }
-    
+
     public Date getUltimaDataEvento() {
         return eventoDao.buscarUltimoDia(getCalendario());
     }
@@ -125,6 +143,36 @@ public class HomeBean implements Serializable {
             return eventoDao.listarAssunto(calendario);
         } catch (Exception e) {
             System.out.println("error:" + e.getMessage());
+        }
+        return null;
+    }
+
+    public void processHighLightDays() {
+        Calendar cal = new GregorianCalendar();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        for (int i = 1; i <= 12; i++) {
+            List<String> dates = new ArrayList<>();
+            highlightDays.put(i, dates);
+        }
+        for (Evento e : eventoDao.listar(calendario)) {
+            Date inicio = e.getInicio();
+            Date termino = e.getTermino();
+            Date date;
+            cal.setTime(inicio);
+            while (cal.getTime().before(termino) || cal.getTime().equals(termino)) {
+                date = cal.getTime();
+                highlightDays.get(cal.get(Calendar.MONTH)+1).add(formatter.format(date));
+                cal.add(Calendar.DAY_OF_YEAR, 1);
+            }
+        }
+    }
+
+    @ResponseBody
+    public String getHighlightDays() {
+        try {
+            return new ObjectMapper().writeValueAsString(highlightDays);
+        } catch (IOException e) {
+            System.out.println("erro ao interpretar <json object>");
         }
         return null;
     }

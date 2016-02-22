@@ -4,42 +4,35 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="base.xhtml">
         <ui:define name="headerResources">
             <h:outputStylesheet library="css" name="home.css" />
             <h:outputStylesheet library="css" name="owl.carousel.css" />
             <h:outputStylesheet library="css" name="owl.theme.css" />
-            <h:outputScript library="js" name="home.js" />
             <h:outputScript library="js" name="owl.carousel.min.js" />
+            <h:outputScript library="js" name="home.js" />
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{homeBean.processHighLightDays}" />
+            </f:metadata>
             <script type="text/javascript" language="javascript">
-                function play() {
-                    jQuery("#owlSlider").owlCarousel(
-                            {
-                                items: 1,
-                                singleItem: true,
-                                pagination: false,
-                                navigation: true,
-                                autoPlay: false,
-                                navigationText: ["anterior", "próximo"]
-                            }
-                    );
-                }
-                jQuery(document).ready(play);
+                window.jsonData = #{homeBean.highlightDays};
+                jQuery(document).ready(initialize);
             </script>
         </ui:define>
         <ui:define name="toolbar">
             <p:toolbar id="homeMenu" styleClass="toolbar">
-                <f:facet name="left">
-                    <h:form>
+                <f:facet id="left" name="left">
+                    <h:form id="leftCommands">
                         <p:commandLink styleClass="menu autowidth-menu eventIcon" value="#{msg.eventos}" action="eventos?faces-redirect=true" />
                         <p:commandLink styleClass="menu autowidth-menu resolucaoIcon" value="#{homeBean.calendario.arquivo.titulo}" title="#{homeBean.calendario.arquivo.nomeArquivo}" ajax="false">
                             <p:fileDownload value="#{homeBean.arquivoCalendario}" />
                         </p:commandLink>
                     </h:form>
                 </f:facet>
-                <f:facet name="right">
-                    <h:form>
+                <f:facet id="right" name="right">
+                    <h:form id="rightCommands">
                         <p:ajaxStatus id="statusLoader" styleClass="ajaxStatus">
                             <f:facet name="start">
                                 <p:graphicImage alt="#{msg.carregando}" value="#{resource['img/ajax-loader.gif']}" />
@@ -55,56 +48,91 @@
         </ui:define>
         <ui:define name="content">
             <f:facet name="last">
-                <h:outputStylesheet library="css" name="customCalendar.css" />
+                <h:outputStylesheet library="css" name="customWidgets.css" />
             </f:facet>
             <h:panelGroup layout="block" id="container" styleClass="container">
                 <h:panelGroup id="content" layout="block">
                     <div class="tabGroup">
-                        <input type="radio" value="t1" onclick="activateTab(this)" name="tabMenu" id="selectMenu1" checked="checked" />
-                        <label for="selectMenu1">#{msg.calendario}</label>
+                        <form name="formTabs">
+                            <input type="radio" value="t1" onclick="activateTab(this)" name="tabMenu" id="selectMenu1" checked="checked" />
+                            <label for="selectMenu1">#{msg.calendario}</label>
 
-                        <input type="radio" value="t2" onclick="activateTab(this)" name="tabMenu" id="selectMenu2" />
-                        <label for="selectMenu2">#{msg.regionais}</label>
+                            <input type="radio" value="t2" onclick="activateTab(this)" name="tabMenu" id="selectMenu2" />
+                            <label for="selectMenu2">#{msg.regionais}</label>
 
-                        <input type="radio" value="t3" onclick="activateTab(this)" name="tabMenu" id="selectMenu3" />
-                        <label for="selectMenu3">#{msg.interessados}</label>
+                            <input type="radio" value="t3" onclick="activateTab(this)" name="tabMenu" id="selectMenu3" />
+                            <label for="selectMenu3">#{msg.interessados}</label>
 
-                        <input type="radio" value="t4" onclick="activateTab(this)" name="tabMenu" id="selectMenu4" />
-                        <label for="selectMenu4">#{msg.assunto}</label>
-
+                            <input type="radio" value="t4" onclick="activateTab(this)" name="tabMenu" id="selectMenu4" />
+                            <label for="selectMenu4">#{msg.assunto}</label>
+                        </form>
                         <div id="t1" class="tab" style="display: block;">
                             <h:panelGroup layout="block" id="panelInfoCalendar" styleClass="panelInfoCalendar">
-                                <h:panelGroup layout="block" id="panelTitleCalendar" class="panelTitleCalendar">
+                                <h:panelGroup layout="block" id="panelTitleCalendar" styleClass="panelTitle">
                                     <span>
                                         <h:outputText value="#{homeBean.dataSelecionada}">
                                             <f:convertDateTime pattern="#{msg.formatoLongoData}" />
                                         </h:outputText>
                                     </span>
-                                    <span>
-                                        #{msg.eventos}: #{homeBean.numeroEventosSelecionados}
-                                    </span>
+                                    <h:panelGroup rendered="#{homeBean.eventoSelecionado}">
+                                        <span>
+                                            #{msg.eventos}: #{homeBean.numeroEventosSelecionados}
+                                        </span>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                        <span>
+                                            #{msg.selecioneUmEvento}
+                                        </span>
+                                    </h:panelGroup>
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" id="owlSlider" styleClass="owl-carousel">
+                                <h:panelGroup layout="block" styleClass="emptyEvent" rendered="#{!homeBean.eventoSelecionado}">
+                                    #{msg.eventoVazio}
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" id="owlSlider" styleClass="owl-carousel" rendered="#{homeBean.eventoSelecionado}">
                                     <ui:repeat  value="#{homeBean.eventosSelecionados}" var="evento">
-                                        <div class="title">
-                                            <p>#{evento.assunto}</p>
-                                            <p>
-                                                <h:outputText value="#{evento.inicio}">
-                                                    <f:convertDateTime locale="#{localeBean.locale}" />
+                                        <article class="selectedEvent">
+                                            <h2>
+                                                <h:panelGroup rendered="#{evento.inicio ne evento.termino}">
+                                                    <h:outputText value="#{evento.inicio}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                    &nbsp;#{msg.prepA}&nbsp; 
+                                                    <h:outputText value="#{evento.termino}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </h:panelGroup>
+                                                <h:outputText value="#{evento.inicio}" rendered="#{evento.inicio eq evento.termino}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
                                                 </h:outputText>
-                                                #{msg.prepA}
-                                                <h:outputText value="#{evento.termino}">
-                                                    <f:convertDateTime locale="#{localeBean.locale}" />
-                                                </h:outputText>
-                                            </p>
-                                        </div>
-                                        <p>#{evento.descricao}</p>
+                                            </h2>
+                                            <h1>#{evento.assunto}</h1>
+                                            <p id="description#{evento.id}">#{evento.descricao}</p>
+                                            <div id="detail#{evento.id}" class="details">
+                                                <h:panelGroup layout="block" styleClass="detailRegionalInteressado" rendered="#{not empty evento.interessado}">
+                                                    <h:outputText styleClass="detailLabel" value="#{msg.interessados}" />
+                                                    <p:dataList value="#{evento.interessado}" var="interessado" emptyMessage="#{msg.vazio}">
+                                                        <h:outputText value="#{interessado.nome}" />
+                                                    </p:dataList>
+                                                </h:panelGroup>
+                                                <h:panelGroup layout="block" styleClass="detailRegionalInteressado" rendered="#{not empty evento.regional}">
+                                                    <h:outputText styleClass="detailLabel" value="#{msg.regionais}" />
+                                                    <p:dataList value="#{evento.regional}" var="regional" emptyMessage="#{msg.vazio}">
+                                                        <h:outputText value="#{regional.nome}" />
+                                                    </p:dataList>
+                                                </h:panelGroup>
+                                            </div>
+                                        </article>
                                     </ui:repeat>
                                 </h:panelGroup>
                             </h:panelGroup>
-                            <h:form>
+                            <h:form id="dateForm">
                                 <div class="calendarSelector">
-                                    <p:calendar mode="inline" value="#{homeBean.dataSelecionada}"
+                                    <p:calendar id="dateSelector"
+                                                widgetVar="homeCalendar"
+                                                mode="inline"
+                                                navigator="true"
+                                                beforeShowDay="highlightDays"
+                                                value="#{homeBean.dataSelecionada}"
                                                 mindate="#{homeBean.primeiraDataEvento}"
                                                 maxdate="#{homeBean.ultimaDataEvento}">
                                         <p:ajax process="@this"
@@ -116,25 +144,62 @@
                                 </div>
                             </h:form>
                         </div>
-                        <div id="t2" class="tab">Tab 2 content</div>
-                        <div id="t3" class="tab">Tab 3 content</div>
-                        <div id="t4" class="tab">Tab 4 content</div>
+                        <div id="t2" class="tab">
+                            <h:panelGroup layout="block" id="panelInfoRegional" styleClass="panelInfo">
+                                <h:panelGroup layout="block" id="panelTitleRegional" styleClass="panelTitle">
+                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                        <span>
+                                            #{msg.filtrar} #{msg.prepPor} #{msg.regional}
+                                        </span>
+                                        <span>
+                                            #{msg.selecioneARegional}
+                                        </span>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="panelInfoContent">
+                                <h:form id="formRegionais">
+                                    <ul class="panelInfoItems">
+                                        <ui:repeat value="#{regionalBean.allRegionais}" var="regional">
+                                            <li class="toolbarIcons regionalDetailIcon">
+                                                <h:outputText value="#{regional.nome}" />
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </h:form>
+                            </h:panelGroup>
+                        </div>
+                        <div id="t3" class="tab">
+                            <h:panelGroup layout="block" id="panelInfoInteressado" styleClass="panelInfo">
+                                <h:panelGroup layout="block" id="panelTitleInteressado" styleClass="panelTitle">
+                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                        <span>
+                                            #{msg.filtrar} #{msg.prepPor} #{msg.interessado}
+                                        </span>
+                                        <span>
+                                            #{msg.selecioneOInteressado}
+                                        </span>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </div>
+                        <div id="t4" class="tab">
+                            <h:panelGroup layout="block" id="panelInfoAssunto" styleClass="panelInfo">
+                                <h:panelGroup layout="block" id="panelTitleAssunto" styleClass="panelTitle">
+                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                        <span>
+                                            #{msg.filtrar} #{msg.prepPor} #{msg.assunto}
+                                        </span>
+                                        <span>
+                                            #{msg.selecioneOAssunto}
+                                        </span>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </div>
                     </div>
                 </h:panelGroup>
-                <div class="footer">
-                    <table class="footerGrid">
-                        <tr>
-                            <td class="col20">
-                                <h:graphicImage library="img" name="ufg-logow-high.png" />
-                                <a href="http://www.ufg.br">UFG - Universidade Federal de Goiás</a>
-                                <p>Campus Samambaia - Prédio da Reitoria</p>
-                                <p>CEP 74690-900</p>
-                                <p>Goiânia - Goiás - Brasil</p>
-                                <h4 title="copyright: ufg. créditos: Andre Luiz F. R. Barca"> #{msg.appNome} &copy;</h4>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <ui:include src="footer.xhtml" />
             </h:panelGroup>
         </ui:define>
     </ui:composition>

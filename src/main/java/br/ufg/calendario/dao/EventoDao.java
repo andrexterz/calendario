@@ -149,14 +149,17 @@ public class EventoDao {
     }
 
     @Transactional(readOnly = true)
-    public List<Evento> listar() {
+    public List<Evento> listar(Calendario calendario) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Evento.class);
+        criteria.createAlias("calendario", "c");
+        criteria.add(Restrictions.eq("c.ano", calendario.getAno()));
+        criteria.addOrder(Order.asc("inicio"));
         return criteria.list();
     }
 
     @Transactional(readOnly = true)
-    public List<Evento> listar(Date data, Calendario calendario) {
+    public List<Evento> listar(Calendario calendario, Date data) {
         Session session = sessionFactory.getCurrentSession();
         try {
             Query query = session.createQuery("select e from Evento e where e.calendario.id = :id and :data >= e.inicio and :data <= e.termino order by e.inicio asc");
@@ -215,7 +218,7 @@ public class EventoDao {
                 criteria.addOrder(Order.desc(sortField));
             }
         } else {
-            criteria.addOrder(Order.asc("id"));
+            criteria.addOrder(Order.asc("inicio"));
         }
         if (filters != null && !filters.isEmpty()) {
             for (String key : filters.keySet()) {

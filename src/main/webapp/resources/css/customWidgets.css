@@ -8,10 +8,12 @@ and open the template in the editor.
     Author     : andre
 */
 
+/***************************** ui-datepicker **********************************/
+
 .ui-datepicker {
     width: 100%;
     padding: 0.18em 0;
-
+    background: #554d92;
 }
 
 .ui-datepicker-header {
@@ -39,6 +41,10 @@ and open the template in the editor.
     -moz-border-radius: 50%;
 }
 
+.ui-datepicker table {
+    margin: 0 0 0 0.4em;
+}
+
 .ui-datepicker td a {
     display: block;
     padding: 0.6em;
@@ -48,18 +54,23 @@ and open the template in the editor.
     height: 16px;
 }
 
+.highlightDay a {
+    color: #ffff00!important;
+    font-weight: bold!important;
+}
+
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     text-shadow: none;
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
-    color: #fff!important;
     font-weight: normal;
     border: none;
 }
 
 .ui-datepicker .ui-datepicker-calendar .ui-state-default {
     border: 1px solid #554D92;
+    color: #fff;
 }
 
 .ui-datepicker .ui-datepicker-current-day .ui-state-highlight, .ui-datepicker .ui-datepicker-current-day .ui-state-default {
@@ -85,6 +96,11 @@ and open the template in the editor.
 .ui-widget-content {
     height: 314px;
     color: #fff;
-    background: #554d92;
     border: none;
+}
+
+/************************** ui-datalist ***************************************/
+
+.ui-datalist-content {
+    background: none;
 }

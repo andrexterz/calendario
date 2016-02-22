@@ -150,4 +150,8 @@ public class RegionalBean implements Serializable{
     public LazyDataModel<Regional> getRegionais() {
         return regionais;
     }
+    
+    public List<Regional> getAllRegionais() {
+        return regionalDao.listar();
+    }
 }
