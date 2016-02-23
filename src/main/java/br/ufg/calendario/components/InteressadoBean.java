@@ -149,4 +149,8 @@ public class InteressadoBean implements Serializable {
     public LazyDataModel<Interessado> getInteressados() {
         return interessados;
     }
+    
+    public List<Interessado> getAllInteressados() {
+        return interessadoDao.listar();
+    }
 }

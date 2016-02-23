@@ -19,14 +19,17 @@ function number(event) {
 function dialogHandler(widgetVar, xhr, status, args) {
     if (args.resultado === true) {
         PF(widgetVar).hide();
-    }
-    else {
+    } else {
         PF(widgetVar).jq.effect("highlight", {}, 800);
     }
 }
 
-
 function toggleMenu() {
+    //freezes scrolling
+    jQuery("#eventoPanel").addClass("eventoPanelFixed");
+    if (jQuery(".filters").css("visibility") !== "hidden") {
+        jQuery("#eventoPanel").removeClass("eventoPanelFixed");
+    }
     jQuery(".filters").toggleClass("toggleMenu", "transitionDefault");
 }
 

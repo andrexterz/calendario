@@ -25,6 +25,7 @@ body {
     font-size: 10pt;
     font-family: DroidSans, "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: #3c4050;
+    overflow-y: scroll;
 }
 
 hr {
@@ -47,6 +48,11 @@ hr {
 
 
 /********************************** ui override *******************************/
+.ui-widget {
+    font-family: DroidSans, "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+}
+
 .ui-panel-content, .ui-panel-content {
     padding: 0!important;
     overflow: visible!important;
@@ -317,6 +323,7 @@ hr {
     background-color: #534f73;
     opacity: 0.95;
     z-index: -1;
+    visibility: hidden;
     border-radius: 0 0 8px 0;
     overflow: hidden;
     border: 1px solid #555;
@@ -328,6 +335,7 @@ hr {
 .filters.toggleMenu {
     top: 88px;
     z-index: 100;
+    visibility: visible;
 }
 
 .filters label {
@@ -340,7 +348,9 @@ hr {
 
 .filterContent {
     color: #efefef;
-    padding: 16px;
+    padding: 16px 0 0 4px;
+    width: 90%;
+    margin-right: 8px;
     height: 160px;
     background: transparent;
 }
@@ -501,6 +511,11 @@ hr {
     background-color: #edf3f6;
     margin: 60px 10% 0 10%;
 }
+
+.eventoPanelFixed {
+    position: fixed;
+}
+
 
 @media(max-width: 767px) {
     .eventoPanel {

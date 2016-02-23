@@ -17,12 +17,10 @@ and open the template in the editor.
     margin-left: 4px;
     margin-right: 4px;
 }
-
-.ui-widget {
-    font-family: Lucida Grande,Geneva,Helvetica,sans-serif;
-    font-size: 1em;
+/***************************** base override **********************************/
+.navbar {
+    position: absolute;
 }
-
 /********************************** home **************************************/
 .container {
     position: absolute;
@@ -170,16 +168,20 @@ and open the template in the editor.
     padding: 8px 0px 0 8px;
     min-width: 96px;
     height: 24px;
+}
+
+.panelInfoItems li a {
+    padding: 8px 0px 0 8px;
+    text-decoration: none;
+    width: 100%;
     color: #fff;
     background-color: #39235d;
     border: 1px solid #39235d;
-    vertical-align: middle;
-    cursor: pointer;
     text-indent: 28px;
     border-radius: 4px;
 }
 
-.panelInfoItems li:hover {
+.panelInfoItems li a:hover {
     border: 1px solid #52a0a1;
 }
 

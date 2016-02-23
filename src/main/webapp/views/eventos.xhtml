@@ -14,24 +14,24 @@
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
-                    <p:commandLink title="#{msg.termo}: #{eventoBean.termoBusca}"
+                    <p:commandLink title="#{msg.excluir} #{msg.filtro}: #{eventoBean.termoBusca}"
                                    update=":selectedFilters :filterForm :eventoPanel"
                                    disabled="#{empty eventoBean.termoBusca}"
                                    styleClass="selectedItemIcon textFilterIcon">
                         <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{null}" />
                     </p:commandLink>
-                    <p:commandLink title="#{msg.interessado}: #{eventoBean.buscaInteressado.nome}"
+                        <p:commandLink title="#{msg.excluir} #{msg.filtro}: #{eventoBean.buscaInteressado.nome}"
                                    update=":selectedFilters :filterForm :eventoPanel"
                                    disabled="#{eventoBean.buscaInteressado eq null}"
                                    styleClass="selectedItemIcon interessadoFilterIcon">
                         <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{null}" />
                     </p:commandLink>
-                    <p:commandLink title="#{msg.periodo}"
+                    <p:commandLink title="#{msg.excluir} #{msg.filtro}: #{msg.periodo}"
                                    actionListener="#{eventoBean.resetDateBusca}"
                                    update=":selectedFilters :filterForm :eventoPanel"
                                    disabled="#{!eventoBean.dateBuscaValid}"
                                    styleClass="selectedItemIcon periodoFilterIcon" />
-                    <p:commandLink title="#{msg.regional}: #{eventoBean.buscaRegional.nome}"
+                    <p:commandLink title="#{msg.excluir} #{msg.filtro}: #{eventoBean.buscaRegional.nome}"
                                    disabled="#{eventoBean.buscaRegional eq null}"
                                    update=":selectedFilters :filterForm :eventoPanel"
                                    styleClass="selectedItemIcon regionalFilterIcon">
@@ -56,7 +56,8 @@
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="eventoPanel" layout="block" styleClass="eventoPanel">
-                <p:dataScroller value="#{eventoBean.eventos}"
+                <p:dataScroller id="eventos" 
+                                value="#{eventoBean.eventos}"
                                 lazy="true"
                                 var="evento"
                                 chunkSize="10"

@@ -21,12 +21,13 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandLink title="#{msg.esconder} #{msg.menu}" styleClass="menuButton upButton"
-                                   onclick="javascript:toggleMenu();" />                    
-                    <p:commandLink title="#{msg.limpar}" styleClass="menuButton resetButton"
-                                   update="filterContent :eventoPanel :selectedFilters" process="@this"
+                                   onclick="toggleMenu()" />                    
+                    <p:commandLink title="#{msg.limpar}"
+                                   styleClass="menuButton resetButton"
+                                   update="filterContent :eventos :selectedFilters" process="@this"
                                    actionListener="#{eventoBean.limpaFiltro}" />                    
                     <p:commandLink title="#{msg.confirmar}"
-                                   update=":eventoPanel"
+                                   update=":eventos"
                                    styleClass="menuButton filterButton"
                                    action="eventos?faces-redirect=true" />
                 </f:facet>
@@ -54,7 +55,7 @@
                     <p:outputLabel for="buscaInteressado" value="#{msg.selecioneOInteressado}" />
                     <p:selectOneMenu id="buscaInteressado" value="#{eventoBean.buscaInteressado}" converter="#{interessadoConverter}"  styleClass="force100">
                         <f:selectItem itemLabel="" itemValue="#{null}" />
-                        <f:selectItems value="#{interessadoDao.listar()}"
+                        <f:selectItems value="#{interessadoBean.allInteressados}"
                                        var="interessado"
                                        itemLabel="#{interessado.nome}"
                                        itemValue="#{interessado}">
@@ -65,7 +66,7 @@
                     <p:outputLabel for="buscaRegional" value="#{msg.selecioneARegional}" />
                     <p:selectOneMenu id="buscaRegional" value="#{eventoBean.buscaRegional}" converter="#{regionalConverter}" styleClass="force100" >
                         <f:selectItem itemLabel="" itemValue="#{null}" />
-                        <f:selectItems value="#{regionalDao.listar()}"
+                        <f:selectItems value="#{regionalBean.allRegionais}"
                                        var="regional"
                                        itemLabel="#{regional.nome}"
                                        itemValue="#{regional}">

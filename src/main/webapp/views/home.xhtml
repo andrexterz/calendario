@@ -25,8 +25,15 @@
             <p:toolbar id="homeMenu" styleClass="toolbar">
                 <f:facet id="left" name="left">
                     <h:form id="leftCommands">
-                        <p:commandLink styleClass="menu autowidth-menu eventIcon" value="#{msg.eventos}" action="eventos?faces-redirect=true" />
-                        <p:commandLink styleClass="menu autowidth-menu resolucaoIcon" value="#{homeBean.calendario.arquivo.titulo}" title="#{homeBean.calendario.arquivo.nomeArquivo}" ajax="false">
+                        <p:commandLink styleClass="menu autowidth-menu eventIcon" 
+                                       value="#{msg.eventos}"
+                                       action="eventos?faces-redirect=true"
+                                       actionListener="#{eventoBean.limpaFiltro}"
+                                       title="#{msg.irPara} #{msg.eventos}" />
+                        <p:commandLink styleClass="menu autowidth-menu resolucaoIcon" 
+                                       value="#{homeBean.calendario.arquivo.titulo}"
+                                       title="#{homeBean.calendario.arquivo.nomeArquivo}"
+                                       ajax="false">
                             <p:fileDownload value="#{homeBean.arquivoCalendario}" />
                         </p:commandLink>
                     </h:form>
@@ -161,8 +168,12 @@
                                 <h:form id="formRegionais">
                                     <ul class="panelInfoItems">
                                         <ui:repeat value="#{regionalBean.allRegionais}" var="regional">
-                                            <li class="toolbarIcons regionalDetailIcon">
-                                                <h:outputText value="#{regional.nome}" />
+                                            <li title="#{msg.filtrar} #{msg.prepPor} #{msg.regional}: #{regional.nome}">
+                                                <p:commandLink value="#{regional.nome}"
+                                                               styleClass="toolbarIcons regionalDetailIcon"
+                                                               action="eventos?faces-redirect=true">
+                                                    <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{regional}" />
+                                                </p:commandLink>
                                             </li>
                                         </ui:repeat>
                                     </ul>
@@ -181,6 +192,21 @@
                                         </span>
                                     </h:panelGroup>
                                 </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="panelInfoContent">
+                                <h:form id="formInteressados">
+                                    <ul class="panelInfoItems">
+                                        <ui:repeat value="#{interessadoBean.allInteressados}" var="interessado">
+                                            <li title="#{msg.filtrar} #{msg.prepPor} #{msg.interessado}: #{interessado.nome}">
+                                                <p:commandLink value="#{interessado.nome}"
+                                                               styleClass="toolbarIcons interessadoDetailIcon"
+                                                               action="eventos?faces-redirect=true">
+                                                    <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{interessado}" />
+                                                </p:commandLink>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </h:form>
                             </h:panelGroup>
                         </div>
                         <div id="t4" class="tab">

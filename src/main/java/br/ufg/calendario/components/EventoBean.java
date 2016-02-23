@@ -81,6 +81,7 @@ public class EventoBean implements Serializable {
     private final LazyDataModel<Evento> eventos;
     private List<Evento> eventosImportados;
     private TipoBusca tipoBusca;
+    private boolean eventosEmpty;
 
     //assunto | descricao
     private String termoBusca;
@@ -156,7 +157,7 @@ public class EventoBean implements Serializable {
                     setRowCount(eventoDao.rowCount());
                 }
                 data = eventoDao.listar(first, pageSize, sortField, sortOrder == null ? null : sortOrder.name(), filters);
-
+                eventosEmpty = !data.isEmpty();
                 if (data.size() > pageSize) {
                     try {
                         data = data.subList(first, first + pageSize);
@@ -459,6 +460,14 @@ public class EventoBean implements Serializable {
 
     public void setBuscaDataTermino(Date buscaDataTermino) {
         this.buscaDataTermino = buscaDataTermino;
+    }
+    
+    public List<String> getAllAssuntos() {
+        return eventoDao.listarAssunto(calendario);
+    }
+    
+    public boolean isEventosEmpty() {
+        return eventosEmpty;
     }
 
 }
