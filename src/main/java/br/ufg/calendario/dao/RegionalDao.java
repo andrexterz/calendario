@@ -6,6 +6,7 @@
 package br.ufg.calendario.dao;
 
 import br.ufg.calendario.models.Regional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -86,10 +87,14 @@ public class RegionalDao {
 
     @Transactional(readOnly = true)
     public List<Regional> listar() {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Regional.class);
-        criteria.addOrder(Order.asc("nome"));
-        return criteria.list();
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(Regional.class);
+            criteria.addOrder(Order.asc("nome"));
+            return criteria.list();
+        } catch (HibernateException e) {
+            return new ArrayList<>();
+        }
     }
 
     @Transactional(readOnly = true)
@@ -111,7 +116,7 @@ public class RegionalDao {
         }
         return criteria.list();
     }
-    
+
     @Transactional(readOnly = true)
     public int rowCount() {
         Session session = sessionFactory.getCurrentSession();

@@ -166,7 +166,7 @@ public class EventoDao {
             query.setLong("id", calendario.getId());
             query.setDate("data", data);
             return query.list();
-        } catch (HibernateException e) {
+        } catch (HibernateException|NullPointerException e) {
             System.out.println(e.getMessage());
             session.clear();
             return null;

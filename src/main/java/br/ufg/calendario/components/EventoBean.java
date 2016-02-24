@@ -214,7 +214,11 @@ public class EventoBean implements Serializable {
 
     public void excluirPorCalendario() {
         FacesMessage msg;
-        boolean saveStatus = eventoDao.excluir(calendario);
+        boolean saveStatus = false;
+        if (calendario != null) {
+            saveStatus = eventoDao.excluir(calendario);
+        }
+
         if (saveStatus) {
             itemSelecionado = null;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
@@ -461,7 +465,7 @@ public class EventoBean implements Serializable {
     public void setBuscaDataTermino(Date buscaDataTermino) {
         this.buscaDataTermino = buscaDataTermino;
     }
-    
+
     public Date getPrimeiraDataEvento() {
         return eventoDao.buscarPrimeiroDia(getCalendario());
     }
@@ -469,11 +473,14 @@ public class EventoBean implements Serializable {
     public Date getUltimaDataEvento() {
         return eventoDao.buscarUltimoDia(getCalendario());
     }
-    
+
     public List<String> getAllAssuntos() {
-        return eventoDao.listarAssunto(calendario);
+        if (calendario != null) {
+            return eventoDao.listarAssunto(calendario);
+        }
+        return null;
     }
-    
+
     public boolean isEventosEmpty() {
         return eventosEmpty;
     }

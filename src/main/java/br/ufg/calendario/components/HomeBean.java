@@ -61,7 +61,7 @@ public class HomeBean implements Serializable {
     public HomeBean() {
         calendario = null;
         dataSelecionada = new Date();
-        eventos = null;
+        eventos = new ArrayList<>();
         highlightDays = new HashMap();
     }
 
@@ -102,7 +102,10 @@ public class HomeBean implements Serializable {
     }
 
     public boolean isEventoSelecionado() {
-        return eventos.size() > 0;
+        if (eventos != null) {
+            return eventos.size() > 0;
+        }
+        return false;
     }
 
     /**
@@ -128,11 +131,17 @@ public class HomeBean implements Serializable {
     }
 
     public Date getPrimeiraDataEvento() {
-        return eventoDao.buscarPrimeiroDia(getCalendario());
+        if (calendario != null) {
+           return eventoDao.buscarPrimeiroDia(getCalendario()); 
+        }
+        return null;
     }
 
     public Date getUltimaDataEvento() {
-        return eventoDao.buscarUltimoDia(getCalendario());
+        if (calendario != null) {
+            return eventoDao.buscarUltimoDia(getCalendario());
+        }
+        return null;
     }
 
     public List<String> getAssunto() {
@@ -151,19 +160,21 @@ public class HomeBean implements Serializable {
             List<String> dates = new ArrayList<>();
             highlightDays.put(i, dates);
         }
-        for (Evento e : eventoDao.listar(calendario)) {
-            Date inicio = e.getInicio();
-            Date termino = e.getTermino();
-            Date date;
-            cal.setTime(inicio);
-            while (cal.getTime().before(termino) || cal.getTime().equals(termino)) {
-                date = cal.getTime();
-                List<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH)+1);
-                String strDate = formatter.format(date);
-                if (!currentDateList.contains(strDate)) {
-                    currentDateList.add(formatter.format(date));
+        if (calendario != null) {
+            for (Evento e : eventoDao.listar(calendario)) {
+                Date inicio = e.getInicio();
+                Date termino = e.getTermino();
+                Date date;
+                cal.setTime(inicio);
+                while (cal.getTime().before(termino) || cal.getTime().equals(termino)) {
+                    date = cal.getTime();
+                    List<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH) + 1);
+                    String strDate = formatter.format(date);
+                    if (!currentDateList.contains(strDate)) {
+                        currentDateList.add(formatter.format(date));
+                    }
+                    cal.add(Calendar.DAY_OF_YEAR, 1);
                 }
-                cal.add(Calendar.DAY_OF_YEAR, 1);
             }
         }
     }
