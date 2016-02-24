@@ -154,7 +154,7 @@
                         <div id="t2" class="tab">
                             <h:panelGroup layout="block" id="panelInfoRegional" styleClass="panelInfo">
                                 <h:panelGroup layout="block" id="panelTitleRegional" styleClass="panelTitle">
-                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                    <h:panelGroup>
                                         <span>
                                             #{msg.filtrar} #{msg.prepPor} #{msg.regional}
                                         </span>
@@ -170,7 +170,7 @@
                                         <ui:repeat value="#{regionalBean.allRegionais}" var="regional">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.regional}: #{regional.nome}">
                                                 <p:commandLink value="#{regional.nome}"
-                                                               styleClass="toolbarIcons regionalDetailIcon"
+                                                               styleClass="toolbarIcons regionalIcon"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{regional}" />
                                                 </p:commandLink>
@@ -183,7 +183,7 @@
                         <div id="t3" class="tab">
                             <h:panelGroup layout="block" id="panelInfoInteressado" styleClass="panelInfo">
                                 <h:panelGroup layout="block" id="panelTitleInteressado" styleClass="panelTitle">
-                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                    <h:panelGroup>
                                         <span>
                                             #{msg.filtrar} #{msg.prepPor} #{msg.interessado}
                                         </span>
@@ -199,7 +199,7 @@
                                         <ui:repeat value="#{interessadoBean.allInteressados}" var="interessado">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.interessado}: #{interessado.nome}">
                                                 <p:commandLink value="#{interessado.nome}"
-                                                               styleClass="toolbarIcons interessadoDetailIcon"
+                                                               styleClass="toolbarIcons interessadoIcon"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{interessado}" />
                                                 </p:commandLink>
@@ -212,7 +212,7 @@
                         <div id="t4" class="tab">
                             <h:panelGroup layout="block" id="panelInfoAssunto" styleClass="panelInfo">
                                 <h:panelGroup layout="block" id="panelTitleAssunto" styleClass="panelTitle">
-                                    <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
+                                    <h:panelGroup>
                                         <span>
                                             #{msg.filtrar} #{msg.prepPor} #{msg.assunto}
                                         </span>
@@ -221,6 +221,20 @@
                                         </span>
                                     </h:panelGroup>
                                 </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="panelInfoContent scrollVertical">
+                                <h:form id="formAssuntos">
+                                    <ul class="panelInfoAssunto">
+                                        <ui:repeat value="#{eventoBean.allAssuntos}" var="assunto">
+                                            <li title="#{msg.filtrar} #{msg.prepPor} #{msg.assunto}: #{assunto}">
+                                                <p:commandLink value="#{assunto}"
+                                                               action="eventos?faces-redirect=true">
+                                                    <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{assunto}" />
+                                                </p:commandLink>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </h:form>
                             </h:panelGroup>
                         </div>
                     </div>
