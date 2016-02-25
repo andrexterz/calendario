@@ -228,6 +228,7 @@
                                         <ui:repeat value="#{eventoBean.allAssuntos}" var="assunto">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.assunto}: #{assunto}">
                                                 <p:commandLink value="#{assunto}"
+                                                               styleClass="termoIcon"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{assunto}" />
                                                 </p:commandLink>

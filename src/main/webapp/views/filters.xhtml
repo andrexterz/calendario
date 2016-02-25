@@ -42,11 +42,14 @@
                     <p:outputLabel for="buscaDataInicio" value="#{msg.dataInicio}" />
                     <p:outputLabel for="buscaDataTermino" value="#{msg.dataTermino}" />
                     <p:calendar id="buscaDataInicio" value="#{eventoBean.buscaDataInicio}" 
+                                mindate="#{eventoBean.primeiraDataEvento}"
+                                maxdate="#{eventoBean.ultimaDataEvento}"
                                 size="8" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" update="buscaDataTermino" process="@this" listener="#{eventoBean.checkDateBusca}" />
                     </p:calendar>
                     <p:calendar id="buscaDataTermino" value="#{eventoBean.buscaDataTermino}"
-                                mindate="#{eventoBean.buscaDataInicio}" size="8" 
+                                mindate="#{eventoBean.buscaDataInicio}" 
+                                maxdate="#{eventoBean.ultimaDataEvento}" size="8" 
                                 pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999">
                         <p:ajax event="dateSelect" process="@this" />
                     </p:calendar>

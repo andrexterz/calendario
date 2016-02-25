@@ -189,10 +189,12 @@ hr {
     text-indent: 32px;
     font-weight: normal;
     text-decoration: none;
-    line-height: 150%;
+    line-height: 24px;
     display: inline-block;
+    position: relative;
+    top: 2px;
     height: 24px;
-    margin: 4px 2px 0 28px;
+    margin: 0 2px 0 28px;
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 24px;
@@ -402,6 +404,10 @@ hr {
 
 .textFilterIcon {
     background-image: url("#{resource['img/textoFilter.png']}");
+}
+
+.termoIcon {
+    background-image: url("#{resource['img/termo.png']}");
 }
 
 .interessadoIcon {

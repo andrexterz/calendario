@@ -23,8 +23,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -32,7 +30,6 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -161,7 +158,11 @@ public class HomeBean implements Serializable {
             cal.setTime(inicio);
             while (cal.getTime().before(termino) || cal.getTime().equals(termino)) {
                 date = cal.getTime();
-                highlightDays.get(cal.get(Calendar.MONTH)+1).add(formatter.format(date));
+                List<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH)+1);
+                String strDate = formatter.format(date);
+                if (!currentDateList.contains(strDate)) {
+                    currentDateList.add(formatter.format(date));
+                }
                 cal.add(Calendar.DAY_OF_YEAR, 1);
             }
         }

@@ -156,6 +156,10 @@ public class CalendarioBean implements Serializable {
             calendario.setArquivo(arquivo);
         }
     }
+    
+    public void removeArquivoCalendario() {
+        calendario.setArquivo(null);
+    }
 
     public StreamedContent getArquivoCalendario() {
         DefaultStreamedContent content = new DefaultStreamedContent();

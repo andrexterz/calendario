@@ -5,7 +5,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dialog id="salvaCalendario" widgetVar="salvaCalendario" appendTo="@(body)" modal="true" hideEffect="puff"
-              closeOnEscape="true" resizable="false" width="740" position="center"
+              closeOnEscape="true" resizable="false" width="80%" position="center"
               header="#{msg.adicionar} #{msg.calendario}">
         <h:form>
             <f:validateBean disabled="true">
@@ -56,14 +56,19 @@
                         </p:column>
                         <p:column>
                             <h:panelGroup id="arquivo" layout="block" styleClass="formGrid">
-                                <p:inputText rendered="#{calendarioBean.calendario.arquivo ne null}" value="#{calendarioBean.calendario.arquivo.titulo}" />
-                                <p:commandLink styleClass="arquivo"
-                                               title="#{calendarioBean.calendario.arquivo.nomeArquivo}"
-                                               ajax="false" rendered="#{calendarioBean.calendario.arquivo ne null}">
-                                    <p:fileDownload value="#{calendarioBean.arquivoCalendario}" />
-                                </p:commandLink>
+                                <h:panelGroup rendered="#{calendarioBean.calendario.arquivo ne null}">
+                                    <p:inputText value="#{calendarioBean.calendario.arquivo.titulo}" />
+                                    <p:commandLink styleClass="arquivo"
+                                                   title="#{calendarioBean.calendario.arquivo.nomeArquivo}"
+                                                   ajax="false">
+                                        <p:fileDownload value="#{calendarioBean.arquivoCalendario}" />
+                                    </p:commandLink>
+                                    <p:commandLink styleClass="menuButton resetButton"
+                                                   actionListener="#{calendarioBean.removeArquivoCalendario}"
+                                                   update="arquivo" process="@this"
+                                                   title="#{msg.excluir} #{calendarioBean.arquivoCalendario.name}" />
+                                </h:panelGroup>
                             </h:panelGroup>
-
                         </p:column>
                     </p:row>
                     <p:row>

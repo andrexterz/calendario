@@ -462,6 +462,14 @@ public class EventoBean implements Serializable {
         this.buscaDataTermino = buscaDataTermino;
     }
     
+    public Date getPrimeiraDataEvento() {
+        return eventoDao.buscarPrimeiroDia(getCalendario());
+    }
+
+    public Date getUltimaDataEvento() {
+        return eventoDao.buscarUltimoDia(getCalendario());
+    }
+    
     public List<String> getAllAssuntos() {
         return eventoDao.listarAssunto(calendario);
     }
