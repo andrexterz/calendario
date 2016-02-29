@@ -314,6 +314,27 @@ and open the template in the editor.
     background: #554d92;
 }
 
+.calendarSelector .tableMonth {
+    width: 98%;
+    color: #fff;
+    margin: auto;
+    background-color: rgba(254, 79, 14, 0.6);
+    margin: 0 1% 0 1%;
+    padding: 0;
+    border-collapse: collapse;
+    border-radius: 0 0 8px 8px;
+    border-top: 1px solid #52a0a1;
+    text-align: center;
+}
+
+.calendarSelector .tableMonth th {
+    height: 32px;
+    background-color: #37354d;
+}
+
+.calendarSelector .tableMonth tr {
+    height: 24px;
+}
 /**************************************** footer ******************************/
 .footer {
     display: block;
