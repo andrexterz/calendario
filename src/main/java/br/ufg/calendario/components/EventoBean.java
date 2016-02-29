@@ -13,9 +13,12 @@ import br.ufg.calendario.models.Calendario;
 import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
+import java.io.ByteArrayInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -30,18 +33,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -89,7 +97,6 @@ public class EventoBean implements Serializable {
     private Interessado buscaInteressado;
     private Date buscaDataInicio;
     private Date buscaDataTermino;
-   
 
     @PostConstruct
     private void init() {
@@ -312,6 +319,56 @@ public class EventoBean implements Serializable {
         eventosImportados.clear();
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "info", LocaleBean.getMessage("listaExcluida"));
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public StreamedContent getEventosAsCSV() {
+        DefaultStreamedContent content = new DefaultStreamedContent();
+        CSVFormat csvFile = CSVFormat.DEFAULT
+                .withRecordSeparator(configBean.getRecordDelimiter())
+                .withDelimiter(configBean.getDelimiter());
+        String filename = String.format("calendario-%tY-%1$tm-%1$td.csv", new Date());
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(configBean.getDateFormat());
+        try {
+            FileWriter outputFile = new FileWriter(filename);
+            CSVPrinter filePrinter = new CSVPrinter(outputFile, csvFile);
+            //Ano	Início	Fim	Assunto	Evento	Interessado	Regional	Aprovado
+            Object[] header = {"ano", "inicio", "fim", "assunto", "evento", "interessado", "regional", "aprovado"};
+            filePrinter.printRecord(header);
+            for (Evento evt: eventoDao.listar(getCalendario())) {
+                List record = new ArrayList<>();
+                record.add(calendario.getAno());
+                record.add(dateFormatter.format(evt.getInicio()));
+                record.add(dateFormatter.format(evt.getTermino()));
+                record.add(evt.getAssunto());
+                record.add(evt.getDescricao());
+                StringBuilder builder = new StringBuilder();
+                Interessado[] interessados = (Interessado[]) evt.getInteressado().toArray();
+                for (int i = 0; i < interessados.length; i++) {
+                    builder.append(interessados[i]);
+                    if (i < (interessados.length - 1)) {
+                        builder.append(configBean.getRegexSplitter());
+                    }
+                }
+                record.add(builder.toString());
+                builder.delete(0, builder.length());
+                Regional[] regionais = (Regional[]) evt.getRegional().toArray();
+                for(int i = 0; i < regionais.length; i++) {
+                    builder.append(regionais[i]);
+                    if (i < (regionais.length - 1)) {
+                        builder.append(configBean.getRegexSplitter());
+                    }
+                }
+                record.add(builder.toString());
+                record.add(evt.isAprovado() ? "S": "N");
+                filePrinter.printRecord(record);
+            }
+            InputStream input = new ByteArrayInputStream(filePrinter.toString().getBytes());
+            content.setStream(input);
+            return content;
+        } catch (IOException ex) {
+            Logger.getLogger(EventoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void limpaFiltro() {

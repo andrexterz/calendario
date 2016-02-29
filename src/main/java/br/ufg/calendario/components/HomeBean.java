@@ -181,6 +181,7 @@ public class HomeBean implements Serializable {
                     String strDate = formatter.format(date);
                     if (!currentDateList.contains(strDate)) {
                         currentDateList.add(formatter.format(date));
+                        System.out.println("added date: " + strDate);
                     }
                     cal.add(Calendar.DAY_OF_YEAR, 1);
                 }

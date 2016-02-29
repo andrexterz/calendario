@@ -67,6 +67,10 @@ public class ConfigBean {
         return properties.getProperty("regexSplitter");
     }
     
+    public char getRecordDelimiter() {
+        return properties.getProperty("recordDelimiter").charAt(0);
+    }
+    
     public char getDelimiter() {
         return properties.getProperty("csvDelimiter").charAt(0);
     }

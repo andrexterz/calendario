@@ -22,6 +22,11 @@
                         <p:commandButton icon="ui-icon-arrow-1-n"
                                          value="#{msg.importar}"
                                          oncomplete="PF('importaEvento').show()" />
+                        <p:commandButton icon="ui-icon-arrow-1-w"
+                                       value="#{msg.exportar}"
+                                       ajax="false">
+                            <p:fileDownload value="#{eventoBean.eventosAsCSV}" />
+                        </p:commandButton>
 
                         <p:commandButton icon="ui-icon-document"
                                          value="#{msg.adicionar}"
