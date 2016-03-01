@@ -87,14 +87,10 @@ public class RegionalDao {
 
     @Transactional(readOnly = true)
     public List<Regional> listar() {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            Criteria criteria = session.createCriteria(Regional.class);
-            criteria.addOrder(Order.asc("nome"));
-            return criteria.list();
-        } catch (HibernateException e) {
-            return new ArrayList<>();
-        }
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Regional.class);
+        criteria.addOrder(Order.asc("nome"));
+        return criteria.list();
     }
 
     @Transactional(readOnly = true)

@@ -89,6 +89,7 @@ public class EventoBean implements Serializable {
     private Interessado buscaInteressado;
     private Date buscaDataInicio;
     private Date buscaDataTermino;
+   
 
     @PostConstruct
     private void init() {
@@ -386,7 +387,6 @@ public class EventoBean implements Serializable {
     }
 
     public void setCalendario(Calendario calendario) {
-        System.out.println("calendario alterado: " + calendario.getAno());
         this.calendario = calendario;
     }
 

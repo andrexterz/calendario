@@ -314,26 +314,46 @@ and open the template in the editor.
     background: #554d92;
 }
 
-.calendarSelector .tableMonth {
-    width: 98%;
+.monthSelector {
+    position: absolute;
+    top: 270px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.tableMonth {
+    width: 100%;
+    height: 100%;
     color: #fff;
     margin: auto;
     background-color: rgba(254, 79, 14, 0.6);
-    margin: 0 1% 0 1%;
+    margin: 0;
     padding: 0;
     border-collapse: collapse;
-    border-radius: 0 0 8px 8px;
     border-top: 1px solid #52a0a1;
     text-align: center;
 }
 
-.calendarSelector .tableMonth th {
+.tableMonth th {
     height: 32px;
     background-color: #37354d;
 }
 
-.calendarSelector .tableMonth tr {
-    height: 24px;
+.tableMonth td {
+    height: auto;
+}
+
+.tableMonth td a {
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid  transparent;
+    padding: 2px;
+}
+
+.tableMonth td a:hover {
+    color: #ffff00;
+    border-bottom: 1px solid #eeee99;
 }
 /**************************************** footer ******************************/
 .footer {

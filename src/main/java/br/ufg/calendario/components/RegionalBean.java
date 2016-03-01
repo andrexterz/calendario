@@ -27,8 +27,8 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session")
 public class RegionalBean implements Serializable{
 
-    @Autowired
-    transient RegionalDao regionalDao;
+    @Autowired(required = true)
+    private transient RegionalDao regionalDao;
 
     private Regional regional;
     

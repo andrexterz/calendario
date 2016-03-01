@@ -57,6 +57,12 @@ public class ConfigBean {
         return properties.getProperty("dateFormat");
     }
     
+    
+    public String getISODateFormat() {
+        return properties.getProperty("ISODateFormat");
+    }
+    
+    
     public String getRegexSplitter() {
         return properties.getProperty("regexSplitter");
     }

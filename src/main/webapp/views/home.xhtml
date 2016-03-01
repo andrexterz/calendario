@@ -48,7 +48,10 @@
                                 <h:outputText value=""/>
                             </f:facet>
                         </p:ajaxStatus>
-                        <p:commandLink styleClass="loginLink" title="#{msg.login}" action="login?faces-redirect=true" />
+                        <p:commandLink styleClass="loginLink" title="#{msg.login}"
+                                       process="@this"
+                                       actionListener="#{eventoBean.limpaFiltro}"
+                                       action="login?faces-redirect=true" />
                     </h:form>
                 </f:facet>
             </p:toolbar>
@@ -147,30 +150,113 @@
                                                 oncomplete="play()"
                                                 listener="#{homeBean.processaEventosSelecionados}"
                                                 update=":panelInfoCalendar" />
+                                        <p:ajax process="@this"
+                                                event="viewChange"
+                                                listener="#{homeBean.changeCalendar}"
+                                                update="monthSelector" />
                                     </p:calendar>
-                                    <table class="tableMonth">
-                                        <tr>
-                                            <th colspan="4">#{msg.irPara} #{msg.eventos} #{msg.prepDo} #{msg.mes}:</th>
-                                        </tr>
-                                        <tr>
-                                            <td>#{msg.abrevMes01}</td>
-                                            <td>#{msg.abrevMes02}</td>
-                                            <td>#{msg.abrevMes03}</td>
-                                            <td>#{msg.abrevMes04}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#{msg.abrevMes05}</td>
-                                            <td>#{msg.abrevMes06}</td>
-                                            <td>#{msg.abrevMes07}</td>
-                                            <td>#{msg.abrevMes08}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#{msg.abrevMes09}</td>                                        
-                                            <td>#{msg.abrevMes10}</td>                                        
-                                            <td>#{msg.abrevMes11}</td>                                        
-                                            <td>#{msg.abrevMes12}</td>                                        
-                                        </tr>
-                                    </table>
+                                    <h:panelGroup id="monthSelector" styleClass="monthSelector" layout="block">
+                                        <table class="tableMonth">
+                                            <tr>
+                                                <th colspan="4">#{msg.irPara} #{msg.eventos} #{msg.prepDo} #{msg.mes}:</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p:commandLink value="#{msg.abrevMes01}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="JANEIRO" />
+                                                    </p:commandLink>
+
+                                                </td>
+                                                <td>
+                                                    <p:commandLink value=" #{msg.abrevMes02}" process="@this" 
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="FEVEREIRO" />
+                                                    </p:commandLink>
+
+                                                </td>
+                                                <td>
+                                                    <p:commandLink value=" #{msg.abrevMes03}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="MARCO" />
+                                                    </p:commandLink>
+
+                                                </td>
+                                                <td>
+                                                    <p:commandLink value="#{msg.abrevMes04}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="ABRIL" />
+                                                    </p:commandLink>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p:commandLink value="#{msg.abrevMes05}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="MAIO" />
+                                                    </p:commandLink>
+                                                </td>
+                                                <td>
+                                                    <p:commandLink value="#{msg.abrevMes06}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="JUNHO" />
+                                                    </p:commandLink>
+                                                </td>
+                                                <td>
+                                                    <p:commandLink value="#{msg.abrevMes07}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="JULHO" />
+                                                    </p:commandLink>
+                                                </td>
+                                                <td>
+                                                    <p:commandLink value="#{msg.abrevMes08}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="AGOSTO" />
+                                                    </p:commandLink>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               <td>
+                                                    <p:commandLink value="#{msg.abrevMes09}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="SETEMBRO" />
+                                                    </p:commandLink>
+                                                </td>                                      
+                                               <td>
+                                                    <p:commandLink value="#{msg.abrevMes10}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="OUTUBRO" />
+                                                    </p:commandLink>
+                                                </td>                                      
+                                               <td>
+                                                    <p:commandLink value="#{msg.abrevMes11}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="NOVEMBRO" />
+                                                    </p:commandLink>
+                                                </td>                                      
+                                               <td>
+                                                    <p:commandLink value="#{msg.abrevMes12}" process="@this"
+                                                                   action="eventos?faces-redirect=true"
+                                                                   actionListener="#{homeBean.valueMesListener}">
+                                                        <f:attribute name="mes" value="DEZEMBRO" />
+                                                    </p:commandLink>
+                                                </td>                                      
+                                            </tr>
+                                        </table>
+                                    </h:panelGroup>
+
                                 </div>
                             </h:form>
                         </div>
@@ -194,6 +280,7 @@
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.regional}: #{regional.nome}">
                                                 <p:commandLink value="#{regional.nome}"
                                                                styleClass="toolbarIcons regionalIcon"
+                                                               actionListener="#{eventoBean.limpaFiltro}"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{regional}" />
                                                 </p:commandLink>
@@ -223,6 +310,7 @@
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.interessado}: #{interessado.nome}">
                                                 <p:commandLink value="#{interessado.nome}"
                                                                styleClass="toolbarIcons interessadoIcon"
+                                                               actionListener="#{eventoBean.limpaFiltro}"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.buscaInteressado}" value="#{interessado}" />
                                                 </p:commandLink>
@@ -252,6 +340,7 @@
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.assunto}: #{assunto}">
                                                 <p:commandLink value="#{assunto}"
                                                                styleClass="termoIcon"
+                                                               actionListener="#{eventoBean.limpaFiltro}"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.termoBusca}" value="#{assunto}" />
                                                 </p:commandLink>

@@ -25,7 +25,9 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.primefaces.event.DateViewChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Andre Luiz Fernandes Ribeiro Barca
  */
 @Component
-@Scope(value = "request")
+@Scope(value = "session")
 public class HomeBean implements Serializable {
 
     @Autowired
@@ -53,10 +55,17 @@ public class HomeBean implements Serializable {
     @Autowired(required = true)
     private transient InteressadoDao interessadoDao;
 
+    @Autowired(required = true)
+    private transient ConfigBean configBean;
+
+    @Autowired(required = true)
+    private transient EventoBean eventoBean;
+
     private Calendario calendario;
     private Date dataSelecionada;
     private List<Evento> eventos;
     Map<Integer, List<String>> highlightDays;
+    private int anoSelecionado;
 
     public HomeBean() {
         calendario = null;
@@ -67,10 +76,10 @@ public class HomeBean implements Serializable {
 
     @PostConstruct
     private void init() {
-        this.setCalendario(calendarioDao.buscarAtivo());
-        System.out.println("calendario ativo: " + getCalendario());
+        setCalendario(calendarioDao.buscarAtivo());
         getDataSelecionada();
         processaEventosSelecionados();
+        anoSelecionado = getCalendario().getAno();
     }
 
     public StreamedContent getArquivoCalendario() {
@@ -132,7 +141,7 @@ public class HomeBean implements Serializable {
 
     public Date getPrimeiraDataEvento() {
         if (calendario != null) {
-           return eventoDao.buscarPrimeiroDia(getCalendario()); 
+            return eventoDao.buscarPrimeiroDia(getCalendario());
         }
         return null;
     }
@@ -155,7 +164,7 @@ public class HomeBean implements Serializable {
 
     public void processHighLightDays() {
         Calendar cal = new GregorianCalendar();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat formatter = new SimpleDateFormat(configBean.getISODateFormat());
         for (int i = 1; i <= 12; i++) {
             List<String> dates = new ArrayList<>();
             highlightDays.put(i, dates);
@@ -187,6 +196,27 @@ public class HomeBean implements Serializable {
             System.out.println("erro ao interpretar <json object>");
         }
         return null;
+    }
+
+    public void changeCalendar(DateViewChangeEvent event) {
+        anoSelecionado = event.getYear();
+    }
+
+    public void valueMesListener(ActionEvent event) {
+        eventoBean.limpaFiltro();
+        Mes mes = Mes.valueOf((String) event.getComponent().getAttributes().get("mes"));
+        SimpleDateFormat formatter = new SimpleDateFormat(configBean.getISODateFormat());
+        Calendar calendar = new GregorianCalendar(LocaleBean.getInstance().getLocale());
+        calendar.set(Calendar.YEAR, anoSelecionado);
+        calendar.set(Calendar.MONTH, mes.getMes());
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+        eventoBean.setBuscaDataInicio(calendar.getTime());
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        eventoBean.setBuscaDataTermino(calendar.getTime());
+        System.out.format("Mes de %s, %s - %s\n", mes.name(),
+                formatter.format(eventoBean.getBuscaDataInicio()),
+                formatter.format(eventoBean.getBuscaDataTermino())
+        );
     }
 
     public boolean isHomeLocation() {

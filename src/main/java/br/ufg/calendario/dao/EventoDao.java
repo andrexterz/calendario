@@ -278,7 +278,7 @@ public class EventoDao {
     @Transactional(readOnly = true)
     public List<String> listarAssunto(Calendario calendario) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("select distinct e.assunto from Evento e where e.calendario.ativo=:calendarioAtivo order by e.assunto asc")
+                .createQuery("select distinct e.assunto from Evento e where e.aprovado = true and e.calendario.ativo=:calendarioAtivo order by e.assunto asc")
                 .setBoolean("calendarioAtivo", calendario.isAtivo())
                 .list();
     }
