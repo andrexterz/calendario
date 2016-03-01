@@ -21,8 +21,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -64,7 +66,7 @@ public class HomeBean implements Serializable {
     private Calendario calendario;
     private Date dataSelecionada;
     private List<Evento> eventos;
-    Map<Integer, List<String>> highlightDays;
+    Map<Integer, Set<String>> highlightDays;
     private int anoSelecionado;
 
     public HomeBean() {
@@ -166,7 +168,7 @@ public class HomeBean implements Serializable {
         Calendar cal = new GregorianCalendar();
         SimpleDateFormat formatter = new SimpleDateFormat(configBean.getISODateFormat());
         for (int i = 1; i <= 12; i++) {
-            List<String> dates = new ArrayList<>();
+            Set<String> dates = new HashSet<>();
             highlightDays.put(i, dates);
         }
         if (calendario != null) {
@@ -177,12 +179,13 @@ public class HomeBean implements Serializable {
                 cal.setTime(inicio);
                 while (cal.getTime().before(termino)) {
                     date = cal.getTime();
-                    List<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH) + 1);
+                    Set<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH) + 1);
                     String strDate = formatter.format(date);
                     if (!currentDateList.contains(strDate)) {
-                        currentDateList.add(formatter.format(date));
-                        System.out.println("added date: " + strDate);
+                        currentDateList.add(strDate);
+                        System.out.format("Date: %s\n", formatter.format(cal.getTime()));
                     }
+                    currentDateList.add(formatter.format(termino));
                     cal.add(Calendar.DAY_OF_YEAR, 1);
                 }
             }
