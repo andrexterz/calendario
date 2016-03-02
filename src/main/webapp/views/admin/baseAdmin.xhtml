@@ -22,7 +22,9 @@
             <h:panelGroup layout="block" styleClass="adminTopMenu">
                 <p:graphicImage value="#{resource['img/ufg-logow.png']}" styleClass="logoAdmin" />
                 <div  class="appTitleAdmin">
-                    <h:outputText value="#{msg.appNome}" />
+                    <ui:insert name="headerTitle">
+                        <h:outputText value="#{msg.appNome}" />
+                    </ui:insert>
                 </div>
                 <div class="userInfo">
                     <p:commandButton value="#{usuarioBean.sessionUsuario.login}" icon="ui-icon-gear" oncomplete="PF('alteraUsuario').show()" />

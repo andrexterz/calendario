@@ -175,7 +175,7 @@ public class HomeBean implements Serializable {
                 Date termino = e.getTermino();
                 Date date;
                 cal.setTime(inicio);
-                while (cal.getTime().before(termino) || cal.getTime().equals(termino)) {
+                while (cal.getTime().before(termino)) {
                     date = cal.getTime();
                     List<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH) + 1);
                     String strDate = formatter.format(date);

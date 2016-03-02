@@ -14,11 +14,9 @@ import br.ufg.calendario.models.Evento;
 import br.ufg.calendario.models.Interessado;
 import br.ufg.calendario.models.Regional;
 import java.io.ByteArrayInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -29,12 +27,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -329,12 +326,12 @@ public class EventoBean implements Serializable {
         String filename = String.format("calendario-%tY-%1$tm-%1$td.csv", new Date());
         SimpleDateFormat dateFormatter = new SimpleDateFormat(configBean.getDateFormat());
         try {
-            FileWriter outputFile = new FileWriter(filename);
-            CSVPrinter filePrinter = new CSVPrinter(outputFile, csvFile);
+            StringBuilder outputData = new StringBuilder();
+            CSVPrinter filePrinter = new CSVPrinter(outputData, csvFile);
             //Ano	Início	Fim	Assunto	Evento	Interessado	Regional	Aprovado
             Object[] header = {"ano", "inicio", "fim", "assunto", "evento", "interessado", "regional", "aprovado"};
             filePrinter.printRecord(header);
-            for (Evento evt: eventoDao.listar(getCalendario())) {
+            for (Evento evt : eventoDao.listar(getCalendario())) {
                 List record = new ArrayList<>();
                 record.add(calendario.getAno());
                 record.add(dateFormatter.format(evt.getInicio()));
@@ -342,31 +339,31 @@ public class EventoBean implements Serializable {
                 record.add(evt.getAssunto());
                 record.add(evt.getDescricao());
                 StringBuilder builder = new StringBuilder();
-                Interessado[] interessados = (Interessado[]) evt.getInteressado().toArray();
-                for (int i = 0; i < interessados.length; i++) {
-                    builder.append(interessados[i]);
-                    if (i < (interessados.length - 1)) {
+                for (Iterator<Interessado> interessado = evt.getInteressado().iterator(); interessado.hasNext();) {
+                    builder.append(interessado.next().getNome());
+                    if (interessado.hasNext()) {
                         builder.append(configBean.getRegexSplitter());
                     }
                 }
                 record.add(builder.toString());
                 builder.delete(0, builder.length());
-                Regional[] regionais = (Regional[]) evt.getRegional().toArray();
-                for(int i = 0; i < regionais.length; i++) {
-                    builder.append(regionais[i]);
-                    if (i < (regionais.length - 1)) {
+                for (Iterator<Regional> regional = evt.getRegional().iterator(); regional.hasNext();) {
+                    builder.append(regional.next().getNome());
+                    if (regional.hasNext()) {
                         builder.append(configBean.getRegexSplitter());
                     }
                 }
                 record.add(builder.toString());
-                record.add(evt.isAprovado() ? "S": "N");
+                record.add(evt.isAprovado() ? "S" : "N");
                 filePrinter.printRecord(record);
             }
-            InputStream input = new ByteArrayInputStream(filePrinter.toString().getBytes());
+            InputStream input = new ByteArrayInputStream(filePrinter.getOut().toString().getBytes());
+            content.setName(filename);
             content.setStream(input);
+            content.setContentType("application/csv");
             return content;
-        } catch (IOException ex) {
-            Logger.getLogger(EventoBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
         }
         return null;
     }
@@ -404,7 +401,13 @@ public class EventoBean implements Serializable {
     }
 
     public void adicionaRegional() {
-        evento.addRegional(getSelecaoRegional());
+        if (getSelecaoRegional() != null) {
+            evento.addRegional(getSelecaoRegional());
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("selecioneARegional"));
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
     }
 
     public void removeRegional() {
@@ -414,7 +417,13 @@ public class EventoBean implements Serializable {
     }
 
     public void adicionaInteressado() {
-        evento.addInteressado(getSelecaoInteressado());
+        if (getSelecaoInteressado() != null) {
+            evento.addInteressado(getSelecaoInteressado());
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "info", LocaleBean.getMessage("selecioneOInteressado"));
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
     }
 
     public void removeInteressado() {

@@ -895,12 +895,13 @@ col40 {
 }
 
 .appTitleAdmin {
+    text-transform: capitalize;
     font-size: 24px;
     font-weight: bold;
     display: inline-block;
     color: #eee;
     margin: 6px;
-    width: auto;
+    width: 260px;
     height: 60px;
     vertical-align: middle;
 

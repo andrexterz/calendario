@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="baseAdmin.xhtml">
         <ui:define name="title">#{msg.eventos}</ui:define>
+        <ui:define name="headerTitle">#{msg.eventos}</ui:define>
         <ui:define name="content">
             <ui:include src="importaEventoForm.xhtml" />
             <ui:include src="salvaEventoForm.xhtml" />
@@ -22,8 +23,9 @@
                         <p:commandButton icon="ui-icon-arrow-1-n"
                                          value="#{msg.importar}"
                                          oncomplete="PF('importaEvento').show()" />
-                        <p:commandButton icon="ui-icon-arrow-1-w"
+                        <p:commandButton icon="	ui-icon-arrow-1-s"
                                        value="#{msg.exportar}"
+                                       disabled="#{eventoBean.calendario eq null}"
                                        ajax="false">
                             <p:fileDownload value="#{eventoBean.eventosAsCSV}" />
                         </p:commandButton>
@@ -60,7 +62,7 @@
                             <f:selectItem itemLabel="#{msg.calendario}" itemValue="#{null}" />
                             <f:selectItems value="#{calendarioDao.listar()}"
                                            var="calendario" itemLabel="#{calendario.ano}" itemValue="#{calendario}" />
-                            <p:ajax process="@this" update="eventosTable" />
+                            <p:ajax process="@this" update="eventosTable toolbar" />
                         </p:selectOneMenu>
                     </f:facet>
                 </p:toolbar>
