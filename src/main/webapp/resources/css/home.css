@@ -442,33 +442,33 @@ and open the template in the editor.
 
 /********************************** adaptive layout ***************************/
 
-@media(max-width: 767px) {
-    .instituicaoTitle {
-        display: inline-block;
-        font-size: 1.0em;
-        color: #fff;
-    }
-
-    .calendarTitle {
-        margin-top: 6px;
-        font-size: 1.1em;
-    }
-
-    .boxContainer {
-        margin: 4px 2px;
-    }
-
-    .boxContainer:nth-child(-n+3) {
-        width: 48%;
-    }
-
-    .boxContainer:nth-child(n+4) {
-        width: 97%;
-    }
-
-}
-
 @media(max-width: 480px) {
+
+    .container {
+        position: absolute;
+        top: 86px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        border: 2px solid #00588f;
+        border-radius: 0 0 4px 4px;
+        min-width: fit-content;
+        min-height: fit-content;
+    }
+
+
+    #content {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        right: 4px;
+        bottom: 96px;
+        background-color: #575757;
+        overflow: hidden;
+    }
+
+
     .homeLinks ul li {
         display: block;
     }
@@ -477,6 +477,61 @@ and open the template in the editor.
         margin-left: 4px;
         font-size: 0.9em;
     }
+
+    .loginLink {
+        display: none;
+    }
+
+
+    .panelInfoCalendar {
+        position: absolute;
+        top: 34px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #39235d;
+        background: #b4d2c8;
+    }
+
+    .selectedEvent {
+        display: block;
+        margin: 2em;
+    }
+    
+    .selectedEvent h1 {
+        font-size: 12pt;
+    }
+    
+    .selectedEvent h2 {
+        font-size: 12pt;
+    }
+
+    .panelTitle {
+        width: 100%;
+        height: 36px;
+        padding-top: 12px;
+        background-color: #00588f;
+        font-weight: normal;
+        font-size: 1.0em;
+        border-bottom: 1px solid #52a0a1;
+    }
+
+
+    .panelTitle span:first-child {
+        color: aquamarine;
+        margin-left: 8px;
+        float: left;
+    }
+
+    .calendarSelector {
+        position: absolute;
+        top: 34px;
+        bottom: 0;
+        right: -1000px;
+        width: 300px;
+        background: #554d92;
+    }
+
 
     .boxContainer:nth-child(-n+3) {
         width: 99%;
