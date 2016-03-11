@@ -180,11 +180,7 @@ public class HomeBean implements Serializable {
                 while (cal.getTime().before(termino)) {
                     date = cal.getTime();
                     Set<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH) + 1);
-                    String strDate = formatter.format(date);
-                    if (!currentDateList.contains(strDate)) {
-                        currentDateList.add(strDate);
-                        System.out.format("Date: %s\n", formatter.format(cal.getTime()));
-                    }
+                    currentDateList.add(formatter.format(date));
                     currentDateList.add(formatter.format(termino));
                     cal.add(Calendar.DAY_OF_YEAR, 1);
                 }
