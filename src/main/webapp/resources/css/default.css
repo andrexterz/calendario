@@ -160,30 +160,6 @@ hr {
     border: 1px solid #fff;
 }
 
-.infoIcon {
-    position: relative;
-    top: -16px;
-    background-image: url("#{resource['img/info.png']}");
-    width: 48px;
-    height: 48px;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    text-align: center;
-}
-
-.infoIcon:hover {
-    color: #009fe3!important;
-    background-position: 0 -48px;
-}
-
-.infoIcon span {
-    text-align: center;
-    width: 48px;
-    font-size: 0.8em;
-    position: relative;
-    top: 48px;
-}
-
 .menu {
     color: #fff!important;
     text-indent: 32px;
@@ -568,7 +544,7 @@ hr {
     vertical-align: middle;
     font-weight: normal;
     font-size: 1.2em;
-    color: orangered;
+    color: #d23b03;
     margin: 4px 1em 8px 0;
 }
 

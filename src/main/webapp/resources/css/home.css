@@ -256,7 +256,7 @@ and open the template in the editor.
 }
 
 .selectedEvent h2 {
-    color: orangered;
+    color: #d23b03;
     font-weight: normal;
     font-size: 12pt;
 }
@@ -419,6 +419,32 @@ and open the template in the editor.
 }
 
 
+.infoIcon {
+    position: relative;
+    top: -16px;
+    background-image: url("#{resource['img/info.png']}");
+    width: 48px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    text-align: center;
+}
+
+.infoIcon:hover {
+    color: #009fe3!important;
+    background-position: 0 -48px;
+}
+
+.infoIcon span {
+    text-align: center;
+    width: 48px;
+    font-size: 0.8em;
+    position: relative;
+    top: 48px;
+}
+
+/*************************************** columns ******************************/
+
 
 .col10 {
     width: 10%;
@@ -460,12 +486,15 @@ and open the template in the editor.
 
     #content {
         position: absolute;
+        width: auto;
+        min-height: 420px;
         top: 4px;
-        left: 4px;
+        left:4px;
         right: 4px;
-        bottom: 96px;
+        bottom: 300px;
         background-color: #575757;
         overflow: hidden;
+        z-index: 999;
     }
 
 
@@ -482,6 +511,10 @@ and open the template in the editor.
         display: none;
     }
 
+    .tabGroup input[type="radio"] + label {
+        font-weight: normal;
+    }
+
 
     .panelInfoCalendar {
         position: absolute;
@@ -489,21 +522,24 @@ and open the template in the editor.
         left: 0;
         right: 0;
         bottom: 0;
-        color: #39235d;
         background: #b4d2c8;
     }
 
     .selectedEvent {
         display: block;
-        margin: 2em;
+        margin: 1em 2em 0 2em;
     }
-    
+
     .selectedEvent h1 {
         font-size: 12pt;
     }
-    
+
     .selectedEvent h2 {
         font-size: 12pt;
+    }
+    
+    .selectedEvent p {
+        font-size: 1em;
     }
 
     .panelTitle {
@@ -532,12 +568,110 @@ and open the template in the editor.
         background: #554d92;
     }
 
-
-    .boxContainer:nth-child(-n+3) {
-        width: 99%;
+    .panelInfo {
+        padding: 0;
     }
 
-    .boxContainer:nth-child(n+4) {
-        width: 99%;
+    .panelInfoItems {
+        margin: 0;
+        padding: 0;
+    }
+
+    .panelInfoItems li {
+        display: block;
+        width: 100%;
+        margin: 0;
+        text-indent: -12px;
+    }
+
+    .panelInfoItems li a {
+        text-indent: 32px;
+        display: inline-block;
+        width: 100%;
+        color: #37354d;
+        background-position: 0 -32px;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+    }
+
+    .panelInfoItems li a:hover {
+        color: #fff;
+        background-color: #37354d;
+        border: none;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .panelInfoAssunto li a {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+
+    .footer {
+        display: block;
+        position: absolute;
+        top: 426px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: fit-content;
+        text-align: left;
+    }
+
+    .footerGrid {
+        display: block;
+        height: auto;
+        margin-bottom: 24px;
+    }
+
+    .footerGrid:nth-child(n+2) {
+        text-indent: 64px;
+    }
+
+    .footerGrid span {
+        width: auto;
+        display: block;
+        float: none;
+    }
+
+    .infoIcon {
+        position: relative;
+        top: -16px;
+        left: 64px;
+        width: fit-content;
+        height: 24px;
+        background-repeat: no-repeat;
+        background-size: 24px auto;
+        background-position: 0 0;
+        text-align: center;
+    }
+
+    .infoIcon:hover {
+        color: #009fe3!important;
+        background-position: 0 -24px;
+    }
+
+    .infoIcon span {
+        text-align: left;
+        width: auto;
+        font-size: 1em;
+        position: relative;
+        top: 6px;
+        left: 32px;
+        text-indent: 0;
     }
 }
