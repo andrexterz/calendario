@@ -245,6 +245,10 @@ hr {
         font-size: 16px;
     }
 
+    .menu {
+        margin: 0 0 0 16px;
+    }
+
     .mini-menu {
         display: inline-block;  
         vertical-align: middle;
@@ -442,6 +446,10 @@ hr {
     background-image: url("#{resource['img/regionalDetail.png']}");
 }
 
+.diskIIcon {
+    background-image: url("#{resource['img/disk-list-item.png']}");
+}
+
 
 .backButton {
     display: none;
@@ -476,7 +484,7 @@ hr {
         left: 0;
         z-index: 200;
     }
-    
+
     .upButton {
         display: none;
     }
@@ -1050,4 +1058,12 @@ col40 {
     font-size: 1.5em;
     text-align: center;
     line-height: 150%;
+}
+
+@media(max-width: 320px) {
+    .menu {
+        margin: 0 0 0 8px;
+        text-indent: -1000px;
+        width: 24px;
+    }
 }

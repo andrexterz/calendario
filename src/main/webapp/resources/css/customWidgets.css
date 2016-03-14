@@ -47,11 +47,15 @@ and open the template in the editor.
 
 .ui-datepicker td a {
     display: block;
-    padding: 0.6em;
+    padding: 0.4em;
     text-align: right;
     text-decoration: none;
     width: 12px;
     height: 12px;
+}
+
+.ui-datepicker td span {
+    text-align: center;
 }
 
 .highlightDay a {

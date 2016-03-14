@@ -59,3 +59,8 @@ function highlightDays(date) {
     }
     return [true, ''];
 }
+
+
+function toggleCalendarMenu() {
+    jQuery('#calendarSelector').toggleClass("calendarSelectorToggle");
+}

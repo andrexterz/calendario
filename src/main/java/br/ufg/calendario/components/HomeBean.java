@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,7 +67,7 @@ public class HomeBean implements Serializable {
     private Calendario calendario;
     private Date dataSelecionada;
     private List<Evento> eventos;
-    Map<Integer, Set<String>> highlightDays;
+    Map<Integer, List<String>> highlightDays;
     private int anoSelecionado;
 
     public HomeBean() {
@@ -164,11 +165,11 @@ public class HomeBean implements Serializable {
         return null;
     }
 
-    public void processHighLightDays() {
+    public void processHighLightDays() throws ParseException {
         Calendar cal = new GregorianCalendar();
         SimpleDateFormat formatter = new SimpleDateFormat(configBean.getISODateFormat());
         for (int i = 1; i <= 12; i++) {
-            Set<String> dates = new HashSet<>();
+            List<String> dates = new ArrayList<>();
             highlightDays.put(i, dates);
         }
         if (calendario != null) {
@@ -177,13 +178,17 @@ public class HomeBean implements Serializable {
                 Date termino = e.getTermino();
                 Date date;
                 cal.setTime(inicio);
-                while (cal.getTime().before(termino)) {
-                    date = cal.getTime();
-                    Set<String> currentDateList = highlightDays.get(cal.get(Calendar.MONTH) + 1);
-                    currentDateList.add(formatter.format(date));
-                    currentDateList.add(formatter.format(termino));
+                 while (!cal.getTime().after(termino)) {
+                    List<String> dates = highlightDays.get(cal.get(Calendar.MONTH) + 1);
+                    if (!dates.contains(formatter.format(cal.getTime()))) {
+                        dates.add(formatter.format(cal.getTime()));
+                    }
+                    if (!dates.contains(formatter.format(termino))) {
+                        dates.add(formatter.format(termino));
+                    }
                     cal.add(Calendar.DAY_OF_YEAR, 1);
                 }
+
             }
         }
     }

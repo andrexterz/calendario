@@ -25,12 +25,15 @@
             <p:toolbar id="homeMenu" styleClass="toolbar">
                 <f:facet id="left" name="left">
                     <h:form id="leftCommands">
-                        <p:commandLink styleClass="menu autowidth-menu eventIcon" 
+                        <p:commandLink styleClass="menu mini-menu calendarIcon calendarMenu" 
+                                       onclick="toggleCalendarMenu()"
+                                       value="#{msg.selecioneUmaData}" />
+                        <p:commandLink styleClass="menu eventIcon" 
                                        value="#{msg.eventos}"
                                        action="eventos?faces-redirect=true"
                                        actionListener="#{eventoBean.limpaFiltro}"
                                        title="#{msg.irPara} #{msg.eventos}" />
-                        <p:commandLink styleClass="menu autowidth-menu resolucaoIcon" 
+                        <p:commandLink styleClass="menu resolucaoIcon" 
                                        value="#{homeBean.calendario.arquivo.titulo}"
                                        title="#{homeBean.calendario.arquivo.nomeArquivo}"
                                        ajax="false">
@@ -90,7 +93,7 @@
                                         </span>
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{!homeBean.eventoSelecionado}">
-                                        <span>
+                                        <span class="empty">
                                             #{msg.selecioneUmEvento}
                                         </span>
                                     </h:panelGroup>
@@ -136,7 +139,7 @@
                                 </h:panelGroup>
                             </h:panelGroup>
                             <h:form id="dateForm">
-                                <div class="calendarSelector">
+                                <div id="calendarSelector" class="calendarSelector transitionDefault">
                                     <p:calendar id="dateSelector"
                                                 widgetVar="homeCalendar"
                                                 mode="inline"
@@ -148,6 +151,7 @@
                                         <p:ajax process="@this"
                                                 event="dateSelect"
                                                 oncomplete="play()"
+                                                onsuccess="toggleCalendarMenu()"
                                                 listener="#{homeBean.processaEventosSelecionados}"
                                                 update=":panelInfoCalendar" />
                                         <p:ajax process="@this"
@@ -256,7 +260,6 @@
                                             </tr>
                                         </table>
                                     </h:panelGroup>
-
                                 </div>
                             </h:form>
                         </div>
@@ -273,13 +276,13 @@
                                     </h:panelGroup>
                                 </h:panelGroup>
                             </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="panelInfoContent">
+                            <h:panelGroup layout="block" styleClass="panelInfoContent scrollVertical">
                                 <h:form id="formRegionais">
                                     <ul class="panelInfoItems">
                                         <ui:repeat value="#{regionalBean.allRegionais}" var="regional">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.regional}: #{regional.nome}">
                                                 <p:commandLink value="#{regional.nome}"
-                                                               styleClass="toolbarIcons regionalIcon"
+                                                               styleClass="regionalIcon toolbarIcons"
                                                                actionListener="#{eventoBean.limpaFiltro}"
                                                                action="eventos?faces-redirect=true">
                                                     <f:setPropertyActionListener target="#{eventoBean.buscaRegional}" value="#{regional}" />
@@ -303,7 +306,7 @@
                                     </h:panelGroup>
                                 </h:panelGroup>
                             </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="panelInfoContent">
+                            <h:panelGroup layout="block" styleClass="panelInfoContent scrollVertical">
                                 <h:form id="formInteressados">
                                     <ul class="panelInfoItems">
                                         <ui:repeat value="#{interessadoBean.allInteressados}" var="interessado">
