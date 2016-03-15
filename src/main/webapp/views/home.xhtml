@@ -279,7 +279,7 @@
                             <h:panelGroup layout="block" styleClass="panelInfoContent scrollVertical">
                                 <h:form id="formRegionais">
                                     <ul class="panelInfoItems">
-                                        <ui:repeat value="#{regionalBean.allRegionais}" var="regional">
+                                        <ui:repeat value="#{regionalDao.listar()}" var="regional">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.regional}: #{regional.nome}">
                                                 <p:commandLink value="#{regional.nome}"
                                                                styleClass="regionalIcon toolbarIcons"
@@ -309,7 +309,7 @@
                             <h:panelGroup layout="block" styleClass="panelInfoContent scrollVertical">
                                 <h:form id="formInteressados">
                                     <ul class="panelInfoItems">
-                                        <ui:repeat value="#{interessadoBean.allInteressados}" var="interessado">
+                                        <ui:repeat value="#{interessadoDao.listar()}" var="interessado">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.interessado}: #{interessado.nome}">
                                                 <p:commandLink value="#{interessado.nome}"
                                                                styleClass="toolbarIcons interessadoIcon"
@@ -339,7 +339,7 @@
                             <h:panelGroup layout="block" styleClass="panelInfoContent scrollVertical">
                                 <h:form id="formAssuntos">
                                     <ul class="panelInfoAssunto">
-                                        <ui:repeat value="#{eventoBean.allAssuntos}" var="assunto">
+                                        <ui:repeat value="#{homeBean.assunto}" var="assunto">
                                             <li title="#{msg.filtrar} #{msg.prepPor} #{msg.assunto}: #{assunto}">
                                                 <p:commandLink value="#{assunto}"
                                                                styleClass="termoIcon"

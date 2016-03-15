@@ -22,10 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -43,7 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Andre Luiz Fernandes Ribeiro Barca
  */
 @Component
-@Scope(value = "session")
+@Scope(value = "request")
 public class HomeBean implements Serializable {
 
     @Autowired

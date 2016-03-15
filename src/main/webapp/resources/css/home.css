@@ -31,8 +31,12 @@ and open the template in the editor.
     background: #fff;
     border: 2px solid #00588f;
     border-radius: 0 0 4px 4px;
+    /*
     min-width: 800px;
     min-height: 540px;
+    */
+    min-width: fit-content;
+    min-height: fit-content;
 }
 
 .loginLink {
@@ -483,8 +487,6 @@ and open the template in the editor.
         background: #fff;
         border: 2px solid #00588f;
         border-radius: 0 0 4px 4px;
-        min-width: fit-content;
-        min-height: fit-content;
     }
 
 
@@ -611,6 +613,7 @@ and open the template in the editor.
         margin: 0;
         padding: 0 8px 0 8px;
         text-indent: -12px;
+        margin-top: 6px;
     }
 
     .panelInfoItems li a {
@@ -651,7 +654,7 @@ and open the template in the editor.
         left: 0;
         right: 0;
         width: 100%;
-        height: fit-content;
+        height: 100%;
         text-align: left;
     }
 
@@ -690,7 +693,7 @@ and open the template in the editor.
 
     .infoIcon span {
         text-align: left;
-        width: auto;
+        width: 10em;
         font-size: 1em;
         position: relative;
         top: 6px;

@@ -540,13 +540,6 @@ public class EventoBean implements Serializable {
         return eventoDao.buscarUltimoDia(getCalendario());
     }
 
-    public List<String> getAllAssuntos() {
-        if (calendario != null) {
-            return eventoDao.listarAssunto(calendario);
-        }
-        return null;
-    }
-
     public boolean isEventosEmpty() {
         return eventosEmpty;
     }
